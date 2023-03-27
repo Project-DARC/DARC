@@ -1,0 +1,18 @@
+{
+  "name": "DARC-solidity",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.2",
+    "@openzeppelin/contracts-upgradeable": "^4.8.0",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.4",
+    "hardhat-gas-reporter": "^1.0.9"
+  }
+}

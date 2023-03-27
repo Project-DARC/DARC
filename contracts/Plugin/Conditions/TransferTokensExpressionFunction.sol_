@@ -1,0 +1,57 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.9;
+/**
+ * @title TransferTokenExpressionFunctions
+ * @author DARC Team
+ * @notice This contract contains the functions that determine the return value of the condition node
+ * related to the BATCH_TRANSFER_TOKENS operation.
+ */
+
+
+import "../../MachineState.sol";
+import "../../MachineStateManager.sol";
+import "../../Utilities/StringUtils.sol";
+import "../../Program.sol";
+
+// import openzeppelin upgradeable contracts safe math
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+
+contract TransferTokensExpressionFunctions is MachineStateManager{
+
+  /**
+   * @notice check if current operation is transfer token operation in any of class with the amount larger than the amount X
+   */
+  function function__TRANSFER_TOKEN_MORE_THAN(
+    Operation memory operation,
+    uint256[] memory tokenClassArray,
+    uint256 amount) public pure returns (bool){
+      //1. if the operation is not transfer token operation, return false
+      if (operation.opcode != EnumOpcode.BATCH_TRANSFER_TOKENS) {
+        return false;
+      }
+
+      //2. traverse the transfer token operation parameters and check if the amount is larger than the amount in the condition node
+      //2.1 resore parameters from the operation struct: address[] fromAddressArray(ignore), address[] toAddressArray(ignore), uint256[] tokenClassIndexArray, uint256[] amountArray
+      uint256[] memory tokenClassIndexArrayFromOperation = operation.param.UINT256_2DARRAY[0];
+      uint256[] memory amountArrayFromOperation = operation.param.UINT256_2DARRAY[1];
+
+      //2.2 traverse the transfer token operation parameters and calculate the total amount of the tokens to be transferred
+      uint256 totalAmount = 0;
+      bool isOverflowFlag;
+      for (uint256 i = 0; i < tokenClassIndexArrayFromOperation.length; i++) {
+        for (uint256 j = 0; j < tokenClassArray.length; j++) {
+          if (tokenClassIndexArrayFromOperation[i] == tokenClassArray[j]) {
+            (isOverflowFlag, totalAmount) = SafeMathUpgradeable.tryAdd(totalAmount, amountArrayFromOperation[i]);
+            if (isOverflowFlag) {
+              return true;
+            }
+            if (totalAmount > amount) {
+              return true;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+}
