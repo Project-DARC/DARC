@@ -2,7 +2,7 @@
 
 Welcome to the official repository for the Decentralized Autonomous Regulated Company (DARC) project. DARC is a project that aims to create a decentralized autonomous company that is regulated by a plugin system based on commercial laws. The project is currently in the early stages of development and is not yet ready for production use.
 
-English | [简体中文](./README_CN.md)
+English | [简体中文](./README_cn.md)
 
 ## What is DARC?
 
@@ -375,7 +375,7 @@ The dividend mechanism is designed to distribute dividends to token holders unde
 3. The amount of dividends per token holder (X) is calculated by the following formula: `dividend_X = dividendable_cash * dividend_power(X) / total_dividend_power`
 4. After the `offer_dividend()` operation is called, the dividendable cash and dividendable transaction counter will be set to 0, and the dividend withdraw balance of each token holder will be increased by `dividend_X`
 
-To make sure the dividend yield rate is stable, we can add a plugin to the DARC to lock the dividend yield rate for 5 years by limiting the `set_parameters()` function 
+To make sure the dividend yield rate is stable, we can add a plugin to the DARC to lock the dividend yield rate for 5 years by limiting the `set_parameters()` function.
 
 ***Law 6: The dividend yield rate should be locked > 500‱ (5%) before 2030-01-01.***
 
@@ -395,7 +395,7 @@ const dividend_yield_rate_law = {
 
 ### Example 7: Investment program package
 
-Here is an example program of **Simple agreement for future equity (SAFE)**, a common investment contract by a VC firm:
+Here is an unofficial example program of **Simple agreement for future equity (SAFE)**, a common investment contract by a VC firm:
 
 1. The VC firm will pay 1000 ETH (1000000000000 Gwei) cash to the DARC as investment
 2. The VC firm will be granted 100,000,000 level-0 tokens (common stock) and 1 level-2 token (board of members)

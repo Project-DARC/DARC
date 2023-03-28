@@ -2,7 +2,7 @@
 
 这是 Decentralized Autonomous Regulated Company (DARC) 项目的官方代码库。DARC 是一个项目，旨在创建一个去中心化的自动监管公司，该公司由基于商业法律的插件系统监管。该项目目前处于早期开发阶段，尚未准备好用于生产环境。
 
-[English](./README.md) | 简体中文
+[English](./README.md) | 简体中文 
 
 ## 什么是 DARC?
 
