@@ -2,12 +2,14 @@
 
 Welcome to the official repository for the Decentralized Autonomous Regulated Company (DARC) project. DARC is a project that aims to create a decentralized autonomous company that is regulated by a plugin system based on commercial laws. The project is currently in the early stages of development and is not yet ready for production use.
 
+English | [简体中文](./README_CN.md)
+
 ## What is DARC?
 
 Decentralized Autonomous Regulated Company (DARC) is a company virtual machine that can be compiled and deployed to EVM-compatible blockchains with following features:
 
-- **Multi-level tokens**,  each with different voting and dividend powers.
-- **Program** composed of a series of instructions that include managing tokens, dividends, voting, legislation, purchasing, withdrawing cash, and other company operations.
+- **Multi-level tokens**, each level token can be used as common stock, preferred stock, convertible bonds, board of directors, product tokens, non-fungible tokens (NFT), with different prices, voting power and dividend power, which are defined by the company's plugin(law) system.
+- **Program** composed of a series of DARC instructions that include managing tokens, dividends, voting, legislation, purchasing, withdrawing cash, and other company operations.
 - **Dividend Mechanism** for distributing dividends to token holders according to certain rules.
 - **Plugin-as-a-Law**.The plugin system serves as the by-law or commercial contract that supervises all operations. All company operations need to be approved by the plugin system or corresponding voting process.
 
@@ -40,9 +42,9 @@ withdraw_cash_to(  // withdraw cash from my account to other address
 
 ```
 
-Above By-law Script will be transpiled via code generator and sent to corresponding DARC VM contract. The DARC will execute the program if the plugin system approves. To add plugin and voting rules to the DARC, we can simple compose the plugin conditions and voting rules, then send them via operation `add_voting_rule()` and `add_and_enable_plugins()` or `add_plugins()`, and they will be deployed and effective immediately if the current plugin system approves the operation. 
+Above By-law Script will be transpiled via code generator and sent to corresponding DARC VM contract. The DARC will execute the program if the plugin system approves. To add plugin and voting rules to the DARC, we can simple compose the plugin conditions and voting rules, then send them via operation `add_voting_rule()`, `add_and_enable_plugins()` or `add_plugins()`, and they will be deployed and effective immediately if the current plugin system approves the operation. 
 
-Here is a quick example, assume we need to limit the transfer of tokens by major shareholders (>25%) by asking the board of directors for an all-hand vote, and it requires 100% approval in 1 hour. We can add a new plugin and corresponding voting rule to the DARC VM contract:
+Here is a quick example, assume we need to limit the transfer of tokens by major shareholders (>25%) by asking the board of directors for an all-hand vote (assuming 5 tokens in total), and it requires 100% approval (5 out of 5) in 1 hour. We can add a new plugin and corresponding voting rule to the DARC VM contract:
 
 ```javascript
 add_voting_rule(  // add a voting rule (as index 5)
@@ -83,7 +85,15 @@ If the voting process is approved by the existing voting rules and plugins, the 
 
 ## "Plugin-as-a-Law"
 
-Each plugin contains a condition tree and a corresponding decision (return type). When the condition tree is evaluated to true while the program is submitted before running, the plugin will make a decision by allows, denies or requires a vote. For example:
+The law of DARC is defined in below psuedo-code:
+
+```javascript
+if (plugin_condition == true) {
+  plugin_decision = allows / denies / requires a vote
+}
+```
+
+Each plugin contains a condition expression tree and a corresponding decision (return type). When the condition tree is evaluated to true while the program is submitted before running, the plugin will make a decision by allows, denies or requires a vote. For example:
 
 ### Example 1: Anti-Dilutive shares
 
@@ -121,7 +131,7 @@ const anti_delutive = {
 }
 ```
 
-Since it checks the state of token ownerships, the plugin should be executed after the operation is executed inside the DARC's sandbox. If the plugin's condition is evaluated to true, the plugin will deny the operation, and the operation will be rejected to be executed in the real environment. Otherwise, "minting new tokens" will be allowed to execute.
+Since it checks the state of token ownerships, the plugin should be executed after the operation is executed inside the DARC's sandbox. If the plugin's condition is evaluated to true, the plugin will deny the operation after executing in the sandbox, and the operation will be rejected to be executed in the real environment. Otherwise, "minting new tokens" will be allowed to execute.
 
 When this plugin is added to the DARC, the operator (the author of current program) must mint extra tokens to address `x_addr` to satisfy the **Law 1** above, otherwise it will be rejected. For example, the DARC has only one level of tokens (level 0, voting power = 1, dividend power = 1), the stock ownerships are:
 
@@ -138,7 +148,7 @@ If the operator want to mint 200 tokens and issue them to VC Y, the operator mus
 ```javascript
 pay_cash(1000000000000)  // pay 1000 ETH to the DARC
 mint_tokens(20, 0, x_addr)  // mint 20 level-0 tokens to address x_addr
-mint_tokens(180, 0, y_addr)  // mint 200 level-0 tokens to address y_addr
+mint_tokens(180, 0, y_addr)  // mint 180 level-0 tokens to address y_addr
 add_and_enable_plugin([new_law_1, new_law_2, new_law_3])  // investment laws by VC Y
 ```
 
@@ -157,19 +167,19 @@ Also another plugin should be added to the DARC to define the legislation of the
 
 ***Law 1.1(Law 1 Appendix): Both Law 1 and Law 1 Appendix (current Law) can be abolished if and only if the operator is X***
 
-*Design of Plugin: If operation is "disable_plugin", and the operator is not X, then the plugin should reject the operation (assume the anti dilutive law index is 1, and the appendix law index is 2, both are before-operation plugins)*
+*Design of Plugin: If operation is "disable_plugins", and the plugin that to be disabled is with `id == 1` or `id == 2`, and the operator is not X, then the plugin should reject the operation (assume the anti dilutive law index is 1, and the appendix law index is 2, both are before-operation plugins)*
 
 ```javascript
 const law_1_appendix = {
 
   // define the trigger condition
   condition: 
-    (operation == "disable_plugin") 
+    (operation == "disable_plugins") 
     & ( (disable_after_op_plugin_id == 1) | (disable_after_op_plugin_id == 2) )
     & (operator != x_addr),
 
   // define the decision
-  return_type: NO,
+  return_type: no,
 
   // define the priority
   return_level: 100,
@@ -185,7 +195,7 @@ const law_1_appendix = {
 
 ***Law2: If total revenue < 1000 ETH by 2035/01/01, shareholder X can take over 75% of total voting power and 90% of dividend power.***
 
-*Design of Plugin: If after the operation, check the following conditions:*
+*Design of Plugin: After executing in sandbox, check the following conditions:*
 
 - *timestamp >= 2035/01/01*
 
@@ -238,12 +248,14 @@ const payroll_law_level_2 = {
     (member_role_level == 2) &   // the operator address is in role level 2
 
     // add cash by < every 30 days = 2592000 seconds
-    (user_last_operation_window(addr_X, "add_withdrawable_cash") >= 2592000) &  
+    (operator_last_operation_window( "add_withdrawable_cash") >= 2592000) &  
     // each time add < 10000000000 Gwei = 10 ETH to the account
     (add_withdrawable_cash_amount <= 10000000000),  
+
+  // approve the operation and skip sandbox check
   return_type: yes_and_skip_sandbox,
   return_level: 1
-  is_before_operation: true, // approve the operation and skip sandbox check
+  is_before_operation: true,
 }
 ```
 
@@ -265,48 +277,48 @@ const add_board_member = {
   return_type: vote_needed,
   voting_rule: 1,  // Under the voting rule 1, the operation will be approved if and only if 2/3 of all the board members approve the operation
   return_level: 100,
-  is_before_operation: false, // approve the operation and skip sandbox check
+  is_before_operation: false, // make the decision after executing in sandbox
 }
 ```
 
-2. Any operator with more than 7% of all voting power can submit `enable()` plugins, and it needs to be approved by 100% of all the board members. Each operator can try to activate plugin per 10 days.
+2. Any operator with more than 7% of all voting power can submit `enable_plugins()` , and it needs to be approved by 100% of all the board members. Each operator can try to activate plugin per 10 days.
 
 ```javascript
 const enable_plugin = {
   condition:
-    (operation == "enable_plugin") &   // operation is "enable_plugin"
+    (operation == "enable_plugins") &   // operation is "enable_plugins"
     (operator_total_voting_power_percentage >= 7) &   // the operator address holds at least 7% of the total voting power
     (operator_last_operation_window("enable_plugin") >= 864000),  // each operator can try to enable plugins once per 864000 seconds (10 days)
 
   return_type: vote_needed,
   voting_rule: 2,  // Under the voting rule 2, the operation will be approved if and only if 100% of all the board members approve the operation
   return_level: 100,
-  is_before_operation: false, // approve the operation and skip sandbox check
+  is_before_operation: false, // make the decision after executing in sandbox
 }
 ```
 
-3. To disable plugins 2,3 and 4, the operator needs to hold at least 20% of total voting power, and the operation needs to be approved by 70% of all common stock(level-0) voters as relative majority(voting rule 2). For each member of DARC, this operation can be executed once per 15 days (1296000 seconds).
+3. To disable plugins 2,3 and 4, the operator needs to hold at least 20% of total voting power, and the operation needs to be approved by 70% of all common stock token(level-0) voters as relative majority(voting rule 2). For each member of DARC, this operation can be executed once per 15 days (1296000 seconds).
 
 ```javascript
 const disable_2_3_4 = {
   condition:
-    (operation == "disable_plugin") &   // operation is "disable_plugin"
+    (operation == "disable_plugins") &   // operation is "disable_plugins"
     (
         disable_after_op_plugin_id == 2 
         | disable_after_op_plugin_id == 3 
         | disable_after_op_plugin_id == 4
     ) &  // disable after operation plugins 2,3 and 4
     (operator_total_voting_power_percentage >= 20) &   // the operator address holds at least 20% of the total voting power
-    (operator_last_operation_window("disable_plugin") >= 1296000),  // each operator can try to disable plugins once per 1296000 seconds (15 days)
+    (operator_last_operation_window("disable_plugins") >= 1296000),  // each operator can try to disable plugins once per 1296000 seconds (15 days)
   return_type: vote_needed,
   voting_rule: 3,  // Under the voting rule 3, the operation will be approved if and only if 70% of all the common stock holders approve the operation
-  is_before_operation: false, // approve the operation and skip sandbox check
+  is_before_operation: false, // make the decision after sandbox check
 }
 ```
 
 ### Example 5: Multi-level Tokens: Product tokens and Non-fungible tokens
 
-Here is an example of how to design a token with different levels of voting power and dividend power. The voting power and dividend power are used to calculate the voting power and dividend power of each token holder. The voting power and dividend power of each token holder are calculated by the following formula:
+Here is an example of how to design a token with different levels of voting power and dividend power. The voting power and dividend power are used to calculate the voting power and dividend power of each token holder. Here is the table of the token levels:
 
 | Level |Token | Voting Power | Dividend Power | Total Supply |
 | --- | --- | --- | --- | --- |
@@ -345,7 +357,7 @@ const NFT_price_law = {
     (operation == "pay_to_mint_tokens") &   // operation is "pay_to_mint_tokens"
     (pay_to_mint_tokens_level >= 7) &  // the token level is 7 or higher
     (pay_to_mint_token_amount == 1) &  // only allow to mint 1 token at a time
-    (pay_to_mint_current_level_total_supply == 0) &  // 
+    (pay_to_mint_current_level_total_supply == 0) &  // current total supply is 0
     (pay_to_mint_price_per_token >= 10000000000000000000),   // price per token >= 10 ETH = 10000000000000000000 wei
 
   return_type: yes_and_skip_sandbox,  // approve the operation and skip sandbox check
