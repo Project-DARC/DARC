@@ -431,23 +431,23 @@ change_member_role(vc_addr, 5);  // 把 VC 加入到公司名录概念中，作�
 add_storage(['QmcpxHN3a5HYnPurtuDs3jDfDSg1LPDe2KVBUG4RifcSbC']);
 ```
 
-## Building the source
+## 编译源代码
 
-Since Hardhat and OpenZeppelin are used, the project can be built using the following commands:
+由于本项目使用了 Hardhat 和 Openzeppelin，所以你需要安装 Node.js 和 npm。然后执行以下命令：
 
-1. Install dependencies
+1. 安装依赖
 
 ```shell
 npm install
 ```
 
-2. Compile the contracts
+2. 编译智能合约
 
 ```shell
 npx hardhat compile
 ```
 
-3. Deploy and test the contracts
+3. 部署和测试智能合约
 
 ```shell
 npx hardhat help
