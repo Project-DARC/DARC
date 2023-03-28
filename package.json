@@ -2,7 +2,7 @@
   "name": "DARC-solidity",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "BSL-1.1",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.0"
   },
