@@ -23,10 +23,6 @@ contract MoneyInstructions is MachineStateManager {
     // todo
   }
 
-  function op_BATCH_PAY_TO_CREATE_TOKEN_CLASS_AND_MINT_TOKENS(Operation memory operation, bool bIsSandbox) internal {
-    // todo
-  }
-
   function op_WITHDRAW_CASH_TO(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }

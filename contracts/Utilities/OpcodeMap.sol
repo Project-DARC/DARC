@@ -36,7 +36,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULE) return 19;
     if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return 20;
     if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return 21;
-    if (opcode == EnumOpcode.BATCH_PAY_TO_CREATE_TOKEN_CLASS_AND_MINT_TOKENS) return 22;
+    if (opcode == EnumOpcode.CALL_EMERGENCY) return 22;
     if (opcode == EnumOpcode.WITHDRAW_CASH_TO) return 23;
     if (opcode == EnumOpcode.CALL_EMERGENCY) return 24;
     if (opcode == EnumOpcode.CALL_CONTRACT_ABI) return 25;
@@ -78,7 +78,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULE) return "BATCH_ADD_VOTING_RULE";
     if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return "BATCH_PAY_TO_MINT_TOKENS";
     if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return "BATCH_PAY_TO_TRANSFER_TOKENS";
-    if (opcode == EnumOpcode.BATCH_PAY_TO_CREATE_TOKEN_CLASS_AND_MINT_TOKENS) return "BATCH_PAY_TO_CREATE_TOKEN_CLASS_AND_MINT_TOKENS";
+    if (opcode == EnumOpcode.CALL_EMERGENCY) return "CALL_EMERGENCY";
     if (opcode == EnumOpcode.WITHDRAW_CASH_TO) return "WITHDRAW_CASH_TO";
     if (opcode == EnumOpcode.CALL_EMERGENCY) return "CALL_EMERGENCY";
     if (opcode == EnumOpcode.CALL_CONTRACT_ABI) return "CALL_CONTRACT_ABI";

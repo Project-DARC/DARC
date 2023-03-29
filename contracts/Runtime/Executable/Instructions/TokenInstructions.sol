@@ -388,4 +388,13 @@ contract TokenInstructions is MachineStateManager{
     }
   }
 
+  /**
+   * @notice The function that executes the BATCH_PAY_TO_ADD_WITHDRAWABLE_CASH operation
+   * @param operation The operation to be executed
+   * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
+   */
+  function op_BATCH_PAY_TO_ADD_WITHDRAWABLE_CASH(Operation memory operation, bool bIsSandbox) internal {
+
+  }
+
 }
