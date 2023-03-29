@@ -45,12 +45,38 @@ contract PaymentCheck is MachineStateManager {
     }
     return totalPayment;
   }
-
+  /**
+   * Check the payment of the PAY_CASH operation, return the payment value
+   * @param operation The operation that is being checked
+   * @return The payment value of the operation
+   */
   function checkOperation_PAY_CASH(Operation memory operation) private returns (uint256) {
+    EnumOpcode opcode = operation.opcode;
+
+  }
+
+  /**
+   * Check the payment of the BATCH_PAY_TO_MINT_TOKENS operation, return the payment value
+   * @param operation The operation that is being checked
+   * @return The payment value of the operation
+   */
+  function checkOperation_BATCH_PAY_TO_MINT_TOKENS(Operation memory operation) private returns (uint256) {
     EnumOpcode opcode = operation.opcode;
   }
 
-  function checkOperation_BATCH_PAY_TO_MINT_TOKENS(Operation memory operation) private returns (uint256) {
+  /**
+   * Check the payment of the BATCH_PAY_TO_TRANSFER_TOKENS operation, return the payment value
+   * @param operation The operation that is being checked
+   */
+  function checkOperation_BATCH_PAY_TO_TRANSFER_TOKENS(Operation memory operation) private returns (uint256) {
+    EnumOpcode opcode = operation.opcode;
+  }
+
+  /**
+   * Check the payment of the BATCH_PAY_TO_ADD_WITHDRAWABLE_CASH operation, return the payment value
+   * @param operation The operation that is being checked
+   */
+  function checkOperation_BATCH_PAY_TO_CREATE_TOKEN_CLASS_AND_MINT_TOKENS(Operation memory operation) private returns (uint256) {
     EnumOpcode opcode = operation.opcode;
   }
 }
