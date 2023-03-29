@@ -42,6 +42,10 @@ contract PaymentCheck is MachineStateManager {
         (bIsValid, totalPayment) = SafeMathUpgradeable.tryAdd(totalPayment, checkOperation_BATCH_PAY_TO_MINT_TOKENS(program.operations[i]));
         require(bIsValid, "The total payment is too large.");
       }
+      else if (program.operations[i].opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) {
+        (bIsValid, totalPayment) = SafeMathUpgradeable.tryAdd(totalPayment, checkOperation_BATCH_PAY_TO_TRANSFER_TOKENS(program.operations[i]));
+        require(bIsValid, "The total payment is too large.");
+      }
     }
     return totalPayment;
   }
