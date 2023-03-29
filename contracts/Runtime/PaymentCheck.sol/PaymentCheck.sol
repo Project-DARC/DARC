@@ -30,7 +30,7 @@ contract PaymentCheck is MachineStateManager {
    * @notice The entrance of the payment check. It will check the payment of the program
    * @param program The program that is being executed
    */
-  function paymentCheck(Program memory program) internal returns (uint256) {
+  function paymentCheck(Program memory program) internal pure returns (uint256) {
     uint256 totalPayment = 0;
     bool bIsValid = true;
     for (uint256 i = 0; i < program.operations.length; i++) {
@@ -54,7 +54,7 @@ contract PaymentCheck is MachineStateManager {
    * @param operation The operation that is being checked
    * @return The payment value of the operation
    */
-  function checkOperation_PAY_CASH(Operation memory operation) private returns (uint256) {
+  function checkOperation_PAY_CASH(Operation memory operation) private pure returns (uint256) {
     EnumOpcode opcode = operation.opcode;
     require(opcode == EnumOpcode.PAY_CASH, "The opcode is not PAY_CASH.");
 
@@ -75,8 +75,7 @@ contract PaymentCheck is MachineStateManager {
    * @param operation The operation that is being checked
    * @return The payment value of the operation
    */
-  function checkOperation_BATCH_PAY_TO_MINT_TOKENS(Operation memory operation) private returns (uint256) {
-    EnumOpcode opcode = operation.opcode;
+  function checkOperation_BATCH_PAY_TO_MINT_TOKENS(Operation memory operation) private pure returns (uint256) {
     /**
      * @notice Batch Pay to Mint Tokens Operation
      * @param ADDRESS_2DARRAY[0] address[] addressArray: the array of the address to mint tokens
@@ -104,8 +103,7 @@ contract PaymentCheck is MachineStateManager {
    * Check the payment of the BATCH_PAY_TO_TRANSFER_TOKENS operation, return the payment value
    * @param operation The operation that is being checked
    */
-  function checkOperation_BATCH_PAY_TO_TRANSFER_TOKENS(Operation memory operation) private returns (uint256) {
-    EnumOpcode opcode = operation.opcode;
+  function checkOperation_BATCH_PAY_TO_TRANSFER_TOKENS(Operation memory operation) private pure returns (uint256) {
     /**
      * @notice Pay some cash to transfer tokens (can be used as product coins)
      * @param ADDRESS_2DARRAY[0] address[] toAddressArray: the array of the address to transfer token to
