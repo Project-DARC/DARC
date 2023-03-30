@@ -8,10 +8,11 @@ import "../Program.sol";
 import "./ProgramValidator/ProgramValidator.sol";
 import "./Executable/Executable.sol";
 import "../Utilities/StringUtils.sol";
+import "./PaymentCheck/PaymentCheck.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 //import "hardhat/console.sol";
 
-contract Runtime is Executable{
+contract Runtime is Executable, PaymentCheck{
 
   /**
    * @notice This is the main entrance of the DARC runtime. Since DARC is a finite state machine:
@@ -34,7 +35,24 @@ contract Runtime is Executable{
    */
 
   
-  function runtimeEntrance(Program memory program) public payable returns (string memory) {
+  function runtimeEntrance(Program memory program) internal returns (string memory) {
+
+    // check payment first, compare the payment value with the total payment of the program
+    uint256 totalPayment = paymentCheck(program);
+    if (msg.value < totalPayment) {
+      revert("The payment is not enough. The total payment should be " );
+    }
+
+    // if the user pays more than the total payment, 
+    // return the change to withdrawable cash balance
+    else if (msg.value > totalPayment) {
+      (bool bIsValid, uint256 paymentReturn) = SafeMathUpgradeable.trySub(msg.value, totalPayment);
+      require(bIsValid, "The payment return overflow.");
+      // add the payment return to the withdrawable cash balance
+      (bool bIsValid2, uint256 newBalance) = SafeMathUpgradeable.tryAdd(currentMachineState.cashWithdrawableBalanceMap[program.programOperatorAddress], paymentReturn);
+      require(bIsValid2, "The new balance overflow.");
+      currentMachineState.cashWithdrawableBalanceMap[program.programOperatorAddress] = newBalance;
+    }
 
     // If the current state is idle, execute the program
     if (finiteState == FiniteState.IDLE) {

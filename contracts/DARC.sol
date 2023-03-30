@@ -20,6 +20,6 @@ contract DARC is Runtime, Dashboard {
       require(program.operations[opIdx].operatorAddress == msg.sender, 
       string.concat(string.concat("Invalid program address. Msg.sender: ", StringUtils.toAsciiString(msg.sender)), string.concat(", and program operator address: ", StringUtils.toAsciiString(program.operations[opIdx].operatorAddress))));
     }
-    return this.runtimeEntrance(program);
+    return runtimeEntrance(program);
   }
 }
