@@ -31,6 +31,7 @@ describe("payment_pay_cash_test", function () {
           PARAMETER_ARRAY: [],
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
+            // pay 10000
             [BigNumber.from(10000), BigNumber.from(0), BigNumber.from(1)],
           ],
           ADDRESS_2DARRAY: []
@@ -38,7 +39,9 @@ describe("payment_pay_cash_test", function () {
       }], 
     }, {value: ethers.utils.parseEther("1.0")});
 
-    console.log("result_entrance: ", result_entrance);
+    // the cash balance should remains 1.0 ether - 10000 = 999999999999990000
+    const result = await darc.getWithdrawableCashBalance(programOperatorAddress);
+    expect(result.toBigInt().toString()).to.equal("999999999999990000");
   });
 
 

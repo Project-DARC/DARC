@@ -72,10 +72,16 @@ contract Dashboard is MachineStateManager {
     return currentMachineState.memberInfoMap[member];
   }
 
+  /**
+   * @notice Get the current dividend balance of the address
+   */
   function getWithdrawableDividendBalance(address member) public view returns (uint256) {
     return currentMachineState.dividendsWithdrawableBalanceMap[member];
   }
 
+  /**
+   * @notice Get the current cash balance of the address
+   */
   function getWithdrawableCashBalance(address member) public view returns (uint256) {
     return currentMachineState.cashWithdrawableBalanceMap[member];
   }

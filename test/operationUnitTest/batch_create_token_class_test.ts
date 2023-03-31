@@ -4,12 +4,12 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
-// test for batch mint token instruction on DARC
+// test for batch create token class instruction on DARC
 
-describe("batch_mint_token_test", function () {
+describe("test for batch create token class instruction", function () {
 
   
-  it ("should mint tokens", async function () {
+  it ("batch create token class instruction", async function () {
 
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
