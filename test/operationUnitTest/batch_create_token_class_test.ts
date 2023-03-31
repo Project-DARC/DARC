@@ -4,6 +4,8 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
+// test for batch mint token instruction on DARC
+
 describe("batch_mint_token_test", function () {
 
   
@@ -28,7 +30,7 @@ describe("batch_mint_token_test", function () {
       programOperatorAddress: initProgram.programOperatorAddress,
       operations: [{
         operatorAddress: initProgram.programOperatorAddress,
-        opcode: 2,
+        opcode: 2, // create token class
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],
