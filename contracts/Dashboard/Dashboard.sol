@@ -10,7 +10,7 @@ import "../Runtime/Runtime.sol";
  * which is used to read the machine state, including machine state, voting state,
  * token informatin, plugin information, etc.
  */
-contract Dashboard is Runtime {
+contract Dashboard is MachineStateManager {
   
   /**
    * @notice The getter function of the machine state plugins
@@ -20,19 +20,55 @@ contract Dashboard is Runtime {
   }
 
   /**
-   * @notice Check a certain operation with a certain plugin
+   * @notice Get the avaiilable token classes
    */
-  function checkOpeartionWithPlugin(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) public view returns (uint256, EnumReturnType, uint256){
-    return checkPluginForOperation(bIsBeforeOperation, operation, pluginIndex);
+  function getNumberOfTokenClasses() public view returns (uint256) {
+    uint256 i = 0;
+    for (; i < currentMachineState.tokenList.length; i++) {
+      if (!currentMachineState.tokenList[i].bIsInitialized) {
+        break;
+      }
+    }
+    return i;
   }
 
   /**
-   * @notice Check a certain program with multiple operations with all before operation plugins
-   * @param program The program to be checked
-   * @return EnumReturnType The return type of the program
-   * @return uint256[] memory The list of voting rule index
+   * @notice Get the token class information
+   * @param tokenClassIndex the index of the token class
    */
-  function checkProgramBeforeOperationPlugins(Program memory program) public view returns (EnumReturnType, uint256[] memory) {
-    return pluginSystemJudgment(true, program);
+  function getTokenOwners(uint256 tokenClassIndex) public view returns (address[] memory) {
+    return currentMachineState.tokenList[tokenClassIndex].ownerList;
+  }
+
+  /**
+   * Get the current token information
+   * @param tokenClassIndex the index of the token class 
+   */
+  function getTokenInfo(uint256 tokenClassIndex) public view returns (uint256 votingWeight, uint256 dividendWeight, string memory tokenInfo, uint256 totalSupply) {
+    return (currentMachineState.tokenList[tokenClassIndex].votingWeight, currentMachineState.tokenList[tokenClassIndex].dividendWeight, currentMachineState.tokenList[tokenClassIndex].tokenInfo, currentMachineState.tokenList[tokenClassIndex].totalSupply);
+  }
+
+  /**
+   * @notice Get the token class information
+   * @param tokenClassIndex the index of the token class
+   * @param tokenOwnerAddress the address of the token owner
+   */
+  function getTokenOwnerBalance(uint256 tokenClassIndex, address tokenOwnerAddress) public view returns (uint256) {
+    return currentMachineState.tokenList[tokenClassIndex].tokenBalance[tokenOwnerAddress];
+  }
+
+  /**
+   * @notice Get the member list keys
+   */
+  function getMemberList() public view returns (address[] memory) {
+    return currentMachineState.memberList;
+  }
+
+  /**
+   * @notice Get the member information
+   * @param member the address of the member
+   */
+  function getMemberInfo(address member) public view returns (MemberInfo memory) {
+    return currentMachineState.memberInfoMap[member];
   }
 }

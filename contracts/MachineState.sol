@@ -102,6 +102,9 @@ struct MachineState {
    */
   mapping (address => MemberInfo) memberInfoMap;
 
+  // the key of the memberInfoMap, the list of all the token owners
+  address[] memberList;
+
   /**
    * The list of before-operation restriction plugins
    */
