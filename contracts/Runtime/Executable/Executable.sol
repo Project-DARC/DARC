@@ -31,7 +31,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
 
     // 1.2 If the program is approved and sandbox is not needed, just execute and end
     else if  (returnType == EnumReturnType.YES_AND_SKIP_SANDBOX ){
-      executeProgram(currentProgram, false);
+      executeProgram_Executable(currentProgram, false);
       return;
     }
 
@@ -42,7 +42,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
     else if (returnType == EnumReturnType.SANDBOX_NEEDED) {
       // 2.1 execute the program in sandbox after cloning the current machine state to sandbox machine state
       cloneStateToSandbox();
-      executeProgram(currentProgram, true);
+      executeProgram_Executable(currentProgram, true);
       // 2.2 check if the program can pass the after operation plugins in current machine state
       (EnumReturnType afterReturnType, uint256[] memory afterRuleIdxList) = checkAfterOperationPlugins(currentProgram);
 
@@ -58,7 +58,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
 
       // 2.5 If the program is approved, just execute and end
       else if (afterReturnType == EnumReturnType.YES){
-        executeProgram(currentProgram, false);
+        executeProgram_Executable(currentProgram, false);
       }
     }
   }
@@ -88,7 +88,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
    * @param bIsSandbox the flag of sandbox
    * @param program the program to be executed
    */
-  function executeProgram(Program memory program, bool bIsSandbox) internal {
+  function executeProgram_Executable(Program memory program, bool bIsSandbox) internal {
     // 1. go through each operation
     for (uint256 i = 0; i < program.operations.length; i++) {
       // 1.1 execute the operation
