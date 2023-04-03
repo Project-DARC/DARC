@@ -328,7 +328,7 @@ Here is an example of how to design a token with different levels of voting powe
 | 3 | Executives | 1 | 0 | 5 |
 | 4 | Non-Voting Shares | 0 | 1 | 200,000 |
 | 5 | Product Token A (0.01 ETH/token) | 0 | 0 | ∞ |
-| 5 | Product Token B (10 ETH/token) | 0 | 0 | ∞ |
+| 6 | Product Token B (10 ETH/token) | 0 | 0 | ∞ |
 | 7 | Non-Fungible Token #1 | 0 | 0 | 1 |
 | 8 | Non-Fungible Token #2 | 0 | 0 | 1 |
 | 9 | Non-Fungible Token #3 | 0 | 0 | 1 |
