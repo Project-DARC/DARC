@@ -9,7 +9,7 @@ import { BigNumber } from "ethers";
 describe("batch_trasnfer_tokens_test", function () {
 
   
-  it ("should mint tokens", async function () {
+  it ("should transfer tokens", async function () {
 
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
