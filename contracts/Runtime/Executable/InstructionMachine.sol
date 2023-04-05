@@ -84,6 +84,9 @@ MoneyInstructions
     else if (operation.opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS){
       op_BATCH_PAY_TO_MINT_TOKENS(operation, bIsSandbox);
     }
+    else if (operation.opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) {
+      op_BATCH_PAY_TO_TRANSFER_TOKENS(operation, bIsSandbox);
+    }
     
     else {
       revert("Invalid operation type");
