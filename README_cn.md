@@ -4,6 +4,10 @@
 
 [English](./README.md) | 简体中文 
 
+## 加入社区
+
+Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
+
 ## 什么是 DARC?
 
 Decentralized Autonomous Regulated Company (去中心化的自动监管公司，英文简称DARC) 是一个公司模型的虚拟机，可以编译部署到任何 EVM （以太坊虚拟机）兼容的区块链公链上，具有以下特点：

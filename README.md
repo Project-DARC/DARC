@@ -4,6 +4,11 @@ Welcome to the official repository for the Decentralized Autonomous Regulated Co
 
 English | [简体中文](./README_cn.md)
 
+## Join our community
+
+Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
+
+
 ## What is DARC?
 
 Decentralized Autonomous Regulated Company (DARC) is a company virtual machine that can be compiled and deployed to EVM-compatible blockchains with following features:
