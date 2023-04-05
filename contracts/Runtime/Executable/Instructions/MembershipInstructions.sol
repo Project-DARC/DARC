@@ -42,6 +42,7 @@ contract MembershipInstructions is MachineStateManager {
           memberRoleNames[i],  // role name string
           memberRoleNumbers[i]  // role level number
         );
+        sandboxMachineState.memberList.push(members[i]);
         
       } else {
         require(currentMachineState.memberInfoMap[members[i]].bIsInitialized == false, ErrorMsg.By(5));
@@ -51,6 +52,7 @@ contract MembershipInstructions is MachineStateManager {
           memberRoleNames[i],  // role name string
           memberRoleNumbers[i]  // role level number
         );
+        currentMachineState.memberList.push(members[i]);
       }
     }
   }

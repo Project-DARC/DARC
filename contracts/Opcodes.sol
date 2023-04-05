@@ -79,7 +79,7 @@ enum EnumOpcode {
    * @notice Batch Add Member Operation
    * @param ADDRESS_2DARRAY[0] address[] memberAddressArray: the array of the address to add as member
    * @param UINT256_2DARRAY[0] uint256[] memberRoleArray: the array of the role of the member to add
-   * @param UINT256_2DARRAY[1] string[] memberNameArray: the array of the name of the member to add
+   * @param STRING_ARRAY string[] memberNameArray: the array of the name of the member to add
    * 
    * ID:7
    */
