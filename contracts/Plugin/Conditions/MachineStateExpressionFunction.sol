@@ -32,7 +32,7 @@ contract MachineStateExpressionFunction is MachineStateManager{
      * @param end The end timestamp of the range
      */
     function timestampInRange(uint256 start, uint256 end) internal view returns (bool) {
-        return block.timestamp > start && block.timestamp < end;
+        return block.timestamp > start && block.timestamp < end; 
     }
 
     
