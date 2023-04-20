@@ -1,0 +1,40 @@
+{
+  "devDependencies": {
+    "@jetblack/operator-overloading": "^0.2.0",
+    "@types/babel-template": "^6.25.2",
+    "typescript": "^4.9.3"
+  },
+  "name": "darcjs",
+  "description": "The official JavaScript client and SDK for Project DARC (Decentralized Autonomous Regulated Company), and the compiler and runtime for By-Law Script.",
+  "version": "0.0.2",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Project-DARC/darc.js.git"
+  },
+  "scripts": {
+    "test": "mocha -r ts-node/register tests/**/*.ts --timeout 100000",
+    "build": "pnpm test && tsc --build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.10.4",
+    "@babel/standalone": "^7.10.5",
+    "@babel/types": "^7.10.5",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@types/babel-template": "^6.25.2",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.11.17",
+    "babel-template": "^6.26.0",
+    "chai": "^4.3.7",
+    "ethers": "^6.3.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1"
+  }
+}
