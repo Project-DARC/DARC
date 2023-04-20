@@ -85,4 +85,15 @@ contract Dashboard is MachineStateManager {
   function getWithdrawableCashBalance(address member) public view returns (uint256) {
     return currentMachineState.cashWithdrawableBalanceMap[member];
   }
+
+  function getMyInfo() public view returns (address) {
+    return msg.sender;
+  }
+
+  function writeAddr(address addr) public {
+    currentMachineState.memberInfoMap[addr].bIsInitialized = true;
+    currentMachineState.memberInfoMap[addr].bIsSuspended = false;
+    currentMachineState.memberInfoMap[addr].name = "test";
+    currentMachineState.memberInfoMap[addr].role = 0;
+  }
 }

@@ -9,6 +9,11 @@ async function main() {
   const darc = await DARC.deploy();
   console.log("DARC address: ", darc.address);
   await darc.deployed();
+
+  const signers = await ethers.getSigners();
+  for(let i = 0; i < signers.length; i++){
+    console.log("signer: " +  signers[i].address);
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere
