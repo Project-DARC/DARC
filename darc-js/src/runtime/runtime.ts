@@ -1,5 +1,6 @@
 import * as prelude from '../codeGenerator/codeGenerator';
 import {ethers} from 'ethers';
+import * as darcjson from "../../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
 
 type RuntimeParam = {
   address: string;
