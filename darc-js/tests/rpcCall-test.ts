@@ -6,7 +6,7 @@ import 'mocha';
 import { setTimeout } from "timers/promises";
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/');
 
-import { runtime } from '../src/runtime/runtime';
+import { runtime_DARCProgram } from '../src/runtime/runtime';
 
 const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
@@ -45,7 +45,8 @@ describe('RPC call test',
       const my_addr = await darc.getMyInfo();
       console.log("my_addr: " + my_addr);
       console.log(JSON.stringify(wallet_address));
-      await darc.entrance({
+
+      console.log(await runtime_DARCProgram({
         programOperatorAddress: programOperatorAddress,
         operations: [{
           operatorAddress: programOperatorAddress,
@@ -110,13 +111,13 @@ describe('RPC call test',
           }
         }
       ], 
-      });
-
-      runtime("", {
+      }, 
+      {
         address: darc_contract_address,
         wallet: signer,
         provider: provider,
-      })
+      }
+      ));
       expect(true).to.equal(true);
   }); 
 });

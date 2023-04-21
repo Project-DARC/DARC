@@ -12,6 +12,15 @@ type RuntimeParam = {
  * The runtime function is used to transpile the code to the runtime code.
  * @param param 
  */
-export async function runtime(scrint: string, param: RuntimeParam){
+export async function runtime_ByLawScript(scrint: string, param: RuntimeParam):Promise<string> {
   const { address, wallet, provider } = param;
+  const darc = new ethers.Contract(address, darcjson.abi, wallet);
+  return "";
+}
+
+export async function runtime_DARCProgram(program:any, param: RuntimeParam): Promise<string> {
+  const { address, wallet, provider } = param;
+  const darc = new ethers.Contract(address, darcjson.abi, wallet);
+  return await darc.entrance(program);
+
 }
