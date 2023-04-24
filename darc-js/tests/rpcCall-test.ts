@@ -1,12 +1,11 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
-import * as darcjson from "../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
 
 import 'mocha';
 import { setTimeout } from "timers/promises";
-const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/');
+const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
-import { runtime_DARCProgram } from '../src/runtime/runtime';
+import { runtime_DARCInstance } from '../src/runtime/runtime';
 
 const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
@@ -29,7 +28,12 @@ describe('RPC call test',
 
 
       const wallet_address = ethers.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
-      const darc = new ethers.Contract(darc_contract_address, darcjson.abi, signer);
+      const darc = runtime_DARCInstance({
+        address: darc_contract_address,
+        wallet: signer,
+        provider: provider
+      });
+
       const result = await darc.getTokenOwnerBalance(0, wallet_address);
       const result2 = await darc.getMemberList();
       console.log("Here is the result: ");
@@ -46,7 +50,7 @@ describe('RPC call test',
       console.log("my_addr: " + my_addr);
       console.log(JSON.stringify(wallet_address));
 
-      console.log(await runtime_DARCProgram({
+      console.log(await runtime_RunProgram({
         programOperatorAddress: programOperatorAddress,
         operations: [{
           operatorAddress: programOperatorAddress,
