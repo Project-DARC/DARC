@@ -5,7 +5,7 @@ import 'mocha';
 import { setTimeout } from "timers/promises";
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
-import { runtime_DARCInstance } from '../src/runtime/runtime';
+import { runtime_RunProgram } from '../src/runtime/runtime';
 
 const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
@@ -28,17 +28,13 @@ describe('RPC call test',
 
 
       const wallet_address = ethers.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
-      const darc = runtime_DARCInstance({
-        address: darc_contract_address,
-        wallet: signer,
-        provider: provider
-      });
 
-      const result = await darc.getTokenOwnerBalance(0, wallet_address);
-      const result2 = await darc.getMemberList();
-      console.log("Here is the result: ");
-      console.log(JSON.stringify(result.toString()));
-      console.log(JSON.stringify(result2.toString()));
+
+      //const result = await darc.getTokenOwnerBalance(0, wallet_address);
+      //const result2 = await darc.getMemberList();
+      //console.log("Here is the result: ");
+      //console.log(JSON.stringify(result.toString()));
+      //console.log(JSON.stringify(result2.toString()));
 
       const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
       const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
@@ -46,11 +42,11 @@ describe('RPC call test',
       const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
   
       // create a token class first
-      const my_addr = await darc.getMyInfo();
-      console.log("my_addr: " + my_addr);
-      console.log(JSON.stringify(wallet_address));
+      //const my_addr = await darc.getMyInfo();
+      //console.log("my_addr: " + my_addr);
+      //console.log(JSON.stringify(wallet_address));
 
-      console.log(await runtime_RunProgram({
+      const program = {
         programOperatorAddress: programOperatorAddress,
         operations: [{
           operatorAddress: programOperatorAddress,
@@ -115,13 +111,13 @@ describe('RPC call test',
           }
         }
       ], 
-      }, 
-      {
+      };
+
+      const darc = runtime_RunProgram(program,{
         address: darc_contract_address,
         wallet: signer,
-        provider: provider,
-      }
-      ));
+        provider: provider
+      });
       expect(true).to.equal(true);
   }); 
 });
