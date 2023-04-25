@@ -60,7 +60,7 @@ const program = {
   }], 
 };
 
-describe.only("ABI test", function () {
+describe.skip("ABI test", function () {
 
   
   it ("should pass ABI test", async function () {

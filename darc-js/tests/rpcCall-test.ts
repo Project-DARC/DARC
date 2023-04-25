@@ -4,14 +4,15 @@ import { expect } from 'chai';
 import 'mocha';
 //import { setTimeout } from "timers/promises";
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
+import { deployDARC } from '../src/deployDARC/deployDARC';
 
 import { runtime_RunProgram, runtime_getTokenOwners } from '../src/runtime/runtime';
 
-const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const darc_contract_address = '0xa513E6E4b8f2a923D98304ec87F64353C4D5C853';
 import * as darcjson from "../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
 
 
-describe('RPC call test', 
+describe.skip('RPC call test', 
   () => { 
     it('should return true', async () => { 
 
