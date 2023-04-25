@@ -2,13 +2,13 @@ import {ethers} from 'ethers';
 import { expect } from 'chai';
 
 import 'mocha';
-import { setTimeout } from "timers/promises";
+//import { setTimeout } from "timers/promises";
 const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
-import { runtime_RunProgram } from '../src/runtime/runtime';
+import { runtime_RunProgram, runtime_getTokenOwners } from '../src/runtime/runtime';
 
 const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-
+import * as darcjson from "../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
 
 
 describe('RPC call test', 
@@ -46,7 +46,53 @@ describe('RPC call test',
       //console.log("my_addr: " + my_addr);
       //console.log(JSON.stringify(wallet_address));
 
-      const program = {
+      const mint_and_transfer_program = {
+        programOperatorAddress: programOperatorAddress,
+        operations: [
+        {
+          operatorAddress: programOperatorAddress,
+          opcode: 1, // mint token
+          param: {
+            UINT256_ARRAY: [],
+            ADDRESS_ARRAY: [],
+            STRING_ARRAY: [],
+            BOOL_ARRAY: [],
+            VOTING_RULE_ARRAY: [],
+            PARAMETER_ARRAY: [],
+            PLUGIN_ARRAY: [],
+            UINT256_2DARRAY: [
+              [BigInt(0), BigInt(1)],  // token class = 0
+              [BigInt(100), BigInt(200)], // amount = 100
+            ],
+            ADDRESS_2DARRAY: [
+              [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
+            ]
+          }
+        },
+        {
+          operatorAddress: programOperatorAddress,
+          opcode: 3, // transfer tokens
+          param:{
+            UINT256_ARRAY: [],
+            ADDRESS_ARRAY: [],
+            STRING_ARRAY: [],
+            BOOL_ARRAY: [],
+            VOTING_RULE_ARRAY: [],
+            PARAMETER_ARRAY: [],
+            PLUGIN_ARRAY: [],
+            UINT256_2DARRAY: [
+              [BigInt(0),BigInt(0), BigInt(1), BigInt(1)],  // token class = 0
+              [BigInt(10), BigInt(20), BigInt(30), BigInt(40)], // amount = 100
+            ],
+            ADDRESS_2DARRAY: [
+              [target1, target2, target1, target2], 
+            ]
+          }
+        }
+      ], 
+      };
+
+      const create_mint_and_transter_program = {
         programOperatorAddress: programOperatorAddress,
         operations: [{
           operatorAddress: programOperatorAddress,
@@ -112,12 +158,39 @@ describe('RPC call test',
         }
       ], 
       };
-
-      const darc = runtime_RunProgram(program,{
+      const param = {
         address: darc_contract_address,
         wallet: signer,
         provider: provider
-      });
-      expect(true).to.equal(true);
+      };
+  
+        //const darc = runtime_RunProgram(program,param);
+
+        //const tokenOwners = runtime_getTokenOwners(0, param);
+  
+        //console.log("tokenOwners: " + JSON.stringify(tokenOwners));
+  
+        //const DARC = new ethers.Contract(darc_contract_address, darcjson.abi, signer);
+  
+        //const result = DARC.getTokenOwners(BigInt(0));
+
+        //console.log("result: " + JSON.stringify(result));
+
+        const local_darc = new ethers.Contract(darc_contract_address, darcjson.abi, signer);
+
+        // check the number of token classes. If it is 0, then create a token class first
+        const token_class_count = await local_darc.getNumberOfTokenClasses();
+        if (token_class_count == 0) {
+          await local_darc.entrance(create_mint_and_transter_program);
+        }
+        else {
+          await local_darc.entrance(mint_and_transfer_program);
+        }
+        //await new Promise(resolve1 => setTimeout(resolve1, 2000)); // Delay of 1000ms (1 second)
+        console.log("Here is the token owner balance: ");
+        console.log("target1: " + target1);
+        console.log((await new ethers.Contract(darc_contract_address, darcjson.abi, signer).getTokenOwnerBalance(BigInt(0), target1)).toString());
+
+      //expect(true).to.equal(true);
   }); 
 });

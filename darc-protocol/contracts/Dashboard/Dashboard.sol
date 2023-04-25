@@ -89,11 +89,4 @@ contract Dashboard is MachineStateManager {
   function getMyInfo() public view returns (address) {
     return msg.sender;
   }
-
-  function writeAddr(address addr) public {
-    currentMachineState.memberInfoMap[addr].bIsInitialized = true;
-    currentMachineState.memberInfoMap[addr].bIsSuspended = false;
-    currentMachineState.memberInfoMap[addr].name = "test";
-    currentMachineState.memberInfoMap[addr].role = 0;
-  }
 }

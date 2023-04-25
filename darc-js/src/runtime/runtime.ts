@@ -24,3 +24,10 @@ export async function runtime_RunProgram(program:any, param: RuntimeParam): Prom
   return await darc.entrance(program);
 }
 
+
+
+export async function runtime_getTokenOwners(tokenClass: number, param: RuntimeParam): Promise<string[]> {
+  const { address, wallet, provider } = param;
+  const darc = new ethers.Contract(address, darcjson.abi, provider);
+  return await darc.getTokenOwners(BigInt(tokenClass));
+}
