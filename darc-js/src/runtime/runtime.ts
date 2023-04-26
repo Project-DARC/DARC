@@ -2,6 +2,8 @@ import * as prelude from '../codeGenerator/codeGenerator';
 import {Contract, ethers} from 'ethers';
 import * as darcjson from "../../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
 
+import {DARC_VERSION, DARCBinaryStruct, darcBinary} from '../darcBinary/darcBinary';
+
 type RuntimeParam = {
   address: string;
   wallet: ethers.Wallet;
@@ -30,4 +32,15 @@ export async function runtime_getTokenOwners(tokenClass: number, param: RuntimeP
   const { address, wallet, provider } = param;
   const darc = new ethers.Contract(address, darcjson.abi, provider);
   return await darc.getTokenOwners(BigInt(tokenClass));
+}
+
+export async function deployDARC(version: DARC_VERSION, param: RuntimeParam): Promise<string> {
+  const { address, wallet, provider } = param;
+  const darc = new ethers.Contract(address, darcjson.abi, wallet);
+  const darcBinaryStruct = darcBinary(version);
+  const bytecode = darcBinaryStruct.bytecode;
+  const abi = darcBinaryStruct.abi;
+  const contractFactory = new ethers.ContractFactory(abi, bytecode, wallet);
+  const contract = await contractFactory.deploy();
+  return contract.getAddress();
 }
