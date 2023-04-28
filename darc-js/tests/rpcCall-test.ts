@@ -10,7 +10,7 @@ import { runtime_RunProgram, runtime_getTokenOwners } from '../src/runtime/runti
 import { DARC_VERSION, darcBinary } from '../src/darcBinary/darcBinary';
 
 
-describe('RPC call test', 
+describe.only('RPC call test', 
   () => { 
     it('should return true', async () => { 
 
@@ -31,10 +31,11 @@ describe('RPC call test',
 
 
       const darc_contract_address = await deployDARC(DARC_VERSION.Test, {
-        address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 ",
         wallet: signer,
         provider: provider
       });
+
+      console.log("RPC call test - deployed at: " + darc_contract_address);
 
       const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
       const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
@@ -49,114 +50,114 @@ describe('RPC call test',
       const mint_and_transfer_program = {
         programOperatorAddress: programOperatorAddress,
         operations: [
-        {
-          operatorAddress: programOperatorAddress,
-          opcode: 1, // mint token
-          param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
-            STRING_ARRAY: [],
-            BOOL_ARRAY: [],
-            VOTING_RULE_ARRAY: [],
-            PARAMETER_ARRAY: [],
-            PLUGIN_ARRAY: [],
-            UINT256_2DARRAY: [
-              [BigInt(0), BigInt(1)],  // token class = 0
-              [BigInt(100), BigInt(200)], // amount = 100
-            ],
-            ADDRESS_2DARRAY: [
-              [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-            ]
+          {
+            operatorAddress: programOperatorAddress,
+            opcode: 1, // mint token
+            param: {
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                [BigInt(0), BigInt(1)],  // token class = 0
+                [BigInt(100), BigInt(200)], // amount = 100
+              ],
+              ADDRESS_2DARRAY: [
+                [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
+              ]
+            }
+          },
+          {
+            operatorAddress: programOperatorAddress,
+            opcode: 3, // transfer tokens
+            param:{
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                [BigInt(0),BigInt(0), BigInt(1), BigInt(1)],  // token class = 0
+                [BigInt(10), BigInt(20), BigInt(30), BigInt(40)], // amount = 100
+              ],
+              ADDRESS_2DARRAY: [
+                [target1, target2, target1, target2], 
+              ]
+            }
           }
-        },
-        {
-          operatorAddress: programOperatorAddress,
-          opcode: 3, // transfer tokens
-          param:{
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
-            STRING_ARRAY: [],
-            BOOL_ARRAY: [],
-            VOTING_RULE_ARRAY: [],
-            PARAMETER_ARRAY: [],
-            PLUGIN_ARRAY: [],
-            UINT256_2DARRAY: [
-              [BigInt(0),BigInt(0), BigInt(1), BigInt(1)],  // token class = 0
-              [BigInt(10), BigInt(20), BigInt(30), BigInt(40)], // amount = 100
-            ],
-            ADDRESS_2DARRAY: [
-              [target1, target2, target1, target2], 
-            ]
-          }
-        }
-      ], 
+        ], 
       };
 
       const create_mint_and_transter_program = {
         programOperatorAddress: programOperatorAddress,
         operations: [{
-          operatorAddress: programOperatorAddress,
-          opcode: 2, // create token class
-          param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
-            STRING_ARRAY: ["Class1", "Class2"],
-            BOOL_ARRAY: [],
-            VOTING_RULE_ARRAY: [],
-            PARAMETER_ARRAY: [],
-            PLUGIN_ARRAY: [],
-            UINT256_2DARRAY: [
-              // [BigInt(0), BigInt(1)],
-              // [BigInt(10), BigInt(1)],
-              // [BigInt(10), BigInt(1)],
-              [BigInt(0), BigInt(1)],
-              [BigInt(10), BigInt(1)],
-              [BigInt(10), BigInt(1)],
-            ],
-            ADDRESS_2DARRAY: []
+            operatorAddress: programOperatorAddress,
+            opcode: 2, // create token class
+            param: {
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: ["Class1", "Class2"],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                // [BigInt(0), BigInt(1)],
+                // [BigInt(10), BigInt(1)],
+                // [BigInt(10), BigInt(1)],
+                [BigInt(0), BigInt(1)],
+                [BigInt(10), BigInt(1)],
+                [BigInt(10), BigInt(1)],
+              ],
+              ADDRESS_2DARRAY: []
+            }
+          },
+          {
+            operatorAddress: programOperatorAddress,
+            opcode: 1, // mint token
+            param: {
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                [BigInt(0), BigInt(1)],  // token class = 0
+                [BigInt(100), BigInt(200)], // amount = 100
+              ],
+              ADDRESS_2DARRAY: [
+                [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
+              ]
+            }
+          },
+          {
+            operatorAddress: programOperatorAddress,
+            opcode: 3, // transfer tokens
+            param:{
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                [BigInt(0),BigInt(0), BigInt(1), BigInt(1)],  // token class = 0
+                [BigInt(10), BigInt(20), BigInt(30), BigInt(40)], // amount = 100
+              ],
+              ADDRESS_2DARRAY: [
+                [target1, target2, target1, target2], 
+              ]
+            }
           }
-        },
-        {
-          operatorAddress: programOperatorAddress,
-          opcode: 1, // mint token
-          param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
-            STRING_ARRAY: [],
-            BOOL_ARRAY: [],
-            VOTING_RULE_ARRAY: [],
-            PARAMETER_ARRAY: [],
-            PLUGIN_ARRAY: [],
-            UINT256_2DARRAY: [
-              [BigInt(0), BigInt(1)],  // token class = 0
-              [BigInt(100), BigInt(200)], // amount = 100
-            ],
-            ADDRESS_2DARRAY: [
-              [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-            ]
-          }
-        },
-        {
-          operatorAddress: programOperatorAddress,
-          opcode: 3, // transfer tokens
-          param:{
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
-            STRING_ARRAY: [],
-            BOOL_ARRAY: [],
-            VOTING_RULE_ARRAY: [],
-            PARAMETER_ARRAY: [],
-            PLUGIN_ARRAY: [],
-            UINT256_2DARRAY: [
-              [BigInt(0),BigInt(0), BigInt(1), BigInt(1)],  // token class = 0
-              [BigInt(10), BigInt(20), BigInt(30), BigInt(40)], // amount = 100
-            ],
-            ADDRESS_2DARRAY: [
-              [target1, target2, target1, target2], 
-            ]
-          }
-        }
-      ], 
+        ], 
       };
       const param = {
         address: darc_contract_address,
@@ -164,23 +165,34 @@ describe('RPC call test',
         provider: provider
       };
   
-      
-      const local_darc = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
 
-      await new Promise(resolve1 => setTimeout(resolve1, 1000)); 
+      const local_darc1 = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
+      const local_darc2 = await local_darc1.attach(darc_contract_address);
+
+      //console.log("here is the local darc address" + local_darc.address);
+      console.log("The deployed contract of local_darc is " + local_darc2.getAddress());
+      return;
+      await new Promise(resolve1 => setTimeout(resolve1, 100)); 
       // check the number of token classes. If it is 0, then create a token class first
-      const token_class_count = await local_darc.getNumberOfTokenClasses();
+      const token_class_count = await local_darc2.getNumberOfTokenClasses();
       if (token_class_count == 0) {
-        await local_darc.entrance(create_mint_and_transter_program);
+        await local_darc2.entrance(create_mint_and_transter_program);
+        console.log(" Executed create_mint_and_transter_program");
       }
       else {
-        await local_darc.entrance(mint_and_transfer_program);
+        await local_darc2.entrance(mint_and_transfer_program);
+        console.log(" Executed mint_and_transfer_program");
       }
 
       //// Delay of 1000ms (1 second)
+      await new Promise(resolve1 => setTimeout(resolve1, 100)); 
+      console.log(await local_darc2.getAddress());
       console.log("Here is the token owner balance: ");
       console.log("target1: " + target1);
-      console.log((await new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer).getTokenOwnerBalance(BigInt(0), target1)).toString());
+      //console.log((await new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer).getTokenOwnerBalance(BigInt(1), target1)).toString());
+
+      const balance = await local_darc2.getTokenOwnerBalance(BigInt(0), target1);
+      console.log("balance: " + balance.toString());
 
       //expect(true).to.equal(true);
   }); 

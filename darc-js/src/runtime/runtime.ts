@@ -10,6 +10,11 @@ type RuntimeParam = {
   provider: ethers.Provider;
 }
 
+type DeployParam = {
+  wallet: ethers.Wallet;
+  provider: ethers.Provider;
+}
+
 /**
  * The runtime function is used to transpile the code to the runtime code.
  * @param param 
@@ -34,9 +39,8 @@ export async function runtime_getTokenOwners(tokenClass: number, param: RuntimeP
   return await darc.getTokenOwners(BigInt(tokenClass));
 }
 
-export async function deployDARC(version: DARC_VERSION, param: RuntimeParam): Promise<string> {
-  const { address, wallet, provider } = param;
-  const darc = new ethers.Contract(address, darcjson.abi, wallet);
+export async function deployDARC(version: DARC_VERSION, param: DeployParam): Promise<string> {
+  const { wallet, provider } = param;
   const darcBinaryStruct = darcBinary(version);
   const bytecode = darcBinaryStruct.bytecode;
   const abi = darcBinaryStruct.abi;
