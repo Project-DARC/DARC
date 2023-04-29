@@ -4,7 +4,7 @@ import { deployDARC } from '../src/runtime/runtime';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
-const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
+const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
 import { runtime_RunProgram, runtime_getTokenOwners } from '../src/runtime/runtime';
 import { DARC_VERSION, darcBinary } from '../src/darcBinary/darcBinary';
@@ -23,11 +23,11 @@ describe.only('RPC call test',
        * (This is a test account, do not use it for anything other than testing)
        */
 
-      const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/');
+      const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
       const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
 
 
-      const wallet_address = ethers.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
+      const wallet_address = ethers.utils.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
 
 
       const darc_contract_address = await deployDARC(DARC_VERSION.Test, {
@@ -166,34 +166,41 @@ describe.only('RPC call test',
       };
   
 
-      const local_darc1 = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
-      const local_darc2 = await local_darc1.attach(darc_contract_address);
+      const local_darc = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
+      const local_darc2 = new ethers.ContractFactory(
+        darcBinary(DARC_VERSION.Test).abi,
+        darcBinary(DARC_VERSION.Test).bytecode,
+        signer
+      );
 
-      //console.log("here is the local darc address" + local_darc.address);
-      console.log("The deployed contract of local_darc is " + local_darc2.getAddress());
-      return;
+      const attached_local_darc2 = local_darc2.attach(darc_contract_address);
+
+      console.log("here is the local darc address: " + local_darc.address);
+      console.log("The deployed contract of local_darc 2 is " + attached_local_darc2.address);
+
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
       // check the number of token classes. If it is 0, then create a token class first
-      const token_class_count = await local_darc2.getNumberOfTokenClasses();
+      const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
       if (token_class_count == 0) {
-        await local_darc2.entrance(create_mint_and_transter_program);
+        await attached_local_darc2.entrance(create_mint_and_transter_program);
+        await attached_local_darc2.entrance(mint_and_transfer_program);
+        await attached_local_darc2.entrance(mint_and_transfer_program);
         console.log(" Executed create_mint_and_transter_program");
       }
       else {
-        await local_darc2.entrance(mint_and_transfer_program);
+        await attached_local_darc2.entrance(mint_and_transfer_program);
         console.log(" Executed mint_and_transfer_program");
       }
 
       //// Delay of 1000ms (1 second)
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
-      console.log(await local_darc2.getAddress());
+      console.log(attached_local_darc2.address);
       console.log("Here is the token owner balance: ");
       console.log("target1: " + target1);
-      //console.log((await new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer).getTokenOwnerBalance(BigInt(1), target1)).toString());
 
-      const balance = await local_darc2.getTokenOwnerBalance(BigInt(0), target1);
+      const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      //expect(true).to.equal(true);
+      expect(true).to.equal(true);
   }); 
 });

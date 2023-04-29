@@ -7,12 +7,12 @@ import {DARC_VERSION, DARCBinaryStruct, darcBinary} from '../darcBinary/darcBina
 type RuntimeParam = {
   address: string;
   wallet: ethers.Wallet;
-  provider: ethers.Provider;
+  provider: ethers.providers.Provider;
 }
 
 type DeployParam = {
   wallet: ethers.Wallet;
-  provider: ethers.Provider;
+  provider: ethers.providers.Provider;
 }
 
 /**
@@ -46,5 +46,5 @@ export async function deployDARC(version: DARC_VERSION, param: DeployParam): Pro
   const abi = darcBinaryStruct.abi;
   const contractFactory = new ethers.ContractFactory(abi, bytecode, wallet);
   const contract = await contractFactory.deploy();
-  return contract.getAddress();
+  return contract.address;
 }

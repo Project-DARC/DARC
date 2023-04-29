@@ -33,7 +33,7 @@
     "@types/node": "^18.11.17",
     "babel-template": "^6.26.0",
     "chai": "^4.3.7",
-    "ethers": "^6.3.0",
+    "ethers": "5.7.2",
     "mocha": "^10.2.0",
     "ts-node": "^10.9.1"
   }
