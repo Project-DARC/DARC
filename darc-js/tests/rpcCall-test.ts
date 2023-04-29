@@ -201,10 +201,6 @@ describe.only('RPC call test',
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      const tokenClassNumber = await attached_local_darc2.getNumberOfTokenClasses();
-      console.log("tokenClassNumber: " + tokenClassNumber.toString());
-      //console.log
-
-      expect(true).to.equal(true);
+      expect(balance.toString()).to.equal("20");
   }); 
 });
