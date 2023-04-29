@@ -46,5 +46,6 @@ export async function deployDARC(version: DARC_VERSION, param: DeployParam): Pro
   const abi = darcBinaryStruct.abi;
   const contractFactory = new ethers.ContractFactory(abi, bytecode, wallet);
   const contract = await contractFactory.deploy();
+  contract.initialize();
   return contract.address;
 }

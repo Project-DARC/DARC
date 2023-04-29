@@ -30,7 +30,8 @@ describe.only('RPC call test',
       const wallet_address = ethers.utils.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
 
 
-      const darc_contract_address = await deployDARC(DARC_VERSION.Test, {
+      const darc_contract_address = 
+      await deployDARC(DARC_VERSION.Test, {
         wallet: signer,
         provider: provider
       });
@@ -166,25 +167,24 @@ describe.only('RPC call test',
       };
   
 
-      const local_darc = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
-      const local_darc2 = new ethers.ContractFactory(
-        darcBinary(DARC_VERSION.Test).abi,
-        darcBinary(DARC_VERSION.Test).bytecode,
-        signer
-      );
+      const attached_local_darc2 = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
+      // const local_darc2 = new ethers.ContractFactory(
+      //   darcBinary(DARC_VERSION.Test).abi,
+      //   darcBinary(DARC_VERSION.Test).bytecode,
+      //   signer
+      // );
 
-      const attached_local_darc2 = local_darc2.attach(darc_contract_address);
+      //const attached_local_darc2 = local_darc.attach(darc_contract_address);
 
-      console.log("here is the local darc address: " + local_darc.address);
+      //console.log("here is the local darc address: " + local_darc.address);
       console.log("The deployed contract of local_darc 2 is " + attached_local_darc2.address);
 
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
       // check the number of token classes. If it is 0, then create a token class first
       const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
       if (token_class_count == 0) {
+        await attached_local_darc2.entrance(mint_and_transfer_program);
         await attached_local_darc2.entrance(create_mint_and_transter_program);
-        await attached_local_darc2.entrance(mint_and_transfer_program);
-        await attached_local_darc2.entrance(mint_and_transfer_program);
         console.log(" Executed create_mint_and_transter_program");
       }
       else {
@@ -200,6 +200,10 @@ describe.only('RPC call test',
 
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
+
+      const tokenClassNumber = await attached_local_darc2.getNumberOfTokenClasses();
+      console.log("tokenClassNumber: " + tokenClassNumber.toString());
+      //console.log
 
       expect(true).to.equal(true);
   }); 
