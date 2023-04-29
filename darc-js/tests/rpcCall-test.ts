@@ -1,6 +1,6 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
-import { deployDARC } from '../src/runtime/runtime';
+import { deployDARC, attachDARCwithWallet } from '../src/runtime/runtime';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
@@ -167,17 +167,13 @@ describe.only('RPC call test',
       };
   
 
-      const attached_local_darc2 = new ethers.Contract(darc_contract_address, darcBinary(DARC_VERSION.Test).abi, signer);
-      // const local_darc2 = new ethers.ContractFactory(
-      //   darcBinary(DARC_VERSION.Test).abi,
-      //   darcBinary(DARC_VERSION.Test).bytecode,
-      //   signer
-      // );
+      const attached_local_darc2 = await attachDARCwithWallet(
+        darc_contract_address,
+        DARC_VERSION.Test,
+        signer,
+      );
 
-      //const attached_local_darc2 = local_darc.attach(darc_contract_address);
-
-      //console.log("here is the local darc address: " + local_darc.address);
-      console.log("The deployed contract of local_darc 2 is " + attached_local_darc2.address);
+      console.log("The attached contract of local_darc 2 is " + attached_local_darc2.address);
 
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
       // check the number of token classes. If it is 0, then create a token class first
@@ -201,6 +197,6 @@ describe.only('RPC call test',
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      expect(balance.toString()).to.equal("20");
+      expect(balance.toBigInt()).to.equal(BigInt(20));
   }); 
 });

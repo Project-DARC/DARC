@@ -49,3 +49,17 @@ export async function deployDARC(version: DARC_VERSION, param: DeployParam): Pro
   contract.initialize();
   return contract.address;
 }
+
+export async function attachDARCwithProvider (address: string, version: DARC_VERSION, provider: ethers.providers.Provider): Promise<Contract> {
+  const darcBinaryStruct = darcBinary(version);
+  const abi = darcBinaryStruct.abi;
+  const contract = new ethers.Contract(address, abi, provider);
+  return contract;
+}
+
+export async function attachDARCwithWallet (address: string, version: DARC_VERSION, wallet: ethers.Wallet): Promise<Contract> {
+  const darcBinaryStruct = darcBinary(version);
+  const abi = darcBinaryStruct.abi;
+  const contract = new ethers.Contract(address, abi, wallet);
+  return contract;
+}

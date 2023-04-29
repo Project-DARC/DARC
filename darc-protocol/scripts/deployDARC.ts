@@ -3,6 +3,11 @@ import { ethers }  from "hardhat";
 import { typeProgram, typePluginArray, typeVotingRuleArray } from "./ProgramTypes";
 import { BigNumber } from "ethers";
 
+
+/**
+ * The function to deploy DARC contract, initialize it, and return the address.
+ * @returns The address of the deployed DARC contract.
+ */
 export async function deployDARC(): Promise<string> {
 
   const DARC = await ethers.getContractFactory("DARC");
