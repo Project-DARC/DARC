@@ -186,12 +186,16 @@
     },
     "content": "content---markdown-page-393-028"
   },
-  "/docs-349": {
+  "/docs-854": {
     "__comp": "__comp---theme-doc-page-1-be-9be",
     "__context": {
       "plugin": "plugin---docs-0-e-4-bde"
     },
     "versionMetadata": "versionMetadata---docs-935-398"
+  },
+  "/docs/category/darcjs-361": {
+    "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
+    "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-darcjs-1-fb-d9e"
   },
   "/docs/category/tutorial---basics-d44": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
@@ -200,6 +204,22 @@
   "/docs/category/tutorial---extras-f09": {
     "__comp": "__comp---theme-doc-category-generated-index-page-14-e-640",
     "categoryGeneratedIndex": "categoryGeneratedIndex---docs-category-tutorial-extrasc-84-abc"
+  },
+  "/docs/darc.js/Access to a deployed DARC-9d9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-darc-js-access-to-a-deployed-dar-cfbf-06e"
+  },
+  "/docs/darc.js/Deploy your DARC-c5a": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-darc-js-deploy-your-dar-cdff-981"
+  },
+  "/docs/darc.js/Getting Started-679": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-darc-js-getting-started-570-a28"
+  },
+  "/docs/darc.js/Run program on DARC-85c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-darc-js-run-program-on-darc-1-ca-311"
   },
   "/docs/intro-aed": {
     "__comp": "__comp---theme-doc-item-178-a40",

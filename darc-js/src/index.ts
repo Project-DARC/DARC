@@ -1,4 +1,2 @@
-import {runtime} from './runtime/runtime';
-import {transpiler} from './transpiler';
-
-export {runtime, transpiler}
+import * as darcjs from './darcjs';
+export { darcjs };

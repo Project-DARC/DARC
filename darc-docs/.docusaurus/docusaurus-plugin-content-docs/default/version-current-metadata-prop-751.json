@@ -10,10 +10,37 @@
   "docsSidebars": {
     "tutorialSidebar": [
       {
-        "type": "link",
-        "label": "Tutorial Intro",
-        "href": "/docs/intro",
-        "docId": "intro"
+        "type": "category",
+        "label": "darc.js",
+        "collapsible": true,
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Getting Started",
+            "href": "/docs/darc.js/Getting Started",
+            "docId": "darc.js/Getting Started"
+          },
+          {
+            "type": "link",
+            "label": "Deploy your DARC",
+            "href": "/docs/darc.js/Deploy your DARC",
+            "docId": "darc.js/Deploy your DARC"
+          },
+          {
+            "type": "link",
+            "label": "Access to a deployed DARC",
+            "href": "/docs/darc.js/Access to a deployed DARC",
+            "docId": "darc.js/Access to a deployed DARC"
+          },
+          {
+            "type": "link",
+            "label": "Run program on DARC",
+            "href": "/docs/darc.js/Run program on DARC",
+            "docId": "darc.js/Run program on DARC"
+          }
+        ],
+        "href": "/docs/category/darcjs"
       },
       {
         "type": "category",
@@ -80,10 +107,40 @@
           }
         ],
         "href": "/docs/category/tutorial---extras"
+      },
+      {
+        "type": "link",
+        "label": "Tutorial Intro",
+        "href": "/docs/intro",
+        "docId": "intro"
       }
     ]
   },
   "docs": {
+    "darc.js/Access to a deployed DARC": {
+      "id": "darc.js/Access to a deployed DARC",
+      "title": "Access to a deployed DARC",
+      "description": "To access a deployed DARC on an EVM-compatible blockchain, you need to constrcut a DARC object via the DARC class, in which the constructor takes the address of the deployed DARC and the signer or provider as parameters. For example:",
+      "sidebar": "tutorialSidebar"
+    },
+    "darc.js/Deploy your DARC": {
+      "id": "darc.js/Deploy your DARC",
+      "title": "Deploy your DARC",
+      "description": "To deploy DARC on an EVM-compatible blockchain, you need to use the deployDARC(DARCVERSION, signer) function, in which DARCVERSION is the version of DARC you want to deploy and signer is the signer of the transaction. If you are using the browser environment and want to get the signer from the MetaMask wallet, you can use the getSigner() function from ethers.js, for example:",
+      "sidebar": "tutorialSidebar"
+    },
+    "darc.js/Getting Started": {
+      "id": "darc.js/Getting Started",
+      "title": "Getting Started",
+      "description": "What is darc.js?",
+      "sidebar": "tutorialSidebar"
+    },
+    "darc.js/Run program on DARC": {
+      "id": "darc.js/Run program on DARC",
+      "title": "Run program on DARC",
+      "description": "",
+      "sidebar": "tutorialSidebar"
+    },
     "intro": {
       "id": "intro",
       "title": "Tutorial Intro",

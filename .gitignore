@@ -8,3 +8,6 @@ typechain-types
 # Hardhat files
 cache
 artifacts
+
+# Docusaurus files
+darc-docs/.docusaurus

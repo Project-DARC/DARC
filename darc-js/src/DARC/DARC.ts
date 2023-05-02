@@ -2,18 +2,25 @@ import * as runtime from '../runtime/runtime';
 import { ethers, Contract } from 'ethers';
 import * as darcBinary from '../darcBinary/darcBinary';
 
-type InitParam = {
+export type InitParam = {
   address: string;
   version: darcBinary.DARC_VERSION;
   wallet?: ethers.Wallet;
   provider?: ethers.providers.Provider;
 }
 
-type TokenInfo = {
+export type TokenInfo = {
   votingWeight: BigInt,
   dividendWeight: BigInt,
   tokenInfo: string,
   totalSupply: BigInt,
+}
+
+export type MemberInfo = {
+  bIsInitialized: boolean,
+  bIsSuspened: boolean,
+  name: string,
+  role: bigint
 }
 
 /**
@@ -115,6 +122,18 @@ export class DARC {
    */
   async getPluginInfo(): Promise<any> {
     return await this.darcContract.getPluginInfo();
+  }
+
+  /**
+   * Get the DARC member list.
+   * @returns the DARC member list.
+  */
+  async getMemberList(): Promise<string[]> {
+    return await this.darcContract.getMemberList();
+  }
+
+  async getMemberInfo(): Promise<any> {
+    return await this.darcContract.getMemberInfo();
   }
 
 }

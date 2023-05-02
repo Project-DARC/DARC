@@ -8,8 +8,28 @@
           "label": "Next",
           "isLast": true,
           "path": "/docs",
-          "mainDocId": "intro",
+          "mainDocId": "darc.js/Getting Started",
           "docs": [
+            {
+              "id": "darc.js/Access to a deployed DARC",
+              "path": "/docs/darc.js/Access to a deployed DARC",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "darc.js/Deploy your DARC",
+              "path": "/docs/darc.js/Deploy your DARC",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "darc.js/Getting Started",
+              "path": "/docs/darc.js/Getting Started",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "darc.js/Run program on DARC",
+              "path": "/docs/darc.js/Run program on DARC",
+              "sidebar": "tutorialSidebar"
+            },
             {
               "id": "intro",
               "path": "/docs/intro",
@@ -56,6 +76,11 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "/category/darcjs",
+              "path": "/docs/category/darcjs",
+              "sidebar": "tutorialSidebar"
+            },
+            {
               "id": "/category/tutorial---basics",
               "path": "/docs/category/tutorial---basics",
               "sidebar": "tutorialSidebar"
@@ -70,8 +95,8 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/docs/intro",
-                "label": "intro"
+                "path": "/docs/category/darcjs",
+                "label": "darc.js"
               }
             }
           }

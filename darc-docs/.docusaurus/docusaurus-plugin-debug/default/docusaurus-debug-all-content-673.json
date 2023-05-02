@@ -20,6 +20,114 @@
           "contentPathLocalized": "/Users/xinranwang/Documents/GitHub/DARC/darc-docs/i18n/en/docusaurus-plugin-content-docs/current",
           "docs": [
             {
+              "unversionedId": "darc.js/Access to a deployed DARC",
+              "id": "darc.js/Access to a deployed DARC",
+              "title": "Access to a deployed DARC",
+              "description": "To access a deployed DARC on an EVM-compatible blockchain, you need to constrcut a DARC object via the DARC class, in which the constructor takes the address of the deployed DARC and the signer or provider as parameters. For example:",
+              "source": "@site/docs/darc.js/Access to a deployed DARC.md",
+              "sourceDirName": "darc.js",
+              "slug": "/darc.js/Access to a deployed DARC",
+              "permalink": "/docs/darc.js/Access to a deployed DARC",
+              "draft": false,
+              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/darc.js/Access to a deployed DARC.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 3,
+              "frontMatter": {
+                "sidebar_position": 3
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Deploy your DARC",
+                "permalink": "/docs/darc.js/Deploy your DARC"
+              },
+              "next": {
+                "title": "Run program on DARC",
+                "permalink": "/docs/darc.js/Run program on DARC"
+              }
+            },
+            {
+              "unversionedId": "darc.js/Deploy your DARC",
+              "id": "darc.js/Deploy your DARC",
+              "title": "Deploy your DARC",
+              "description": "To deploy DARC on an EVM-compatible blockchain, you need to use the deployDARC(DARCVERSION, signer) function, in which DARCVERSION is the version of DARC you want to deploy and signer is the signer of the transaction. If you are using the browser environment and want to get the signer from the MetaMask wallet, you can use the getSigner() function from ethers.js, for example:",
+              "source": "@site/docs/darc.js/Deploy your DARC.md",
+              "sourceDirName": "darc.js",
+              "slug": "/darc.js/Deploy your DARC",
+              "permalink": "/docs/darc.js/Deploy your DARC",
+              "draft": false,
+              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/darc.js/Deploy your DARC.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 2,
+              "frontMatter": {
+                "sidebar_position": 2
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Getting Started",
+                "permalink": "/docs/darc.js/Getting Started"
+              },
+              "next": {
+                "title": "Access to a deployed DARC",
+                "permalink": "/docs/darc.js/Access to a deployed DARC"
+              }
+            },
+            {
+              "unversionedId": "darc.js/Getting Started",
+              "id": "darc.js/Getting Started",
+              "title": "Getting Started",
+              "description": "What is darc.js?",
+              "source": "@site/docs/darc.js/Getting Started.md",
+              "sourceDirName": "darc.js",
+              "slug": "/darc.js/Getting Started",
+              "permalink": "/docs/darc.js/Getting Started",
+              "draft": false,
+              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/darc.js/Getting Started.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 1,
+              "frontMatter": {
+                "sidebar_position": 1
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "darc.js",
+                "permalink": "/docs/category/darcjs"
+              },
+              "next": {
+                "title": "Deploy your DARC",
+                "permalink": "/docs/darc.js/Deploy your DARC"
+              }
+            },
+            {
+              "unversionedId": "darc.js/Run program on DARC",
+              "id": "darc.js/Run program on DARC",
+              "title": "Run program on DARC",
+              "description": "",
+              "source": "@site/docs/darc.js/Run program on DARC.md",
+              "sourceDirName": "darc.js",
+              "slug": "/darc.js/Run program on DARC",
+              "permalink": "/docs/darc.js/Run program on DARC",
+              "draft": false,
+              "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/darc.js/Run program on DARC.md",
+              "tags": [],
+              "version": "current",
+              "sidebarPosition": 4,
+              "frontMatter": {
+                "sidebar_position": 4
+              },
+              "sidebar": "tutorialSidebar",
+              "previous": {
+                "title": "Access to a deployed DARC",
+                "permalink": "/docs/darc.js/Access to a deployed DARC"
+              },
+              "next": {
+                "title": "Tutorial - Basics",
+                "permalink": "/docs/category/tutorial---basics"
+              }
+            },
+            {
               "unversionedId": "intro",
               "id": "intro",
               "title": "Tutorial Intro",
@@ -32,14 +140,14 @@
               "editUrl": "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/docs/intro.md",
               "tags": [],
               "version": "current",
-              "sidebarPosition": 1,
+              "sidebarPosition": 4,
               "frontMatter": {
-                "sidebar_position": 1
+                "sidebar_position": 4
               },
               "sidebar": "tutorialSidebar",
-              "next": {
-                "title": "Tutorial - Basics",
-                "permalink": "/docs/category/tutorial---basics"
+              "previous": {
+                "title": "Translate your site",
+                "permalink": "/docs/tutorial-extras/translate-your-site"
               }
             },
             {
@@ -252,6 +360,10 @@
               "previous": {
                 "title": "Manage Docs Versions",
                 "permalink": "/docs/tutorial-extras/manage-docs-versions"
+              },
+              "next": {
+                "title": "Tutorial Intro",
+                "permalink": "/docs/intro"
               }
             }
           ],
@@ -259,8 +371,34 @@
           "sidebars": {
             "tutorialSidebar": [
               {
-                "type": "doc",
-                "id": "intro"
+                "type": "category",
+                "label": "darc.js",
+                "collapsible": true,
+                "collapsed": true,
+                "items": [
+                  {
+                    "type": "doc",
+                    "id": "darc.js/Getting Started"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "darc.js/Deploy your DARC"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "darc.js/Access to a deployed DARC"
+                  },
+                  {
+                    "type": "doc",
+                    "id": "darc.js/Run program on DARC"
+                  }
+                ],
+                "link": {
+                  "type": "generated-index",
+                  "description": "5 minutes to learn about darc.js",
+                  "slug": "/category/darcjs",
+                  "permalink": "/docs/category/darcjs"
+                }
               },
               {
                 "type": "category",
@@ -320,6 +458,10 @@
                   "slug": "/category/tutorial---extras",
                   "permalink": "/docs/category/tutorial---extras"
                 }
+              },
+              {
+                "type": "doc",
+                "id": "intro"
               }
             ]
           }

@@ -5,8 +5,8 @@
   "permalink": "/docs/category/tutorial---basics",
   "navigation": {
     "previous": {
-      "title": "Tutorial Intro",
-      "permalink": "/docs/intro"
+      "title": "Run program on DARC",
+      "permalink": "/docs/darc.js/Run program on DARC"
     },
     "next": {
       "title": "Create a Page",

@@ -26,30 +26,34 @@ pnpm add darcjs
 
 
 ```typescript
-import {runtime} from 'darcjs';
+import {darcjs} from 'darcjs';
+import {ethers} from 'ethers';
 
 // Your By-law Script
-const script = `
+const byLawScript = `
 withdraw_cash_to( 
   [addr4, addr5],     
   [10000000, 10000000] 
 ); `;
 
-// Your DARC address
-const darcAddress = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
-
-// Your EOA address and private key
-const myWallet = '0xbDA5747bFD65F08deb54cb465eB87D40e51B197E';
-const privateKey = '0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e';
-
 // Your JSON RPC provider from your blockchain
-const JsonRpcProvider = 'https://mainnet.infura.io/v3/your-infura-project-id';
+const provider = new ethers.providers.JsonRpcProvider('https://mainnet.infura.io/v3/your-infura-project-id');
 
-// Run your script
-const result = await runtime(script, {
-    address: darcAddress,
-    wallet: myWallet,
-    privateKey: privateKey,
-    provider: JsonRpcProvider
-  });
+// Construct the signer via Wallet class and private key
+const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
+
+// deploy DARC
+const darc_contract_address = await darcjs.deployDARC(
+  DARC_VERSION.Latest, signer
+);
+
+// acceess the deployed DARC via the DARC contract address
+const myDeployedDARC = new darcjs.DARC(address, signer);
+
+// compile your by-law script program and run it on your deployed DARC
+// Compile the code snippet above
+const program = darcjs.transpile(byLawScript);
+
+// Run the program on your deployed DARC
+const result = await myDeployedDARC.run(program);
 ```

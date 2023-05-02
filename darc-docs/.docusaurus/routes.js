@@ -99,8 +99,14 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '349'),
+    component: ComponentCreator('/docs', '854'),
     routes: [
+      {
+        path: '/docs/category/darcjs',
+        component: ComponentCreator('/docs/category/darcjs', '361'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
       {
         path: '/docs/category/tutorial---basics',
         component: ComponentCreator('/docs/category/tutorial---basics', 'd44'),
@@ -110,6 +116,30 @@ export default [
       {
         path: '/docs/category/tutorial---extras',
         component: ComponentCreator('/docs/category/tutorial---extras', 'f09'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/docs/darc.js/Access to a deployed DARC',
+        component: ComponentCreator('/docs/darc.js/Access to a deployed DARC', '9d9'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/docs/darc.js/Deploy your DARC',
+        component: ComponentCreator('/docs/darc.js/Deploy your DARC', 'c5a'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/docs/darc.js/Getting Started',
+        component: ComponentCreator('/docs/darc.js/Getting Started', '679'),
+        exact: true,
+        sidebar: "tutorialSidebar"
+      },
+      {
+        path: '/docs/darc.js/Run program on DARC',
+        component: ComponentCreator('/docs/darc.js/Run program on DARC', '85c'),
         exact: true,
         sidebar: "tutorialSidebar"
       },

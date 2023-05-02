@@ -10,7 +10,7 @@ import { runtime_RunProgram, runtime_getTokenOwners } from '../../src/runtime/ru
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
 import * as DARC from '../../src/darc/darc';
 
-describe.only('class DARC test', 
+describe('class DARC test', 
   () => { 
     it('should return true', async () => { 
 
@@ -31,10 +31,7 @@ describe.only('class DARC test',
 
 
       const darc_contract_address = 
-      await deployDARC(DARC_VERSION.Test, {
-        wallet: signer,
-        provider: provider
-      });
+      await deployDARC(DARC_VERSION.Test, signer);
 
       console.log("Class DARC test - deployed at: " + darc_contract_address);
 
@@ -201,7 +198,7 @@ describe.only('class DARC test',
 
       //// Delay of 1000ms (1 second)
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
-      console.log(attached_local_darc2.address);
+      console.log(attached_local_darc2.address());
       console.log("Here is the token owner balance: ");
       console.log("target1: " + target1);
 

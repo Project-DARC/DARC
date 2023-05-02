@@ -39,12 +39,11 @@ export async function runtime_getTokenOwners(tokenClass: number, param: RuntimeP
   return await darc.getTokenOwners(BigInt(tokenClass));
 }
 
-export async function deployDARC(version: DARC_VERSION, param: DeployParam): Promise<string> {
-  const { wallet, provider } = param;
+export async function deployDARC(version: DARC_VERSION, signer: ethers.Wallet): Promise<string> {
   const darcBinaryStruct = darcBinary(version);
   const bytecode = darcBinaryStruct.bytecode;
   const abi = darcBinaryStruct.abi;
-  const contractFactory = new ethers.ContractFactory(abi, bytecode, wallet);
+  const contractFactory = new ethers.ContractFactory(abi, bytecode, signer);
   const contract = await contractFactory.deploy();
   contract.initialize();
   return contract.address;
