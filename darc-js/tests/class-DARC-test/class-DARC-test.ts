@@ -1,16 +1,16 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
-import { deployDARC, attachDARCwithWallet } from '../src/runtime/runtime';
+import { deployDARC, attachDARCwithWallet } from '../../src/runtime/runtime';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
-import { runtime_RunProgram, runtime_getTokenOwners } from '../src/runtime/runtime';
-import { DARC_VERSION, darcBinary } from '../src/darcBinary/darcBinary';
+import { runtime_RunProgram, runtime_getTokenOwners } from '../../src/runtime/runtime';
+import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
+import * as DARC from '../../src/darc/darc';
 
-
-describe('RPC call test', 
+describe.only('class DARC test', 
   () => { 
     it('should return true', async () => { 
 
@@ -36,7 +36,7 @@ describe('RPC call test',
         provider: provider
       });
 
-      console.log("RPC call test - deployed at: " + darc_contract_address);
+      console.log("Class DARC test - deployed at: " + darc_contract_address);
 
       const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
       const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
@@ -112,8 +112,8 @@ describe('RPC call test',
                 // [BigInt(10), BigInt(1)],
                 // [BigInt(10), BigInt(1)],
                 [BigInt(0), BigInt(1)],
-                [BigInt(10), BigInt(1)],
-                [BigInt(10), BigInt(1)],
+                [BigInt(1000), BigInt(200)],
+                [BigInt(300), BigInt(400)],
               ],
               ADDRESS_2DARRAY: []
             }
@@ -167,20 +167,31 @@ describe('RPC call test',
       };
   
 
-      const attached_local_darc2 = await attachDARCwithWallet(
-        darc_contract_address,
-        DARC_VERSION.Test,
-        signer,
-      );
+      // const attached_local_darc2 = await attachDARCwithWallet(
+      //   darc_contract_address,
+      //   DARC_VERSION.Test,
+      //   signer,
+      // );
 
-      console.log("The attached contract of local_darc 2 is " + attached_local_darc2.address);
+      const attached_local_darc2 = new DARC.DARC({
+        address: darc_contract_address,
+        wallet: signer,
+        version: DARC_VERSION.Test,
+      });
+
+      console.log("The attached contract of local_darc 2 is " + attached_local_darc2.address());
 
       await new Promise(resolve1 => setTimeout(resolve1, 100)); 
       // check the number of token classes. If it is 0, then create a token class first
       const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
-      if (token_class_count == 0) {
-        await attached_local_darc2.entrance(mint_and_transfer_program);
+
+      console.log("token_class_count: " + token_class_count.toString());
+
+      console.log(token_class_count.toString() === "0");
+      if (token_class_count.toString() === "0") {
         await attached_local_darc2.entrance(create_mint_and_transter_program);
+        await attached_local_darc2.entrance(mint_and_transfer_program);
+
         console.log(" Executed create_mint_and_transter_program");
       }
       else {
@@ -197,6 +208,8 @@ describe('RPC call test',
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      expect(balance.toBigInt()).to.equal(BigInt(20));
+      console.log("Token info: \n" + JSON.stringify(await attached_local_darc2.getTokenInfo(BigInt(1))));
+
+      expect(balance.toString()).to.equal("20");
   }); 
 });

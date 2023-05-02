@@ -2,13 +2,19 @@ import * as runtime from '../runtime/runtime';
 import { ethers, Contract } from 'ethers';
 import * as darcBinary from '../darcBinary/darcBinary';
 
-type initParam = {
+type InitParam = {
   address: string;
   version: darcBinary.DARC_VERSION;
   wallet?: ethers.Wallet;
   provider?: ethers.providers.Provider;
 }
 
+type TokenInfo = {
+  votingWeight: BigInt,
+  dividendWeight: BigInt,
+  tokenInfo: string,
+  totalSupply: BigInt,
+}
 
 /**
  * The DARC class is used to interact with the DARC contract.
@@ -24,7 +30,7 @@ export class DARC {
    * The constructor of the DARC class.
    * @param param: the init param including the address, version, wallet and/or provider.
    */
-  constructor(param: initParam) {
+  constructor(param: InitParam) {
     const { address, version, wallet, provider } = param;
     this.darcAddress = address;
     this.darcVersion = version;
@@ -43,12 +49,12 @@ export class DARC {
    * Run the program on the DARC contract.
    * @param program: the program to be run.
    */
-  runProgram(program:any){
+  async entrance(program:any){
     if (this.wallet === undefined){
       throw new Error("Wallet is not provided for this DARC instance.");
     }
     try{
-      this.darcContract.entrance(program);
+      await this.darcContract.entrance(program);
     }
     catch(e){
       console.log("Error when running the program: " + e);
@@ -58,5 +64,57 @@ export class DARC {
   /**
    * Below are all DARC's dashboard functions, read parameters from the DARC contract.
    */
-  
+  async getTokenOwners(tokenClass: BigInt): Promise<string[]> {
+    return await this.darcContract.getTokenOwners(tokenClass);
+  }
+
+  async getTokenInfo(tokenClass: BigInt): Promise<TokenInfo> {
+    const result = await this.darcContract.getTokenInfo(tokenClass);
+    console.log("result: " + JSON.stringify(result));
+    const {0: returnVotingWeight, 1: returnDividendWeight, 2: returnTokenInfo, 3: returnTotalSupply} = result;
+
+    let returnStruct: TokenInfo = {
+      votingWeight: returnVotingWeight,
+      dividendWeight: returnDividendWeight,
+      tokenInfo: returnTokenInfo,
+      totalSupply: returnTotalSupply,
+    };
+
+    return returnStruct;
+  }
+
+  /**
+   * Return the address of the DARC contract.
+   * @returns the address of the DARC contract.
+   */
+  address(): string {
+    return this.darcAddress;
+  }
+
+  /**
+   * Return the number of token classes.
+   * @returns the number of token classes.
+   */
+  async getNumberOfTokenClasses(): Promise<BigInt> {
+    return await this.darcContract.getNumberOfTokenClasses();
+  }
+
+/**
+ * Return the balance of the owner for the token class.
+ * @param tokenClass the index of the token class.
+ * @param owner the address of the owner.
+ * @returns the balance of the owner for the token class.
+ */
+  async getTokenOwnerBalance(tokenClass: BigInt, owner: string): Promise<BigInt> {
+    return await this.darcContract.getTokenOwnerBalance(tokenClass, owner);
+  }
+
+  /**
+   * Get the DARC plugins.
+   * @returns the number of token classes.
+   */
+  async getPluginInfo(): Promise<any> {
+    return await this.darcContract.getPluginInfo();
+  }
+
 }

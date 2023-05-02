@@ -34,6 +34,8 @@ contract TokenInstructions is MachineStateManager{
     bool bIsValid = false;
     for (uint256 i = 0; i < target.length; i++) {
       if (bIsSandbox) {
+        require(sandboxMachineState.tokenList[tokenClass[i]].bIsInitialized == true, "The token class is not initialized");
+
         (bIsValid, sandboxMachineState.tokenList[tokenClass[i]].totalSupply) = 
         SafeMathUpgradeable.tryAdd( amount[i],
           sandboxMachineState.tokenList[tokenClass[i]].totalSupply);
@@ -44,6 +46,8 @@ contract TokenInstructions is MachineStateManager{
           sandboxMachineState.tokenList[tokenClass[i]].tokenBalance[target[i]]);
         require(bIsValid, "The balance of the token is overflow");
       } else {
+        require(currentMachineState.tokenList[tokenClass[i]].bIsInitialized == true, "The token class is not initialized");
+        
         (bIsValid, currentMachineState.tokenList[tokenClass[i]].totalSupply) = 
         SafeMathUpgradeable.tryAdd( amount[i],
           currentMachineState.tokenList[tokenClass[i]].totalSupply);
