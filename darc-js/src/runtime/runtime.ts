@@ -6,12 +6,12 @@ import {DARC_VERSION, DARCBinaryStruct, darcBinary} from '../darcBinary/darcBina
 type RuntimeParam = {
   address: string;
   wallet: ethers.Wallet;
-  provider: ethers.providers.Provider;
+  provider: ethers.Provider;
 }
 
 type DeployParam = {
   wallet: ethers.Wallet;
-  provider: ethers.providers.Provider;
+  provider: ethers.Provider;
 }
 
 /**
@@ -44,11 +44,15 @@ export async function deployDARC(version: DARC_VERSION, signer: ethers.Wallet): 
   const abi = darcBinaryStruct.abi;
   const contractFactory = new ethers.ContractFactory(abi, bytecode, signer);
   const contract = await contractFactory.deploy();
-  contract.initialize();
-  return contract.address;
+  const deployed_address =  await contract.getAddress();
+  await new Promise(resolve1 => setTimeout(resolve1, 100)); 
+  // initialize the DARC contract after deployment
+  const darc = new ethers.Contract(deployed_address, abi, signer);
+  await darc.initialize();
+  return deployed_address;
 }
 
-export async function attachDARCwithProvider (address: string, version: DARC_VERSION, provider: ethers.providers.Provider): Promise<Contract> {
+export async function attachDARCwithProvider (address: string, version: DARC_VERSION, provider: ethers.Provider): Promise<Contract> {
   const darcBinaryStruct = darcBinary(version);
   const abi = darcBinaryStruct.abi;
   const contract = new ethers.Contract(address, abi, provider);

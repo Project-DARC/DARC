@@ -4,7 +4,7 @@ import { deployDARC, attachDARCwithWallet } from '../../src/runtime/runtime';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
-const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
+const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
 import { runtime_RunProgram, runtime_getTokenOwners } from '../../src/runtime/runtime';
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
@@ -23,11 +23,11 @@ describe('class DARC dashboard test',
        * (This is a test account, do not use it for anything other than testing)
        */
 
-      const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
+      const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/');
       const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
 
 
-      const wallet_address = ethers.utils.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
+      const wallet_address = ethers.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
 
 
       const darc_contract_address = 
@@ -205,7 +205,10 @@ describe('class DARC dashboard test',
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      console.log("Token info: \n" + JSON.stringify(await attached_local_darc2.getTokenInfo(BigInt(1))));
+      function json_stringifyWithBigInt(obj:any) {
+        return JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? `${v}n` : v);
+      }
+      console.log("Token info: \n" + json_stringifyWithBigInt(await attached_local_darc2.getTokenInfo(BigInt(1))));
 
       expect(balance.toString()).to.equal("20");
 
