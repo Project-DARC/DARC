@@ -14,10 +14,14 @@ import { darcjs } from 'darcjs';
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
 
 // Get the deployed DARC address
-const address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const darc_contract_address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
 // Construct a DARC object
-const myDARC = new darcjs.DARC(address, provider);  
+const myDARC = new darcjs.DARC({
+  address: darc_contract_address,
+  wallet: signer,
+  version: DARC_VERSION.Test,
+}); 
 ```
 
 Then you can use the `darc` object to access the deployed DARC, not only read the data of the DARC, but also run the program on the DARC. For example:
@@ -52,7 +56,7 @@ offer_dividends();
 const program = darcjs.transpile(byLawScript);
 
 // Run the compiled program on the DARC deployed on the chain
-const result = await myDARC.run(program);
+const result = await myDARC.entrance(program);
 ```
 
 You can also access to a deployed DARC without a signer, but only with a valid provider, and access to all the data of the DARC via functions marked as `pure` or `view` (which does not need a signer to access and read), but cannot run the program on the DARC. For example:
@@ -65,7 +69,11 @@ import { darcjs } from 'darcjs';
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
 
 // Construct a DARC object
-const myDARC_readOnly = new darcjs.DARC(address, provider);
+const myDARC_readOnly = new darcjs.DARC({
+  address: address,
+  provider: provider,
+  version: DARC_VERSION.Test,
+});
 
 // Read the member address list of the DARC
 const memberList = await myDARC_readOnly.getMemberList();

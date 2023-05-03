@@ -44,20 +44,28 @@ const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed
 
 // deploy DARC
 const darc_contract_address = await darcjs.deployDARC(
-  DARC_VERSION.Latest, signer
+  DARC_VERSION.Test, signer
 );
 
 // acceess the deployed DARC via the DARC contract address
-const myDeployedDARC = new darcjs.DARC(address, signer);
+const myDeployedDARC = new darcjs.DARC({
+  address: darc_contract_address,
+  wallet: signer,
+  version: DARC_VERSION.Test,
+});
 
 // Compile the code snippet above
 const program = darcjs.transpile(byLawScript);
 
 // Run the program on your deployed DARC
-const result = await myDeployedDARC.run(program);
+const result = await myDeployedDARC.entrance(program);
 
 // Or you can just access to the DARC contract with address and provider, without signer
-const myDeployedDARC_readOnly = new darcjs.DARC(address, provider);
+const myDeployedDARC_readOnly = new darcjs.DARC({
+  address: darc_contract_address,
+  provider: provider,
+  version: DARC_VERSION.Test,
+});
 
 // Read information from the DARC
 const memberList = await myDARC_readOnly.getMemberList();

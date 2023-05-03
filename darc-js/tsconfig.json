@@ -11,5 +11,4 @@
     "rootDir": "./src"
   },
   "include": ["src"],
-
 }

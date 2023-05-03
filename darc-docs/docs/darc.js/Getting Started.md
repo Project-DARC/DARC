@@ -28,6 +28,24 @@ If you are using pnpm:
 pnpm add darcjs
 ```
 
+Also you need to install **ethers.js** with version 5.7.2 or 5.x.x:
+
+```bash
+npm install ethers@5.7.2
+```
+
+or with yarn:
+
+```bash
+yarn add ethers@5.7.2
+```
+
+or with pnpm:
+
+```bash
+pnpm add ethers@5.7.2
+```
+
 ## Usage
 
 To use darc.js in your TypeScript project, import it as follows:
