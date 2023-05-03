@@ -1,12 +1,11 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
-import { deployDARC, attachDARCwithWallet } from '../../src/runtime/runtime';
+import { deployDARC } from '../../src/runtime/runtime';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
-const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/'); 
+const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 
-import { runtime_RunProgram, runtime_getTokenOwners } from '../../src/runtime/runtime';
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
 import * as DARC from '../../src/darc/darc';
 
@@ -23,11 +22,11 @@ describe('class DARC test',
        * (This is a test account, do not use it for anything other than testing)
        */
 
-      const provider = new ethers.JsonRpcProvider('http://127.0.0.1:8545/');
+      const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
       const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
 
 
-      const wallet_address = ethers.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
+      const wallet_address = ethers.utils.getAddress('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
 
 
       const darc_contract_address = 

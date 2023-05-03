@@ -61,7 +61,7 @@ export class DARC {
     getTokenInfo(tokenClass) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.darcContract.getTokenInfo(tokenClass);
-            console.log("result: " + JSON.stringify(result));
+            //console.log("result: " + JSON.stringify(result));
             const { 0: returnVotingWeight, 1: returnDividendWeight, 2: returnTokenInfo, 3: returnTotalSupply } = result;
             let returnStruct = {
                 votingWeight: returnVotingWeight,

@@ -1,18 +1,18 @@
 import { ethers } from 'ethers';
 import * as darcBinary from '../darcBinary/darcBinary';
-export declare type InitParam = {
+export type InitParam = {
     address: string;
     version: darcBinary.DARC_VERSION;
     wallet?: ethers.Wallet;
     provider?: ethers.providers.Provider;
 };
-export declare type TokenInfo = {
+export type TokenInfo = {
     votingWeight: BigInt;
     dividendWeight: BigInt;
     tokenInfo: string;
     totalSupply: BigInt;
 };
-export declare type MemberInfo = {
+export type MemberInfo = {
     bIsInitialized: boolean;
     bIsSuspened: boolean;
     name: string;

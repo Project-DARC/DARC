@@ -1,7 +1,7 @@
 export declare enum DARC_VERSION {
     Test = 0
 }
-export declare type DARCBinaryStruct = {
+export type DARCBinaryStruct = {
     version: DARC_VERSION;
     bytecode: any;
     abi: any;

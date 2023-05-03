@@ -6,7 +6,7 @@ export type InitParam = {
   address: string;
   version: darcBinary.DARC_VERSION;
   wallet?: ethers.Wallet;
-  provider?: ethers.Provider;
+  provider?: ethers.providers.Provider;
 }
 
 export type TokenInfo = {
@@ -31,7 +31,7 @@ export class DARC {
   private darcAddress: string;
   private darcVersion: darcBinary.DARC_VERSION;
   private wallet: ethers.Wallet | undefined;
-  private provider: ethers.Provider | undefined;
+  private provider: ethers.providers.Provider | undefined;
 
   /**
    * The constructor of the DARC class.
