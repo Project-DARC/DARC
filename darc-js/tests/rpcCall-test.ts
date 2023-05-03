@@ -176,8 +176,10 @@ describe('RPC call test',
       // check the number of token classes. If it is 0, then create a token class first
       const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
       if (token_class_count == 0) {
-        await attached_local_darc2.entrance(mint_and_transfer_program);
         await attached_local_darc2.entrance(create_mint_and_transter_program);
+
+        // await attached_local_darc2.entrance(mint_and_transfer_program);
+
         console.log(" Executed create_mint_and_transter_program");
       }
       else {

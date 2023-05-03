@@ -17,7 +17,7 @@ const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
 const address = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
 // Construct a DARC object
-const myDARC = new darcjs.DARC(address, provider);
+const myDARC = new darcjs.DARC(address, provider);  
 ```
 
 Then you can use the `darc` object to access the deployed DARC, not only read the data of the DARC, but also run the program on the DARC. For example:

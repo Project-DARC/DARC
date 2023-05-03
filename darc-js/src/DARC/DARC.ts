@@ -77,7 +77,7 @@ export class DARC {
 
   async getTokenInfo(tokenClass: BigInt): Promise<TokenInfo> {
     const result = await this.darcContract.getTokenInfo(tokenClass);
-    console.log("result: " + JSON.stringify(result));
+    //console.log("result: " + JSON.stringify(result));
     const {0: returnVotingWeight, 1: returnDividendWeight, 2: returnTokenInfo, 3: returnTotalSupply} = result;
 
     let returnStruct: TokenInfo = {

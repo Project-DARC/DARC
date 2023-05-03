@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'DARC Docs',
+  tagline: 'Decentralized Autonomous Regulated Corporation (DARC), your on-chain company.',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -18,8 +18,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'project-darc', // Usually your GitHub org/user name.
+  projectName: 'darc', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -64,7 +64,7 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'DARC Docs',
         logo: {
           alt: 'My Site Logo',
           src: 'img/logo.svg',
@@ -72,13 +72,24 @@ const config = {
         items: [
           {
             type: 'docSidebar',
+            sidebarId: 'OverviewSiderbar',
+            position: 'left',
+            label: 'Overview',
+          },
+          {
+            type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'DARC Protocol',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            type: 'docSidebar',
+            sidebarId: 'DARCjsSiderbar',
+            position: 'left',
+            label: 'darc.js',
+          },
+          {
+            href: 'https://github.com/project-darc/darc',
             label: 'GitHub',
             position: 'right',
           },
@@ -127,7 +138,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} DARC Team. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
