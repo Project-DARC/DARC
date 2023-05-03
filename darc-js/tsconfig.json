@@ -8,7 +8,7 @@
     "strict": true,
     "moduleResolution":"node",
     "resolveJsonModule": true,
-    
+    "rootDir": "./src"
   },
   "include": ["src"],
 

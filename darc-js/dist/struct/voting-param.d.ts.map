@@ -1,0 +1,1 @@
+{"version":3,"file":"voting-param.d.ts","sourceRoot":"","sources":["../../src/struct/voting-param.ts"],"names":[],"mappings":"AAAA,qBAAa,gBAAgB;IAE3B,qBAAqB,EAAE,MAAM,CAAC;IAG9B,2BAA2B,EAAE,MAAM,CAAC;IAIpC,iBAAiB,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC;gBAErB,qBAAqB,EAAE,MAAM,EAAE,2BAA2B,EAAE,MAAM,EAAE,iBAAiB,EAAE,KAAK,CAAC,MAAM,CAAC;CAKjH"}
