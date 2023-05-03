@@ -6,7 +6,7 @@
   },
   "name": "darcjs",
   "description": "The official JavaScript client and SDK for Project DARC (Decentralized Autonomous Regulated Company), and the compiler and runtime for By-Law Script.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
