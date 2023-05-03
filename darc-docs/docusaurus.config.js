@@ -78,7 +78,7 @@ const config = {
           },
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'DARCProtocolSidebar',
             position: 'left',
             label: 'DARC Protocol',
           },
@@ -87,6 +87,12 @@ const config = {
             sidebarId: 'DARCjsSiderbar',
             position: 'left',
             label: 'darc.js',
+          },
+          {
+            type: 'docSidebar',
+            sidebarId: 'blsSidebar',
+            position: 'left',
+            label: 'By-Law Script',
           },
           {
             href: 'https://github.com/project-darc/darc',
