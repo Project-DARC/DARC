@@ -50,10 +50,15 @@ const darc_contract_address = await darcjs.deployDARC(
 // acceess the deployed DARC via the DARC contract address
 const myDeployedDARC = new darcjs.DARC(address, signer);
 
-// compile your by-law script program and run it on your deployed DARC
 // Compile the code snippet above
 const program = darcjs.transpile(byLawScript);
 
 // Run the program on your deployed DARC
 const result = await myDeployedDARC.run(program);
+
+// Or you can just access to the DARC contract with address and provider, without signer
+const myDeployedDARC_readOnly = new darcjs.DARC(address, provider);
+
+// Read information from the DARC
+const memberList = await myDARC_readOnly.getMemberList();
 ```
