@@ -11,4 +11,7 @@ artifacts
 
 # Docusaurus files
 darc-docs/.docusaurus
+
+# Idea files
+.idea/
 darc-docs/build
