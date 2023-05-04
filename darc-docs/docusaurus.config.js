@@ -73,31 +73,8 @@ const config = {
                         to: '/',
                     },
                     {
-                        type: 'dropdown',
-                        label: 'DARC Docs',
-                        position: 'left',
-                        items: [
-                            {
-                                type: 'docSidebar',
-                                sidebarId: 'OverviewSiderbar',
-                                label: 'Overview',
-                            },
-                            {
-                                type: 'docSidebar',
-                                sidebarId: 'DARCProtocolSidebar',
-                                label: 'DARC Protocol',
-                            },
-                            {
-                                type: 'docSidebar',
-                                sidebarId: 'DARCjsSiderbar',
-                                label: 'darc.js',
-                            },
-                            {
-                                type: 'docSidebar',
-                                sidebarId: 'blsSidebar',
-                                label: 'By-Law Script',
-                            },
-                        ],
+                        label: 'Docs',
+                        to: '/docs/Overview',
                     },
                     {
                         href: 'https://github.com/project-darc/darc',
