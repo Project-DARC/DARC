@@ -1,0 +1,8 @@
+{
+  "label": "Overview",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Overview about darc.js"
+  }
+}
