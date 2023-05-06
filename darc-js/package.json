@@ -1,12 +1,11 @@
 {
   "devDependencies": {
-    "@jetblack/operator-overloading": "^0.2.0",
     "@types/babel-template": "^6.25.2",
     "typescript": "^4.9.3"
   },
   "name": "darcjs",
   "description": "The official JavaScript client and SDK for Project DARC (Decentralized Autonomous Regulated Company), and the compiler and runtime for By-Law Script.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
@@ -27,6 +26,7 @@
     "@babel/standalone": "^7.10.5",
     "@babel/types": "^7.10.5",
     "@ethersproject/bignumber": "^5.7.0",
+    "@jetblack/operator-overloading": "^0.2.0",
     "@types/babel-template": "^6.25.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",

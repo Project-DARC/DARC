@@ -22,6 +22,9 @@ dependencies:
   '@ethersproject/bignumber':
     specifier: ^5.7.0
     version: 5.7.0
+  '@jetblack/operator-overloading':
+    specifier: ^0.2.0
+    version: 0.2.0
   '@types/babel-template':
     specifier: ^6.25.2
     version: 6.25.2
@@ -51,9 +54,6 @@ dependencies:
     version: 10.9.1(@types/node@18.11.18)(typescript@4.9.4)
 
 devDependencies:
-  '@jetblack/operator-overloading':
-    specifier: ^0.2.0
-    version: 0.2.0
   typescript:
     specifier: ^4.9.3
     version: 4.9.4
@@ -1646,7 +1646,7 @@ packages:
 
   /@jetblack/operator-overloading@0.2.0:
     resolution: {integrity: sha512-Y6iNzYnNUoCUcRMoUL1NflWLHkrzkxCC6VHB5h57pcjiUaPHTidZH9uyz123d6utA9w9VO+cS7S/KLA1DEpS/g==}
-    dev: true
+    dev: false
 
   /@jridgewell/gen-mapping@0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
