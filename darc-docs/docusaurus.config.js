@@ -77,6 +77,20 @@ const config = {
                         to: '/docs/Overview',
                     },
                     {
+                        type: 'dropdown',
+                        label: 'API',
+                        position: 'left',
+                        items: [
+                            {
+                                label: 'Darcjs API',
+                                href: '/api/darcjs/index.html',
+                                prependBaseUrlToHref: true,
+                                target: '_blank',
+                            },
+                        ],
+                    },
+
+                    {
                         href: 'https://github.com/project-darc/darc',
                         label: 'GitHub',
                         position: 'right',

@@ -14,4 +14,7 @@ darc-docs/.docusaurus
 
 # Idea files
 .idea/
+
+# Darc docs Compiled output
 darc-docs/build
+darc-docs/static/api
