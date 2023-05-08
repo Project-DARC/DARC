@@ -132,8 +132,8 @@ export class DARC {
     return await this.darcContract.getMemberList();
   }
 
-  async getMemberInfo(): Promise<any> {
-    return await this.darcContract.getMemberInfo();
+  async getMemberInfo(memberAddress:string): Promise<any> {
+    return await this.darcContract.getMemberInfo(memberAddress);
   }
 
 }

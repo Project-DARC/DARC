@@ -69,6 +69,6 @@ export declare class DARC {
      * @returns the DARC member list.
     */
     getMemberList(): Promise<string[]>;
-    getMemberInfo(): Promise<any>;
+    getMemberInfo(memberAddress: string): Promise<any>;
 }
 //# sourceMappingURL=DARC.d.ts.map
