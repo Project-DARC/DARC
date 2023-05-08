@@ -117,9 +117,9 @@ export class DARC {
             return yield this.darcContract.getMemberList();
         });
     }
-    getMemberInfo() {
+    getMemberInfo(memberAddress) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.darcContract.getMemberInfo();
+            return yield this.darcContract.getMemberInfo(memberAddress);
         });
     }
 }
