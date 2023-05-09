@@ -40,4 +40,4 @@ jobs:
 
       - name: Deploy static site to S3 bucket
         working-directory: ./darc-docs
-        run: aws s3 sync ./dist s3://darc-website --delete
+        run: aws s3 sync ./build s3://darc-website --delete
