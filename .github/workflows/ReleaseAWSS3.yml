@@ -1,0 +1,42 @@
+# This is a basic workflow to help you get started with Actions
+
+name: ReleaseAWSS3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install Dependencies
+        working-directory: ./darc-docs
+        run: |
+          npm install
+
+      - name: Build
+        working-directory: ./darc-docs
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy static site to S3 bucket
+        working-directory: ./darc-docs
+        run: aws s3 sync ./build s3://darc-website --delete
