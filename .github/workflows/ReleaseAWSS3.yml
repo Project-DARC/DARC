@@ -5,8 +5,7 @@ name: ReleaseAWSS3
 on:
   push:
     branches:
-      - master
-      - aws
+      - main
 
 jobs:
   deploy:
