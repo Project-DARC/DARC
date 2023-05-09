@@ -13,6 +13,7 @@ import {
 } from "react-icons/all";
 import {useCopyToClipboard} from "react-use";
 import Link from "@docusaurus/Link";
+import {customTheme} from "../theme";
 
 // styled docusaurus link without underline and default color
 const PlainLink = styled(Link)(({theme}) => ({
@@ -67,6 +68,11 @@ function HomepageHeader() {
                     <Stack direction={'row'} spacing={2}>
                         <Button size={'lg'} endDecorator={<FiChevronRight/>}
                                 component={PlainLink} to={'/docs/Overview/'}
+                                sx={{
+                                    '&:hover': {
+                                        color: 'var(--joy-palette-common-white, #FFF)',
+                                    },
+                                }}
                         >Get started</Button>
                         <Box sx={{
                             cursor: 'pointer',
@@ -154,7 +160,7 @@ export default function Home() {
         <Layout
             title={`Hello from ${siteConfig.title}`}
             description="Description will go into a meta tag in <head />">
-            <CssVarsProvider>
+            <CssVarsProvider disableTransitionOnChange theme={customTheme}>
                 <Box sx={{
                     my: 10
                 }}>
