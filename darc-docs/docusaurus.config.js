@@ -64,6 +64,18 @@ const config = {
             colorMode: {
                 disableSwitch: true
             },
+            algolia: {
+                // The application ID provided by Algolia
+                appId: 'JYQVEBDKBP',
+
+                // Public API key: it is safe to commit it
+                apiKey: '695a3556e6bf7d738b5c67b00996ed0a',
+
+                indexName: 'darc-docs',
+
+                // Optional: see doc section below
+                contextualSearch: true,
+            },
             // Replace with your project's social card
             image: 'img/docusaurus-social-card.jpg',
             navbar: {
