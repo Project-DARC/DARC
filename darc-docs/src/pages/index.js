@@ -65,13 +65,14 @@ function HomepageHeader() {
                     </Typography>
 
 
-                    <Stack direction={'row'} spacing={2}>
+                    <Stack direction={{xs: 'column', sm: 'row'}} spacing={2}>
                         <Button size={'lg'} endDecorator={<FiChevronRight/>}
                                 component={PlainLink} to={'/docs/Overview/'}
                                 sx={{
                                     '&:hover': {
                                         color: 'var(--joy-palette-common-white, #FFF)',
                                     },
+                                    maxWidth: '300px'
                                 }}
                         >Get started</Button>
                         <Box sx={{
@@ -94,7 +95,7 @@ function HomepageHeader() {
                     </Stack>
                 </Stack>
 
-                <Box sx={{display: {xs: 'none', lg: 'block'}}}>
+                <Box sx={{display: {xs: 'none', xl: 'block'}}}>
                     <img src={'/img/header-img-1.png'} style={{
                         height: '600px',
                     }}/>
@@ -107,13 +108,11 @@ function HomepageHeader() {
 
 const Footer = () => {
     return (
-        <Container>
-            <Box textAlign={'center'}>
-                <Typography variant={'body2'} fontSize={'sm'}>
-                    © 2023 DARC. All rights reserved.
-                </Typography>
-            </Box>
-        </Container>
+        <Box textAlign={'center'}>
+            <Typography variant={'body2'} fontSize={'sm'}>
+                © 2023 DARC. All rights reserved.
+            </Typography>
+        </Box>
     )
 }
 
@@ -162,126 +161,132 @@ export default function Home() {
             description="Description will go into a meta tag in <head />">
             <CssVarsProvider disableTransitionOnChange theme={customTheme}>
                 <Box sx={{
-                    my: 10
+                    background: 'linear-gradient(121deg, rgba(255,255,255,1) 0%, rgba(231,243,255,100) 25%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 100%)',
                 }}>
-                    <HomepageHeader/>
-                </Box>
-
-                <Stack spacing={10}>
-                    <Box sx={{
-                        background: '#f4f6f8',
+                    <Stack spacing={{
+                        xs: 2,
+                        md: 12
                     }}>
-                        <Container maxWidth={'xl'} sx={{
-                            my: 10
-                        }}>
-                            <Box>
-                                <Typography level={'h2'}>
-                                    Features of
-                                    <Typography component={'span'} color={'primary'} ml={1}>
-                                        DARC
+                        <Box>
+                            <HomepageHeader/>
+                        </Box>
+
+
+                        <Box>
+                            <Container maxWidth={'xl'}>
+                                <Box>
+                                    <Typography level={'h2'}>
+                                        Features of
+                                        <Typography component={'span'} color={'primary'} ml={1}>
+                                            DARC
+                                        </Typography>
                                     </Typography>
-                                </Typography>
 
-                                <Grid container spacing={2} mt={2} alignItems={'stretch'}>
-                                    {featureCardData.map((item, index) => (
-                                        <Grid xs={6} lg={3} key={index} minHeight={'100%'}>
-                                            <Card variant={'soft'} sx={{height: '100%'}}>
-                                                <Stack spacing={1}>
-                                                    <Typography level={'body1'} fontWeight={'bolder'}
-                                                                gap={1} display={'flex'}>
-                                                        <Typography component={'span'} alignSelf={'center'}
-                                                                    display={'flex'}
-                                                                    color={'primary'}>
-                                                            {item.icon}
-                                                        </Typography> {item.title}
-                                                    </Typography>
-                                                    <Typography level={'body2'} fontSize={'sm'} fontWeight={'normal'}>
-                                                        {item.description}
-                                                    </Typography>
-                                                </Stack>
-                                            </Card>
-                                        </Grid>
-                                    ))}
-                                </Grid>
-                            </Box>
-                        </Container>
-                    </Box>
+                                    <Grid container spacing={2} mt={2} alignItems={'stretch'}>
+                                        {featureCardData.map((item, index) => (
+                                            <Grid xs={6} lg={3} key={index} minHeight={'100%'}>
+                                                <Card variant={'soft'} sx={{height: '100%'}}>
+                                                    <Stack spacing={1}>
+                                                        <Typography level={'body1'} fontWeight={'bolder'}
+                                                                    gap={1} display={'flex'}>
+                                                            <Typography component={'span'} alignSelf={'center'}
+                                                                        display={'flex'}
+                                                                        color={'primary'}>
+                                                                {item.icon}
+                                                            </Typography> {item.title}
+                                                        </Typography>
+                                                        <Typography level={'body2'} fontSize={'sm'}
+                                                                    fontWeight={'normal'}>
+                                                            {item.description}
+                                                        </Typography>
+                                                    </Stack>
+                                                </Card>
+                                            </Grid>
+                                        ))}
+                                    </Grid>
+                                </Box>
+                            </Container>
+                        </Box>
 
-                    <Box>
-                        <Container maxWidth={'xl'}>
-                            <Grid container spacing={2} alignItems={'center'}>
-                                <Grid xs={12} md={6} lg={5}>
-                                    <Box>
-                                        <Typography level={'h2'} mt={5}>
-                                            <Typography component={'span'} color={'primary'} mr={1}>
-                                                Accelerate
+                        <Box>
+                            <Container maxWidth={'xl'}>
+                                <Grid container spacing={2} alignItems={'center'}>
+                                    <Grid xs={12} md={6} lg={5}>
+                                        <Box>
+                                            <Typography level={'h2'} mt={5}>
+                                                <Typography component={'span'} color={'primary'} mr={1}>
+                                                    Accelerate
+                                                </Typography>
+                                                delivery <br/> of your corporation
                                             </Typography>
-                                            delivery <br/> of your corporation
-                                        </Typography>
 
-                                        <Typography level={'body1'} fontSize={'sm'} fontWeight={'normal'} mt={2}
-                                                    sx={(theme) => ({
-                                                        color: theme.vars.palette.text.tertiary
-                                                    })}>
-                                            Unlock the potential of Darc's tools within the DARC ecosystem, optimizing
-                                            efficiency and compliance for blockchain-based businesses. Experience a
-                                            streamlined
-                                            approach to project delivery and take your business to the next level with
-                                            Darc's
-                                            innovative tools.
-                                        </Typography>
-                                    </Box>
-                                </Grid>
+                                            <Typography level={'body1'} fontSize={'sm'} fontWeight={'normal'} mt={2}
+                                                        sx={(theme) => ({
+                                                            color: theme.vars.palette.text.tertiary
+                                                        })}>
+                                                Unlock the potential of Darc's tools within the DARC ecosystem,
+                                                optimizing
+                                                efficiency and compliance for blockchain-based businesses. Experience a
+                                                streamlined
+                                                approach to project delivery and take your business to the next level
+                                                with
+                                                Darc's
+                                                innovative tools.
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
 
-                                <Grid xs={12} md={6} sx={(theme) => ({
-                                    '& a': {
-                                        textDecoration: 'none',
-                                    },
-                                })}>
-                                    <Box>
-                                        <Grid container spacing={2} alignItems={'stretch'}>
-                                            {featureCardData2.map((item, index) => (
-                                                <Grid xs={6} minHeight={'100%'}>
-                                                    <Sheet variant={'outlined'}
-                                                           sx={theme => ({
-                                                               p: 2,
-                                                               borderRadius: 20,
-                                                               height: '100%'
-                                                           })}>
-                                                        <Stack justifyContent={'space-between'} spacing={1}
-                                                               height={'100%'}>
-                                                            <Link to={item.to}>
-                                                                <Stack spacing={1}>
-                                                                    <Typography level={'body1'} fontWeight={'bolder'}>
-                                                                        {item.title}
-                                                                    </Typography>
-                                                                    <Typography level={'body2'} fontSize={'sm'}>
-                                                                        {item.description}
-                                                                    </Typography>
-                                                                </Stack>
-                                                            </Link>
-                                                            <Typography to={item.to} component={PlainLink}
-                                                                        level={'body2'}
-                                                                        fontSize={'sm'} color={'primary'}
-                                                                        fontWeight={'bold'}>
-                                                                Learn more
-                                                            </Typography>
-                                                        </Stack>
-                                                    </Sheet>
-                                                </Grid>
-                                            ))}
-                                        </Grid>
-                                    </Box>
+                                    <Grid xs={12} md={6} sx={(theme) => ({
+                                        '& a': {
+                                            textDecoration: 'none',
+                                        },
+                                    })}>
+                                        <Box>
+                                            <Grid container spacing={2} alignItems={'stretch'}>
+                                                {featureCardData2.map((item, index) => (
+                                                    <Grid xs={6} minHeight={'100%'}>
+                                                        <Sheet variant={'outlined'}
+                                                               sx={theme => ({
+                                                                   p: 2,
+                                                                   borderRadius: 20,
+                                                                   height: '100%'
+                                                               })}>
+                                                            <Stack justifyContent={'space-between'} spacing={1}
+                                                                   height={'100%'}>
+                                                                <Link to={item.to}>
+                                                                    <Stack spacing={1}>
+                                                                        <Typography level={'body1'}
+                                                                                    fontWeight={'bolder'}>
+                                                                            {item.title}
+                                                                        </Typography>
+                                                                        <Typography level={'body2'} fontSize={'sm'}>
+                                                                            {item.description}
+                                                                        </Typography>
+                                                                    </Stack>
+                                                                </Link>
+                                                                <Typography to={item.to} component={PlainLink}
+                                                                            level={'body2'}
+                                                                            fontSize={'sm'} color={'primary'}
+                                                                            fontWeight={'bold'}>
+                                                                    Learn more
+                                                                </Typography>
+                                                            </Stack>
+                                                        </Sheet>
+                                                    </Grid>
+                                                ))}
+                                            </Grid>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </Container>
+                        </Box>
+                    </Stack>
+
+                    <Box mt={10}>
+                        <Container>
+                            <Footer/>
                         </Container>
                     </Box>
-                </Stack>
-
-                <Box sx={{
-                    mt: 10
-                }}>
-                    <Footer/>
                 </Box>
             </CssVarsProvider>
         </Layout>
