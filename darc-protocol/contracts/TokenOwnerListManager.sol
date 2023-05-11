@@ -25,6 +25,11 @@ contract TokenOwnerListManager is MachineStateManager {
    * The reason of this function is to update the token owner list of each certain token level efficiently,
    * which provides an up-to-date list of keys for token balance mapping.
    * 
+   * For example, the existing token owner list is [A,B,C,D,E],
+   * and the operator mint tokens to address [E,F,G], 
+   * and burn all tokens from [A,B], then the new token owner list is [C,D,E,F,G].
+   * 
+   * 
    * @param bIsSandbox The flag to indicate whether the operation is in the sandbox
    * @param addOwnerList The list of owner addresses which receive more tokens
    * @param removeOwnerList The list of owner addresses which transfer all tokens to others and balance is (probably) zero

@@ -125,5 +125,5 @@ contract MachineStateManager {
       //sandboxMachineState.tokenInfoList.push(currentMachineState.tokenInfoList[i]);
     }
   }   
-
+ 
 }
