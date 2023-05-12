@@ -4,7 +4,23 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
+const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
+const addr1 = "0x90F79bf6EB2c4f870365E785982E1f101E93b906";
+const addr2 = '0x976EA74026E726554dB657fA54763abd0C3a0aa9';
+const addr3 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
+const addr4 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
+const addr5 = '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc';
+const addr6 = '0x14dC79964da2C08b23698B3D3cc7Ca32193d9955';
 // test for batch mint token instruction on DARC
+
+function containsAddr(array: string[], addr:string): boolean {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].toLowerCase() === addr.toLowerCase()) {
+      return true;
+    }
+  }
+  return false;
+}
 
 describe("batch_pay_to_mint_token_test", function () {
 
@@ -16,9 +32,6 @@ describe("batch_pay_to_mint_token_test", function () {
     console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
-
-
-    const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
 
 
     // create a token class first
@@ -73,11 +86,49 @@ describe("batch_pay_to_mint_token_test", function () {
     {value: 300} // 100 * 1 + 200 * 1 = 300 wei, the value should be equal to the total amount of token price
   );
 
+  let owner0 = await darc.getTokenOwners(1);
+  let owner1 = await darc.getTokenOwners(0);
+
+  expect(containsAddr(owner0, programOperatorAddress)).to.equal(true);
+  expect(containsAddr(owner1, programOperatorAddress)).to.equal(true);
+
+  const result_entrance2 = await darc.entrance({
+    programOperatorAddress: programOperatorAddress,
+    operations: [{
+      operatorAddress: programOperatorAddress,
+      opcode: 20, // pay to mint token
+      param: {
+        UINT256_ARRAY: [],
+        ADDRESS_ARRAY: [],
+        STRING_ARRAY: [],
+        BOOL_ARRAY: [],
+        VOTING_RULE_ARRAY: [],
+        PARAMETER_ARRAY: [],
+        PLUGIN_ARRAY: [],
+        UINT256_2DARRAY: [
+          [BigNumber.from(0), BigNumber.from(1)],  // token class = 0
+          [BigNumber.from(100), BigNumber.from(200)], // amount = 100
+          [BigNumber.from(1), BigNumber.from(1)], // token price
+        ],
+        ADDRESS_2DARRAY: [
+          [addr1,addr2], // to = programOperatorAddress
+        ]
+      }
+    }], 
+    }, 
+    {value: 300} // 100 * 1 + 200 * 1 = 300 wei, the value should be equal to the total amount of token price
+    );
+
     // get the address balance of token 0 and 1
-    const balance0 = await darc.getTokenOwnerBalance(0, programOperatorAddress);
-    const balance1 = await darc.getTokenOwnerBalance(1, programOperatorAddress);
+    const balance0 = await darc.getTokenOwnerBalance(0, addr1);
+    const balance1 = await darc.getTokenOwnerBalance(1, addr2);
 
     expect(balance0.toBigInt().toString()).to.equal("100");
     expect(balance1.toBigInt().toString()).to.equal("200");
+
+    owner0 = await darc.getTokenOwners(0);
+    owner1 = await darc.getTokenOwners(1);
+    expect(containsAddr(owner0, addr1)).to.equal(true);
+    expect(containsAddr(owner1, addr2)).to.equal(true);
   });
 });

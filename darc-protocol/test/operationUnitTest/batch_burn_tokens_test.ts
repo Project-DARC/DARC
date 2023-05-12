@@ -5,6 +5,15 @@ import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
 // test for batch mint token instruction on DARC
+function containsAddr(array: string[], addr:string): boolean {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].toLowerCase() === addr.toLowerCase()) {
+      return true;
+    }
+  }
+  return false;
+}
+
 
 describe("batch_burn_tokens_test", function () {
 
@@ -94,5 +103,40 @@ describe("batch_burn_tokens_test", function () {
     // class 1 = 200 - 40 = 160
     expect ((await darc.getTokenOwnerBalance(0, programOperatorAddress)).toBigInt().toString()).to.equal("90");
     expect ((await darc.getTokenOwnerBalance(1, programOperatorAddress)).toBigInt().toString()).to.equal("160"); 
+
+    expect (containsAddr(await darc.getTokenOwners(0), programOperatorAddress)).to.equal(true);
+    expect (containsAddr(await darc.getTokenOwners(1), programOperatorAddress)).to.equal(true);
+
+    // burn remaining tokens and check balance
+    // mint tokens
+    await darc.entrance({
+      programOperatorAddress: programOperatorAddress,
+      operations: [
+      {
+        operatorAddress: programOperatorAddress,
+        opcode: 5, // burn tokens
+        param:{
+          UINT256_ARRAY: [],
+          ADDRESS_ARRAY: [],
+          STRING_ARRAY: [],
+          BOOL_ARRAY: [],
+          VOTING_RULE_ARRAY: [],
+          PARAMETER_ARRAY: [],
+          PLUGIN_ARRAY: [],
+          UINT256_2DARRAY: [
+            [BigNumber.from(0),BigNumber.from(1)],  // token class = 0, 1
+            [BigNumber.from(90), BigNumber.from(160)], // amount = 10, 40
+          ],
+          ADDRESS_2DARRAY: []
+        }
+      }], 
+    });
+
+    expect ((await darc.getTokenOwnerBalance(0, programOperatorAddress)).toBigInt().toString()).to.equal("0");
+    expect ((await darc.getTokenOwnerBalance(1, programOperatorAddress)).toBigInt().toString()).to.equal("0");
+    expect (containsAddr(await darc.getTokenOwners(0), programOperatorAddress)).to.equal(false);
+    expect (containsAddr(await darc.getTokenOwners(1), programOperatorAddress)).to.equal(false);
+
+    // make sure that 
   });
 });

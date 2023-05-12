@@ -5,6 +5,14 @@ import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
 // test for batch mint token instruction on DARC
+function containsAddr(array: string[], addr:string): boolean {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].toLowerCase() === addr.toLowerCase()) {
+      return true;
+    }
+  }
+  return false;
+}
 
 describe("batch_pay_to_transfer_token_test", function () {
 
@@ -102,5 +110,12 @@ describe("batch_pay_to_transfer_token_test", function () {
 
     expect(balance0.toBigInt().toString()).to.equal("100");
     expect(balance1.toBigInt().toString()).to.equal("200");
+
+    // expect target 1 and target 2 to be the owner of token 0 and 1
+    const owner0 = await darc.getTokenOwners(0);
+    const owner1 = await darc.getTokenOwners(1);
+    expect(containsAddr(owner0, target1)).to.equal(true);
+    expect(containsAddr(owner1, target2)).to.equal(true);
+    
   });
 });

@@ -72,7 +72,7 @@ describe.skip("ABI test", function () {
     // await darc.initialize();
 
 
-    console.log("DARC address: ", darc_addr);
+    //console.log("DARC address: ", darc_addr);
     //await new Promise(resolve1 => setTimeout(resolve1, 1000)); 
 
     const getCode = (await new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/').getCode(darc_addr));
