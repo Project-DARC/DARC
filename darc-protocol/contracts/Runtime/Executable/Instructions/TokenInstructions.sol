@@ -125,6 +125,19 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueTarget = removeDuplicateAddressFromArray(target);
+
+    // then go through each token level and update the token owner list
+    address[] memory empty = new address[](0);
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, uniqueTarget, empty, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, uniqueTarget, empty, uniqueTokenLevelList[i]);
+      }
+    }
+
   }
 
   /**
@@ -218,6 +231,20 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(bIsValid, ErrorMsg.By(4));
       }
     }
+
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(target);
+    address[] memory uniqueToRemove = new address[](1);
+    uniqueToRemove[0] = operation.operatorAddress;
+
+    // then go through each token level and update the token owner list
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
+      }
+    }
   }
 
   /**
@@ -268,6 +295,19 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
 
         (bIsValid, currentMachineState.tokenList[tokenClass[i]].tokenBalance[toAddr[i]]) = 
         SafeMathUpgradeable.tryAdd(currentMachineState.tokenList[tokenClass[i]].tokenBalance[toAddr[i]], amount[i]);
+      }
+    }
+
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(toAddr);
+    address[] memory uniqueToRemove = removeDuplicateAddressFromArray(fromAddr);
+
+    // then go through each token level and update the token owner list
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
       }
     }
   }
@@ -325,6 +365,20 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(bIsValid, ErrorMsg.By(4));
       }
     }
+
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(target);
+    address[] memory uniqueToRemove = new address[](1);
+    uniqueToRemove[0] = operation.operatorAddress;
+
+    // then go through each token level and update the token owner list
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, uniqueToAdd, uniqueToRemove, uniqueTokenLevelList[i]);
+      }
+    }
   }
 
   /**
@@ -365,6 +419,23 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(bIsValid, ErrorMsg.By(2));
       }
     }
+
+    // then update the token owner list for each token level
+    // first get all the token levels
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueTarget = new address[](1);
+    uniqueTarget[0] = operation.operatorAddress;
+
+    // then go through each token level and update the token owner list
+    address[] memory empty = new address[](0);
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, empty, uniqueTarget, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, empty, uniqueTarget, uniqueTokenLevelList[i]);
+      }
+    }
+    
   }
 
   /**
@@ -406,6 +477,23 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(bIsValid, ErrorMsg.By(2));
       }
     }
+
+    // then update the token owner list for each token level
+    // first get all the token levels
+    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClasses);
+    address[] memory toRemove = removeDuplicateAddressFromArray(addresses);
+  
+    // then go through each token level and update the token owner list
+    address[] memory empty = new address[](0);
+    for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
+      if (bIsSandbox) {
+        updateTokenOwnerList(true, empty, toRemove, uniqueTokenLevelList[i]);
+      } else {
+        updateTokenOwnerList(false, empty, toRemove, uniqueTokenLevelList[i]);
+      }
+    }
   }
+
+  
 
 }

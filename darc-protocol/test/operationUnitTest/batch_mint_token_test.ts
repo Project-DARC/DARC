@@ -29,7 +29,7 @@ function containsAddr(array: string[], addr:string): boolean {
   return false;
 }
 
-describe.only("batch_mint_token_test", function () {
+describe("batch_mint_token_test", function () {
 
   
   it ("should mint tokens", async function () {
@@ -95,17 +95,18 @@ describe.only("batch_mint_token_test", function () {
     const balance1 = await darc.getTokenOwnerBalance(1, programOperatorAddress);
 
 
-    console.log("Token owner list of token 0 after op: ");
+    //console.log("Token owner list of token 0 after op: ");
     let owner0 = await darc.getTokenOwners(0);
-    console.log(owner0);
-    console.log("Token owner list of token 1 after op: ");
+    //console.log(owner0);
+    //console.log("Token owner list of token 1 after op: ");
     let owner1 = await darc.getTokenOwners(1);
-    console.log(owner1);
+    //console.log(owner1);
 
     expect( containsAddr(owner0, programOperatorAddress) ).to.equal(true);
     expect( containsAddr(owner1, programOperatorAddress) ).to.equal(true);
     expect( containsAddr(owner0, addr1) ).to.equal(true);
     expect( containsAddr(owner1, addr2) ).to.equal(true);
+    
 
 
     const result_entrance2 = await darc.entrance({
@@ -132,12 +133,12 @@ describe.only("batch_mint_token_test", function () {
       }], 
     });
 
-    console.log("Token owner list of token 0 after op: ");
+    //console.log("Token owner list of token 0 after op: ");
     owner0 = await darc.getTokenOwners(0);
-    console.log(owner0);
-    console.log("Token owner list of token 1 after op: ");
+    //console.log(owner0);
+    //console.log("Token owner list of token 1 after op: ");
     owner1 = await darc.getTokenOwners(1);
-    console.log(owner1);
+    //console.log(owner1);
 
     // expect addr 1, 2 has token 0 and 1
     expect( containsAddr(owner0, programOperatorAddress) ).to.equal(true);
@@ -171,12 +172,12 @@ describe.only("batch_mint_token_test", function () {
       }], 
     });
 
-    console.log("Token owner list of token 0 after op: ");
+    //console.log("Token owner list of token 0 after op: ");
     owner0 = await darc.getTokenOwners(0);
-    console.log(owner0);
-    console.log("Token owner list of token 1 after op: ");
+    //console.log(owner0);
+    //console.log("Token owner list of token 1 after op: ");
     owner1 = await darc.getTokenOwners(1);
-    console.log(owner1);
+    //console.log(owner1);
 
     //expect addr 4,5,6 all have token 0 and 1
     expect( containsAddr(owner0, addr4) ).to.equal(true);

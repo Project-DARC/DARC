@@ -68,7 +68,7 @@ contract TokenOwnerListManager is MachineStateManager {
       }
 
       //4. construct the final list with all items from toRemove removed and all items from toAdd added
-      address[] memory finalList = new address[](sandboxMachineState.tokenList[tokenLevel].ownerList.length - toRemoveIndex + toAddIndex);
+      address[] memory finalList = new address[](sandboxMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt = 0;
       for (uint256 index = 0; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length; index++) {
         if (!inArray(toRemove, sandboxMachineState.tokenList[tokenLevel].ownerList[index])) {
@@ -115,7 +115,7 @@ contract TokenOwnerListManager is MachineStateManager {
       }
 
       //4. construct the final list with all items from toRemove removed and all items from toAdd added
-      address[] memory finalList = new address[](currentMachineState.tokenList[tokenLevel].ownerList.length - toRemoveIndex + toAddIndex);
+      address[] memory finalList = new address[](currentMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt = 0;
       for (uint256 index = 0; index < currentMachineState.tokenList[tokenLevel].ownerList.length; index++) {
         if (!inArray(toRemove, currentMachineState.tokenList[tokenLevel].ownerList[index])) {
