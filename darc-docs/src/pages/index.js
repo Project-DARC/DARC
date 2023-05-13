@@ -1,7 +1,20 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import {Box, Button, Card, Container, CssVarsProvider, Grid, Input, Sheet, Stack, styled, Typography} from "@mui/joy";
+import {
+    Badge,
+    Box,
+    Button,
+    Card,
+    Container,
+    CssVarsProvider,
+    Grid,
+    Input,
+    Sheet,
+    Stack,
+    styled,
+    Typography
+} from "@mui/joy";
 import {
     AiOutlineSafety,
     FaFileContract,
@@ -66,15 +79,20 @@ function HomepageHeader() {
 
 
                     <Stack direction={{xs: 'column', sm: 'row'}} spacing={2}>
-                        <Button size={'lg'} endDecorator={<FiChevronRight/>}
-                                component={PlainLink} to={'/docs/Overview/'}
-                                sx={{
-                                    '&:hover': {
-                                        color: 'var(--joy-palette-common-white, #FFF)',
-                                    },
-                                    maxWidth: '300px'
-                                }}
-                        >Get started</Button>
+                        <Badge badgeContent={'Early test'} color={'warning'} anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}>
+                            <Button size={'lg'} endDecorator={<FiChevronRight/>}
+                                    component={PlainLink} to={'https://app.darc.app/'}
+                                    sx={{
+                                        '&:hover': {
+                                            color: 'var(--joy-palette-common-white, #FFF)',
+                                        },
+                                        maxWidth: '300px'
+                                    }}
+                            >Launch dApp</Button>
+                        </Badge>
                         <Box sx={{
                             cursor: 'pointer',
                         }}>
