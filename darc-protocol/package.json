@@ -6,6 +6,12 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.0"
   },
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "start": "hardhat node",
+    "deploy": "hardhat run scripts/deployDARC.ts"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@nomiclabs/hardhat-ethers": "^2.2.2",
