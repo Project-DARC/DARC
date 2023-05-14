@@ -49,9 +49,9 @@ contract Runtime is Executable, PaymentCheck{
       (bool bIsValid, uint256 paymentReturn) = SafeMathUpgradeable.trySub(msg.value, totalPayment);
       require(bIsValid, "The payment return overflow.");
       // add the payment return to the withdrawable cash balance
-      (bool bIsValid2, uint256 newBalance) = SafeMathUpgradeable.tryAdd(currentMachineState.cashWithdrawableBalanceMap[program.programOperatorAddress], paymentReturn);
+      (bool bIsValid2, uint256 newBalance) = SafeMathUpgradeable.tryAdd(currentMachineState.withdrawableCashMap[program.programOperatorAddress], paymentReturn);
       require(bIsValid2, "The new balance overflow.");
-      currentMachineState.cashWithdrawableBalanceMap[program.programOperatorAddress] = newBalance;
+      currentMachineState.withdrawableCashMap[program.programOperatorAddress] = newBalance;
     }
 
     // If the current state is idle, execute the program

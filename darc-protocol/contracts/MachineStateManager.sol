@@ -117,13 +117,48 @@ contract MachineStateManager {
    */
   function cloneStateToSandbox() internal {
     
-    // 1. delete the token information list of the sandbox state
-    delete sandboxMachineState.tokenList;
-
-    // 2. clone the token information list of the current state to the sandbox state
-    for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
-      //sandboxMachineState.tokenInfoList.push(currentMachineState.tokenInfoList[i]);
+    // 1. clone the plugin list
+    sandboxMachineState.afterOpPlugins = new Plugin[](currentMachineState.afterOpPlugins.length);
+    for (uint256 i = 0; i < currentMachineState.afterOpPlugins.length; i++) {
+      sandboxMachineState.afterOpPlugins[i] = currentMachineState.afterOpPlugins[i];
     }
+    sandboxMachineState.beforeOpPlugins = new Plugin[](currentMachineState.beforeOpPlugins.length);
+    for (uint256 i = 0; i < currentMachineState.beforeOpPlugins.length; i++) {
+      sandboxMachineState.beforeOpPlugins[i] = currentMachineState.beforeOpPlugins[i];
+    }
+
+    // 2. clone the token list
+    for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+      //
+    }
+
+    // 3. clone the member list
+
+    // 3.1 clean all the member info from the member info map
+    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+      delete sandboxMachineState.memberInfoMap[currentMachineState.memberList[i]];
+    }
+    
+    // 3.2 delete the member list of the sandbox state and clone the member list of 
+    // the current state to the sandbox state
+    sandboxMachineState.memberList = new address[](currentMachineState.memberList.length);
+    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+      sandboxMachineState.memberList[i] = currentMachineState.memberList[i];
+    }
+
+    // 3.3 clone the member info map of the current state to the sandbox state
+    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+      sandboxMachineState.memberInfoMap[currentMachineState.memberList[i]] 
+        = currentMachineState.memberInfoMap[currentMachineState.memberList[i]];
+    }
+
+    // 4. clone the operationLogMap
+    
+
+    // 5. Clone the machine state parameters
+    sandboxMachineState.machineStateParameters = currentMachineState.machineStateParameters;
+
+    // 6. Clone the 
   }   
  
 }

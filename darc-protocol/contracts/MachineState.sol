@@ -122,16 +122,18 @@ struct MachineState {
     */
   VotingRule[] votingRuleList;
 
-  /**
-   * Dividend balance mapping, the withdrawal balance of each token owner as dividends
-   */
-  mapping (address => uint256) dividendsWithdrawableBalanceMap;
 
   /**
    * Cash withdrawal balance mapping, 
    * the withdrawal balance of each token owner as cash (ETH, BNB, Polygon, etc.)
    */
-  mapping (address => uint256) cashWithdrawableBalanceMap;
+  address[] withdrawableCashOwnerList;
+  mapping (address => uint256) withdrawableCashMap;
+
+  /**
+   * The list of cash withdrawal owners
+   */
+  address[] cashWithdrawalOwnerList;
 
   /**
    * The history log of approved operations for each address
