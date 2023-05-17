@@ -29,11 +29,11 @@ struct MemberInfo {
 }
 
 /**
- * @notice the operation log of the DARC protocol
+ * @notice the operation log of the DARC protocol.
+ * Notice: since 
  */
 struct OperationLog{
-  address tokenOwnerAddress;
-  mapping(EnumOpcode => uint256) latestOperationTimestamp;
+  uint256[100] latestOperationTimestamp;
 }
 
 
@@ -127,19 +127,37 @@ struct MachineState {
    * Cash withdrawal balance mapping, 
    * the withdrawal balance of each token owner as cash (ETH, BNB, Polygon, etc.)
    */
-  address[] withdrawableCashOwnerList;
   mapping (address => uint256) withdrawableCashMap;
 
   /**
    * The list of cash withdrawal owners
    */
-  address[] cashWithdrawalOwnerList;
+  address[] withdrawableCashOwnerList;
+
+  /**
+   * Cash withdrawal balance mapping, 
+   * the withdrawal balance of each token owner as cash (ETH, BNB, Polygon, etc.)
+   */
+  mapping (address => uint256) withdrawableDividendsMap;
+
+  /**
+   * The list of cash withdrawal owners
+   */
+  address[] withdrawableDividendsOwnerList;
 
   /**
    * The history log of approved operations for each address
    */
   mapping (address => OperationLog) operationLogMap;
 
+  /**
+   * The list of addresses that have approved operations
+   */
+  address[] operationLogMapLogAddressList;
+
+  /**
+   * The machine state parameters of the DARC protocol
+   */
   MachineStateParameters machineStateParameters;
 }
 

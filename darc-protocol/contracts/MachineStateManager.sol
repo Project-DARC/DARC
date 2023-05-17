@@ -152,13 +152,61 @@ contract MachineStateManager {
         = currentMachineState.memberInfoMap[currentMachineState.memberList[i]];
     }
 
-    // 4. clone the operationLogMap
-    
+    // 4. Clone the operationLogMap
+    // 4.1 clean all the operation log from the operation log map
+    for (uint256 i = 0; i < sandboxMachineState.operationLogMapLogAddressList.length; i++) {
+      delete sandboxMachineState.operationLogMap[sandboxMachineState.operationLogMapLogAddressList[i]];
+    }
+    // 4.2 copy the operation log address list from current machine state to sandbox
+    sandboxMachineState.operationLogMapLogAddressList = new address[](currentMachineState.operationLogMapLogAddressList.length);
+    for (uint256 i = 0; i < currentMachineState.operationLogMapLogAddressList.length; i++) {
+      sandboxMachineState.operationLogMapLogAddressList[i] = currentMachineState.operationLogMapLogAddressList[i];
+    }
+    // 4.3 copy the operation log map from current machine state to sandbox
+    for (uint256 i = 0; i < currentMachineState.operationLogMapLogAddressList.length; i++) {
+      sandboxMachineState.operationLogMap[currentMachineState.operationLogMapLogAddressList[i]] 
+        = currentMachineState.operationLogMap[currentMachineState.operationLogMapLogAddressList[i]];
+    }
 
     // 5. Clone the machine state parameters
     sandboxMachineState.machineStateParameters = currentMachineState.machineStateParameters;
 
-    // 6. Clone the 
+    // 6. Clone the withdrawable cash from sandbox to current machine state
+    // 6.1 clean all value in sandbox
+    for (uint256 i = 0; i < sandboxMachineState.withdrawableCashOwnerList.length; i++) {
+      delete sandboxMachineState.withdrawableCashMap[sandboxMachineState.withdrawableCashOwnerList[i]];
+    }
+
+    // 6.2 copy the withdrawable cash owner list from current machine state to sandbox
+    sandboxMachineState.withdrawableCashOwnerList = new address[](currentMachineState.withdrawableCashOwnerList.length);
+    for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+      sandboxMachineState.withdrawableCashOwnerList[i] = currentMachineState.withdrawableCashOwnerList[i];
+    }
+
+    // 6.3 copy the withdrawable cash map from current machine state to sandbox
+    for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+      sandboxMachineState.withdrawableCashMap[currentMachineState.withdrawableCashOwnerList[i]] 
+        = currentMachineState.withdrawableCashMap[currentMachineState.withdrawableCashOwnerList[i]];
+    }
+
+    // 7. Clone the wirhdarwable dividends from sandbox to current machine state
+    // 7.1 clean all value in sandbox
+    for (uint256 i = 0; i < sandboxMachineState.withdrawableDividendsOwnerList.length; i++) {
+      delete sandboxMachineState.withdrawableDividendsMap[sandboxMachineState.withdrawableDividendsOwnerList[i]];
+    }
+
+    // 7.2 copy the withdrawable dividends owner list from current machine state to sandbox
+    sandboxMachineState.withdrawableDividendsOwnerList = new address[](currentMachineState.withdrawableDividendsOwnerList.length);
+    for (uint256 i = 0; i < currentMachineState.withdrawableDividendsOwnerList.length; i++) {
+      sandboxMachineState.withdrawableDividendsOwnerList[i] = currentMachineState.withdrawableDividendsOwnerList[i];
+    }
+
+    // 7.3 copy the withdrawable dividends map from current machine state to sandbox
+    for (uint256 i = 0; i < currentMachineState.withdrawableDividendsOwnerList.length; i++) {
+      sandboxMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]] 
+        = currentMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]];
+    }
+    
   }   
  
 }
