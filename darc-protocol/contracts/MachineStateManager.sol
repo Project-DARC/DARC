@@ -127,13 +127,41 @@ contract MachineStateManager {
       sandboxMachineState.beforeOpPlugins[i] = currentMachineState.beforeOpPlugins[i];
     }
 
-    // todo 2. clone the token list
+    // 2. clone the token list
+    // 2.1 clean all the token info from the sandbox token info map
+    for (uint256 i = 0; i < sandboxMachineState.tokenList.length; i++) {
+
+      // if the token is initialized, then clean the token info
+      if (sandboxMachineState.tokenList[i].bIsInitialized == true) {
+        for (uint256 j = 0; j < sandboxMachineState.tokenList[i].ownerList.length; j++) {
+          delete sandboxMachineState.tokenList[i].tokenBalance[sandboxMachineState.tokenList[i].ownerList[j]];
+        }
+
+        sandboxMachineState.tokenList[i].ownerList = new address[](0);
+        sandboxMachineState.tokenList[i].bIsInitialized = false;
+        sandboxMachineState.tokenList[i].tokenClassIndex = 0;
+        sandboxMachineState.tokenList[i].votingWeight = 0;
+        sandboxMachineState.tokenList[i].dividendWeight = 0;
+        sandboxMachineState.tokenList[i].tokenInfo = "";
+        sandboxMachineState.tokenList[i].totalSupply = 0;
+      }
+    }
+
+    // 2.2 Clone the token list of the current state to the sandbox state
     for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
-      //
+      // if the token is initialized, then clone the token info
+      if (currentMachineState.tokenList[i].bIsInitialized == true) {
+        sandboxMachineState.tokenList[i].ownerList = currentMachineState.tokenList[i].ownerList;
+        sandboxMachineState.tokenList[i].bIsInitialized = true;
+        sandboxMachineState.tokenList[i].tokenClassIndex = currentMachineState.tokenList[i].tokenClassIndex;
+        sandboxMachineState.tokenList[i].votingWeight = currentMachineState.tokenList[i].votingWeight;
+        sandboxMachineState.tokenList[i].dividendWeight = currentMachineState.tokenList[i].dividendWeight;
+        sandboxMachineState.tokenList[i].tokenInfo = currentMachineState.tokenList[i].tokenInfo;
+        sandboxMachineState.tokenList[i].totalSupply = currentMachineState.tokenList[i].totalSupply;
+      }
     }
 
     // 3. clone the member list
-
     // 3.1 clean all the member info from the member info map
     for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
       delete sandboxMachineState.memberInfoMap[currentMachineState.memberList[i]];
