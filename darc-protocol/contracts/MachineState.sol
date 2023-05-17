@@ -153,7 +153,7 @@ struct MachineState {
   /**
    * The list of addresses that have approved operations
    */
-  address[] operationLogMapLogAddressList;
+  address[] operationLogMapAddressList;
 
   /**
    * The machine state parameters of the DARC protocol

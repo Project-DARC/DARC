@@ -127,7 +127,7 @@ contract MachineStateManager {
       sandboxMachineState.beforeOpPlugins[i] = currentMachineState.beforeOpPlugins[i];
     }
 
-    // 2. clone the token list
+    // todo 2. clone the token list
     for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
       //
     }
@@ -154,18 +154,18 @@ contract MachineStateManager {
 
     // 4. Clone the operationLogMap
     // 4.1 clean all the operation log from the operation log map
-    for (uint256 i = 0; i < sandboxMachineState.operationLogMapLogAddressList.length; i++) {
-      delete sandboxMachineState.operationLogMap[sandboxMachineState.operationLogMapLogAddressList[i]];
+    for (uint256 i = 0; i < sandboxMachineState.operationLogMapAddressList.length; i++) {
+      delete sandboxMachineState.operationLogMap[sandboxMachineState.operationLogMapAddressList[i]];
     }
     // 4.2 copy the operation log address list from current machine state to sandbox
-    sandboxMachineState.operationLogMapLogAddressList = new address[](currentMachineState.operationLogMapLogAddressList.length);
-    for (uint256 i = 0; i < currentMachineState.operationLogMapLogAddressList.length; i++) {
-      sandboxMachineState.operationLogMapLogAddressList[i] = currentMachineState.operationLogMapLogAddressList[i];
+    sandboxMachineState.operationLogMapAddressList = new address[](currentMachineState.operationLogMapAddressList.length);
+    for (uint256 i = 0; i < currentMachineState.operationLogMapAddressList.length; i++) {
+      sandboxMachineState.operationLogMapAddressList[i] = currentMachineState.operationLogMapAddressList[i];
     }
     // 4.3 copy the operation log map from current machine state to sandbox
-    for (uint256 i = 0; i < currentMachineState.operationLogMapLogAddressList.length; i++) {
-      sandboxMachineState.operationLogMap[currentMachineState.operationLogMapLogAddressList[i]] 
-        = currentMachineState.operationLogMap[currentMachineState.operationLogMapLogAddressList[i]];
+    for (uint256 i = 0; i < currentMachineState.operationLogMapAddressList.length; i++) {
+      sandboxMachineState.operationLogMap[currentMachineState.operationLogMapAddressList[i]] 
+        = currentMachineState.operationLogMap[currentMachineState.operationLogMapAddressList[i]];
     }
 
     // 5. Clone the machine state parameters
@@ -206,7 +206,7 @@ contract MachineStateManager {
       sandboxMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]] 
         = currentMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]];
     }
-    
+
   }   
  
 }
