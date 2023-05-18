@@ -219,20 +219,20 @@ contract MachineStateManager {
 
     // 7. Clone the wirhdarwable dividends from sandbox to current machine state
     // 7.1 clean all value in sandbox
-    for (uint256 i = 0; i < sandboxMachineState.withdrawableDividendsOwnerList.length; i++) {
-      delete sandboxMachineState.withdrawableDividendsMap[sandboxMachineState.withdrawableDividendsOwnerList[i]];
+    for (uint256 i = 0; i < sandboxMachineState.withdrawableDividendOwnerList.length; i++) {
+      delete sandboxMachineState.withdrawableDividendMap[sandboxMachineState.withdrawableDividendOwnerList[i]];
     }
 
     // 7.2 copy the withdrawable dividends owner list from current machine state to sandbox
-    sandboxMachineState.withdrawableDividendsOwnerList = new address[](currentMachineState.withdrawableDividendsOwnerList.length);
-    for (uint256 i = 0; i < currentMachineState.withdrawableDividendsOwnerList.length; i++) {
-      sandboxMachineState.withdrawableDividendsOwnerList[i] = currentMachineState.withdrawableDividendsOwnerList[i];
+    sandboxMachineState.withdrawableDividendOwnerList = new address[](currentMachineState.withdrawableDividendOwnerList.length);
+    for (uint256 i = 0; i < currentMachineState.withdrawableDividendOwnerList.length; i++) {
+      sandboxMachineState.withdrawableDividendOwnerList[i] = currentMachineState.withdrawableDividendOwnerList[i];
     }
 
     // 7.3 copy the withdrawable dividends map from current machine state to sandbox
-    for (uint256 i = 0; i < currentMachineState.withdrawableDividendsOwnerList.length; i++) {
-      sandboxMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]] 
-        = currentMachineState.withdrawableDividendsMap[currentMachineState.withdrawableDividendsOwnerList[i]];
+    for (uint256 i = 0; i < currentMachineState.withdrawableDividendOwnerList.length; i++) {
+      sandboxMachineState.withdrawableDividendMap[currentMachineState.withdrawableDividendOwnerList[i]] 
+        = currentMachineState.withdrawableDividendMap[currentMachineState.withdrawableDividendOwnerList[i]];
     }
 
   }   

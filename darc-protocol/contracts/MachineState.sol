@@ -138,12 +138,12 @@ struct MachineState {
    * Cash withdrawal balance mapping, 
    * the withdrawal balance of each token owner as cash (ETH, BNB, Polygon, etc.)
    */
-  mapping (address => uint256) withdrawableDividendsMap;
+  mapping (address => uint256) withdrawableDividendMap;
 
   /**
    * The list of cash withdrawal owners
    */
-  address[] withdrawableDividendsOwnerList;
+  address[] withdrawableDividendOwnerList;
 
   /**
    * The history log of approved operations for each address
