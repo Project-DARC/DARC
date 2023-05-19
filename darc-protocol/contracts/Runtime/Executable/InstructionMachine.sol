@@ -14,6 +14,7 @@ import "./Instructions/MembershipInstructions.sol";
 import "./Instructions/PluginInstructions.sol";
 import "./Instructions/ParameterInstructions.sol";
 import "./Instructions/MoneyInstructions.sol";
+import "./Instructions/UtilityInstructions.sol";
 
 /**
  * @title Instruction Machine, the executor of the DARC Program instructions on the DARC Machine State
@@ -27,7 +28,8 @@ TokenInstructions,
 MembershipInstructions,
 PluginInstructions,
 ParameterInstructions,
-MoneyInstructions
+MoneyInstructions,
+UtilityInstructions
 {
 
   /**
@@ -62,6 +64,9 @@ MoneyInstructions
     }
     else if (operation.opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIP) {
       op_BATCH_SUSPEND_MEMBERSHIP(operation, bIsSandbox);
+    }
+    else if (operation.opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIP){
+      op_BATCH_RESUME_MEMBERSHIP(operation, bIsSandbox);
     }
     else if (operation.opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGIN) {
       op_BATCH_ADD_AND_ENABLE_PLUGIN(operation, bIsSandbox);
