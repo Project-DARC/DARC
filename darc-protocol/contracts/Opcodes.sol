@@ -202,15 +202,9 @@ enum EnumOpcode {
   BATCH_PAY_TO_TRANSFER_TOKENS,
 
   /**
-   * @notice Pay some cash to create a new token class and mint tokens
+   * @notice Add an array of address as emergency agents
    *  (can be used as product NFTs with a new unique token class)
-   * @param ADDRESS_2DARRAY[0] address[] toAddressArray: the array of the address to mint tokens
-   * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to mint tokens
-   * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount to mint tokens
-   * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to mint
-   * @param UINT256_2DARRAY[3] uint256[] votingPowerArray: the voting power of each token class to mint
-   * @param UINT256_2DARRAY[4] uint256[] dividendPowerArray: the max supply of each token class to mint
-   * @param STRING_2DARRAY[0] string[] tokenClassNameArray: the array of the token class name
+   * @param ADDRESS_2DARRAY[0] address[] The array of the address to add as emergency agents 
    * ID:22
    */
   ADD_EMERGENCY,

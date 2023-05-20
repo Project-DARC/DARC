@@ -15,12 +15,35 @@ import "../../../Utilities/ErrorMsg.sol";
  */
 contract UtilityInstructions is MachineStateManager {
 
+  /**
+   * @notice The implementation of the operation BATCH_ADD_VOTING_RULE
+   * @param operation The operation index to be executed
+   * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
+   */
   function op_BATCH_ADD_VOTING_RULE(Operation memory operation, bool bIsSandbox) internal {
-
+    VotingRule[] memory votingRules = operation.param.VOTING_RULE_ARRAY;
+    if (bIsSandbox) {
+      for (uint256 i = 0; i < votingRules.length; i++) {
+        sandboxMachineState.votingRuleList.push(votingRules[i]);
+      }
+    } else {
+      for (uint256 i = 0; i < votingRules.length; i++) {
+        currentMachineState.votingRuleList.push(votingRules[i]);
+      }
+    }
   }
 
   function op_ADD_EMERGENCY(Operation memory operation, bool bIsSandbox) internal {
-
+    address[] memory EmergencyAgentsAddressArray = operation.param.ADDRESS_2DARRAY[0];
+    if (bIsSandbox) {
+      for (uint256 i = 0; i < EmergencyAgentsAddressArray.length; i++) {
+        sandboxMachineState.machineStateParameters.emergencyAgentsAddressList.push(EmergencyAgentsAddressArray[i]);
+      }
+    } else {
+      for (uint256 i = 0; i < EmergencyAgentsAddressArray.length; i++) {
+        currentMachineState.machineStateParameters.emergencyAgentsAddressList.push(EmergencyAgentsAddressArray[i]);
+      }
+    }
   }
 
   function op_CALL_EMERGENCY(Operation memory operation, bool bIsSandbox) internal {
