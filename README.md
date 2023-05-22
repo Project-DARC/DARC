@@ -510,7 +510,7 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
 2. Compile the contracts
 
     ```shell
-    npm run compile
+    npx hardhat compile
     ```
 
 3. Run the Darc test network
@@ -522,7 +522,7 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
 4. Test contracts
 
     ```shell
-    npm run test
+    npx hardhat test
     REPORT_GAS=true npm run test
     ```
 
