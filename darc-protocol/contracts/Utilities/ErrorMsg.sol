@@ -37,6 +37,12 @@ library ErrorMsg{
     else if (val == 11) {
       return "dividends counter overflow";
     }
+    else if (val == 12) {
+      return "dividends operation overflow";
+    }
+    else if (val == 15) {
+      return "Invalid dividend permyriad per transaction. Should be less than 1000";
+    }
     return "Unknown Error";
   }
 }

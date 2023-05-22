@@ -219,7 +219,7 @@ enum EnumOpcode {
 
   /**
    * @notice Call emergency agents to handle emergency situations
-   * @param uint256[] addressArray: the array of the emergency agent index to call
+   * @param UINT256_2DARRAY[0] address[] addressArray: the array of the emergency agents index to call
    * ID:24
    */
   CALL_EMERGENCY,
@@ -276,7 +276,7 @@ enum EnumOpcode {
 
   /**
    * @notice Add storage IPFS hash to the storage list permanently
-   * @paran address: the address to set approval for all cash withdraw operations
+   * @paran STRING_2DARRAY[0] address: the address to set approval for all cash withdraw operations
    * ID:31
    */
   ADD_STORAGE_IPFS_HASH,

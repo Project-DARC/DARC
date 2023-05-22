@@ -54,6 +54,11 @@ contract MachineStateManager {
    * @notice the finite state
    */
   FiniteState public finiteState;
+
+  /**
+   * Parameters and configs
+   */
+  uint256 dividendBufferSize;
   
 
 
@@ -68,6 +73,8 @@ contract MachineStateManager {
 
     currentMachineState.beforeOpPlugins = new Plugin[](0);
     currentMachineState.afterOpPlugins = new Plugin[](0);
+
+    dividendBufferSize = 10000;
     
     /**
      * Todo:
