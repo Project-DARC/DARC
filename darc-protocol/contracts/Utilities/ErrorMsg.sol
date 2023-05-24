@@ -43,6 +43,9 @@ library ErrorMsg{
     else if (val == 15) {
       return "Invalid dividend permyriad per transaction. Should be less than 1000";
     }
+    else if (val == 16) {
+      return "No enough number of transactions for dividends yet";
+    }
     return "Unknown Error";
   }
 }

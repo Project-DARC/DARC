@@ -92,8 +92,13 @@ contract MoneyInstructions is MachineStateManager {
   function op_OFFER_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
     if (bIsSandbox) {
 
+      // make sure that the dividend per myriad per transaction is less than 1000
       require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
         ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(sandboxMachineState.machineStateParameters.dividendCycleCounter < 
+        sandboxMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
       // 1. calculate the total amount of dividends to be offered
       bool bIsValid = true;
@@ -238,8 +243,13 @@ contract MoneyInstructions is MachineStateManager {
       sandboxMachineState.machineStateParameters.dividendCycleCounter = 0;
     }
     else {
+      // make sure that the dividend per myriad per transaction is less than 1000
       require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
         ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(currentMachineState.machineStateParameters.dividendCycleCounter < 
+        currentMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
       // 1. calculate the total amount of dividends to be offered
       bool bIsValid = true;

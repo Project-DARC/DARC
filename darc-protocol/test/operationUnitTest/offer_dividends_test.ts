@@ -34,7 +34,7 @@ describe("offer_dividends_test", function () {
     await darc.initialize();
 
 
-    // create a token class first
+    // create 3 token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
       operations: [{
@@ -49,8 +49,8 @@ describe("offer_dividends_test", function () {
           PARAMETER_ARRAY: [],
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
-            [BigNumber.from(0), BigNumber.from(1)],
-            [BigNumber.from(10), BigNumber.from(1)],
+            [BigNumber.from(1), BigNumber.from(1)],
+            [BigNumber.from(1), BigNumber.from(10)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
           ADDRESS_2DARRAY: []
