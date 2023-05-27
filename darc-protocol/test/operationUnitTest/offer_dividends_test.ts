@@ -51,8 +51,8 @@ describe.only("offer_dividends_test", function () {
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
             [BigNumber.from(0), BigNumber.from(1)],
-            [BigNumber.from(1), BigNumber.from(1)],
-            [BigNumber.from(1), BigNumber.from(1)],
+            [BigNumber.from(1), BigNumber.from(3)],
+            [BigNumber.from(1), BigNumber.from(3)],
           ],
           ADDRESS_2DARRAY: []
         }
@@ -82,70 +82,103 @@ describe.only("offer_dividends_test", function () {
 
 
     let result_entrance = await darc.entrance({
-      programOperatorAddress: programOperatorAddress,
-      operations: [{
-        operatorAddress: programOperatorAddress,
-        opcode: 26, // pay cash
-        param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
-          STRING_ARRAY: [],
-          BOOL_ARRAY: [],
-          VOTING_RULE_ARRAY: [],
-          PARAMETER_ARRAY: [],
-          PLUGIN_ARRAY: [],
-          UINT256_2DARRAY: [
-            // pay 10000
-            [BigNumber.from(2000000), BigNumber.from(0), BigNumber.from(1)],
-          ],
-          ADDRESS_2DARRAY: []
-        }
-      }], 
-    }, {value: ethers.utils.parseEther("200.0")}
-  );
+          programOperatorAddress: programOperatorAddress,
+          operations: [{
+            operatorAddress: programOperatorAddress,
+            opcode: 26, // pay cash
+            param: {
+              UINT256_ARRAY: [],
+              ADDRESS_ARRAY: [],
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [
+                // pay 20000
+                [BigNumber.from(2000000), BigNumber.from(0), BigNumber.from(1)],
+              ],
+              ADDRESS_2DARRAY: []
+            }
+          }], 
+        }, {value: ethers.utils.parseEther("200.0")}
+      );
 
 
 
-  // offer dividends
-  await darc.entrance({
-    programOperatorAddress: programOperatorAddress,
-    operations: [{
-      operatorAddress: programOperatorAddress,
-      opcode: 27, // offer dividends
-      param: {
-        UINT256_ARRAY: [],
-        ADDRESS_ARRAY: [],
-        STRING_ARRAY: [],
-        BOOL_ARRAY: [],
-        VOTING_RULE_ARRAY: [],
-        PARAMETER_ARRAY: [],
-        PLUGIN_ARRAY: [],
-        UINT256_2DARRAY: [],
-        ADDRESS_2DARRAY: []
+      // offer dividends
+      await darc.entrance({
+        programOperatorAddress: programOperatorAddress,
+        operations: [{
+          operatorAddress: programOperatorAddress,
+          opcode: 27, // offer dividends
+          param: {
+            UINT256_ARRAY: [],
+            ADDRESS_ARRAY: [],
+            STRING_ARRAY: [],
+            BOOL_ARRAY: [],
+            VOTING_RULE_ARRAY: [],
+            PARAMETER_ARRAY: [],
+            PLUGIN_ARRAY: [],
+            UINT256_2DARRAY: [],
+            ADDRESS_2DARRAY: []
+          }
+        }]});
+
+      // get all dividends offered address
+      let dividendsOffered = await darc.getWithdrawableCashOwnerList();
+
+      console.log("number of dividendsOffered: ", dividendsOffered.length);
+      for (let i = 0; i < dividendsOffered.length; i++) {
+        console.log("dividendsOffered: ", dividendsOffered[i]);
       }
-    }]});
 
-  // get all dividends offered address
-  let dividendsOffered = await darc.getWithdrawableCashOwnerList();
+      // get dividends amount
+      for (let i = 0; i < dividendsOffered.length; i++) {
+        let dividendsAmount = await darc.getWithdrawableDividendBalance(dividendsOffered[i]);
+        console.log("dividendsAmount: ", dividendsAmount, " for address: ", dividendsOffered[i]);
+      }
 
-  console.log("number of dividendsOffered: ", dividendsOffered.length);
-  for (let i = 0; i < dividendsOffered.length; i++) {
-    console.log("dividendsOffered: ", dividendsOffered[i]);
-  }
+      // get all token classes and owners
+      let tokenClasses = await darc.getNumberOfTokenClasses();
+      console.log("number of token classes: ", tokenClasses);
 
-  // get dividends amount
-  for (let i = 0; i < dividendsOffered.length; i++) {
-    let dividendsAmount = await darc.getWithdrawableDividendBalance(dividendsOffered[i]);
-    console.log("dividendsAmount: ", dividendsAmount, " for address: ", dividendsOffered[i]);
-  }
+      // get dividends balance list
+      const dividendsOwnerList = await darc.getWithdrawableDividendOwnerList();
+      for (let i = 0; i < dividendsOwnerList.length; i++) {
+        const dividendsBalance = await darc.getWithdrawableDividendBalance(dividendsOwnerList[i]);
+        console.log("dividendsBalance: ", dividendsBalance.toString(), " by address: " , dividendsOwnerList[i]);
+      }
 
-  // get all token classes and owners
-  let tokenClasses = await darc.getNumberOfTokenClasses();
-  console.log("number of token classes: ", tokenClasses);
+      // check if there are any withdrawable cash
+      let withdrawableCashOwnerList = await darc.getWithdrawableCashOwnerList();
+      for (let i = 0; i < withdrawableCashOwnerList.length; i++) {
+        const currentCash = await darc.getWithdrawableCashBalance(withdrawableCashOwnerList[i]);
+        console.log("currentCash: ", currentCash.toString(), " by address: " , withdrawableCashOwnerList[i]);
+      }
 
-  let dividend_addr1 = await darc.getWithdrawableDividendBalance(addr1);
-  console.log(dividend_addr1.toString());
-  console.log((await darc.getWithdrawableDividendBalance(addr2)).toString());
-  console.log((await darc.getWithdrawableDividendBalance(addr3)).toString());
+      // get total dividends weight of each token owners
+      let weightArray = [0,0,0];
+      let addresssArray = [addr1, addr2, addr3];
+
+      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+        const [votingWeight,  dividendWeight,  tokenInfo,  totalSupply] = await darc.getTokenInfo(i);
+        console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
+
+        for (let j =0;j<3;j++) {
+
+        }
+      }
+
+
+      // list all the balance of the signers
+      const signerList = await ethers.getSigners();
+      for (let i = 0; i < signerList.length; i++) {
+        const signer = signerList[i];
+        const balance = await signer.getBalance();
+        console.log("signer: ", signer.address, " balance: ", balance.toString());
+      }
+
   });
+
 });

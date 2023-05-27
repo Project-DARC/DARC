@@ -15,6 +15,7 @@ import "./Instructions/PluginInstructions.sol";
 import "./Instructions/ParameterInstructions.sol";
 import "./Instructions/MoneyInstructions.sol";
 import "./Instructions/UtilityInstructions.sol";
+import "./Instructions/OfferDividendsInstructions.sol";
 
 /**
  * @title Instruction Machine, the executor of the DARC Program instructions on the DARC Machine State
@@ -29,7 +30,8 @@ MembershipInstructions,
 PluginInstructions,
 ParameterInstructions,
 MoneyInstructions,
-UtilityInstructions
+UtilityInstructions,
+OfferDividendsInstructions
 {
 
   /**
