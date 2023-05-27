@@ -8,9 +8,6 @@ const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
 const addr1 = "0x90F79bf6EB2c4f870365E785982E1f101E93b906";
 const addr2 = '0x976EA74026E726554dB657fA54763abd0C3a0aa9';
 const addr3 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
-const addr4 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
-const addr5 = '0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc';
-const addr6 = '0x14dC79964da2C08b23698B3D3cc7Ca32193d9955';
 // test for batch mint token instruction on DARC
 
 function containsAddr(array: string[], addr:string): boolean {
@@ -22,7 +19,7 @@ function containsAddr(array: string[], addr:string): boolean {
   return false;
 }
 
-describe("offer_dividends_test", function () {
+describe.only("offer_dividends_test", function () {
 
   
   it ("should offer dividends", async function () {
@@ -34,7 +31,11 @@ describe("offer_dividends_test", function () {
     await darc.initialize();
 
 
-    // create 3 token class first
+    // 1. create 3 token classes
+    // 2. mint a few tokens to addr1, addr2, addr3
+    // 3. pay some cash to the darc
+    // 4. execute offer dividend instruction
+    // 5. check the withdrawable dividends balance of addr1, addr2, addr3, addr4
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
       operations: [{
@@ -43,27 +44,22 @@ describe("offer_dividends_test", function () {
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],
-          STRING_ARRAY: ["Class1", "Class2"],
+          STRING_ARRAY: ["1", "2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
           PARAMETER_ARRAY: [],
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
+            [BigNumber.from(0), BigNumber.from(1)],
             [BigNumber.from(1), BigNumber.from(1)],
-            [BigNumber.from(1), BigNumber.from(10)],
-            [BigNumber.from(10), BigNumber.from(1)],
+            [BigNumber.from(1), BigNumber.from(1)],
           ],
           ADDRESS_2DARRAY: []
         }
-      }], 
-    });
-
-
-    const result_entrance = await darc.entrance({
-      programOperatorAddress: programOperatorAddress,
-      operations: [{
+      },
+      {
         operatorAddress: programOperatorAddress,
-        opcode: 20, // pay to mint token
+        opcode: 1, // mint token to addr 1,2,3
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],
@@ -73,30 +69,49 @@ describe("offer_dividends_test", function () {
           PARAMETER_ARRAY: [],
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
-            [BigNumber.from(0), BigNumber.from(1)],  // token class = 0
-            [BigNumber.from(100), BigNumber.from(200)], // amount = 100
-            [BigNumber.from(1), BigNumber.from(1)], // token price
+            [BigNumber.from(0), BigNumber.from(0),BigNumber.from(0), BigNumber.from(1),BigNumber.from(1), BigNumber.from(1), ],  // token class = 0
+            [BigNumber.from(100), BigNumber.from(200), BigNumber.from(300), BigNumber.from(400), BigNumber.from(500), BigNumber.from(200),], // amount = 100
           ],
           ADDRESS_2DARRAY: [
-            [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
+            [addr1, addr2, addr3, addr1, addr2 ,addr3]
           ]
         }
+      }
+    ], 
+    });
+
+
+    let result_entrance = await darc.entrance({
+      programOperatorAddress: programOperatorAddress,
+      operations: [{
+        operatorAddress: programOperatorAddress,
+        opcode: 26, // pay cash
+        param: {
+          UINT256_ARRAY: [],
+          ADDRESS_ARRAY: [],
+          STRING_ARRAY: [],
+          BOOL_ARRAY: [],
+          VOTING_RULE_ARRAY: [],
+          PARAMETER_ARRAY: [],
+          PLUGIN_ARRAY: [],
+          UINT256_2DARRAY: [
+            // pay 10000
+            [BigNumber.from(2000000), BigNumber.from(0), BigNumber.from(1)],
+          ],
+          ADDRESS_2DARRAY: []
+        }
       }], 
-    }, 
-    {value: 300} // 100 * 1 + 200 * 1 = 300 wei, the value should be equal to the total amount of token price
+    }, {value: ethers.utils.parseEther("200.0")}
   );
 
-  let owner0 = await darc.getTokenOwners(1);
-  let owner1 = await darc.getTokenOwners(0);
 
-  expect(containsAddr(owner0, programOperatorAddress)).to.equal(true);
-  expect(containsAddr(owner1, programOperatorAddress)).to.equal(true);
 
-  const result_entrance2 = await darc.entrance({
+  // offer dividends
+  await darc.entrance({
     programOperatorAddress: programOperatorAddress,
     operations: [{
       operatorAddress: programOperatorAddress,
-      opcode: 20, // pay to mint token
+      opcode: 27, // offer dividends
       param: {
         UINT256_ARRAY: [],
         ADDRESS_ARRAY: [],
@@ -105,30 +120,32 @@ describe("offer_dividends_test", function () {
         VOTING_RULE_ARRAY: [],
         PARAMETER_ARRAY: [],
         PLUGIN_ARRAY: [],
-        UINT256_2DARRAY: [
-          [BigNumber.from(0), BigNumber.from(1)],  // token class = 0
-          [BigNumber.from(100), BigNumber.from(200)], // amount = 100
-          [BigNumber.from(1), BigNumber.from(1)], // token price
-        ],
-        ADDRESS_2DARRAY: [
-          [addr1,addr2], // to = programOperatorAddress
-        ]
+        UINT256_2DARRAY: [],
+        ADDRESS_2DARRAY: []
       }
-    }], 
-    }, 
-    {value: 300} // 100 * 1 + 200 * 1 = 300 wei, the value should be equal to the total amount of token price
-    );
+    }]});
 
-    // get the address balance of token 0 and 1
-    const balance0 = await darc.getTokenOwnerBalance(0, addr1);
-    const balance1 = await darc.getTokenOwnerBalance(1, addr2);
+  // get all dividends offered address
+  let dividendsOffered = await darc.getWithdrawableCashOwnerList();
 
-    expect(balance0.toBigInt().toString()).to.equal("100");
-    expect(balance1.toBigInt().toString()).to.equal("200");
+  console.log("number of dividendsOffered: ", dividendsOffered.length);
+  for (let i = 0; i < dividendsOffered.length; i++) {
+    console.log("dividendsOffered: ", dividendsOffered[i]);
+  }
 
-    owner0 = await darc.getTokenOwners(0);
-    owner1 = await darc.getTokenOwners(1);
-    expect(containsAddr(owner0, addr1)).to.equal(true);
-    expect(containsAddr(owner1, addr2)).to.equal(true);
+  // get dividends amount
+  for (let i = 0; i < dividendsOffered.length; i++) {
+    let dividendsAmount = await darc.getWithdrawableDividendBalance(dividendsOffered[i]);
+    console.log("dividendsAmount: ", dividendsAmount, " for address: ", dividendsOffered[i]);
+  }
+
+  // get all token classes and owners
+  let tokenClasses = await darc.getNumberOfTokenClasses();
+  console.log("number of token classes: ", tokenClasses);
+
+  let dividend_addr1 = await darc.getWithdrawableDividendBalance(addr1);
+  console.log(dividend_addr1.toString());
+  console.log((await darc.getWithdrawableDividendBalance(addr2)).toString());
+  console.log((await darc.getWithdrawableDividendBalance(addr3)).toString());
   });
 });

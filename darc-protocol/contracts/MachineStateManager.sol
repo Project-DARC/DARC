@@ -98,7 +98,7 @@ contract MachineStateManager {
     );
     currentMachineState.beforeOpPlugins.push(Plugin(
       EnumReturnType.YES_AND_SKIP_SANDBOX,
-      7,  //todo: change it back to 1
+      1,  //todo: change it back to 1
       conditionNodes,
       0,
       "",
@@ -108,7 +108,7 @@ contract MachineStateManager {
     ));
     currentMachineState.afterOpPlugins.push(Plugin(
       EnumReturnType.NO,
-      7,  // todo: change it back to 1
+      1,  // todo: change it back to 1
       conditionNodes,
       0,
       "",
@@ -116,6 +116,12 @@ contract MachineStateManager {
       true,
       false
     ));
+
+    // set dividend permyriad per transaction as 500
+    currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = 500;
+
+    // set the dividend cycle of transactions as 1
+    currentMachineState.machineStateParameters.dividendCycleOfTransactions = 1;
   }
 
   /**

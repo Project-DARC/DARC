@@ -97,7 +97,7 @@ contract MoneyInstructions is MachineStateManager {
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
-      require(sandboxMachineState.machineStateParameters.dividendCycleCounter < 
+      require(sandboxMachineState.machineStateParameters.dividendCycleCounter >= 
         sandboxMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
       // 1. calculate the total amount of dividends to be offered
@@ -248,7 +248,7 @@ contract MoneyInstructions is MachineStateManager {
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
-      require(currentMachineState.machineStateParameters.dividendCycleCounter < 
+      require(currentMachineState.machineStateParameters.dividendCycleCounter >= 
         currentMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
       // 1. calculate the total amount of dividends to be offered
