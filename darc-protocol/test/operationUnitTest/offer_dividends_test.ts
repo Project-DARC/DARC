@@ -70,7 +70,7 @@ describe.only("offer_dividends_test", function () {
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
             [BigNumber.from(0), BigNumber.from(0),BigNumber.from(0), BigNumber.from(1),BigNumber.from(1), BigNumber.from(1), ],  // token class = 0
-            [BigNumber.from(100), BigNumber.from(200), BigNumber.from(300), BigNumber.from(400), BigNumber.from(500), BigNumber.from(200),], // amount = 100
+            [BigNumber.from(100), BigNumber.from(200), BigNumber.from(200), BigNumber.from(400), BigNumber.from(500), BigNumber.from(600),], // amount = 100
           ],
           ADDRESS_2DARRAY: [
             [addr1, addr2, addr3, addr1, addr2 ,addr3]
@@ -166,8 +166,14 @@ describe.only("offer_dividends_test", function () {
         console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
 
         for (let j =0;j<3;j++) {
-
+          let balance = await darc.getTokenOwnerBalance(i, addresssArray[j]);
+          weightArray[j] += balance.toNumber() * dividendWeight.toNumber();
         }
+      }
+
+      // print out the weight array
+      for (let i = 0; i < weightArray.length; i++) {
+        console.log("weightArray: ", weightArray[i]);
       }
 
 
