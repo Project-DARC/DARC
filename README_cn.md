@@ -413,7 +413,7 @@ dividend_X
 const dividend_yield_rate_law = {
     condition:
         (operation == "set_parameters") &  // 操作指令是 "set_parameters"
-        (set_parameters_key == "dividentPermyriadPerTransaction") &  // 设置参数的键值为 "dividend_yield_rate"
+        (set_parameters_key == "dividendPermyriadPerTransaction") &  // 设置参数的键值为 "dividend_yield_rate"
         (set_parameters_value < 500) &  // the value is < 500‱ (5%)
         (timestamp < 1893477600),  // 时间戳小于 < unix timestamp  2030-01-01 00:00:00 (UTC) 
 

@@ -25,7 +25,7 @@ enum EnumParameterType {
 
 enum MachineParameter{
   UNDEFINED,
-  dividentPermyriadPerTransaction,
+  dividendPermyriadPerTransaction,
   dividendCycleOfTransactions,
   currentCashBalanceForDividends,
   dividendCycleCounter

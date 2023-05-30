@@ -104,4 +104,27 @@ contract Dashboard is MachineStateManager {
   function getMyInfo() public view returns (address) {
     return msg.sender;
   }
+
+  /**
+   * The getter function of total voting weight for a token class
+   * @param tokenClassIndex The index of the token class
+   */
+  function sumVotingWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
+    return sumVotingWeightForTokenClass(false, tokenClassIndex);
+  }
+
+  /**
+   * The getter function of total dividend weight for a token class
+   * @param tokenClassIndex The index of the token class
+   */
+  function sumDividendWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
+    return sumDividendWeightForTokenClass(false, tokenClassIndex);
+  }
+
+  /**
+   * Get the current dividend per unit
+   */
+  function getCurrentDividendPerUnit() public view returns (uint256) {
+    return currentDividendPerUnit(false);
+  }
 }

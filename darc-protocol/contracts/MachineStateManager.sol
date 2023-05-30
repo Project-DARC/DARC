@@ -3,6 +3,10 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
+import "./Utilities/ErrorMsg.sol";
+
+// import openzeppelin upgradeable contracts safe math
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 /**
  * @title DARC Machine State Manager
  * @author DARC Team
@@ -54,6 +58,11 @@ contract MachineStateManager {
    * @notice the finite state
    */
   FiniteState public finiteState;
+
+  /**
+   * Parameters and configs
+   */
+  uint256 dividendBufferSize;
   
 
 
@@ -68,6 +77,8 @@ contract MachineStateManager {
 
     currentMachineState.beforeOpPlugins = new Plugin[](0);
     currentMachineState.afterOpPlugins = new Plugin[](0);
+
+    dividendBufferSize = 10000;
     
     /**
      * Todo:
@@ -91,7 +102,7 @@ contract MachineStateManager {
     );
     currentMachineState.beforeOpPlugins.push(Plugin(
       EnumReturnType.YES_AND_SKIP_SANDBOX,
-      7,  //todo: change it back to 1
+      1,  //todo: change it back to 1
       conditionNodes,
       0,
       "",
@@ -101,7 +112,7 @@ contract MachineStateManager {
     ));
     currentMachineState.afterOpPlugins.push(Plugin(
       EnumReturnType.NO,
-      7,  // todo: change it back to 1
+      1,  // todo: change it back to 1
       conditionNodes,
       0,
       "",
@@ -109,6 +120,12 @@ contract MachineStateManager {
       true,
       false
     ));
+
+    // set dividend permyriad per transaction as 500
+    currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = 500;
+
+    // set the dividend cycle of transactions as 1
+    currentMachineState.machineStateParameters.dividendCycleOfTransactions = 1;
   }
 
   /**
@@ -236,5 +253,182 @@ contract MachineStateManager {
     }
 
   }   
- 
+
+
+  /**
+   * This function that get the total number of tokens for a certain token class
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @param tokenClassIndex The index of the token class
+   */
+  function totalTokensPerTokenClass(bool bIsSandbox, uint256 tokenClassIndex) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 numberOfOwners = sandboxMachineState.tokenList[tokenClassIndex].ownerList.length;
+      uint256 totalTokens = 0;
+      bool bIsValid = true;
+      for (uint256 i = 0; i < numberOfOwners; i++) {
+        address currentOwner = sandboxMachineState.tokenList[tokenClassIndex].ownerList[i];
+        uint256 currentNumberOfTokens = sandboxMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
+        (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
+        require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+      }
+      return totalTokens;
+    } else {
+      uint256 numberOfOwners = currentMachineState.tokenList[tokenClassIndex].ownerList.length;
+      uint256 totalTokens = 0;
+      bool bIsValid = true;
+      for (uint256 i = 0; i < numberOfOwners; i++) {
+        address currentOwner = currentMachineState.tokenList[tokenClassIndex].ownerList[i];
+        uint256 currentNumberOfTokens = currentMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
+        (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
+        require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+      }
+      return totalTokens;
+    }
+  }
+
+  /**
+   * Return the number of dividend weight for a certain token class
+   * @param bIsSandbox Whether is the sandbox
+   * @param tokenClassIndex The index of the token class 
+   */
+  function sumDividendWeightForTokenClass( bool bIsSandbox, uint256 tokenClassIndex ) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 dividendWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].dividendWeight;
+      bool bIsValid = true;
+      uint256 dividendWeight = 0;
+      (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
+      return dividendWeight;
+    } else {
+      uint256 dividendWeightUnit = currentMachineState.tokenList[tokenClassIndex].dividendWeight;
+      bool bIsValid = true;
+      uint256 dividendWeight = 0;
+      (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
+      return dividendWeight;
+    }
+  }
+
+  /**
+   * Return the number of voting weight for a certain token class
+   * @param bIsSandbox Whether is the sandbox
+   * @param tokenClassIndex The index of the token class 
+   */
+  function sumVotingWeightForTokenClass ( bool bIsSandbox, uint256 tokenClassIndex ) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 votingWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].votingWeight;
+      bool bIsValid = true;
+      uint256 votingWeight = 0;
+      (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
+      return votingWeight;
+    } else {
+      uint256 votingWeightUnit = currentMachineState.tokenList[tokenClassIndex].votingWeight;
+      bool bIsValid = true;
+      uint256 votingWeight = 0;
+      (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
+      return votingWeight;
+    }
+  }
+
+  /**
+   * Calculate the current dividend per unit
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   */
+
+  function currentDividendPerUnit(bool bIsSandbox) public view returns(uint256) {
+    if (bIsSandbox) {
+      // make sure that the dividend per myriad per transaction is less than 1000
+      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+        ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(sandboxMachineState.machineStateParameters.dividendCycleCounter >= 
+        sandboxMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
+
+      // 1. calculate the total amount of dividends to be offered
+      bool bIsValid = true;
+      uint256 totalDividends = 0;
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        sandboxMachineState.machineStateParameters.currentCashBalanceForDividends,
+        sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
+      totalDividends,
+      1000);
+      require (bIsValid, ErrorMsg.By(12));
+
+      // 2. calculate the total dividends weight of all dividendable tokens
+      uint256 totalDividendsWeight = 0;
+
+      for (uint256 index=0; index < sandboxMachineState.tokenList.length; index++) {
+
+        if (sandboxMachineState.tokenList[index].bIsInitialized == false) {
+          break;
+        }
+
+        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
+          totalDividendsWeight,
+          sumDividendWeightForTokenClass(bIsSandbox, index));
+        require(bIsValid, ErrorMsg.By(12));
+      }
+
+      // 3. calculate the cash dividend per unit
+      uint256 cashPerUnit = 0;
+      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
+        totalDividends,
+        totalDividendsWeight);
+      
+      return (cashPerUnit);
+    } else {
+      // make sure that the dividend per myriad per transaction is less than 1000
+      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+        ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(currentMachineState.machineStateParameters.dividendCycleCounter >= 
+        currentMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
+
+      // 1. calculate the total amount of dividends to be offered
+      bool bIsValid = true;
+      uint256 totalDividends = 0;
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        currentMachineState.machineStateParameters.currentCashBalanceForDividends,
+        currentMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
+      totalDividends,
+      1000);
+      require (bIsValid, ErrorMsg.By(12));
+
+      // 2. calculate the total dividends weight of all dividendable tokens
+      uint256 totalDividendsWeight = 0;
+
+      for (uint256 index=0; index < currentMachineState.tokenList.length; index++) {
+
+        if (currentMachineState.tokenList[index].bIsInitialized == false) {
+          break;
+        }
+
+        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
+          totalDividendsWeight,
+          sumDividendWeightForTokenClass(bIsSandbox, index));
+        require(bIsValid, ErrorMsg.By(12));
+      }
+
+      // 3. calculate the cash dividend per unit
+      uint256 cashPerUnit = 0;
+      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
+        totalDividends,
+        totalDividendsWeight);
+      
+      return (cashPerUnit);
+    }
+  }
+
+  
+
 }

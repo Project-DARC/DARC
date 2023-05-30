@@ -84,10 +84,6 @@ contract MoneyInstructions is MachineStateManager {
     }
   }
 
-  function op_OFFER_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
-    // todo
-  }
-
   function op_WITHDRAW_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }

@@ -48,9 +48,9 @@ struct MachineStateParameters{
    * For each dividend cycle, the dividend will be distributed to all the token owners
    * The dividend will be calculated by the following formula:
    * currentCashBalanceForDividends += 
-   * NEW_TRANSACTION_INCOME * dividentPermyriadPerTransaction / 10000
+   * NEW_TRANSACTION_INCOME * dividendPermyriadPerTransaction / 10000
    *  */ 
-  uint256 dividentPermyriadPerTransaction;
+  uint256 dividendPermyriadPerTransaction;
 
   /**
    * @notice the dividend cycle of the DARC protocol
@@ -82,6 +82,15 @@ struct MachineStateParameters{
    * or tokens/NFTs for the token owners
    */
   string[] strStorageList;
+
+  /**
+   * @notice The list of the active emergency agents
+   * The emergency agents can be used to do all emergency operations 
+   * of the DARC protocol
+   */
+  address[] activeEmergencyAgentsAddressList;
+
+  bool bIsEmergency;
 }
 
 /**

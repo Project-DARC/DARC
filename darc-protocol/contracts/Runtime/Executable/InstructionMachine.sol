@@ -15,6 +15,7 @@ import "./Instructions/PluginInstructions.sol";
 import "./Instructions/ParameterInstructions.sol";
 import "./Instructions/MoneyInstructions.sol";
 import "./Instructions/UtilityInstructions.sol";
+import "./Instructions/OfferDividendsInstructions.sol";
 
 /**
  * @title Instruction Machine, the executor of the DARC Program instructions on the DARC Machine State
@@ -29,7 +30,8 @@ MembershipInstructions,
 PluginInstructions,
 ParameterInstructions,
 MoneyInstructions,
-UtilityInstructions
+UtilityInstructions,
+OfferDividendsInstructions
 {
 
   /**
@@ -85,6 +87,9 @@ UtilityInstructions
     }
     else if (operation.opcode == EnumOpcode.PAY_CASH) {
       op_PAY_CASH(operation, bIsSandbox);
+    }
+    else if (operation.opcode == EnumOpcode.OFFER_DIVIDENDS) {
+      op_OFFER_DIVIDENDS(operation, bIsSandbox);
     }
     else if (operation.opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS){
       op_BATCH_PAY_TO_MINT_TOKENS(operation, bIsSandbox);

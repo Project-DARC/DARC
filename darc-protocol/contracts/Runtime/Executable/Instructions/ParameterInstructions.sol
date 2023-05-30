@@ -46,9 +46,9 @@ contract ParameterInstructions is MachineStateManager {
   function setParam(MachineParameter param, uint256 value, bool bIsSandbox) internal {
     require(param != MachineParameter.UNDEFINED, ErrorMsg.By(9));
     if (bIsSandbox) {
-      if (param == MachineParameter.dividentPermyriadPerTransaction) {
+      if (param == MachineParameter.dividendPermyriadPerTransaction) {
         require(value <= 10000, ErrorMsg.By(9));
-        sandboxMachineState.machineStateParameters.dividentPermyriadPerTransaction = value;
+        sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction = value;
       }
       else if (param == MachineParameter.dividendCycleOfTransactions) {
         sandboxMachineState.machineStateParameters.dividendCycleOfTransactions = value;
@@ -60,9 +60,9 @@ contract ParameterInstructions is MachineStateManager {
         sandboxMachineState.machineStateParameters.dividendCycleCounter = value;
       }
     } else {
-      if (param == MachineParameter.dividentPermyriadPerTransaction) {
+      if (param == MachineParameter.dividendPermyriadPerTransaction) {
         require(value <= 10000, ErrorMsg.By(9));
-        currentMachineState.machineStateParameters.dividentPermyriadPerTransaction = value;
+        currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = value;
       }
       else if (param == MachineParameter.dividendCycleOfTransactions) {
         currentMachineState.machineStateParameters.dividendCycleOfTransactions = value;

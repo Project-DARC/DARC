@@ -445,7 +445,7 @@ years by limiting the `set_parameters()` function.
 const dividend_yield_rate_law = {
     condition:
         (operation == "set_parameters") &  // operation is "set_parameters"
-        (set_parameters_key == "dividentPermyriadPerTransaction") &  // the key is "dividend_yield_rate"
+        (set_parameters_key == "dividendPermyriadPerTransaction") &  // the key is "dividend_yield_rate"
         (set_parameters_value < 500) &  // the value is < 500‱ (5%)
         (timestamp < 1893477600),  // the timestamp < unix timestamp  2030-01-01 00:00:00 (UTC) 
 
@@ -510,7 +510,7 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
 2. Compile the contracts
 
     ```shell
-    npm run compile
+    npx hardhat compile
     ```
 
 3. Run the Darc test network
@@ -522,7 +522,7 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
 4. Test contracts
 
     ```shell
-    npm run test
+    npx hardhat test
     REPORT_GAS=true npm run test
     ```
 

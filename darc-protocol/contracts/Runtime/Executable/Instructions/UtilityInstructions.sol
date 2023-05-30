@@ -46,8 +46,25 @@ contract UtilityInstructions is MachineStateManager {
     }
   }
 
+  /**
+   * @notice The implementation of the operation CALL_EMERGENCY
+   * @param operation The operation index to be executed
+   * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
+   */
   function op_CALL_EMERGENCY(Operation memory operation, bool bIsSandbox) internal {
-
+    // the address(s) of the emergency agent(s) to be called
+    address[] memory EmergencyAgentsAddressArray = operation.param.ADDRESS_2DARRAY[0];
+    if (bIsSandbox) {
+      sandboxMachineState.machineStateParameters.bIsEmergency = true;
+      for (uint256 i = 0; i < EmergencyAgentsAddressArray.length; i++) {
+        sandboxMachineState.machineStateParameters.activeEmergencyAgentsAddressList.push(EmergencyAgentsAddressArray[i]);
+      }
+    } else {
+      currentMachineState.machineStateParameters.bIsEmergency = true;
+      for (uint256 i = 0; i < EmergencyAgentsAddressArray.length; i++) {
+        currentMachineState.machineStateParameters.activeEmergencyAgentsAddressList.push(EmergencyAgentsAddressArray[i]);
+      }
+    }
   }
 
   function op_CALL_CONTRACT_ABI(Operation memory operation, bool bIsSandbox) internal {
@@ -60,7 +77,13 @@ contract UtilityInstructions is MachineStateManager {
   }
 
   function op_ADD_STORAGE_IPFS_HASH(Operation memory operation, bool bIsSandbox) internal {
-
+    // hash string
+    string memory hashString = operation.param.STRING_ARRAY[0];
+    if (bIsSandbox) {
+      sandboxMachineState.machineStateParameters.strStorageList.push(hashString);
+    } else {
+      currentMachineState.machineStateParameters.strStorageList.push(hashString);
+    }
   }
 
   function op_VOTE(Operation memory operation, bool bIsSandbox) internal {
