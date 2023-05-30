@@ -3,6 +3,9 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
+
+// import openzeppelin upgradeable contracts safe math
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 /**
  * @title DARC Machine State Manager
  * @author DARC Team
@@ -249,5 +252,83 @@ contract MachineStateManager {
     }
 
   }   
+
+
+  /**
+   * This function that get the total number of tokens for a certain token class
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @param tokenClassIndex The index of the token class
+   */
+  function totalTokensPerTokenClass(bool bIsSandbox, uint256 tokenClassIndex) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 numberOfOwners = sandboxMachineState.tokenList[tokenClassIndex].ownerList.length;
+      uint256 totalTokens = 0;
+      bool bIsValid = true;
+      for (uint256 i = 0; i < numberOfOwners; i++) {
+        address currentOwner = sandboxMachineState.tokenList[tokenClassIndex].ownerList[i];
+        uint256 currentNumberOfTokens = sandboxMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
+        (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
+        require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+      }
+      return totalTokens;
+    } else {
+      uint256 numberOfOwners = currentMachineState.tokenList[tokenClassIndex].ownerList.length;
+      uint256 totalTokens = 0;
+      bool bIsValid = true;
+      for (uint256 i = 0; i < numberOfOwners; i++) {
+        address currentOwner = currentMachineState.tokenList[tokenClassIndex].ownerList[i];
+        uint256 currentNumberOfTokens = currentMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
+        (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
+        require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+      }
+      return totalTokens;
+    }
+  }
+
+  /**
+   * Return the number of dividend weight for a certain token class
+   * @param bIsSandbox Whether is the sandbox
+   * @param tokenClassIndex The index of the token class 
+   */
+  function sumDividendWeightForTokenClass( bool bIsSandbox, uint256 tokenClassIndex ) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 dividendWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].dividendWeight;
+      bool bIsValid = true;
+      uint256 dividendWeight = 0;
+      (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
+      return dividendWeight;
+    } else {
+      uint256 dividendWeightUnit = currentMachineState.tokenList[tokenClassIndex].dividendWeight;
+      bool bIsValid = true;
+      uint256 dividendWeight = 0;
+      (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
+      return dividendWeight;
+    }
+  }
+
+  /**
+   * Return the number of voting weight for a certain token class
+   * @param bIsSandbox Whether is the sandbox
+   * @param tokenClassIndex The index of the token class 
+   */
+  function sumVotingWeightForTokenClass ( bool bIsSandbox, uint256 tokenClassIndex ) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 votingWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].votingWeight;
+      bool bIsValid = true;
+      uint256 votingWeight = 0;
+      (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
+      return votingWeight;
+    } else {
+      uint256 votingWeightUnit = currentMachineState.tokenList[tokenClassIndex].votingWeight;
+      bool bIsValid = true;
+      uint256 votingWeight = 0;
+      (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
+      require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
+      return votingWeight;
+    }
+  }
  
 }
