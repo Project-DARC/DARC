@@ -3,6 +3,7 @@ pragma solidity ^0.8.9;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
+import "./Utilities/ErrorMsg.sol";
 
 // import openzeppelin upgradeable contracts safe math
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
@@ -330,5 +331,104 @@ contract MachineStateManager {
       return votingWeight;
     }
   }
- 
+
+  /**
+   * Calculate the current dividend per unit
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   */
+
+  function currentDividendPerUnit(bool bIsSandbox) public view returns(uint256) {
+    if (bIsSandbox) {
+      // make sure that the dividend per myriad per transaction is less than 1000
+      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+        ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(sandboxMachineState.machineStateParameters.dividendCycleCounter >= 
+        sandboxMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
+
+      // 1. calculate the total amount of dividends to be offered
+      bool bIsValid = true;
+      uint256 totalDividends = 0;
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        sandboxMachineState.machineStateParameters.currentCashBalanceForDividends,
+        sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
+      totalDividends,
+      1000);
+      require (bIsValid, ErrorMsg.By(12));
+
+      // 2. calculate the total dividends weight of all dividendable tokens
+      uint256 totalDividendsWeight = 0;
+
+      for (uint256 index=0; index < sandboxMachineState.tokenList.length; index++) {
+
+        if (sandboxMachineState.tokenList[index].bIsInitialized == false) {
+          break;
+        }
+
+        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
+          totalDividendsWeight,
+          sumDividendWeightForTokenClass(bIsSandbox, index));
+        require(bIsValid, ErrorMsg.By(12));
+      }
+
+      // 3. calculate the cash dividend per unit
+      uint256 cashPerUnit = 0;
+      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
+        totalDividends,
+        totalDividendsWeight);
+      
+      return (cashPerUnit);
+    } else {
+      // make sure that the dividend per myriad per transaction is less than 1000
+      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+        ErrorMsg.By(15));
+
+      // make sure that cycle counter is less than the threashold
+      require(currentMachineState.machineStateParameters.dividendCycleCounter >= 
+        currentMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
+
+      // 1. calculate the total amount of dividends to be offered
+      bool bIsValid = true;
+      uint256 totalDividends = 0;
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        currentMachineState.machineStateParameters.currentCashBalanceForDividends,
+        currentMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
+      totalDividends,
+      1000);
+      require (bIsValid, ErrorMsg.By(12));
+
+      // 2. calculate the total dividends weight of all dividendable tokens
+      uint256 totalDividendsWeight = 0;
+
+      for (uint256 index=0; index < currentMachineState.tokenList.length; index++) {
+
+        if (currentMachineState.tokenList[index].bIsInitialized == false) {
+          break;
+        }
+
+        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
+          totalDividendsWeight,
+          sumDividendWeightForTokenClass(bIsSandbox, index));
+        require(bIsValid, ErrorMsg.By(12));
+      }
+
+      // 3. calculate the cash dividend per unit
+      uint256 cashPerUnit = 0;
+      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
+        totalDividends,
+        totalDividendsWeight);
+      
+      return (cashPerUnit);
+    }
+  }
+
+  
+
 }

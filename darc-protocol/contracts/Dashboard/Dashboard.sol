@@ -120,4 +120,11 @@ contract Dashboard is MachineStateManager {
   function sumDividendWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
     return sumDividendWeightForTokenClass(false, tokenClassIndex);
   }
+
+  /**
+   * Get the current dividend per unit
+   */
+  function getCurrentDividendPerUnit() public view returns (uint256) {
+    return currentDividendPerUnit(false);
+  }
 }

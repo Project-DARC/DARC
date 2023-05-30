@@ -46,6 +46,24 @@ contract Runtime is Executable, PaymentCheck{
     // if the user pays more than the total payment, 
     // return the change to withdrawable cash balance
     else if (msg.value > totalPayment) {
+
+      // check if the current balance of owner is 0,
+      // and if so, check if the owner is in the withdrawable cash owner list
+      if (currentMachineState.withdrawableCashMap[program.programOperatorAddress] == 0) {
+        bool bExist = false;
+        for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+          if (currentMachineState.withdrawableCashOwnerList[i] == program.programOperatorAddress) {
+            bExist = true;
+            break;
+          }
+        }
+
+        // if the owner is not in the withdrawable cash owner list, add it
+        if (!bExist) {
+          currentMachineState.withdrawableCashOwnerList.push(program.programOperatorAddress);
+        }
+      }
+
       (bool bIsValid, uint256 paymentReturn) = SafeMathUpgradeable.trySub(msg.value, totalPayment);
       require(bIsValid, "The payment return overflow.");
       // add the payment return to the withdrawable cash balance

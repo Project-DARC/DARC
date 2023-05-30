@@ -28,41 +28,9 @@ contract OfferDividendsInstructions is MachineStateManager {
 
       // 1. calculate the total amount of dividends to be offered
       bool bIsValid = true;
-      uint256 totalDividends = 0;
-
-      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
-      sandboxMachineState.machineStateParameters.currentCashBalanceForDividends,
-      1000);
-      require (bIsValid, ErrorMsg.By(12));
-
-      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
-        totalDividends,
-        sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction);
-
-      // 2. calculate the total dividends weight of all dividendable tokens
-      uint256 totalDividendsWeight = 0;
-      uint256 ithTotalWeights = 0;
-      for (uint256 index=0; index < sandboxMachineState.tokenList.length; index++) {
-        ithTotalWeights = 0;
-        if (sandboxMachineState.tokenList[index].bIsInitialized == false) {
-          break;
-        }
-        (bIsValid, ithTotalWeights) = SafeMathUpgradeable.tryMul(
-          sumDividendWeightForTokenClass(bIsSandbox, index),
-          sandboxMachineState.tokenList[index].dividendWeight);
-        require(bIsValid, ErrorMsg.By(12));
-
-        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
-          totalDividendsWeight,
-          ithTotalWeights);
-        require(bIsValid, ErrorMsg.By(12));
-      }
 
       // 3. calculate the cash dividend per unit
-      uint256 cashPerUnit = 0;
-      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
-        totalDividends,
-        totalDividendsWeight);
+      uint256 cashPerUnit = currentDividendPerUnit(bIsSandbox);
 
       // 4. calculate the cash dividend per unit for each token, add dividends to 
       // each address withdrawable balance
@@ -88,6 +56,11 @@ contract OfferDividendsInstructions is MachineStateManager {
             sandboxMachineState.tokenList[index].tokenBalance[owner],
             cashPerUnit);
           require(bIsValid, ErrorMsg.By(12));
+
+          (bIsValid, dividends) = SafeMathUpgradeable.tryMul(
+            dividends,
+            sandboxMachineState.tokenList[index].dividendWeight
+          );
 
           // add the dividends to the withdrawable balance of the address
           (bIsValid, sandboxMachineState.withdrawableDividendMap[owner]) = SafeMathUpgradeable.tryAdd(
@@ -181,14 +154,16 @@ contract OfferDividendsInstructions is MachineStateManager {
       bool bIsValid = true;
       uint256 totalDividends = 0;
 
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        currentMachineState.machineStateParameters.currentCashBalanceForDividends,
+        currentMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
       (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
-      currentMachineState.machineStateParameters.currentCashBalanceForDividends,
+      totalDividends,
       1000);
       require (bIsValid, ErrorMsg.By(12));
 
-      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
-        totalDividends,
-        currentMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
 
       // 2. calculate the total dividends weight of all dividendable tokens
       uint256 totalDividendsWeight = 0;
@@ -210,10 +185,7 @@ contract OfferDividendsInstructions is MachineStateManager {
       }
 
       // 3. calculate the cash dividend per unit
-      uint256 cashPerUnit = 0;
-      (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
-        totalDividends,
-        totalDividendsWeight);
+      uint256 cashPerUnit = currentDividendPerUnit(bIsSandbox);
 
       // 4. calculate the cash dividend per unit for each token, add dividends to 
       // each address withdrawable balance
@@ -235,9 +207,17 @@ contract OfferDividendsInstructions is MachineStateManager {
           // get total amount of current level of tokens by current token owner
           // and get the total dividends
           address owner = currentMachineState.tokenList[index].ownerList[tokenOwnerId];
+
+
           (bIsValid, dividends) = SafeMathUpgradeable.tryMul(
             currentMachineState.tokenList[index].tokenBalance[owner],
             cashPerUnit);
+          require(bIsValid, ErrorMsg.By(12));
+
+          (bIsValid, dividends) = SafeMathUpgradeable.tryMul(
+            dividends,
+            currentMachineState.tokenList[index].dividendWeight
+          );
           require(bIsValid, ErrorMsg.By(12));
 
           // add the dividends to the withdrawable balance of the address

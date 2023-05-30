@@ -51,7 +51,7 @@ describe.only("offer_dividends_test", function () {
           PLUGIN_ARRAY: [],
           UINT256_2DARRAY: [
             [BigNumber.from(0), BigNumber.from(1)],
-            [BigNumber.from(1), BigNumber.from(3)],
+            [BigNumber.from(1), BigNumber.from(1)],
             [BigNumber.from(1), BigNumber.from(3)],
           ],
           ADDRESS_2DARRAY: []
@@ -96,15 +96,45 @@ describe.only("offer_dividends_test", function () {
               PLUGIN_ARRAY: [],
               UINT256_2DARRAY: [
                 // pay 20000
-                [BigNumber.from(2000000), BigNumber.from(0), BigNumber.from(1)],
+                [BigNumber.from(200000000000), BigNumber.from(0), BigNumber.from(1)],
               ],
               ADDRESS_2DARRAY: []
             }
           }], 
-        }, {value: ethers.utils.parseEther("200.0")}
+        }, {value: ethers.utils.parseEther("1.0")}
       );
 
+      // get current dividend per unit
+      const dividendPerUnit = await darc.getCurrentDividendPerUnit();
+      console.log("dividendPerUnit: ", dividendPerUnit.toString());
 
+      console.log("dividendPerUnit: ", dividendPerUnit.toString());
+
+
+      // get total dividends weight of each token owners
+      let weightArray = [0,0,0];
+      let addresssArray = [addr1, addr2, addr3];
+
+      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+        const [votingWeight,  dividendWeight,  tokenInfo,  totalSupply] = await darc.getTokenInfo(i);
+        console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
+
+        for (let j =0;j<3;j++) {
+          let balance = await darc.getTokenOwnerBalance(i, addresssArray[j]);
+          weightArray[j] += balance.toNumber() * dividendWeight.toNumber();
+        }
+      }
+
+      // print out the weight array
+      for (let i = 0; i < weightArray.length; i++) {
+        console.log("weightArray: ", weightArray[i]);
+      }
+
+      // print the dividend weight for each token class
+      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+        console.log("token class: ", i, " dividend weight: ")
+        console.log(await darc.sumDividendWeightByTokenClass(i));
+      }
 
       // offer dividends
       await darc.entrance({
@@ -157,27 +187,7 @@ describe.only("offer_dividends_test", function () {
         console.log("currentCash: ", currentCash.toString(), " by address: " , withdrawableCashOwnerList[i]);
       }
 
-      // get total dividends weight of each token owners
-      let weightArray = [0,0,0];
-      let addresssArray = [addr1, addr2, addr3];
 
-      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
-        const [votingWeight,  dividendWeight,  tokenInfo,  totalSupply] = await darc.getTokenInfo(i);
-        console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
-
-        for (let j =0;j<3;j++) {
-          let balance = await darc.getTokenOwnerBalance(i, addresssArray[j]);
-          weightArray[j] += balance.toNumber() * dividendWeight.toNumber();
-        }
-      }
-
-      // print out the weight array
-      for (let i = 0; i < weightArray.length; i++) {
-        console.log("weightArray: ", weightArray[i]);
-      }
-
-      // print the dividend weight for each token class
-      //for (let i=0; i)
 
 
       // list all the balance of the signers
@@ -186,6 +196,21 @@ describe.only("offer_dividends_test", function () {
         const signer = signerList[i];
         const balance = await signer.getBalance();
         console.log("signer: ", signer.address, " balance: ", balance.toString());
+      }
+
+      // list all total supply of each token class
+      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+        const result = await darc.getTokenInfo(i);
+        console.log("token class: ", i, " total supply: ", result[3].toString());
+      }
+
+      // list all withdrawable cash balance
+      console.log("list all withdrawable cash balance: ")
+      const ownerList = await darc.getWithdrawableCashOwnerList();
+      for (let i=0; i< (ownerList).length; i++){
+        const address = ownerList[i];
+        const balance = await darc.getWithdrawableCashBalance(address);
+        console.log("address: ", address, " balance: ", balance.toString());
       }
 
   });
