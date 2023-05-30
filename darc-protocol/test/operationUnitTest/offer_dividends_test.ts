@@ -176,6 +176,9 @@ describe.only("offer_dividends_test", function () {
         console.log("weightArray: ", weightArray[i]);
       }
 
+      // print the dividend weight for each token class
+      //for (let i=0; i)
+
 
       // list all the balance of the signers
       const signerList = await ethers.getSigners();

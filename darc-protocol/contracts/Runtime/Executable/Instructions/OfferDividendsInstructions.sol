@@ -48,7 +48,7 @@ contract OfferDividendsInstructions is MachineStateManager {
           break;
         }
         (bIsValid, ithTotalWeights) = SafeMathUpgradeable.tryMul(
-          sandboxMachineState.tokenList[index].totalSupply,
+          sumDividendWeightForTokenClass(bIsSandbox, index),
           sandboxMachineState.tokenList[index].dividendWeight);
         require(bIsValid, ErrorMsg.By(12));
 
@@ -199,7 +199,7 @@ contract OfferDividendsInstructions is MachineStateManager {
           break;
         }
         (bIsValid, ithTotalWeights) = SafeMathUpgradeable.tryMul(
-          currentMachineState.tokenList[index].totalSupply,
+          sumDividendWeightForTokenClass(bIsSandbox, index),
           currentMachineState.tokenList[index].dividendWeight);
         require(bIsValid, ErrorMsg.By(12));
 
