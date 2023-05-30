@@ -19,7 +19,7 @@ function containsAddr(array: string[], addr:string): boolean {
   return false;
 }
 
-describe.only("offer_dividends_test", function () {
+describe("offer_dividends_test", function () {
 
   
   it ("should offer dividends", async function () {
@@ -101,40 +101,38 @@ describe.only("offer_dividends_test", function () {
               ADDRESS_2DARRAY: []
             }
           }], 
-        }, {value: ethers.utils.parseEther("1.0")}
+        }, {value: ethers.utils.parseEther("1")}
       );
 
       // get current dividend per unit
       const dividendPerUnit = await darc.getCurrentDividendPerUnit();
-      console.log("dividendPerUnit: ", dividendPerUnit.toString());
-
-      console.log("dividendPerUnit: ", dividendPerUnit.toString());
+      expect(dividendPerUnit).to.equal(20000000);
 
 
       // get total dividends weight of each token owners
-      let weightArray = [0,0,0];
-      let addresssArray = [addr1, addr2, addr3];
+      // let weightArray = [0,0,0];
+      // let addresssArray = [addr1, addr2, addr3];
 
-      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
-        const [votingWeight,  dividendWeight,  tokenInfo,  totalSupply] = await darc.getTokenInfo(i);
-        console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
+      // for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+      //   const [votingWeight,  dividendWeight,  tokenInfo,  totalSupply] = await darc.getTokenInfo(i);
+      //   console.log("votingWeight: ", votingWeight.toString(), " dividendWeight: ", dividendWeight.toString(), " tokenInfo: ", tokenInfo.toString(), " totalSupply: ", totalSupply.toString());
 
-        for (let j =0;j<3;j++) {
-          let balance = await darc.getTokenOwnerBalance(i, addresssArray[j]);
-          weightArray[j] += balance.toNumber() * dividendWeight.toNumber();
-        }
-      }
+      //   for (let j =0;j<3;j++) {
+      //     let balance = await darc.getTokenOwnerBalance(i, addresssArray[j]);
+      //     weightArray[j] += balance.toNumber() * dividendWeight.toNumber();
+      //   }
+      // }
 
-      // print out the weight array
-      for (let i = 0; i < weightArray.length; i++) {
-        console.log("weightArray: ", weightArray[i]);
-      }
+      // // print out the weight array
+      // for (let i = 0; i < weightArray.length; i++) {
+      //   console.log("weightArray: ", weightArray[i]);
+      // }
 
-      // print the dividend weight for each token class
-      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
-        console.log("token class: ", i, " dividend weight: ")
-        console.log(await darc.sumDividendWeightByTokenClass(i));
-      }
+      // // print the dividend weight for each token class
+      // for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+      //   console.log("token class: ", i, " dividend weight: ")
+      //   console.log(await darc.sumDividendWeightByTokenClass(i));
+      // }
 
       // offer dividends
       await darc.entrance({
@@ -158,60 +156,57 @@ describe.only("offer_dividends_test", function () {
       // get all dividends offered address
       let dividendsOffered = await darc.getWithdrawableCashOwnerList();
 
-      console.log("number of dividendsOffered: ", dividendsOffered.length);
-      for (let i = 0; i < dividendsOffered.length; i++) {
-        console.log("dividendsOffered: ", dividendsOffered[i]);
-      }
-
       // get dividends amount
       for (let i = 0; i < dividendsOffered.length; i++) {
         let dividendsAmount = await darc.getWithdrawableDividendBalance(dividendsOffered[i]);
-        console.log("dividendsAmount: ", dividendsAmount, " for address: ", dividendsOffered[i]);
+        if (dividendsOffered[i]==='0x90F79bf6EB2c4f870365E785982E1f101E93b906'.toLowerCase()){
+          expect(dividendsAmount).to.equal(26000000000);
+        }
+        else if (dividendsOffered[i].toLowerCase()==='0x976EA74026E726554dB657fA54763abd0C3a0aa9'.toLowerCase()) {
+          expect (dividendsAmount).to.equal(34000000000);
+        }
+        else if (dividendsOffered[i].toLowerCase()==='0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'.toLowerCase()) {
+          expect (dividendsAmount).to.equal(40000000000);
+        }
       }
 
-      // get all token classes and owners
-      let tokenClasses = await darc.getNumberOfTokenClasses();
-      console.log("number of token classes: ", tokenClasses);
+      // // get all token classes and owners
+      // let tokenClasses = await darc.getNumberOfTokenClasses();
+      // console.log("number of token classes: ", tokenClasses);
 
-      // get dividends balance list
-      const dividendsOwnerList = await darc.getWithdrawableDividendOwnerList();
-      for (let i = 0; i < dividendsOwnerList.length; i++) {
-        const dividendsBalance = await darc.getWithdrawableDividendBalance(dividendsOwnerList[i]);
-        console.log("dividendsBalance: ", dividendsBalance.toString(), " by address: " , dividendsOwnerList[i]);
-      }
-
-      // check if there are any withdrawable cash
-      let withdrawableCashOwnerList = await darc.getWithdrawableCashOwnerList();
-      for (let i = 0; i < withdrawableCashOwnerList.length; i++) {
-        const currentCash = await darc.getWithdrawableCashBalance(withdrawableCashOwnerList[i]);
-        console.log("currentCash: ", currentCash.toString(), " by address: " , withdrawableCashOwnerList[i]);
-      }
+      // // get dividends balance list
+      // const dividendsOwnerList = await darc.getWithdrawableDividendOwnerList();
+      // for (let i = 0; i < dividendsOwnerList.length; i++) {
+      //   const dividendsBalance = await darc.getWithdrawableDividendBalance(dividendsOwnerList[i]);
+      //   console.log("dividendsBalance: ", dividendsBalance.toString(), " by address: " , dividendsOwnerList[i]);
+      // }
 
 
 
 
-      // list all the balance of the signers
-      const signerList = await ethers.getSigners();
-      for (let i = 0; i < signerList.length; i++) {
-        const signer = signerList[i];
-        const balance = await signer.getBalance();
-        console.log("signer: ", signer.address, " balance: ", balance.toString());
-      }
 
-      // list all total supply of each token class
-      for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
-        const result = await darc.getTokenInfo(i);
-        console.log("token class: ", i, " total supply: ", result[3].toString());
-      }
+      // // list all the balance of the signers
+      // const signerList = await ethers.getSigners();
+      // for (let i = 0; i < signerList.length; i++) {
+      //   const signer = signerList[i];
+      //   const balance = await signer.getBalance();
+      //   console.log("signer: ", signer.address, " balance: ", balance.toString());
+      // }
 
-      // list all withdrawable cash balance
-      console.log("list all withdrawable cash balance: ")
-      const ownerList = await darc.getWithdrawableCashOwnerList();
-      for (let i=0; i< (ownerList).length; i++){
-        const address = ownerList[i];
-        const balance = await darc.getWithdrawableCashBalance(address);
-        console.log("address: ", address, " balance: ", balance.toString());
-      }
+      // // list all total supply of each token class
+      // for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
+      //   const result = await darc.getTokenInfo(i);
+      //   console.log("token class: ", i, " total supply: ", result[3].toString());
+      // }
+
+      // // list all withdrawable cash balance
+      // console.log("list all withdrawable cash balance: ")
+      // const ownerList = await darc.getWithdrawableCashOwnerList();
+      // for (let i=0; i< (ownerList).length; i++){
+      //   const address = ownerList[i];
+      //   const balance = await darc.getWithdrawableCashBalance(address);
+      //   console.log("address: ", address, " balance: ", balance.toString());
+      // }
 
   });
 
