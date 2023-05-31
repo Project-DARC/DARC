@@ -109,7 +109,7 @@ contract Dashboard is MachineStateManager {
    * The getter function of total voting weight for a token class
    * @param tokenClassIndex The index of the token class
    */
-  function sumVotingWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
+  function getSumVotingWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
     return sumVotingWeightForTokenClass(false, tokenClassIndex);
   }
 
@@ -117,7 +117,7 @@ contract Dashboard is MachineStateManager {
    * The getter function of total dividend weight for a token class
    * @param tokenClassIndex The index of the token class
    */
-  function sumDividendWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
+  function getSumDividendWeightByTokenClass(uint256 tokenClassIndex) public view returns (uint256) {
     return sumDividendWeightForTokenClass(false, tokenClassIndex);
   }
 

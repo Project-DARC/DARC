@@ -22,6 +22,8 @@ enum FiniteState {
 
 /**
  * @notice The core and base contract of DARC, the manager of the DARC machine state
+ * Also this contains some basic function of the DARC machine state
+ * 
  */
 contract MachineStateManager {
   
@@ -428,7 +430,4 @@ contract MachineStateManager {
       return (cashPerUnit);
     }
   }
-
-  
-
 }
