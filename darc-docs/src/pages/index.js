@@ -15,15 +15,12 @@ import {
     styled,
     Typography
 } from "@mui/joy";
-import {
-    AiOutlineSafety,
-    FaFileContract,
-    FiCheck,
-    FiChevronRight,
-    FiCopy,
-    GiChaingun,
-    GoTelescope
-} from "react-icons/all";
+import {GiChaingun} from "react-icons/gi";
+import {AiOutlineSafety} from "react-icons/ai";
+import {FaFileContract} from "react-icons/fa";
+import {FiCheck, FiChevronRight, FiCopy} from "react-icons/fi";
+import {GoTelescope} from "react-icons/go";
+
 import {useCopyToClipboard} from "react-use";
 import Link from "@docusaurus/Link";
 import {customTheme} from "../theme";
