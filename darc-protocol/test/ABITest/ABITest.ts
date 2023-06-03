@@ -5,7 +5,7 @@ import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 import { deployDARC } from "../../scripts/deployDARC";
 
-import * as darcjson from "../../../darc-protocol/artifacts/contracts/Darc.sol/Darc.json";
+import * as darcjson from "../../../darc-protocol/artifacts/contracts/protocol/Darc.sol/Darc.json";
 
 // test for batch mint token instruction on DARC
 // transfer tokens to another 2 addresses

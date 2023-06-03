@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.9;
-import "../../Runtime/VotingMachine/VotingMachine.sol";
+import '../../protocol/Runtime/VotingMachine/VotingMachine.sol';
 
 
 /**
@@ -10,5 +10,7 @@ import "../../Runtime/VotingMachine/VotingMachine.sol";
  */
 
 contract VotingTestContract is VotingMachine{
-  
+  function initializeVotingTest() public {
+    this.initialize();
+  }
 } 
