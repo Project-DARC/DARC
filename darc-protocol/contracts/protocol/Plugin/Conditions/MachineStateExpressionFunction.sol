@@ -22,7 +22,7 @@ contract MachineStateExpressionFunction is MachineStateManager{
         return block.timestamp > timeStampToCompare;
     }
 
-    function timestampLessThan(uint256 timeStampToCompare) internal view returns (bool) {
+    function timestampSmallerThan(uint256 timeStampToCompare) internal view returns (bool) {
         return block.timestamp < timeStampToCompare;
     }
     

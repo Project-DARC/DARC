@@ -250,4 +250,5 @@ struct Plugin {
    * plugin or after operation plugin
    */
   bool bIsBeforeOperation;
+  
 }
