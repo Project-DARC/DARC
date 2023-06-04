@@ -17,9 +17,8 @@ contract OfferDividendsInstructions is MachineStateManager {
    */
   function op_OFFER_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
     if (bIsSandbox) {
-
-      // make sure that the dividend per myriad per transaction is less than 1000
-      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+      // make sure that the dividend per myriad per transaction is less than 10000
+      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
@@ -28,6 +27,37 @@ contract OfferDividendsInstructions is MachineStateManager {
 
       // 1. calculate the total amount of dividends to be offered
       bool bIsValid = true;
+      uint256 totalDividends = 0;
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
+        sandboxMachineState.machineStateParameters.currentCashBalanceForDividends,
+        sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction);
+
+      (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
+      totalDividends,
+      10000);
+      require (bIsValid, ErrorMsg.By(12));
+
+
+
+      // 2. calculate the total dividends weight of all dividendable tokens
+      uint256 totalDividendsWeight = 0;
+      uint256 ithTotalWeights = 0;
+      for (uint256 index=0; index < sandboxMachineState.tokenList.length; index++) {
+        ithTotalWeights = 0;
+        if (sandboxMachineState.tokenList[index].bIsInitialized == false) {
+          break;
+        }
+        (bIsValid, ithTotalWeights) = SafeMathUpgradeable.tryMul(
+          sumDividendWeightForTokenClass(bIsSandbox, index),
+          sandboxMachineState.tokenList[index].dividendWeight);
+        require(bIsValid, ErrorMsg.By(12));
+
+        (bIsValid, totalDividendsWeight) = SafeMathUpgradeable.tryAdd(
+          totalDividendsWeight,
+          ithTotalWeights);
+        require(bIsValid, ErrorMsg.By(12));
+      }
 
       // 3. calculate the cash dividend per unit
       uint256 cashPerUnit = currentDividendPerUnit(bIsSandbox);
@@ -52,6 +82,8 @@ contract OfferDividendsInstructions is MachineStateManager {
           // get total amount of current level of tokens by current token owner
           // and get the total dividends
           address owner = sandboxMachineState.tokenList[index].ownerList[tokenOwnerId];
+
+
           (bIsValid, dividends) = SafeMathUpgradeable.tryMul(
             sandboxMachineState.tokenList[index].tokenBalance[owner],
             cashPerUnit);
@@ -61,6 +93,7 @@ contract OfferDividendsInstructions is MachineStateManager {
             dividends,
             sandboxMachineState.tokenList[index].dividendWeight
           );
+          require(bIsValid, ErrorMsg.By(12));
 
           // add the dividends to the withdrawable balance of the address
           (bIsValid, sandboxMachineState.withdrawableDividendMap[owner]) = SafeMathUpgradeable.tryAdd(
@@ -142,8 +175,8 @@ contract OfferDividendsInstructions is MachineStateManager {
       sandboxMachineState.machineStateParameters.dividendCycleCounter = 0;
     }
     else {
-      // make sure that the dividend per myriad per transaction is less than 1000
-      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+      // make sure that the dividend per myriad per transaction is less than 10000
+      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
@@ -160,7 +193,7 @@ contract OfferDividendsInstructions is MachineStateManager {
 
       (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
       totalDividends,
-      1000);
+      10000);
       require (bIsValid, ErrorMsg.By(12));
 
 

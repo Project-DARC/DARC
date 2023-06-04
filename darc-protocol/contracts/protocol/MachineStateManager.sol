@@ -124,7 +124,7 @@ contract MachineStateManager {
     ));
 
     // set dividend permyriad per transaction as 500
-    currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = 500;
+    currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = 5000;
 
     // set the dividend cycle of transactions as 1
     currentMachineState.machineStateParameters.dividendCycleOfTransactions = 1;
@@ -339,10 +339,10 @@ contract MachineStateManager {
    * @param bIsSandbox The flag to indicate whether is the sandbox
    */
 
-  function currentDividendPerUnit(bool bIsSandbox) public view returns(uint256) {
+  function currentDividendPerUnit(bool bIsSandbox) internal view returns(uint256) {
     if (bIsSandbox) {
-      // make sure that the dividend per myriad per transaction is less than 1000
-      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+      // make sure that the dividend per myriad per transaction is less than 10000
+      require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
@@ -359,7 +359,7 @@ contract MachineStateManager {
 
       (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
       totalDividends,
-      1000);
+      10000);
       require (bIsValid, ErrorMsg.By(12));
 
       // 2. calculate the total dividends weight of all dividendable tokens
@@ -386,7 +386,7 @@ contract MachineStateManager {
       return (cashPerUnit);
     } else {
       // make sure that the dividend per myriad per transaction is less than 1000
-      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 1000, 
+      require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
       // make sure that cycle counter is less than the threashold
@@ -403,7 +403,7 @@ contract MachineStateManager {
 
       (bIsValid, totalDividends) = SafeMathUpgradeable.tryDiv(
       totalDividends,
-      1000);
+      10000);
       require (bIsValid, ErrorMsg.By(12));
 
       // 2. calculate the total dividends weight of all dividendable tokens
