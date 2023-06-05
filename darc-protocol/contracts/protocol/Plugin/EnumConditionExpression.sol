@@ -14,13 +14,12 @@ enum EnumConditionExpression{
 
   // ----------------------------------------------------------
   /**
-   * @notice the expression related to the operator and operations
+   * @notice the expression related to the operator and expressions
    */
 
-  OPERATION_NAME_EQUALS,  //ID: 1 params: uint256 opcode
   OPERATOR_NAME_EQUALS,   //ID: 2 params: string operatorName
   OPERATOR_ROLE_INDEX_EQUALS,   //ID:3 params: uint256 operatorRoleIndex
-  OPERTOR_ADDRESS_EQUALS, //ID:4 params: address operatorAddress
+  OPERATOR_ADDRESS_EQUALS, //ID:4 params: address operatorAddress
   OPERATOR_ROLE_LARGER_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_LESS_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_IN_RANGE,  // params: uint256 operatorRoleIndex
@@ -42,7 +41,7 @@ enum EnumConditionExpression{
 
   // ----------------------------------------------------------
   /**
-   * @notice Machine State related operations
+   * @notice Machine State related expressions
    */
   TIMESTAMP_LARGER_THAN,
   TIMESTAMP_LESS_THAN,
@@ -66,14 +65,20 @@ enum EnumConditionExpression{
   DARC_TOTAL_CASH_LESS_THAN,
   DARC_TOTAL_CASH_IN_RANGE,
 
+
+
+
   // ----------------------------------------------------------
-  // Oracle and remote call related operations
+  // General Operation related expressions
+
+  // ----------------------------------------------------------
+  // Oracle and remote call related expressions
 
 
 
   // ----------------------------------------------------------
   /**
-   * @notice mint new token related operations
+   * @notice mint new token related expressions
    */
 
   /**
@@ -104,11 +109,11 @@ enum EnumConditionExpression{
 
 
   //----------------------------------------------------------- 
-  // burn token related operations
+  // burn token related expressions
 
   // ----------------------------------------------------------
   /**
-   * @notice transfer token related operations
+   * @notice transfer token related expressions
    */
 
   /**
@@ -148,26 +153,26 @@ enum EnumConditionExpression{
 
 
   // ----------------------------------------------------------
-  // Token state related operations
+  // Token state related expressions
 
 
   // ----------------------------------------------------------
-  // Time related operations
+  // Time related expressions
 
   // ----------------------------------------------------------
-  // Cash related operations
+  // Cash related expressions
 
   // ----------------------------------------------------------
-  // Dividend related operations
+  // Dividend related expressions
 
   // ----------------------------------------------------------
-  // Emergency related operations
+  // Emergency related expressions
 
   // ----------------------------------------------------------
-  // member list related operations
+  // member list related expressions
 
   // ----------------------------------------------------------
-  // parameter setup related operations
+  // parameter setup related expressions
 
   // ----------------------------------------------------------
 
