@@ -92,7 +92,15 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * @param param: the parameters of the condition node.
      * This is function to check if the operator address is equal to the operator role of the condition node
     */
-    function exp_OPERATOR_ADDRESS_EUQALS(bool bIsBeforeOperation, Operation memory operation, Param memory param) internal view returns (bool) {
-
+    function exp_OPERATOR_ADDRESS_EUQALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        // the address is the ADDRESS_2DARRAY[0][0]
+        require (param.ADDRESS_2DARRAY.length == 1, "Operator address is not provided");
+        require(param.ADDRESS_2DARRAY[0].length == 1, "Operator address is not provided");
+        address operatorAddress = param.ADDRESS_2DARRAY[0][0];
+        if (bIsBeforeOperation) {
+            return operation.operatorAddress == operatorAddress;
+        } else {
+            return operation.operatorAddress == operatorAddress;
+        }
     }
 }

@@ -58,6 +58,9 @@ contract ConditionExpressionFactory is
     else if (exp == EnumConditionExpression.OPERATOR_NAME_EQUALS) {
       return false;//exp_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, paramList);
     }
+    else if (exp == EnumConditionExpression.OPERATOR_ADDRESS_EQUALS) {
+      return exp_OPERATOR_ADDRESS_EUQALS(bIsBeforeOperation, operation, param);
+    }
 
     // default:
     return false;
