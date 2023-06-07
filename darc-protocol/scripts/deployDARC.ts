@@ -15,11 +15,11 @@ export async function deployDARC(): Promise<string> {
 
 
   const signers = await ethers.getSigners();
-  for(let i = 0; i < signers.length; i++){
-    console.log("signer: " +  signers[i].address);
-  }
+  // for(let i = 0; i < signers.length; i++){
+  //   console.log("signer: " +  signers[i].address);
+  // }
 
-  console.log("DARC address: ", darc.address);
+  // console.log("DARC address: ", darc.address);
   await darc.deployed();
   await darc.initialize();
   return darc.address;
