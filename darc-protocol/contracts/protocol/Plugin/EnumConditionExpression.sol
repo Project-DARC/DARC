@@ -17,9 +17,9 @@ enum EnumConditionExpression{
    * @notice the expression related to the operator and expressions
    */
 
-  OPERATOR_NAME_EQUALS,   //ID: 2 params: string operatorName
-  OPERATOR_ROLE_INDEX_EQUALS,   //ID:3 params: uint256 operatorRoleIndex
-  OPERATOR_ADDRESS_EQUALS, //ID:4 params: address operatorAddress
+  OPERATOR_NAME_EQUALS,   //ID: 1 params: string operatorName
+  OPERATOR_ROLE_INDEX_EQUALS,   //ID:2 params: uint256 operatorRoleIndex
+  OPERATOR_ADDRESS_EQUALS, //ID:3 params: address operatorAddress
   OPERATOR_ROLE_LARGER_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_LESS_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_IN_RANGE,  // params: uint256 operatorRoleIndex
@@ -38,6 +38,7 @@ enum EnumConditionExpression{
   OPERATOR_CASH_LARGER_THAN,  // params: uint256 amount
   OPERATOR_CASH_LESS_THAN,  // params: uint256 amount
   OPERATOR_CASH_IN_RANGE,  // params: uint256 amount
+  OPERATOR_ADDRESS_IN_LIST, // params: address[] the list of addresses
 
   // ----------------------------------------------------------
   /**

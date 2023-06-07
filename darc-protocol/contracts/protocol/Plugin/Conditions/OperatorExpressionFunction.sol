@@ -85,4 +85,14 @@ contract OperatorExpressionFunctions is MachineStateManager {
         }
     }
 
+    /** 
+     * @notice Check if the operator address is equal to the operator address of the condition node
+     * @param bIsBeforeOperation: a boolean value to indicate if the machine state is in the sandbox
+     * @param operation: the operation struct of the current machine state
+     * @param param: the parameters of the condition node.
+     * This is function to check if the operator address is equal to the operator role of the condition node
+    */
+    function exp_OPERATOR_ADDRESS_EUQALS(bool bIsBeforeOperation, Operation memory operation, Param memory param) internal view returns (bool) {
+
+    }
 }
