@@ -1,6 +1,8 @@
 {
   "label": "Overview",
   "position": 1,
+  "collapsed": false,
+  "collapsible": false,
   "link": {
     "type": "generated-index",
     "description": "Overview about darc.js"
