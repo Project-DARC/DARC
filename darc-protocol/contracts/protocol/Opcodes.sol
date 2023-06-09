@@ -270,6 +270,9 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Burn tokens and Refund
+   * @param UINT256_2D[0] uint256[] tokenClassArray: the array of the token class index to burn tokens from
+   * @param UINT256_2D[1] uint256[] amountArray: the array of the amount of the token to burn
+   * @param UINT256_2D[2] uint256[] priceArray: the price of each token class to burn
    * ID:30
    */
   BATCH_BURN_TOKENS_AND_REFUND,
