@@ -31,22 +31,18 @@ operations on DARC. For example:
 
 ```javascript
 mint_tokens(   // mint token operation
-    [addr1, addr2, addr3],   // token address
+    [[addr1, addr2, addr3],   // token address
     [0, 0, 0],   // token class 
-    [500, 300, 200]
-]  // number of tokens
-)
-;
+    [500, 300, 200]]  // number of tokens
+);
 
 pay_cash(100000000, 0, 1); // pay 0.1 ETH as purchase
 
 transfer_tokens(   // transfer token operation
-    [addr1, addr2, addr3],   // token address
+    [[addr1, addr2, addr3],   // token address
     [0, 0, 0],   // token class 
-    [100, 100, 200]
-]  // number of tokens
-)
-;
+    [100, 100, 200]]  // number of tokens
+);
 
 add_withdraw_cash(10000000);  // add 0.01 ETH to withdraw balance
 
@@ -119,9 +115,7 @@ The law of DARC is defined in below psuedo-code:
 
 ```javascript
 if (plugin_condition == true) {
-    plugin_decision = allows / denies / requires
-    a
-    vote
+    plugin_decision = allows / denies / requires a vote
 }
 ```
 
