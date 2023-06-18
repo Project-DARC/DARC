@@ -22,7 +22,7 @@ function containsAddr(array: string[], addr:string): boolean {
 }
 
 
-describe("batch_trasnfer_tokens_test", function () {
+describe("batch_transfer_tokens_test", function () {
 
   
   it ("should transfer tokens", async function () {

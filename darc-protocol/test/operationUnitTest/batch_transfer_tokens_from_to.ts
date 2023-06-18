@@ -23,10 +23,10 @@ function containsAddr(array: string[], addr:string): boolean {
 }
 
 
-describe("batch_trasnfer_tokens_from_to_test", function () {
+describe("batch_transfer_tokens_from_to_test", function () {
 
   
-  it ("should trasnfer tokens (from-to) tokens", async function () {
+  it ("should transfer tokens (from-to) tokens", async function () {
 
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
@@ -166,7 +166,7 @@ describe("batch_trasnfer_tokens_from_to_test", function () {
     expect(containsAddr(await darc.getTokenOwners(0), target3)).to.equal(false);
     expect(containsAddr(await darc.getTokenOwners(1), target3)).to.equal(false);
 
-    // trasnfer tokens from target 1 to addr 6 multiple times and make sure that 
+    // transfer tokens from target 1 to addr 6 multiple times and make sure that 
     // 1. the balance of target 1 and addr6 are correct
     // 2. the token owner list of level 0 and 1 are correct
     await darc.entrance({
