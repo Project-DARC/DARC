@@ -142,7 +142,7 @@ enum EnumConditionExpression{
    *  2. transfering tokens to address is in address array
    * params: address[] fromAddressArray
    */
-  TRASNFER_TOKEN_FROM,
+  TRANSFER_TOKEN_FROM,
 
   /**
    * This condition expression will be ture if:
