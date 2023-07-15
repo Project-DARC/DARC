@@ -24,19 +24,18 @@ contract TimeStateFunction is MachineStateManager {
         
         uint256[] memory _daysPerMonth = new uint256[](12);
 
-        _daysPerMonth[0] = 31;
-        _daysPerMonth[1] = _isLeapYear ? 29 : 28;
-        _daysPerMonth[2] = 31;
-        _daysPerMonth[3] = 30;
-        _daysPerMonth[4] = 31;
-        _daysPerMonth[5] = 30;
-        _daysPerMonth[6] = 31;
-        _daysPerMonth[7] = 31;
-        _daysPerMonth[8] = 31;
-        _daysPerMonth[9] = 30;
-        _daysPerMonth[10] = 31;
-        _daysPerMonth[11] = 30;
-        _daysPerMonth[12] = 31;
+        _daysPerMonth[0] = 31;  // Jan
+        _daysPerMonth[1] = _isLeapYear ? 29 : 28;  // Feb
+        _daysPerMonth[2] = 31;  // Mar
+        _daysPerMonth[3] = 30;  // Apr
+        _daysPerMonth[4] = 31;  // May
+        _daysPerMonth[5] = 30;  // Jun
+        _daysPerMonth[6] = 31;  // Jul
+        _daysPerMonth[7] = 31;  // Aug
+        _daysPerMonth[9] = 30;  // Sep
+        _daysPerMonth[10] = 31; // Oct
+        _daysPerMonth[11] = 30; // Nov
+        _daysPerMonth[12] = 31; // Dec
 
         uint256 _month;
         for (_month = 0; _month < 12; _month++) {
