@@ -32,11 +32,10 @@ contract TimeStateFunction is MachineStateManager {
         _daysPerMonth[5] = 30;
         _daysPerMonth[6] = 31;
         _daysPerMonth[7] = 31;
-        _daysPerMonth[8] = 31;
-        _daysPerMonth[9] = 30;
-        _daysPerMonth[10] = 31;
-        _daysPerMonth[11] = 30;
-        _daysPerMonth[12] = 31;
+        _daysPerMonth[8] = 30;
+        _daysPerMonth[9] = 31;
+        _daysPerMonth[10] = 30;
+        _daysPerMonth[11] = 31;
 
         uint256 _month;
         for (_month = 0; _month < 12; _month++) {
