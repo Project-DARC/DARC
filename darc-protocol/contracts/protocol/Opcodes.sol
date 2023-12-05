@@ -187,6 +187,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to mint tokens
    * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount to mint tokens
    * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to mint
+   * @param UINT256_2DARRAY[3] uint256[1] dividendableFlag: the flag to indicate if the payment is dividendable. 1 for yes (pay for purchase), 0 for no (pay for investment)
    * ID:20
    */
   BATCH_PAY_TO_MINT_TOKENS,
@@ -197,6 +198,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to transfer token from
    * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount of the token to transfer
    * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to transfer
+   * @ param UINT256_2DARRAY[3] uint256[1] dividendableFlag: the flag to indicate if the payment is dividendable. 1 for yes (pay for purchase), 0 for no (pay for investment)
    * ID:21
    */
   BATCH_PAY_TO_TRANSFER_TOKENS,
@@ -300,5 +302,31 @@ enum EnumOpcode {
    * @notice Execute a program that has been voted and approved
    * ID:33
    */
-  EXECUTE_PROGRAM
+  EXECUTE_PROGRAM,
+
+  /**
+   * @notice Emergency mode termination. Emergency agents cannot do anything after this operation
+   * ID:34
+   */
+  END_EMERGENCY,
+
+  /**
+   * @notice Upgrade the contract to a new contract address
+   * @param ADDRESS_2DARRAY[0][0] The address of the new contract
+   * ID:35
+   */
+  UPGRADE_TO_ADDRESS,
+
+  /**
+   * @notice Accepting current DARCs to be upgraded from the old contract address
+   * @param ADDRESS_2DARRAY[0][0] The address of the old contract
+   * ID:36
+   */
+  CONFIRM_UPGRAED_FROM_ADDRESS,
+
+  /**
+   * @notice Upgrade the contract to the latest version
+   * ID:37
+   */
+  UPGRADE_TO_THE_LATEST
 }

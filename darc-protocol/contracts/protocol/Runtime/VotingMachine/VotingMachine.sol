@@ -178,6 +178,9 @@ contract VotingMachine is MachineStateManager {
     require(votes.length == votingItems[latestVotingItemIndex].votingRuleIndices.length,
      "the number of votes does not match the number of policies");
 
+    // set the boolean voted to true
+    voted[voter][latestVotingItemIndex] = true;
+
     // update the voted status
     bool bIsValid = false;
     for (uint256 i = 0; i < votes.length; i++) {
@@ -194,8 +197,7 @@ contract VotingMachine is MachineStateManager {
       }
     }
 
-    // set the boolean voted to true
-    voted[voter][latestVotingItemIndex] = true;
+
   }
 
   /**

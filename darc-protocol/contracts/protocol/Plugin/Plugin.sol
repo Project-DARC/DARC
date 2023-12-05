@@ -165,11 +165,6 @@ struct VotingRule {
   uint256 executionPendingDurationInSeconds;
 
   /**
-   *  the forced stop during the voting duration is allowed or not
-   */
-  bool isForcedStopAllowed;
-
-  /**
    * the voting policy is enabled or not
    */
   bool isEnabled;
