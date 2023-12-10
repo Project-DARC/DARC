@@ -28,10 +28,10 @@ enum EnumLogicalOperatorType {UNDEFINED, AND, OR, NOT }
  * 4. Otherwise, the program is invalid and should be rejected.
  * 
  * For the After Operation Plugin System (after executed in sandbox), the priority of the return value is:
- * NO > VOTE_NEEDED > YES > UNDEFINED,
+ * NO > VOTING_NEEDED > YES > UNDEFINED,
  * which means:
  * 1. If any operation in the program is NO (disapproved), the program is invalid and should be rejected.
- * 2. Otherwise, if any operation in the program is VOTE_NEEDED, a voting item should be created.
+ * 2. Otherwise, if any operation in the program is VOTING_NEEDED, a voting item should be created.
  * 
  * ----------------------------------------------
  * 
@@ -67,9 +67,9 @@ enum EnumReturnType {
 
   /**
    * The decision is pending and a voting item should be created at this level.
-   * Only AFTER operation plugin system may return VOTE_NEEDED.
+   * Only AFTER operation plugin system may return VOTING_NEEDED.
    */
-  VOTE_NEEDED, 
+  VOTING_NEEDED, 
 
   /**
    * The operation is approved and should skip the sandbox check.
@@ -221,7 +221,7 @@ struct Plugin {
   ConditionNode[] conditionNodes;
 
   /**
-   * the voting rule id of the current plugin if the return type is VOTE_NEEDED
+   * the voting rule id of the current plugin if the return type is VOTING_NEEDED
    */
   uint256 votingRuleIndex;
 

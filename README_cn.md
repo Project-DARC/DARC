@@ -77,7 +77,7 @@ add_and_enable_plugins(  // 新增插件并立即生效
             condition: // 定义插件生效条件
                 (operation == "transfer_tokens")   // 如果是代币转让操作
                 & (operator_total_voting_power_percentage > 25), // 并且操作者地址的投票权 > 25%
-            return_type: vote_needed,  // 返回类型：需要投票
+            return_type: voting_needed,  // 返回类型：需要投票
             return_level: 100,  // 优先级：100
             votingRuleIndex: 5 // 使用投票规则序号为 5 的投票规则（即 100% 的董事会成员们必须投票通过）
             note: "100% Approval is needed by board members to transfer tokens by major shareholders (>25%)"
@@ -89,7 +89,7 @@ add_and_enable_plugins(  // 新增插件并立即生效
 
 执行以上的 By-law Script 程序后，DARC VM 合约将添加一个新的插件和投票规则，并且插件将立即生效（如果存在与 add_voting_rule()
 和 add_and_enable_plugins() 相关的任何投票程序，则插件将在投票流程通过后生效）。如果操作员（addr1）尝试将代币转移给
-addr2，插件将检查条件并返回 vote_needed 给 DARC VM 合约，DARC VM
+addr2，插件将检查条件并返回 voting_needed 给 DARC VM 合约，DARC VM
 合约将要求董事会（一级代币所有者）进行投票。如果董事会批准该操作，则该操作将在沙盒中执行，否则该操作将被拒绝。例如，如果触发了3个投票规则，则投票操作将是：
 
 ```javascript
@@ -299,7 +299,7 @@ const add_board_member = {
         (operator_total_voting_power_percentage >= 10),   // 操作者拥有的总投票权大于等于10%
 
     // 插件决策：需要投票
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 1,  // 在决策投票规则1下，超过2/3的董事会成员批准该操作，则该操作被批准
     return_level: 100,
     is_before_operation: false, // 沙箱检查之后才进行投票
@@ -315,7 +315,7 @@ const enable_plugin = {
         (operator_total_voting_power_percentage >= 7) &   // 该用户拥有的总投票权大于等于7%
         (operator_last_operation_window("enable_plugin") >= 864000),  //每个用户可以每 864000 seconds (10 days) 天尝试一次
 
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 2,  // 在投票规则2下，超过所有董事会成员的100%批准该操作，则该操作被批准
     return_level: 100,
     is_before_operation: false, // 沙箱检查之后才进行投票
@@ -335,7 +335,7 @@ const disable_2_3_4 = {
         ) &  // 废除插件2、3 或者 4
         (operator_total_voting_power_percentage >= 20) &   // 操作者拥有的总投票权大于等于20%
         (operator_last_operation_window("disable_plugins") >= 1296000),  // 每个用户可以每 1296000 seconds (15 days) 天尝试一次
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 3,  // 在投票规则3下，超过所有普通股代币（级别为0的代币）所有投票人的70%的相对多数批准该操作，则该操作被批准
     is_before_operation: false, // 沙箱检查之后才进行投票
 }

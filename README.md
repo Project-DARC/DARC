@@ -83,7 +83,7 @@ add_and_enable_plugins(   // add and enable plugins (as index 7)
             condition:  // define the condition:
                 (operation == "transfer_tokens")   // if operation is transfer_tokens
                 & (operator_total_voting_power_percentage > 25),  // and addr1's voting power > 25%
-            return_type: vote_needed,  // return type: requires a vote
+            return_type: voting_needed,  // return type: requires a vote
             return_level: 100,  // priority: 100
             votingRuleIndex: 5 // voting rule index 5 (ask board of directors to vote and must 100% approve)
             note: "100% Approval is needed by board members to transfer tokens by major shareholders (>25%)"
@@ -96,7 +96,7 @@ add_and_enable_plugins(   // add and enable plugins (as index 7)
 After above By-Law Script is executed, the DARC VM contract will add a new plugin and voting rule, and the plugin will
 be effective immediately (if there exists any voting procedure related to `add_voting_rule()`
 and `add_and_enable_plugins()`, the plugin will be effective after the voting process is approved). If the
-operator (`addr1`) tries to transfer tokens to addr2, the plugin will check the condition and return `vote_needed` to
+operator (`addr1`) tries to transfer tokens to addr2, the plugin will check the condition and return `voting_needed` to
 the DARC VM contract, and the DARC VM contract will ask the board of directors (level-1 token owners) to vote. If the
 board of directors approves the operation, the operation will be executed in the sandbox, otherwise the operation will
 be rejected. For example, if there are 3 voting rules are triggerd, the voting operation will be:
@@ -320,7 +320,7 @@ const add_board_member = {
         (mint_tokens_level == 2) &  // the token level is 2
         (mint_tokens_amount == 1) &  // the amount is 1
         (operator_total_voting_power_percentage >= 10),   // the operator address holds at least 10% of the total voting power
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 1,  // Under the voting rule 1, the operation will be approved if and only if 2/3 of all the board members approve the operation
     return_level: 100,
     is_before_operation: false, // make the decision after executing in sandbox
@@ -337,7 +337,7 @@ const enable_plugin = {
         (operator_total_voting_power_percentage >= 7) &   // the operator address holds at least 7% of the total voting power
         (operator_last_operation_window("enable_plugin") >= 864000),  // each operator can try to enable plugins once per 864000 seconds (10 days)
 
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 2,  // Under the voting rule 2, the operation will be approved if and only if 100% of all the board members approve the operation
     return_level: 100,
     is_before_operation: false, // make the decision after executing in sandbox
@@ -359,7 +359,7 @@ const disable_2_3_4 = {
         ) &  // disable after operation plugins 2,3 and 4
         (operator_total_voting_power_percentage >= 20) &   // the operator address holds at least 20% of the total voting power
         (operator_last_operation_window("disable_plugins") >= 1296000),  // each operator can try to disable plugins once per 1296000 seconds (15 days)
-    return_type: vote_needed,
+    return_type: voting_needed,
     voting_rule: 3,  // Under the voting rule 3, the operation will be approved if and only if 70% of all the common stock holders approve the operation
     is_before_operation: false, // make the decision after sandbox check
 }

@@ -104,7 +104,7 @@ contract PluginSystem is PluginFactory{
           }
 
           // if the return type is vote needed, add the voting policy to the current voting rule list
-          if (currentReturnType == EnumReturnType.VOTE_NEEDED) {
+          if (currentReturnType == EnumReturnType.VOTING_NEEDED) {
             currentOperationVotingRuleList[currentOperationVotingRuleIndex] = currentVotingRuleIdx;
             currentOperationVotingRuleIndex++;
           }
@@ -114,7 +114,7 @@ contract PluginSystem is PluginFactory{
         // check if the return type is vote needed
         else if (currentReturnLevel == highestReturnLevel && currentReturnType != EnumReturnType.UNDEFINED) {
           // if the return type is vote needed, add the voting policy to the voting policy list
-          if (currentReturnType == EnumReturnType.VOTE_NEEDED) {
+          if (currentReturnType == EnumReturnType.VOTING_NEEDED) {
             currentOperationVotingRuleList[currentOperationVotingRuleIndex] = currentVotingRuleIdx;
             currentOperationVotingRuleIndex++;
           }
@@ -130,7 +130,7 @@ contract PluginSystem is PluginFactory{
       operationReturnTypeList[operationIndex] = highestReturnType;
 
       // if the highest return type is vote needed, add the voting rule list to the voting rule list
-      if (highestReturnType == EnumReturnType.VOTE_NEEDED) {
+      if (highestReturnType == EnumReturnType.VOTING_NEEDED) {
         for (uint256 i = 0; i < currentOperationVotingRuleIndex; i++) {
           VotingRuleIndexList[VotingRuleIndex] = currentOperationVotingRuleList[i];
           VotingRuleIndex++;
@@ -155,10 +155,10 @@ contract PluginSystem is PluginFactory{
      * 4. Otherwise, the program is invalid and should be rejected.
      * 
      * For the After Operation Plugin System (after executed in sandbox), the priority of the return value is:
-     * NO > VOTE_NEEDED > YES > UNDEFINED,
+     * NO > VOTING_NEEDED > YES > UNDEFINED,
      * which means:
      * 1. If any operation in the program is NO (disapproved), the program is invalid and should be rejected.
-     * 2. Otherwise, if any operation in the program is VOTE_NEEDED, a voting item should be created.
+     * 2. Otherwise, if any operation in the program is VOTING_NEEDED, a voting item should be created.
      * 
      * ----------------------------------------------
      * 
@@ -192,19 +192,19 @@ contract PluginSystem is PluginFactory{
     }
     else {
       //3.1.2 for after operation plugin system, the priority of the return value is:
-      // NO > VOTE_NEEDED > YES > UNDEFINED
+      // NO > VOTING_NEEDED > YES > UNDEFINED
       for (uint256 i = 0; i < operationReturnTypeList.length; i++) {
         if (operationReturnTypeList[i] == EnumReturnType.NO) {
           finalReturnType = EnumReturnType.NO;
 
         }
-        else if (operationReturnTypeList[i] == EnumReturnType.VOTE_NEEDED 
+        else if (operationReturnTypeList[i] == EnumReturnType.VOTING_NEEDED 
         && finalReturnType != EnumReturnType.NO) {
-          finalReturnType = EnumReturnType.VOTE_NEEDED;
+          finalReturnType = EnumReturnType.VOTING_NEEDED;
 
         }
         else if (operationReturnTypeList[i] == EnumReturnType.YES 
-        && finalReturnType != EnumReturnType.VOTE_NEEDED 
+        && finalReturnType != EnumReturnType.VOTING_NEEDED 
         && finalReturnType != EnumReturnType.NO) {
           finalReturnType = EnumReturnType.YES;
 
@@ -214,7 +214,7 @@ contract PluginSystem is PluginFactory{
     
     //3.2 if voting is needed, reconstruct the voting rule list
     // otherwise, return an empty list
-    if (finalReturnType != EnumReturnType.VOTE_NEEDED) {
+    if (finalReturnType != EnumReturnType.VOTING_NEEDED) {
       VotingRuleIndex = 0;
     }
     uint256[] memory trimmedList = new uint256[](VotingRuleIndex);
@@ -233,7 +233,7 @@ contract PluginSystem is PluginFactory{
    * @param pluginIndex The index of the plugin to be checked
    * @return uint256  The return level of the plugin
    * @return EnumReturnType The return type of the plugin
-   * @return uint256 The corresponding voting rule index of the plugin in current machine state (if not VOTE_NEEDED, return 0)
+   * @return uint256 The corresponding voting rule index of the plugin in current machine state (if not VOTING_NEEDED, return 0)
    */
   function checkPluginForOperation(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) internal view returns (uint256, EnumReturnType, uint256) {
     // simply return the entrance check(bIsBeforeOperation, operation, pluginIndex) from the Plugin Factory

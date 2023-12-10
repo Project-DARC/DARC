@@ -52,7 +52,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
       }
 
       // 2.4 If the program is voting needed, initialize the voting machine
-      else if (afterReturnType == EnumReturnType.VOTE_NEEDED){
+      else if (afterReturnType == EnumReturnType.VOTING_NEEDED){
         this.initializeVoting(afterRuleIdxList, currentProgram);
       }
 
@@ -70,7 +70,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
   function checkBeforeOperationPlugins(Program memory currentProgram) internal view returns (EnumReturnType) {
     (EnumReturnType result, uint256[] memory list ) = pluginSystemJudgment(true, currentProgram);
     require(list.length == 0, "The before operation plugin system should not return a voting rule list");
-    require(result != EnumReturnType.VOTE_NEEDED, "The before operation plugin system should not return vote needed");
+    require(result != EnumReturnType.VOTING_NEEDED, "The before operation plugin system should not return vote needed");
     return result;
   }
 
