@@ -1,5 +1,5 @@
-import { TokenOperations } from "./struct/token-operation-map";
-import { RestrictionPlugin } from "./struct/restriction-plugin";
+import { TokenOperations } from "./SDK/struct/token-operation-map";
+import { Plugin } from "./SDK/struct/Plugin";
 declare function transfer_tokens(targetAddress: string, amount: number, tokenID: number): void;
 declare function mint_tokens(tokenID: number, amount: number, targetAddress: string): void;
 declare function create_token_class(tokenName: string, tokenVotingWeight: number, tokenDividendWeight: number): void;
@@ -9,8 +9,8 @@ declare function withdraw_money_and_send_to_address(amount: number, targetAddres
 declare function pay_money(amount: number): void;
 declare function enable_plugin_index(pluginIndex: number): void;
 declare function disable_plugin_index(pluginIndex: number): void;
-declare function add_plugin(currentRestrictionPlugin: RestrictionPlugin): void;
-declare function add_and_enable_plugin(currentRestrictionPlugin: RestrictionPlugin): void;
+declare function add_plugin(currentRestrictionPlugin: Plugin): void;
+declare function add_and_enable_plugin(currentRestrictionPlugin: Plugin): void;
 declare function burn_tokens(tokenID: number, amount: number, targetAddress: string): void;
 declare function batch_transfer_tokens(tokenOperations: TokenOperations): void;
 declare function batch_mint_tokens(tokenOperations: TokenOperations): void;

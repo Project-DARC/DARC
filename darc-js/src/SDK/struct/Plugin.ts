@@ -1,14 +1,14 @@
 import { ConditionNode } from "../plugin/ConditionNode";
 import { VotingParameters } from "./voting-param";
 
-class RestrictionPlugin {
-  restrictionPluginDescription: string;
+class Plugin {
+  note: string;
   conditionExpressionTreeRootNode: ConditionNode;
   restrictionPluginReturnType: RestrictionPluginReturnType;
   votingParameters: VotingParameters | null;
   restrictionPluginType: RestrictionPluginType;
-  constructor(restrictionPluginDescription: string, conditionExpressionTreeRootNode: ConditionNode, restrictionPluginReturnType: RestrictionPluginReturnType, votingParameters: VotingParameters | null, restrictionPluginType: RestrictionPluginType) {
-    this.restrictionPluginDescription = restrictionPluginDescription;
+  constructor(note: string, conditionExpressionTreeRootNode: ConditionNode, restrictionPluginReturnType: RestrictionPluginReturnType, votingParameters: VotingParameters | null, restrictionPluginType: RestrictionPluginType) {
+    this.note = note;
     this.conditionExpressionTreeRootNode = conditionExpressionTreeRootNode;
     this.restrictionPluginReturnType = restrictionPluginReturnType;
     this.votingParameters = votingParameters;
@@ -27,4 +27,4 @@ enum RestrictionPluginType {
   AFTER_OPERATION
 }
 
-export { RestrictionPlugin, RestrictionPluginReturnType, RestrictionPluginType };
+export { Plugin, RestrictionPluginReturnType, RestrictionPluginType };

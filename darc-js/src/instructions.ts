@@ -1,8 +1,8 @@
 // all the included instructions are here, mostly instructions for operations
 // todo: add backend support for current operations
 
-import { TokenOperations } from "./struct/token-operation-map";
-import { RestrictionPlugin } from "./struct/restriction-plugin";
+import { TokenOperations } from "./SDK/struct/token-operation-map";
+import { Plugin } from "./SDK/struct/Plugin";
 
 function transfer_tokens(targetAddress: string, amount: number, tokenID: number) {
 }
@@ -38,11 +38,11 @@ function disable_plugin_index(pluginIndex: number) {
 
 }
 
-function add_plugin(currentRestrictionPlugin: RestrictionPlugin) {
+function add_plugin(currentRestrictionPlugin: Plugin) {
 
 }
 
-function add_and_enable_plugin(currentRestrictionPlugin: RestrictionPlugin) {
+function add_and_enable_plugin(currentRestrictionPlugin: Plugin) {
 
 }
 
