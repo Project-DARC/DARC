@@ -1,8 +1,10 @@
 // all the included instructions are here, mostly instructions for operations
 // todo: add backend support for current operations
 
-import { TokenOperations } from "./SDK/struct/token-operation-map";
-import { Plugin } from "./SDK/struct/Plugin";
+import { TokenOperations } from "./struct/token-operation-map";
+import { Plugin } from "./struct/Plugin";
+
+let operationList = [];
 
 function transfer_tokens(targetAddress: string, amount: number, tokenID: number) {
 }

@@ -1,12 +1,12 @@
 import { ConditionNode } from "../plugin/ConditionNode";
 import { VotingParameters } from "./voting-param";
 declare class Plugin {
-    restrictionPluginDescription: string;
+    note: string;
     conditionExpressionTreeRootNode: ConditionNode;
     restrictionPluginReturnType: RestrictionPluginReturnType;
     votingParameters: VotingParameters | null;
     restrictionPluginType: RestrictionPluginType;
-    constructor(restrictionPluginDescription: string, conditionExpressionTreeRootNode: ConditionNode, restrictionPluginReturnType: RestrictionPluginReturnType, votingParameters: VotingParameters | null, restrictionPluginType: RestrictionPluginType);
+    constructor(note: string, conditionExpressionTreeRootNode: ConditionNode, restrictionPluginReturnType: RestrictionPluginReturnType, votingParameters: VotingParameters | null, restrictionPluginType: RestrictionPluginType);
 }
 declare enum RestrictionPluginReturnType {
     NO = 0,

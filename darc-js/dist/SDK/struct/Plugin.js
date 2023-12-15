@@ -1,6 +1,6 @@
 class Plugin {
-    constructor(restrictionPluginDescription, conditionExpressionTreeRootNode, restrictionPluginReturnType, votingParameters, restrictionPluginType) {
-        this.restrictionPluginDescription = restrictionPluginDescription;
+    constructor(note, conditionExpressionTreeRootNode, restrictionPluginReturnType, votingParameters, restrictionPluginType) {
+        this.note = note;
         this.conditionExpressionTreeRootNode = conditionExpressionTreeRootNode;
         this.restrictionPluginReturnType = restrictionPluginReturnType;
         this.votingParameters = votingParameters;
