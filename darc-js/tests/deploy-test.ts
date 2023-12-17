@@ -1,5 +1,5 @@
 import { DARC_VERSION } from '../src/darcBinary/darcBinary';
-import { deployDARC } from '../src/runtime/runtime';
+import { deployDARC } from '../src/deployDARC/deployDARC';
 import { ethers } from 'ethers';
 
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');

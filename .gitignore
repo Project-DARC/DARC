@@ -18,3 +18,4 @@ darc-docs/.docusaurus
 # Darc docs Compiled output
 darc-docs/build
 darc-docs/static/api
+darc-js/dist

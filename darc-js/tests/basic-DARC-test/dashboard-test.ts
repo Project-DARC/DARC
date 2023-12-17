@@ -1,15 +1,14 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
-import { deployDARC } from '../../src/runtime/runtime';
+import { deployDARC } from '../../src/deployDARC/deployDARC';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
-
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
 import * as DARC from '../../src/darc/darc';
 
-describe('class DARC test', 
+describe('class DARC dashboard test', 
   () => { 
     it('should return true', async () => { 
 
@@ -32,7 +31,7 @@ describe('class DARC test',
       const darc_contract_address = 
       await deployDARC(DARC_VERSION.Test, signer);
 
-      console.log("Class DARC test - deployed at: " + darc_contract_address);
+      console.log("Class DARC dashboard test - deployed at: " + darc_contract_address);
 
       const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
       const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
@@ -204,12 +203,13 @@ describe('class DARC test',
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
       console.log("balance: " + balance.toString());
 
-      function json_stringifyWithBigInt(obj: any) {
+      function json_stringifyWithBigInt(obj:any) {
         return JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? `${v}n` : v);
       }
-
       console.log("Token info: \n" + json_stringifyWithBigInt(await attached_local_darc2.getTokenInfo(BigInt(1))));
 
       expect(balance.toString()).to.equal("20");
+
+      
   }); 
 });

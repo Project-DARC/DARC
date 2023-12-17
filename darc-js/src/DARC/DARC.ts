@@ -1,4 +1,4 @@
-import * as runtime from '../runtime/runtime';
+import * as runtime from '../deployDARC/deployDARC';
 import { ethers, Contract } from 'ethers';
 import * as darcBinary from '../darcBinary/darcBinary';
 

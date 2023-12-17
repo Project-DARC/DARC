@@ -1,4 +1,4 @@
-import { ConditionNode } from "../plugin/ConditionNode";
+import { ConditionNode } from "../plugins/ConditionNode";
 import { VotingParameters } from "./voting-param";
 declare class Plugin {
     note: string;
