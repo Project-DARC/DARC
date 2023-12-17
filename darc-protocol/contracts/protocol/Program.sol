@@ -21,7 +21,7 @@ enum EnumParameterType {
   STRING_ARRAY,
   BOOL_ARRAY,
   PLUGIN_ARRAY
-}
+} 
 
 enum MachineParameter{
   UNDEFINED,

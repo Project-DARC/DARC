@@ -21,7 +21,7 @@ contract PluginFactory is ConditionExpressionFactory{
    * @param pluginIndex The index of the plugin in the plugin system
    * @return uint256 The return level of the plugin
    * @return EnumReturnType The return type of the plugin
-   * @return uint256 The index of the plugin in the plugin system (if not VOTE_NEEDED, return 0)
+   * @return uint256 The index of the plugin in the plugin system (if not VOTING_NEEDED, return 0)
    */
   function pluginCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) internal view returns (uint256, EnumReturnType, uint256) {
 

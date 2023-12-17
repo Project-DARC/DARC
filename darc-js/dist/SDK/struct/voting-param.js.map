@@ -1,0 +1,1 @@
+{"version":3,"file":"voting-param.js","sourceRoot":"","sources":["../../../src/SDK/struct/voting-param.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,gBAAgB;IAW3B,YAAY,qBAA6B,EAAE,2BAAmC,EAAE,iBAAgC;QAC9G,IAAI,CAAC,qBAAqB,GAAG,qBAAqB,CAAC;QACnD,IAAI,CAAC,2BAA2B,GAAG,2BAA2B,CAAC;QAC/D,IAAI,CAAC,iBAAiB,GAAG,iBAAiB,CAAC;IAC7C,CAAC;CACF"}

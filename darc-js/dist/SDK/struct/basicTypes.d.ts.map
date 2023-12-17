@@ -1,0 +1,1 @@
+{"version":3,"file":"basicTypes.d.ts","sourceRoot":"","sources":["../../../src/SDK/struct/basicTypes.ts"],"names":[],"mappings":"AAAA,KAAK,OAAO,GAAG,MAAM,CAAC;AACtB,KAAK,OAAO,GAAG,MAAM,CAAC;AACtB,KAAK,gBAAgB,GAAG,MAAM,EAAE,EAAE,CAAC;AACnC,KAAK,gBAAgB,GAAG,MAAM,EAAE,EAAE,CAAC;AAEnC,OAAO,EAAE,OAAO,EAAE,OAAO,EAAE,gBAAgB,EAAE,gBAAgB,EAAC,CAAA"}

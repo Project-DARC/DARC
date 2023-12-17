@@ -1,8 +1,7 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { ConditionNode, Expression, ConditionNodeType, LogicalOperatorType } from '../src/plugin/ConditionNode';
-import { transpiler } from '../src/transpiler';
+import { transpiler } from '../src/SDK/transpiler';
 
 describe('Operator Test', 
   () => { 

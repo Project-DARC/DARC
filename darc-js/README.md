@@ -70,3 +70,18 @@ const myDeployedDARC_readOnly = new darcjs.DARC({
 // Read information from the DARC
 const memberList = await myDARC_readOnly.getMemberList();
 ```
+
+### Test
+
+Before running the test, you need to start a Hardhat Network in your neighbour folder `darc-protocol`
+
+```bash
+cd ../darc-protocol
+npx hardhat node
+```
+
+Then, you can run the test in `darc-js` folder. Run below command in another terminal.
+
+```bash
+pnpm run test
+```
