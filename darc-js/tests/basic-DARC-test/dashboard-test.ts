@@ -6,7 +6,7 @@ import 'mocha';
 //import { setTimeout } from "timers/promises";
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
-import * as DARC from '../../src/darc/darc';
+import * as DARC from '../../src/DARC/DARC';
 
 describe('class DARC dashboard test', 
   () => { 
@@ -209,7 +209,5 @@ describe('class DARC dashboard test',
       console.log("Token info: \n" + json_stringifyWithBigInt(await attached_local_darc2.getTokenInfo(BigInt(1))));
 
       expect(balance.toString()).to.equal("20");
-
-      
   }); 
 });

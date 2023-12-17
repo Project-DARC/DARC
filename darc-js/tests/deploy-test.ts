@@ -7,7 +7,7 @@ const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed
 
 describe('Deploy Test',
   () => {
-    it('should compile', async () => {
+    it('should deploy DARC successfully', async () => {
       const address = await deployDARC(DARC_VERSION.Test, signer);
 
       console.log("deployed at: " + address);

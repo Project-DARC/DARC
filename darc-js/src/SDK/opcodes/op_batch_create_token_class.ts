@@ -15,8 +15,7 @@ export function op_batch_create_token_class(
   nameArray: string[],
   tokenIndexArray: bigint[] | number[],
   votingWeightArray: bigint[] | number[],
-  dividendWeightArray: bigint[] | number[],
-  operatorAddress:string
+  dividendWeightArray: bigint[] | number[]
 ): OperationStruct {
   // make sure all parameters are valid and the length of all arrays are the same
   if (nameArray.length != tokenIndexArray.length || nameArray.length != votingWeightArray.length || nameArray.length != dividendWeightArray.length) {
@@ -41,12 +40,28 @@ export function op_batch_create_token_class(
       throw new Error("The tokenIndexArray is not a valid array of bigints");
     }
   }
+  for (let i = 0; i < votingWeightArray.length; i++) {
+    if (typeof votingWeightArray[i] === "number") {
+      votingWeightArray[i] = BigInt(votingWeightArray[i]);
+    }
+    if (typeof votingWeightArray[i] !== "bigint") {
+      throw new Error("The votingWeightArray is not a valid array of bigints");
+    }
+  }
+  for (let i = 0; i < dividendWeightArray.length; i++) {
+    if (typeof dividendWeightArray[i] === "number") {
+      dividendWeightArray[i] = BigInt(dividendWeightArray[i]);
+    }
+    if (typeof dividendWeightArray[i] !== "bigint") {
+      throw new Error("The dividendWeightArray is not a valid array of bigints");
+    }
+  }
 
 
 
   //create the operation
   let operation = {
-    operatorAddress: operatorAddress,
+    operatorAddress: "", // address will be filled in later
     opcode: 2, // mint token
     param: {
       UINT256_ARRAY: [],
@@ -66,5 +81,4 @@ export function op_batch_create_token_class(
     }
   };
   return operation;
-
 }

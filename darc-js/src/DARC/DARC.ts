@@ -1,7 +1,8 @@
 import * as runtime from '../deployDARC/deployDARC';
 import { ethers, Contract } from 'ethers';
 import * as darcBinary from '../darcBinary/darcBinary';
-
+import { DARC_VERSION } from '../darcBinary/darcBinary';
+export {DARC_VERSION}
 export type InitParam = {
   address: string;
   version: darcBinary.DARC_VERSION;

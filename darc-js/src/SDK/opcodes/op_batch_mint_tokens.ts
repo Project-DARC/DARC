@@ -1,7 +1,7 @@
 import { ethers } from "ethers";  
 import {OperationStruct} from "../struct/basicTypes";
 
-export function op_batch_mint_tokens(addressArray: string[], amountArray: bigint[], tokenClass: bigint[], operatorAddress:string): OperationStruct {
+export function op_batch_mint_tokens(addressArray: string[], tokenClass: bigint[], amountArray: bigint[]): OperationStruct {
   // make sure the length of addressArray and amountArray are the same
   if (addressArray.length != amountArray.length) {
     throw new Error("The length of addressArray and amountArray are different");
@@ -30,9 +30,19 @@ export function op_batch_mint_tokens(addressArray: string[], amountArray: bigint
     }
   }
 
+  // make sure token class is valid array of bigints or numbers, and if it is number, convert it to bigint
+  for (let i = 0; i < tokenClass.length; i++) {
+    if (typeof tokenClass[i] === "number") {
+      tokenClass[i] = BigInt(tokenClass[i]);
+    }
+    if (typeof tokenClass[i] !== "bigint") {
+      throw new Error("The tokenClass is not a valid array of bigints");
+    }
+  }
+
   //create the operation
   let operation = {
-    operatorAddress: operatorAddress,
+    operatorAddress: "",
     opcode: 1, // mint token
     param: {
       UINT256_ARRAY: [],

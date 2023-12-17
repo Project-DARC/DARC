@@ -11,12 +11,12 @@ import { objectMethod } from "@babel/types";
 
 export let operationList: OperationStruct[] = [];
 
-export function batch_mint_tokens(addressArray: string[], amountArray: bigint[], tokenClass: bigint[], operatorAddress:string) {
-  let operation = op_batch_mint_tokens(addressArray, amountArray, tokenClass, operatorAddress);
+export function batch_mint_tokens(addressArray: string[], amountArray: bigint[], tokenClass: bigint[]) {
+  let operation = op_batch_mint_tokens(addressArray, amountArray, tokenClass);
   operationList.push(operation);
 }
 
-export function batch_create_token_class(nameArray: string[], tokenIndexArray: bigint[], votingWeightArray: bigint[], dividendWeightArray: bigint[], operatorAddress:string) {
-  let operation = op_batch_create_token_class(nameArray, tokenIndexArray, votingWeightArray, dividendWeightArray, operatorAddress);
+export function batch_create_token_class(nameArray: string[], tokenIndexArray: bigint[], votingWeightArray: bigint[], dividendWeightArray: bigint[]) {
+  let operation = op_batch_create_token_class(nameArray, tokenIndexArray, votingWeightArray, dividendWeightArray);
   operationList.push(operation);
 }
