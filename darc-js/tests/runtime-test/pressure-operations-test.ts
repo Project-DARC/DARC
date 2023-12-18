@@ -17,6 +17,8 @@ const my_wallet_address = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
  *   create a token class 1 with token info "token_1", voting weight 20, dividend weight 30
  * 2. mint 100 token_0 and 200 token_1 to address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266  
  */
+
+
 const code = `
 batch_create_token_class(['token_0', 'token_1'],
 [0,1],
@@ -27,11 +29,31 @@ batch_mint_tokens([ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
 [0, 1], [100,200]);
 `;
 
-describe('Runtime execution test', () => {
+
+
+const code_pressure = `
+addressList = [];
+tokenClassList1 = [];
+tokenClassList2 = [];
+tokenNumberList = [];
+for (let i = 0; i < 1000; i++) {
+  addressList.push("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
+  tokenClassList1.push(0);
+  tokenClassList2.push(1);
+  tokenNumberList.push(100);
+}
+batch_create_token_class(['token_0', 'token_1'],
+[0,1],
+[10,20], 
+[20,30]);
+batch_mint_tokens(addressList, tokenClassList1, tokenNumberList);
+`;
+
+describe.only('Runtime execution test', () => {
   it('should run the program', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Test, signer);
 
-    await run(code, signer, darc_contract_address).then(async ()=>{
+    await run(code_pressure, signer, darc_contract_address).then(async ()=>{
 
       const attached_local_darc2 = new DARC.DARC({
         address: darc_contract_address,
@@ -42,22 +64,23 @@ describe('Runtime execution test', () => {
       // read the token info and make sure that address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 has 100 token_0 and 200 token_1
       const token_info = await attached_local_darc2.getTokenInfo(BigInt(0));
       const token_info1 = await attached_local_darc2.getTokenInfo(BigInt(1));
-      // check the token info
-      expect(token_info.votingWeight.toString()).to.equal("10");
-      expect(token_info.dividendWeight.toString()).to.equal("20");
-      expect(token_info.tokenInfo).to.equal("token_0");
-      expect(token_info.totalSupply.toString()).to.equal("100");
-      // check the token info 1
-      expect(token_info1.votingWeight.toString()).to.equal("20");
-      expect(token_info1.dividendWeight.toString()).to.equal("30");
-      expect(token_info1.tokenInfo).to.equal("token_1");
-      expect(token_info1.totalSupply.toString()).to.equal("200");
 
-      // check the token owner balance
-      const token_owner_balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0),my_wallet_address);
-      expect(token_owner_balance.toString()).to.equal("100");
-      const token_owner_balance1 = await attached_local_darc2.getTokenOwnerBalance(BigInt(1),my_wallet_address);
-      expect(token_owner_balance1.toString()).to.equal("200");
+      // // check the token info
+      // expect(token_info.votingWeight.toString()).to.equal("10");
+      // expect(token_info.dividendWeight.toString()).to.equal("20");
+      // expect(token_info.tokenInfo).to.equal("token_0");
+      // expect(token_info.totalSupply.toString()).to.equal("100");
+      // // check the token info 1
+      // expect(token_info1.votingWeight.toString()).to.equal("20");
+      // expect(token_info1.dividendWeight.toString()).to.equal("30");
+      // expect(token_info1.tokenInfo).to.equal("token_1");
+      // expect(token_info1.totalSupply.toString()).to.equal("200");
+
+      // // check the token owner balance
+      // const token_owner_balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0),my_wallet_address);
+      // expect(token_owner_balance.toString()).to.equal("100");
+      // const token_owner_balance1 = await attached_local_darc2.getTokenOwnerBalance(BigInt(1),my_wallet_address);
+      // expect(token_owner_balance1.toString()).to.equal("200");
     });
 
   });

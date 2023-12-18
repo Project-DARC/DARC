@@ -2,23 +2,24 @@ import * as instructions from "./includes";
 import { ethers, Contract } from 'ethers';
 import { OperationStruct, OperationStructOutput, ProgramStruct } from "./struct/basicTypes";
 import * as DARC from "../DARC/DARC";
+
+
 /**
  * This function takes in a string of code and returns a program struct
  * @param code The code to be run
- * @param wallet The wallet to be used to sign the transaction
- * @param provider The provider to be used to connect to the blockchain
+ * @param wallet The wallet to be used to sign the transaction (provider must be set)
  * @param targetDARCAddress The address of the DARC contract to be used
- * @returns 
+ * @returns nothing
  */
-export async function run(code:string, wallet:ethers.Wallet, provider:ethers.providers.Provider, targetDARCAddress:string) {
+export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:string, darcVersion: DARC.DARC_VERSION = DARC.DARC_VERSION.Test) {
   let include = '';
   for (const key in instructions) {
     include += `let ${key} = instructions.${key};\n`;
   }
 
-  const fn = new Function('instructions', 'ethers', 'wallet', 'provider', 'address', include + code + '\n return operationList;');
+  const fn = new Function('instructions', 'ethers', 'wallet', 'address', include + code + '\n return operationList;');
 
-  const results = fn(instructions, ethers, wallet, provider, targetDARCAddress);
+  const results = fn(instructions, ethers, wallet, targetDARCAddress);
   const operatorAddress = wallet.address;
   const resultList:OperationStruct[] = [...results];
 
@@ -33,6 +34,7 @@ export async function run(code:string, wallet:ethers.Wallet, provider:ethers.pro
     operations: resultList
   };
 
+  // create the attached DARC
   const attachedDARC = new DARC.DARC({
     address: targetDARCAddress,
     version: DARC.DARC_VERSION.Test,
