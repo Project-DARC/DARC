@@ -159,8 +159,8 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Add Withdrawable Balance Operation
-   * @param address[] addressArray: the array of the address to add withdrawable balance
-   * @param uint256[] amountArray: the array of the amount to add withdrawable balance
+   * @param ADDRESS_2DARRAY[0] addressArray: the array of the address to add withdrawable balance
+   * @param UINT256_2DARRAY[0] amountArray: the array of the amount to add withdrawable balance
    * ID:17
    */
   BATCH_ADD_WITHDRAWABLE_BALANCES,

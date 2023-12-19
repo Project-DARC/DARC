@@ -15,8 +15,38 @@ import "../../../Utilities/ErrorMsg.sol";
  */
 contract MoneyInstructions is MachineStateManager {
 
+  /**
+   * @notice Add withdrawable balances to the DARC
+   * @param operation the operation to be executed
+   * @param bIsSandbox the boolean flag that indicates if the operation is executed in sandbox
+   */
   function op_BATCH_ADD_WITHDRAWABLE_BALANCES(Operation memory operation, bool bIsSandbox) internal {
-    // todo
+    /**
+     * @notice Batch Add Withdrawable Balance Operation
+     * @param address[] addressArray: the array of the address to add withdrawable balance
+     * @param uint256[] amountArray: the array of the amount to add withdrawable balance
+     * ID:17
+     */
+    address[] memory addressArray = operation.param.ADDRESS_2DARRAY[0];
+    uint256[] memory amountArray = operation.param.UINT256_2DARRAY[0];
+    require(addressArray.length == amountArray.length, "Invalid number of parameters");
+    if (bIsSandbox) {
+      for (uint256 i = 0; i < addressArray.length; i++) {
+        bool bIsValid = false;
+        (bIsValid, sandboxMachineState.withdrawableCashMap[addressArray[i]]) =
+        SafeMathUpgradeable.tryAdd(
+          sandboxMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
+        require(bIsValid, ErrorMsg.By(17));
+      }
+    } else {
+      for (uint256 i = 0; i < addressArray.length; i++) {
+        bool bIsValid = false;
+        (bIsValid, currentMachineState.withdrawableCashMap[addressArray[i]]) =
+        SafeMathUpgradeable.tryAdd(
+          currentMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
+        require(bIsValid, ErrorMsg.By(17));
+      }
+    }
   }
 
   function op_BATCH_REDUCE_WITHDRAWABLE_BALANCES(Operation memory operation, bool bIsSandbox) internal {

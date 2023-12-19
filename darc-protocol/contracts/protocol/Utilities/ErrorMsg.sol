@@ -46,6 +46,9 @@ library ErrorMsg{
     else if (val == 16) {
       return "No enough number of transactions for dividends yet";
     }
+    else if (val == 17) {
+      return "Error in withdrawable cash calculation";
+    }
     return "Unknown Error";
   }
 }
