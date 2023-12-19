@@ -166,12 +166,12 @@ enum EnumOpcode {
   BATCH_ADD_WITHDRAWABLE_BALANCE,
 
   /**
-   * @notice Batch Substract Withdrawable Balance Operation
+   * @notice Batch Reduce Withdrawable Balance Operation
    * @param address[] addressArray: the array of the address to substract withdrawable balance
    * @param uint256[] amountArray: the array of the amount to substract withdrawable balance
    * ID:18
    */
-  BATCH_SUBSTRACT_WITHDRAWABLE_BALANCE,
+  BATCH_REDUCE_WITHDRAWABLE_BALANCE,
 
   /**
    * @notice Batch Add Voting Rules

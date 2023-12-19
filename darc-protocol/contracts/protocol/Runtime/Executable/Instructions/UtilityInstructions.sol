@@ -93,4 +93,26 @@ contract UtilityInstructions is MachineStateManager {
   function op_EXECUTE_PROGRAM(Operation memory operation, bool bIsSandbox) internal {
 
   }
+
+  function op_END_EMERGENCY(Operation memory operation, bool bIsSandbox) internal {
+    if (bIsSandbox) {
+      sandboxMachineState.machineStateParameters.bIsEmergency = false;
+      delete sandboxMachineState.machineStateParameters.activeEmergencyAgentsAddressList;
+    } else {
+      currentMachineState.machineStateParameters.bIsEmergency = false;
+      delete currentMachineState.machineStateParameters.activeEmergencyAgentsAddressList;
+    }
+  }
+
+  function op_UPGRADE_TO_ADDRESS(Operation memory operation, bool bIsSandbox) internal {
+
+  }
+
+  function op_CONFIRM_UPGRAED_FROM_ADDRESS(Operation memory operation, bool bIsSandbox) internal {
+
+  }
+
+  function op_UPGRADE_TO_THE_LATEST(Operation memory operation, bool bIsSandbox) internal {
+
+  }
 }

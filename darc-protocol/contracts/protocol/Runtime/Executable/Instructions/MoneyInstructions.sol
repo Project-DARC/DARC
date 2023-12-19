@@ -19,7 +19,7 @@ contract MoneyInstructions is MachineStateManager {
     // todo
   }
 
-  function op_BATCH_SUBSTRACT_WITHDRAWABLE_BALANCE(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_REDUCE_WITHDRAWABLE_BALANCE(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }
 

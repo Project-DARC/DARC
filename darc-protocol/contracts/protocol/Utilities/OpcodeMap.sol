@@ -32,7 +32,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGIN) return 15;
     if (opcode == EnumOpcode.BATCH_SET_PARAMETER) return 16;
     if (opcode == EnumOpcode.BATCH_ADD_WITHDRAWABLE_BALANCE) return 17;
-    if (opcode == EnumOpcode.BATCH_SUBSTRACT_WITHDRAWABLE_BALANCE) return 18;
+    if (opcode == EnumOpcode.BATCH_REDUCE_WITHDRAWABLE_BALANCE) return 18;
     if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULE) return 19;
     if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return 20;
     if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return 21;
@@ -74,7 +74,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGIN) return "BATCH_ADD_AND_ENABLE_PLUGIN";
     if (opcode == EnumOpcode.BATCH_SET_PARAMETER) return "BATCH_SET_PARAMETER";
     if (opcode == EnumOpcode.BATCH_ADD_WITHDRAWABLE_BALANCE) return "BATCH_ADD_WITHDRAWABLE_BALANCE";
-    if (opcode == EnumOpcode.BATCH_SUBSTRACT_WITHDRAWABLE_BALANCE) return "BATCH_SUBSTRACT_WITHDRAWABLE_BALANCE";
+    if (opcode == EnumOpcode.BATCH_REDUCE_WITHDRAWABLE_BALANCE) return "BATCH_REDUCE_WITHDRAWABLE_BALANCE";
     if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULE) return "BATCH_ADD_VOTING_RULE";
     if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return "BATCH_PAY_TO_MINT_TOKENS";
     if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return "BATCH_PAY_TO_TRANSFER_TOKENS";
