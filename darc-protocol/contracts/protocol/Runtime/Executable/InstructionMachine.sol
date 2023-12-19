@@ -50,8 +50,8 @@ OfferDividendsInstructions
     }
 
     // opcode id == 2
-    else if (operation.opcode == EnumOpcode.BATCH_CREATE_TOKEN_CLASS ){
-      op_BATCH_CREATE_TOKEN_CLASS(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_CREATE_TOKEN_CLASSES ){
+      op_BATCH_CREATE_TOKEN_CLASSES(operation, bIsSandbox);
     }
 
     // opcode id == 3
@@ -90,53 +90,53 @@ OfferDividendsInstructions
     }
 
     // opcode id == 10
-    else if (operation.opcode == EnumOpcode.BATCH_CHANGE_MEMBER_ROLE) {
-      op_BATCH_CHANGE_MEMBER_ROLE(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_CHANGE_MEMBER_ROLES) {
+      op_BATCH_CHANGE_MEMBER_ROLES(operation, bIsSandbox);
     }
 
     // opcode id == 11
-    else if (operation.opcode == EnumOpcode.op_BATCH_CHANGE_MEMBER_NAME) {
-      op_BATCH_CHANGE_MEMBER_NAME(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) {
+      op_BATCH_CHANGE_MEMBER_NAMES(operation, bIsSandbox);
     }
 
     // opcode id == 12
-    else if (operation.opcode == EnumOpcode.BATCH_ADD_PLUGIN) {
-      op_BATCH_ADD_PLUGIN(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ADD_PLUGINS) {
+      op_BATCH_ADD_PLUGINS(operation, bIsSandbox);
     }
 
     // opcode id == 13
-    else if (operation.opcode == EnumOpcode.BATCH_ENABLE_PLUGIN) {
-      op_BATCH_ENABLE_PLUGIN(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ENABLE_PLUGINS) {
+      op_BATCH_ENABLE_PLUGINS(operation, bIsSandbox);
     }
 
     // opcode id == 14
-    else if (operation.opcode == EnumOpcode.BATCH_DISABLE_PLUGIN) {
-      op_BATCH_DISABLE_PLUGIN(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_DISABLE_PLUGINS) {
+      op_BATCH_DISABLE_PLUGINS(operation, bIsSandbox);
     }
 
     // opcode id == 15
-    else if (operation.opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGIN){
-      op_BATCH_ADD_AND_ENABLE_PLUGIN(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGINS){
+      op_BATCH_ADD_AND_ENABLE_PLUGINS(operation, bIsSandbox);
     }
 
     // opcode id == 16
-    else if (operation.opcode == EnumOpcode.BATCH_SET_PARAMETER) {
-      op_BATCH_SET_PARAMETER(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_SET_PARAMETERS) {
+      op_BATCH_SET_PARAMETERS(operation, bIsSandbox);
     }
 
     // opcode id == 17 
-    else if (operation.opcode == EnumOpcode.BATCH_ADD_WITHDRAWABLE_BALANCE) {
-      op_BATCH_ADD_WITHDRAWABLE_BALANCE(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ADD_WITHDRAWABLE_BALANCES) {
+      op_BATCH_ADD_WITHDRAWABLE_BALANCES(operation, bIsSandbox);
     }
 
     // opcode id == 18
-    else if (operation.opcode == EnumOpcode.BATCH_REDUCE_WITHDRAWABLE_BALANCE) {
-      op_BATCH_REDUCE_WITHDRAWABLE_BALANCE(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_REDUCE_WITHDRAWABLE_BALANCES) {
+      op_BATCH_REDUCE_WITHDRAWABLE_BALANCES(operation, bIsSandbox);
     }
 
     // opcode id == 19
-    else if (operation.opcode == EnumOpcode.BATCH_ADD_VOTING_RULE) {
-      op_BATCH_ADD_VOTING_RULE(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ADD_VOTING_RULES) {
+      op_BATCH_ADD_VOTING_RULES(operation, bIsSandbox);
     }
 
     // opcode id == 20 

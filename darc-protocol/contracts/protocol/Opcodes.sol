@@ -33,7 +33,7 @@ enum EnumOpcode {
    * 
    * ID:2
    */
-  BATCH_CREATE_TOKEN_CLASS,
+  BATCH_CREATE_TOKEN_CLASSES,
 
   /**
    * @notice Batch Transfer Token Operation
@@ -108,7 +108,7 @@ enum EnumOpcode {
    * 
    * ID:10
    */
-  BATCH_CHANGE_MEMBER_ROLE,
+  BATCH_CHANGE_MEMBER_ROLES,
 
   /**
    * @notice Batch Change Member Name Operation
@@ -117,14 +117,14 @@ enum EnumOpcode {
    * 
    * ID:11
    */
-  BATCH_CHANGE_MEMBER_NAME,
+  BATCH_CHANGE_MEMBER_NAMES,
 
   /**
    * @notice Batch Add Emergency Agent Operation
    * @param Plugin[] pluginList: the array of the plugins
    * ID:12
    */
-  BATCH_ADD_PLUGIN,
+  BATCH_ADD_PLUGINS,
 
   /**
    * @notice Batch Enable Plugin Operation
@@ -132,7 +132,7 @@ enum EnumOpcode {
    * @param BOOL_ARRAY bool[] isBeforeOperationArray: the array of the flag to indicate if the plugin is before operation
    * ID:13
    */
-  BATCH_ENABLE_PLUGIN,
+  BATCH_ENABLE_PLUGINS,
 
   /**
    * @notice Batch Disable Plugin Operation
@@ -140,14 +140,14 @@ enum EnumOpcode {
    * @param BOOL_ARRAY bool[] isBeforeOperationArray: the array of the flag to indicate if the plugin is before operation
    * ID:14
    */
-  BATCH_DISABLE_PLUGIN,
+  BATCH_DISABLE_PLUGINS,
 
   /**
    * @notice Batch Add and Enable Plugin Operation
    * @param Plugin[] pluginList: the array of the plugins
    * ID:15
    */
-  BATCH_ADD_AND_ENABLE_PLUGIN,
+  BATCH_ADD_AND_ENABLE_PLUGINS,
 
   /**
    * @notice Batch Set Parameter Operation
@@ -155,7 +155,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] uint256[] parameterValueArray: the array of the parameter value
    * ID:16
    */
-  BATCH_SET_PARAMETER,
+  BATCH_SET_PARAMETERS,
 
   /**
    * @notice Batch Add Withdrawable Balance Operation
@@ -163,7 +163,7 @@ enum EnumOpcode {
    * @param uint256[] amountArray: the array of the amount to add withdrawable balance
    * ID:17
    */
-  BATCH_ADD_WITHDRAWABLE_BALANCE,
+  BATCH_ADD_WITHDRAWABLE_BALANCES,
 
   /**
    * @notice Batch Reduce Withdrawable Balance Operation
@@ -171,14 +171,14 @@ enum EnumOpcode {
    * @param uint256[] amountArray: the array of the amount to substract withdrawable balance
    * ID:18
    */
-  BATCH_REDUCE_WITHDRAWABLE_BALANCE,
+  BATCH_REDUCE_WITHDRAWABLE_BALANCES,
 
   /**
    * @notice Batch Add Voting Rules
    * @param VotingRule[] votingRuleList: the array of the voting rules
    * ID:19
    */
-  BATCH_ADD_VOTING_RULE,
+  BATCH_ADD_VOTING_RULES,
 
 
   /**
@@ -328,5 +328,11 @@ enum EnumOpcode {
    * @notice Upgrade the contract to the latest version
    * ID:37
    */
-  UPGRADE_TO_THE_LATEST
+  UPGRADE_TO_THE_LATEST,
+
+  /**
+   * @notice Batch Pay to Trasnfer Tokens Operation
+   * ID:38
+   */
+  op_BATCH_PAY_TO_TRANSFER_TOKENS
 }

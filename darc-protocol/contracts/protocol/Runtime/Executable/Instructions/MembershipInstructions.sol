@@ -101,11 +101,11 @@ contract MembershipInstructions is MachineStateManager {
 
 
   /**
-   * @notice The function that executes the BATCH_CHANGE_MEMBER_ROLE operation
+   * @notice The function that executes the BATCH_CHANGE_MEMBER_ROLES operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_CHANGE_MEMBER_ROLE(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_CHANGE_MEMBER_ROLES(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of member addresses
     address[] memory members = operation.param.ADDRESS_2DARRAY[0];
     // parameter 2 is the array of member role numbers
@@ -122,11 +122,11 @@ contract MembershipInstructions is MachineStateManager {
     }
   }
   /**
-   * @notice The function that executes the BATCH_CHANGE_MEMBER_NAME operation
+   * @notice The function that executes the BATCH_CHANGE_MEMBER_NAMES operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_CHANGE_MEMBER_NAME(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_CHANGE_MEMBER_NAMES(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of member addresses
     address[] memory members = operation.param.ADDRESS_2DARRAY[0];
     // parameter 2 is the array of member role names

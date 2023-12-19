@@ -43,7 +43,7 @@ batch_mint_tokens(
 
 // enable plugins 3, 4 before sandbox checking operation
 // and disable plugins 5, 6 after sandbox checking operation
-batch_enable_plugins(
+BATCH_ENABLE_PLUGINSs(
   [3,4,5,6],
   [true, true, false, false]
 );

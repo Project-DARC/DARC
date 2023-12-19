@@ -9,18 +9,18 @@ import "../../../Plugin/Plugin.sol";
 import "../../../Utilities/ErrorMsg.sol";
 
 /**
- * @title Implementation of the single instruction "BATCH_SET_PARAMETER"
+ * @title Implementation of the single instruction "BATCH_SET_PARAMETERS"
  * @author DARC Team
  * @notice null
  */
  
 contract ParameterInstructions is MachineStateManager {
   /**
-   * @notice The implementation of the single instruction "BATCH_SET_PARAMETER"
+   * @notice The implementation of the single instruction "BATCH_SET_PARAMETERS"
    * @param operation The operation index to be executed
    * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
    */
-  function op_BATCH_SET_PARAMETER(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_SET_PARAMETERS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the Machine Parameter Array
     MachineParameter[] memory params = operation.param.PARAMETER_ARRAY;
     // parameter 2 is the uint256 array of the parameter UINT256_2DARRAY

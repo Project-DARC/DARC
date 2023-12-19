@@ -15,11 +15,11 @@ import "../../../Utilities/ErrorMsg.sol";
  */
 contract MoneyInstructions is MachineStateManager {
 
-  function op_BATCH_ADD_WITHDRAWABLE_BALANCE(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ADD_WITHDRAWABLE_BALANCES(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }
 
-  function op_BATCH_REDUCE_WITHDRAWABLE_BALANCE(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_REDUCE_WITHDRAWABLE_BALANCES(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }
 

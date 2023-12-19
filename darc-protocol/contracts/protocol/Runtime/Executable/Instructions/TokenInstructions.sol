@@ -141,12 +141,12 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
   }
 
   /**
-   * @notice The function that executes the BATCH_CREATE_TOKEN_CLASS operation
+   * @notice The function that executes the BATCH_CREATE_TOKEN_CLASSES operation
    * @param operation the operation index to be executed
    * @param bIsSandbox the boolean flag that indicates if the operation is executed in sandbox
    */
 
-  function op_BATCH_CREATE_TOKEN_CLASS(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_CREATE_TOKEN_CLASSES(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of token info to be created
     string[] memory tokenInfo = operation.param.STRING_ARRAY;
     // parameter 2 is the array of token index array to be created

@@ -9,18 +9,18 @@ import "../../../Plugin/Plugin.sol";
 import "../../../Utilities/ErrorMsg.sol";
 
 /**
- * @title Implementation of BATCH_ADD_AND_ENABLE_PLUGIN operation
+ * @title Implementation of BATCH_ADD_AND_ENABLE_PLUGINS operation
  * @author DARC Team
  * @notice null
  */
 
 contract PluginInstructions is MachineStateManager{
   /**
-   * @notice The function that executes the BATCH_ADD_PLUGIN operation
+   * @notice The function that executes the BATCH_ADD_PLUGINS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_ADD_PLUGIN(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ADD_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugins
     Plugin[] memory plugins = operation.param.PLUGIN_ARRAY;
     for (uint256 i=0;i<plugins.length;i++){
@@ -51,11 +51,11 @@ contract PluginInstructions is MachineStateManager{
     }
   }
   /**
-   * @notice The function that executes the BATCH_ADD_AND_ENABLE_PLUGIN operation
+   * @notice The function that executes the BATCH_ADD_AND_ENABLE_PLUGINS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_ADD_AND_ENABLE_PLUGIN(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ADD_AND_ENABLE_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugins
     Plugin[] memory plugins = operation.param.PLUGIN_ARRAY;
     for (uint256 i=0;i<plugins.length;i++){
@@ -87,11 +87,11 @@ contract PluginInstructions is MachineStateManager{
   }
 
   /**
-   * @notice The function that executes the BATCH_ENABLE_PLUGIN operation
+   * @notice The function that executes the BATCH_ENABLE_PLUGINS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_ENABLE_PLUGIN(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ENABLE_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugin indexes to be enabled
     uint256[] memory pluginIndexes = operation.param.UINT256_2DARRAY[0];
     // parameter 2 is the array of boolean that indicates if the plugin is a before operation plugin
@@ -132,11 +132,11 @@ contract PluginInstructions is MachineStateManager{
   }
 
   /**
-   * @notice The function that executes the BATCH_DISABLE_PLUGIN operation
+   * @notice The function that executes the BATCH_DISABLE_PLUGINS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_DISABLE_PLUGIN(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_DISABLE_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugin indexes to be disabled
     uint256[] memory pluginIndexes = operation.param.UINT256_2DARRAY[0];
     // parameter 2 is the array of boolean that indicates if the plugin is a before operation plugin

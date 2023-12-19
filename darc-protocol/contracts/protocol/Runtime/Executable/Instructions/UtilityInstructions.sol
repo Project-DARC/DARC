@@ -16,11 +16,11 @@ import "../../../Utilities/ErrorMsg.sol";
 contract UtilityInstructions is MachineStateManager {
 
   /**
-   * @notice The implementation of the operation BATCH_ADD_VOTING_RULE
+   * @notice The implementation of the operation BATCH_ADD_VOTING_RULES
    * @param operation The operation index to be executed
    * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
    */
-  function op_BATCH_ADD_VOTING_RULE(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ADD_VOTING_RULES(Operation memory operation, bool bIsSandbox) internal {
     VotingRule[] memory votingRules = operation.param.VOTING_RULE_ARRAY;
     if (bIsSandbox) {
       for (uint256 i = 0; i < votingRules.length; i++) {
