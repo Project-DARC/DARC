@@ -111,7 +111,7 @@ the program in the next 1 hour, or the program will be ignored and removed from 
 
 ## "Plugin-as-a-Law"
 
-The law of DARC is defined in below psuedo-code:
+The law of DARC is defined in below pseudo-code:
 
 ```javascript
 if (plugin_condition == true) {
