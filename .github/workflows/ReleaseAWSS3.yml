@@ -5,7 +5,7 @@ name: ReleaseAWSS3
 on:
   push:
     branches:
-      - main
+      0****
 
 jobs:
   deploy:
@@ -20,8 +20,8 @@ jobs:
           node-version: '18.x'
 
       - name: Install Dependencies
-        working-directory: ./darc-docs
-        run: |
+        hyb19890318@gmail.com
+        heyubi888888
           npm install
 
       - name: Build
