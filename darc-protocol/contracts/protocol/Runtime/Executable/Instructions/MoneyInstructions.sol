@@ -31,26 +31,128 @@ contract MoneyInstructions is MachineStateManager {
     uint256[] memory amountArray = operation.param.UINT256_2DARRAY[0];
     require(addressArray.length == amountArray.length, "Invalid number of parameters");
     if (bIsSandbox) {
+      // update the withdrawable cash map
       for (uint256 i = 0; i < addressArray.length; i++) {
         bool bIsValid = false;
-        (bIsValid, sandboxMachineState.withdrawableCashMap[addressArray[i]]) =
+        uint256 result = 0;
+        (bIsValid, result) =
         SafeMathUpgradeable.tryAdd(
           sandboxMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
         require(bIsValid, ErrorMsg.By(17));
+        sandboxMachineState.withdrawableCashMap[addressArray[i]] = result;
+      }
+
+      // add the addresss to the withdrawable cash address list if it is not in the list
+      // 1. copy the withdrawable cash address list to a new list
+      address[] memory newWithdrawableCashOwnerList = new address[](
+        sandboxMachineState.withdrawableCashOwnerList.length + addressArray.length);
+      uint256 pt = 0;
+      for (uint256 i = 0; i < sandboxMachineState.withdrawableCashOwnerList.length; i++) {
+        newWithdrawableCashOwnerList[pt] = sandboxMachineState.withdrawableCashOwnerList[i];
+        pt++;
+      }
+
+      // 2. add the new address to the new list, if and only if the address is not in the list
+      for (uint256 i = 0; i < addressArray.length; i++) {
+        bool bIsInList = false;
+        for (uint256 j = 0; j < sandboxMachineState.withdrawableCashOwnerList.length; j++) {
+          if (sandboxMachineState.withdrawableCashOwnerList[j] == addressArray[i]) {
+            bIsInList = true;
+            break;
+          }
+        }
+        if (!bIsInList) {
+          newWithdrawableCashOwnerList[pt] = addressArray[i];
+          pt++;
+        }
+      }
+
+      // 3. copy the new list to the withdrawable cash address list
+      sandboxMachineState.withdrawableCashOwnerList = new address[](pt);
+      for (uint256 i = 0; i < pt; i++) {
+        sandboxMachineState.withdrawableCashOwnerList[i] = newWithdrawableCashOwnerList[i];
       }
     } else {
+      // update the withdrawable cash map
       for (uint256 i = 0; i < addressArray.length; i++) {
         bool bIsValid = false;
-        (bIsValid, currentMachineState.withdrawableCashMap[addressArray[i]]) =
+        uint256 result = 0;
+        (bIsValid, result) =
         SafeMathUpgradeable.tryAdd(
           currentMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
         require(bIsValid, ErrorMsg.By(17));
+        currentMachineState.withdrawableCashMap[addressArray[i]] = result;
+      }
+
+      // add the addresss to the withdrawable cash address list if it is not in the list
+      // 1. copy the withdrawable cash address list to a new list
+      address[] memory newWithdrawableCashOwnerList = new address[](
+        currentMachineState.withdrawableCashOwnerList.length + addressArray.length);
+      uint256 pt = 0;
+      for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+        newWithdrawableCashOwnerList[pt] = currentMachineState.withdrawableCashOwnerList[i];
+        pt++;
+      }
+
+      // 2. add the new address to the new list, if and only if the address is not in the list
+      for (uint256 i = 0; i < addressArray.length; i++) {
+        bool bIsInList = false;
+        for (uint256 j = 0; j < currentMachineState.withdrawableCashOwnerList.length; j++) {
+          if (currentMachineState.withdrawableCashOwnerList[j] == addressArray[i]) {
+            bIsInList = true;
+            break;
+          }
+        }
+        if (!bIsInList) {
+          newWithdrawableCashOwnerList[pt] = addressArray[i];
+          pt++;
+        }
+      }
+
+      // 3. copy the new list to the withdrawable cash address list
+      currentMachineState.withdrawableCashOwnerList = new address[](pt);
+      for (uint256 i = 0; i < pt; i++) {
+        currentMachineState.withdrawableCashOwnerList[i] = newWithdrawableCashOwnerList[i];
       }
     }
   }
 
+  /**
+   * @notice Reduce withdrawable balances from the DARC
+   * @param operation The operation to be executed
+   * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
+   */
   function op_BATCH_REDUCE_WITHDRAWABLE_BALANCES(Operation memory operation, bool bIsSandbox) internal {
-    // todo
+      /**
+       * @notice Batch Reduce Withdrawable Balance Operation
+       * @param ADDRESS_2DARRAY[0] addressArray: the array of the address to substract withdrawable balance
+       * @param UINT256_2DARRAY[0] amountArray: the array of the amount to substract withdrawable balance
+       * ID:18
+       */
+
+      address[] memory addressArray = operation.param.ADDRESS_2DARRAY[0];
+      uint256[] memory amountArray = operation.param.UINT256_2DARRAY[0];
+      require(addressArray.length == amountArray.length, "Invalid number of parameters");
+      if (bIsSandbox) {
+        for (uint256 i = 0; i < addressArray.length; i++) {
+          bool bIsValid = false;
+          uint256 result = 0;
+          (bIsValid, result) =
+          SafeMathUpgradeable.trySub(
+            sandboxMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
+          require(bIsValid, ErrorMsg.By(17));
+          sandboxMachineState.withdrawableCashMap[addressArray[i]] = result;
+        }
+
+      } else {
+        for (uint256 i = 0; i < addressArray.length; i++) {
+          bool bIsValid = false;
+          (bIsValid, currentMachineState.withdrawableCashMap[addressArray[i]]) =
+          SafeMathUpgradeable.trySub(
+            currentMachineState.withdrawableCashMap[addressArray[i]], amountArray[i]);
+          require(bIsValid, ErrorMsg.By(17));
+        }
+      }
   }
 
   function op_WITHDRAW_CASH_TO(Operation memory operation, bool bIsSandbox) internal {
@@ -114,9 +216,9 @@ contract MoneyInstructions is MachineStateManager {
     }
   }
 
-  function op_WITHDRAW_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
-    // todo
-  }
+  // function op_WITHDRAW_DIVIDENDS(Operation memory operation, bool bIsSandbox) internal {
+  //   // todo
+  // }
 
   function op_BATCH_BURN_TOKENS_AND_REFUND(Operation memory operation, bool bIsSandbox) internal {
     // todo

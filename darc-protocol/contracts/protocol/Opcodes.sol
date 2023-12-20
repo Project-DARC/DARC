@@ -167,8 +167,8 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Reduce Withdrawable Balance Operation
-   * @param address[] addressArray: the array of the address to substract withdrawable balance
-   * @param uint256[] amountArray: the array of the amount to substract withdrawable balance
+   * @param ADDRESS_2DARRAY[0] addressArray: the array of the address to substract withdrawable balance
+   * @param UINT256_2DARRAY[0] amountArray: the array of the amount to substract withdrawable balance
    * ID:18
    */
   BATCH_REDUCE_WITHDRAWABLE_BALANCES,
