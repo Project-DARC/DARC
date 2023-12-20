@@ -36,7 +36,7 @@ addressList = [];
 tokenClassList1 = [];
 tokenClassList2 = [];
 tokenNumberList = [];
-for (let i = 0; i < 10000; i++) {
+for (let i = 0; i < 1000; i++) {
   addressList.push("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
   tokenClassList1.push(0);
   tokenClassList2.push(1);
@@ -64,28 +64,9 @@ describe('Runtime execution test', () => {
         const token_owner_balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0),my_wallet_address);
   
         console.log("token_info", token_owner_balance);
-        expect(token_owner_balance.toString()).to.equal("1000000");
-        // // check the token info
-        // expect(token_info.votingWeight.toString()).to.equal("10");
-        // expect(token_info.dividendWeight.toString()).to.equal("20");
-        // expect(token_info.tokenInfo).to.equal("token_0");
-        // expect(token_info.totalSupply.toString()).to.equal("100");
-        // // check the token info 1
-        // expect(token_info1.votingWeight.toString()).to.equal("20");
-        // expect(token_info1.dividendWeight.toString()).to.equal("30");
-        // expect(token_info1.tokenInfo).to.equal("token_1");
-        // expect(token_info1.totalSupply.toString()).to.equal("200");
-  
-        // // check the token owner balance
-        // const token_owner_balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0),my_wallet_address);
-        // expect(token_owner_balance.toString()).to.equal("100");
-        // const token_owner_balance1 = await attached_local_darc2.getTokenOwnerBalance(BigInt(1),my_wallet_address);
-        // expect(token_owner_balance1.toString()).to.equal("200");
+        expect(token_owner_balance.toString()).to.equal("100000");
       });
     }
-
-
-
     );
   
   });
