@@ -20,7 +20,6 @@ describe("withdraw cash test", function () {
     console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
-
     // initialize program
 
     const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
@@ -80,5 +79,9 @@ describe("withdraw cash test", function () {
     }
 
     expect(bIsScuccess).to.equal(false);
+    
+    // check the balance of darc, should remain 10000 after the payment
+    const balance = await ethers.provider.getBalance(darc.address);
+    expect(balance.toString()).to.equal("10000");
   });
 });

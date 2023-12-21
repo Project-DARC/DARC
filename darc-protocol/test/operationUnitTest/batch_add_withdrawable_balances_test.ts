@@ -38,7 +38,7 @@ describe("batch_add_withdrawable_balances_test", function () {
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
-        opcode: 17, // add membership
+        opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],
@@ -69,7 +69,7 @@ describe("batch_add_withdrawable_balances_test", function () {
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
-        opcode: 17, // add membership
+        opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],
@@ -101,12 +101,12 @@ describe("batch_add_withdrawable_balances_test", function () {
     const target4balance4 = await darc.getWithdrawableCashBalance(target4);
     const target5balance5 = await darc.getWithdrawableCashBalance(target5);
 
-    // expect(target1balance1.toString()).to.equal("200");
-    // expect(target2balance2.toString()).to.equal("200");
-    // expect(target3balance3.toString()).to.equal("300");
-    // expect(target4balance4.toString()).to.equal("200");
-    // expect(target5balance5.toString()).to.equal("300");
-    console.log(await darc.getWithdrawableCashOwnerList());
+    expect(target1balance1.toString()).to.equal("100");
+    expect(target2balance2.toString()).to.equal("200");
+    expect(target3balance3.toString()).to.equal("300");
+    expect(target4balance4.toString()).to.equal("300");
+    expect(target5balance5.toString()).to.equal("300");
+
 
   });
 });
