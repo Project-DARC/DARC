@@ -232,15 +232,6 @@ contract MoneyInstructions is MachineStateManager {
   }
 
   /**
-   * The function to withdraw cash from the DARC
-   * @param operation The operation to be executed
-   * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox 
-   */
-  function op_WITHDRAW_CASH_TO(Operation memory operation, bool bIsSandbox) internal {
-    
-  }
-
-  /**
    * @notice Pay cash to the DARC
    * @param operation the operation to be executed
    * @param bIsSandbox the boolean flag that indicates if the operation is executed in sandbox
@@ -299,10 +290,6 @@ contract MoneyInstructions is MachineStateManager {
 
 
   function op_BATCH_BURN_TOKENS_AND_REFUND(Operation memory operation, bool bIsSandbox) internal {
-    // todo
-  }
-
-  function op_WITHDRAW_DIVIDENDS_TO(Operation memory operation, bool bIsSandbox) internal {
     // todo
   }
 

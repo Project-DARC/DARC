@@ -123,7 +123,7 @@ contract MachineStateManager {
       false
     ));
 
-    // set dividend permyriad per transaction as 500
+    // set dividend permyriad per transaction as 5000, which is 50%
     currentMachineState.machineStateParameters.dividendPermyriadPerTransaction = 5000;
 
     // set the dividend cycle of transactions as 1

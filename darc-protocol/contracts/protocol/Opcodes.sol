@@ -212,12 +212,10 @@ enum EnumOpcode {
   ADD_EMERGENCY,
 
   /**
-   * @notice withdraw cash from the contract's cash balance
-   * @param address[] addressArray: the array of the address to withdraw cash to
-   * @param uint256[] amountArray: the array of the amount of cash to withdraw
+   * @notice Reserved ID 23 DO NOT USE
    * ID:23
    */
-  WITHDRAW_CASH_TO,
+  RESERVED_ID_23,
 
   /**
    * @notice Call emergency agents to handle emergency situations
@@ -255,12 +253,10 @@ enum EnumOpcode {
   OFFER_DIVIDENDS,
 
   /**
-   * @notice Withdraw dividends from the withdrawable dividends balance
-   * @param address[] addressArray: the array of the address to withdraw dividends to
-   * @param uint256[] amountArray: the array of the amount of dividends to withdraw
+   * @notice Reserved ID 28 DO NOT USE
    * ID:28
    */
-  WITHDRAW_DIVIDENDS_TO,
+  RESERVED_ID_28,
 
   /**
    * @notice Set the approval for all transfer operations by address
