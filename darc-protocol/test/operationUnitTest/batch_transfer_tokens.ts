@@ -54,7 +54,8 @@ describe("batch_transfer_tokens_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -84,7 +85,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -104,7 +106,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1, target2, target1, target2], 
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -146,7 +149,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1, target1], 
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

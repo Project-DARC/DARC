@@ -52,7 +52,8 @@ describe("batch_add_withdrawable_balances_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1, target2, target3]
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -83,7 +84,8 @@ describe("batch_add_withdrawable_balances_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target4, target4, target5]
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

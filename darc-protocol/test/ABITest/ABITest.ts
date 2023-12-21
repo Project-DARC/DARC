@@ -34,7 +34,8 @@ const program = {
       ],
       ADDRESS_2DARRAY: [
         [target1,target1], // to = target 1
-      ]
+      ],
+      BYTES: []
     }
   },
   {
@@ -55,7 +56,8 @@ const program = {
       ADDRESS_2DARRAY: [
         [target1, target1, target1, target1], // from = target 1
         [target2, target3, target2, target3], // to = target 2
-      ]
+      ],
+      BYTES: []
     }
   }], 
 };

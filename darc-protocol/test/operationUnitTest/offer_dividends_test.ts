@@ -54,7 +54,8 @@ describe("offer_dividends_test", function () {
             [BigNumber.from(1), BigNumber.from(1)],
             [BigNumber.from(1), BigNumber.from(3)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       },
       {
@@ -74,7 +75,8 @@ describe("offer_dividends_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [addr1, addr2, addr3, addr1, addr2 ,addr3]
-          ]
+          ],
+          BYTES: []
         }
       }
     ], 
@@ -98,7 +100,8 @@ describe("offer_dividends_test", function () {
                 // pay 20000
                 [BigNumber.from(200000000000), BigNumber.from(0), BigNumber.from(1)],
               ],
-              ADDRESS_2DARRAY: []
+              ADDRESS_2DARRAY: [],
+              BYTES: []
             }
           }], 
         }, {value: ethers.utils.parseEther("1")}
@@ -149,7 +152,8 @@ describe("offer_dividends_test", function () {
             PARAMETER_ARRAY: [],
             PLUGIN_ARRAY: [],
             UINT256_2DARRAY: [],
-            ADDRESS_2DARRAY: []
+            ADDRESS_2DARRAY: [],
+            BYTES: []
           }
         }]});
 

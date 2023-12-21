@@ -50,7 +50,8 @@ describe("batch_pay_to_transfer_token_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -76,7 +77,8 @@ describe("batch_pay_to_transfer_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -97,7 +99,8 @@ describe("batch_pay_to_transfer_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1 ,target2], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       }], 
     }, 

@@ -44,7 +44,8 @@ describe("batch_add_membership_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress, target1, target2, target3]
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

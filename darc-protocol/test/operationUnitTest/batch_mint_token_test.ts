@@ -60,7 +60,8 @@ describe("batch_mint_token_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -85,7 +86,8 @@ describe("batch_mint_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress, programOperatorAddress, addr1, addr2],
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -128,7 +130,8 @@ describe("batch_mint_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress, programOperatorAddress, addr1, addr1, addr2,addr2, addr3, addr3], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -167,7 +170,8 @@ describe("batch_mint_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [addr4,addr4, addr5, addr5, addr6, addr6], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

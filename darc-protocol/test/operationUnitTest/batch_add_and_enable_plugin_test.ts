@@ -53,7 +53,8 @@ describe("test for batch add and enable plugins", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -103,7 +104,8 @@ describe("test for batch add and enable plugins", function () {
               }
             ],
             UINT256_2DARRAY: [],
-            ADDRESS_2DARRAY: []
+            ADDRESS_2DARRAY: [],
+            BYTES: []
           }
         },
         // {
@@ -172,7 +174,8 @@ describe("test for batch add and enable plugins", function () {
             ],
             ADDRESS_2DARRAY: [
               [target_addr],
-            ]
+            ],
+            BYTES: []
           }
         }], 
       });
@@ -212,7 +215,8 @@ describe("test for batch add and enable plugins", function () {
               ],
               ADDRESS_2DARRAY: [
                 [target1],
-              ]
+              ],
+              BYTES: []
             }
           }], 
         });

@@ -53,7 +53,8 @@ describe("batch_pay_to_mint_token_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -79,7 +80,8 @@ describe("batch_pay_to_mint_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       }], 
     }, 
@@ -112,7 +114,8 @@ describe("batch_pay_to_mint_token_test", function () {
         ],
         ADDRESS_2DARRAY: [
           [addr1,addr2], // to = programOperatorAddress
-        ]
+        ],
+        BYTES: []
       }
     }], 
     }, 

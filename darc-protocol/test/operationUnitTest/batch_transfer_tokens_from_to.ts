@@ -54,7 +54,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -86,7 +87,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1,target1], // to = target 1
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -107,7 +109,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target1, target1, target1, target1], // from = target 1
             [target2, target3, target2, target3], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -151,7 +154,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target2, target3, target2, target3], // from = target 1
             [addr6, addr6, addr6, addr6], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -190,7 +194,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target1, addr6, target1, addr6], // from = target 1
             [addr6, target1, addr6, target1], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

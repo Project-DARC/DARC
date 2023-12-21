@@ -34,7 +34,8 @@ describe("payment_pay_cash_test", function () {
             // pay 10000
             [BigNumber.from(10000), BigNumber.from(0), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     }, {value: ethers.utils.parseEther("1.0")});
