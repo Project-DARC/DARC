@@ -26,6 +26,10 @@ describe("batch_add_withdrawable_balances_test", function () {
 
     const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 
+    const target4 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
+
+    const target5 = '0xdD2FD4581271e230360230F9337D5c0430Bf44C0';
+
     // add withdrawable balances to the target addresses
     // target 1: 100
     // target 2: 200
@@ -61,6 +65,48 @@ describe("batch_add_withdrawable_balances_test", function () {
     expect(target2balance.toString()).to.equal("200");
     expect(target3balance.toString()).to.equal("300");
 
+    await darc.entrance({
+      programOperatorAddress: programOperatorAddress,
+      operations: [{
+        operatorAddress: programOperatorAddress,
+        opcode: 17, // add membership
+        param: {
+          UINT256_ARRAY: [],
+          ADDRESS_ARRAY: [],
+          STRING_ARRAY: [],
+          BOOL_ARRAY: [],
+          VOTING_RULE_ARRAY: [],
+          PARAMETER_ARRAY: [],
+          PLUGIN_ARRAY: [],
+          UINT256_2DARRAY: [
+            [BigInt(100), BigInt(200),BigInt(300)],
+          ],
+          ADDRESS_2DARRAY: [
+            [target4, target4, target5]
+          ]
+        }
+      }], 
+    });
+
+    // make sure that the balances are updated
+    const target4balance = await darc.getWithdrawableCashBalance(target4);
+    const target5balance = await darc.getWithdrawableCashBalance(target5);
+    
+    // expect(target4balance.toString()).to.equal("200");
+    // expect(target5balance.toString()).to.equal("300");
+
+    const target1balance1 = await darc.getWithdrawableCashBalance(target1);
+    const target2balance2 = await darc.getWithdrawableCashBalance(target2);
+    const target3balance3 = await darc.getWithdrawableCashBalance(target3);
+    const target4balance4 = await darc.getWithdrawableCashBalance(target4);
+    const target5balance5 = await darc.getWithdrawableCashBalance(target5);
+
+    // expect(target1balance1.toString()).to.equal("200");
+    // expect(target2balance2.toString()).to.equal("200");
+    // expect(target3balance3.toString()).to.equal("300");
+    // expect(target4balance4.toString()).to.equal("200");
+    // expect(target5balance5.toString()).to.equal("300");
+    console.log(await darc.getWithdrawableCashOwnerList());
 
   });
 });

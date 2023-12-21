@@ -3,7 +3,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
-import { ConditionNodeStruct } from "../../typechain-types/contracts/DARC";
+import { ConditionNodeStruct } from "../../typechain-types/contracts/protocol/DARC"
 
 // test for batch create token class instruction on DARC
 

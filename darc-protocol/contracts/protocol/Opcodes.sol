@@ -328,11 +328,5 @@ enum EnumOpcode {
    * @notice Upgrade the contract to the latest version
    * ID:37
    */
-  UPGRADE_TO_THE_LATEST,
-
-  /**
-   * @notice Batch Pay to Trasnfer Tokens Operation
-   * ID:38
-   */
-  op_BATCH_PAY_TO_TRANSFER_TOKENS
+  UPGRADE_TO_THE_LATEST
 }

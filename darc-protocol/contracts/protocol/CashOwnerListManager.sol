@@ -49,7 +49,7 @@ contract CashOwnerListManager is MachineStateManager {
     // if any address in the addOwnerList is not in the withdrawable cash owner list,
     // and the balance of this address is not zero, then just add it to the toAdd list
     for (uint256 index = 0; index < addOwnerList.length; index++) {
-
+      
     }
   }
 }

@@ -423,6 +423,7 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(currentMachineState.tokenList[tokenClass[i]].tokenBalance[operation.operatorAddress] >= tokenAmount[i], ErrorMsg.By(2));
       }
     }
+    
 
     // start burning tokens: deduct from the operator first
     for (uint i=0;i<tokenClass.length;i++) {
