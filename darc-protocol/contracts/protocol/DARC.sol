@@ -8,6 +8,11 @@ import "./Utilities/ErrorMsg.sol";
 import "./Dashboard/Dashboard.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+
+/**
+ * @title The base and top-level DARC virtual machine contract of DARC protocol
+ * @notice This is the final and top-level contract of DARC protocol, which inherits all the other contracts
+ */
 contract DARC is Runtime, Dashboard {
 
   /**
