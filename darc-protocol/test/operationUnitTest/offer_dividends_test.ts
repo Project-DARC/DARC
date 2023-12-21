@@ -106,7 +106,7 @@ describe("offer_dividends_test", function () {
 
       // get current dividend per unit
       const dividendPerUnit = await darc.getCurrentDividendPerUnit();
-      expect(dividendPerUnit).to.equal(20000000);
+      expect(dividendPerUnit.toString()).to.equal("20000000");
 
 
       // get total dividends weight of each token owners

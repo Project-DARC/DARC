@@ -64,16 +64,16 @@ describe("batch_add_membership_test", function () {
     const memberInfo4 = await darc.getMemberInfo(target3);
     expect(memberInfo1.bIsSuspended).to.equal(false);
     expect(memberInfo1.name).to.equal("member1");
-    expect(memberInfo1.role).to.equal(0);
+    expect(memberInfo1.role.toString()).to.equal("0");
     expect(memberInfo2.bIsSuspended).to.equal(false);
     expect(memberInfo2.name).to.equal("member2");
-    expect(memberInfo2.role).to.equal(1);
+    expect(memberInfo2.role.toString()).to.equal("1");
     expect(memberInfo3.bIsSuspended).to.equal(false);
     expect(memberInfo3.name).to.equal("member3");
-    expect(memberInfo3.role).to.equal(1);
+    expect(memberInfo3.role.toString()).to.equal("1");
     expect(memberInfo4.bIsSuspended).to.equal(false);
     expect(memberInfo4.name).to.equal("member4");
-    expect(memberInfo4.role).to.equal(1);
+    expect(memberInfo4.role.toString()).to.equal("1");
 
 
   });

@@ -4,6 +4,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
 import "./MachineStateManager.sol";
+import "./Utilities/ArrayUtils.sol";
 
 /**
  * @title Cash Owner List Manager

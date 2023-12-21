@@ -28,7 +28,7 @@ describe("test for batch add and enable plugins", function () {
 
     const numberOfTokenClasses = await darc.getNumberOfTokenClasses();
 
-    expect (numberOfTokenClasses).to.equal(0);
+    expect (numberOfTokenClasses.toString()).to.equal("0");
 
     const initProgram = {
       programOperatorAddress: "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
