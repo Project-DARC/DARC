@@ -4,10 +4,13 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
 import "./MachineStateManager.sol";
+import "./Utilities/ArrayUtils.sol";
 
 /**
  * @title Token Owner List Manager
- * @notice null
+ * @notice This is the core protocol that add new token owners to the token owner list or 
+ * remove the token owners from the token owner list if the balance of the token owner is zero
+ * for token level = tokenLevel.
  */
 
 contract TokenOwnerListManager is MachineStateManager {
@@ -71,7 +74,7 @@ contract TokenOwnerListManager is MachineStateManager {
       address[] memory finalList = new address[](sandboxMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt = 0;
       for (uint256 index = 0; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length; index++) {
-        if (!inArray(toRemove, sandboxMachineState.tokenList[tokenLevel].ownerList[index])) {
+        if (!ArrayUtils.inArray(toRemove, sandboxMachineState.tokenList[tokenLevel].ownerList[index])) {
           finalList[pt] = sandboxMachineState.tokenList[tokenLevel].ownerList[index];
           pt++;
         }
@@ -118,7 +121,7 @@ contract TokenOwnerListManager is MachineStateManager {
       address[] memory finalList = new address[](currentMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt = 0;
       for (uint256 index = 0; index < currentMachineState.tokenList[tokenLevel].ownerList.length; index++) {
-        if (!inArray(toRemove, currentMachineState.tokenList[tokenLevel].ownerList[index])) {
+        if (!ArrayUtils.inArray(toRemove, currentMachineState.tokenList[tokenLevel].ownerList[index])) {
           finalList[pt] = currentMachineState.tokenList[tokenLevel].ownerList[index];
           pt++;
         }
@@ -158,61 +161,6 @@ contract TokenOwnerListManager is MachineStateManager {
     }
   }
 
-  /**
-   * The function to check if the address is in the list
-   * @param array The list to be checked
-   * @param key The key address to be checked
-   */
-  function inArray(address[] memory array, address key) pure internal returns (bool) {
-    for (uint256 index = 0; index < array.length; index++) {
-      if (array[index] == key) {
-        return true;
-      }
-    }
-    return false;
-  }
 
-  /**
-   * The function to remove the duplicate address from the array
-   * @param array The array to be checked
-   */
-  function removeDuplicateAddressFromArray(address[] memory array) pure internal returns (address[] memory) {
-    uint256 length = array.length;
-    for (uint256 i = 0; i < length - 1; i++) {
-      for (uint256 j = i + 1; j < length; j++) {
-        if (array[i] == array[j]) {
-          array[j] = array[length - 1];
-          length--;
-          j--;
-        }
-      }
-    }
-    address[] memory arrayNew = new address[](length);
-    for (uint256 i = 0; i < length; i++) {
-      arrayNew[i] = array[i];
-    }
-    return arrayNew;
-  }
-
-  /**
-   * The function to remove the duplicate uint256 from the array
-   * @param array The array to be checked
-   */
-  function removeDuplicateIntFromArray(uint256[] memory array) pure internal returns (uint256[] memory) {
-    uint256 length = array.length;
-    for (uint256 i = 0; i < length - 1; i++) {
-      for (uint256 j = i + 1; j < length; j++) {
-        if (array[i] == array[j]) {
-          array[j] = array[length - 1];
-          length--;
-          j--;
-        }
-      }
-    }
-    uint256[] memory arrayNew = new uint256[](length);
-    for (uint256 i = 0; i < length; i++) {
-      arrayNew[i] = array[i];
-    }
-    return arrayNew;
-  }
+  
 }
