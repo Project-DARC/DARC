@@ -38,6 +38,7 @@ describe("offer_dividends_test", function () {
     // 5. check the withdrawable dividends balance of addr1, addr2, addr3, addr4
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class and mint tokens to addr1, addr2, addr3",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -85,6 +86,7 @@ describe("offer_dividends_test", function () {
 
     let result_entrance = await darc.entrance({
           programOperatorAddress: programOperatorAddress,
+          notes: "pay cash to the darc",
           operations: [{
             operatorAddress: programOperatorAddress,
             opcode: 26, // pay cash
@@ -140,6 +142,7 @@ describe("offer_dividends_test", function () {
       // offer dividends
       await darc.entrance({
         programOperatorAddress: programOperatorAddress,
+        notes: "offer dividends",
         operations: [{
           operatorAddress: programOperatorAddress,
           opcode: 27, // offer dividends

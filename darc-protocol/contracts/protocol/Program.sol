@@ -64,4 +64,9 @@ struct Program {
    * @notice operations: the array of the operations to be executed
    */
   Operation[] operations;
+
+  /**
+   * @notice notes: the notes of the program
+   */
+  string notes;
 }

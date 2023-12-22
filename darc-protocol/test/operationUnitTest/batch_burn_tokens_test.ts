@@ -32,6 +32,7 @@ describe("batch_burn_tokens_test", function () {
 
     // create a token class first
     await darc.entrance({
+      notes: "create token class",
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
@@ -58,6 +59,7 @@ describe("batch_burn_tokens_test", function () {
 
     // mint tokens
     await darc.entrance({
+      notes: "mint tokens and burn some tokens",
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
@@ -113,6 +115,7 @@ describe("batch_burn_tokens_test", function () {
     // burn remaining tokens and check balance
     // mint tokens
     await darc.entrance({
+      notes: "burn remaining tokens",
       programOperatorAddress: programOperatorAddress,
       operations: [
       {

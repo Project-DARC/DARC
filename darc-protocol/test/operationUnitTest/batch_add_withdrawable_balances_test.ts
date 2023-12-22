@@ -36,6 +36,7 @@ describe("batch_add_withdrawable_balances_test", function () {
     // target 3: 300
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "add withdrawable balances",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES
@@ -68,6 +69,7 @@ describe("batch_add_withdrawable_balances_test", function () {
 
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "add withdrawable balances",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES

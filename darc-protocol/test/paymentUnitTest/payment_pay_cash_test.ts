@@ -19,9 +19,10 @@ describe("payment_pay_cash_test", function () {
     const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
     const result_entrance = await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "pay cash 10000",
       operations: [{
         operatorAddress: programOperatorAddress,
-        opcode: 26, // create token class
+        opcode: 26, // pay cash
         param: {
           UINT256_ARRAY: [],
           ADDRESS_ARRAY: [],

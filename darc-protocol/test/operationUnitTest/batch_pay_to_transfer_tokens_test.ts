@@ -34,6 +34,7 @@ describe("batch_pay_to_transfer_token_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -59,6 +60,7 @@ describe("batch_pay_to_transfer_token_test", function () {
 
     const result_entrance = await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "pay to mint and transfer tokens",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 20, // pay to mint token

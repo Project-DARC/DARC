@@ -36,6 +36,7 @@ describe("batch_burn_tokens_from_to_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -62,6 +63,7 @@ describe("batch_burn_tokens_from_to_test", function () {
     // mint tokens
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "mint tokens",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token
@@ -117,6 +119,7 @@ describe("batch_burn_tokens_from_to_test", function () {
 
     // next burn all tokens from target 2 and target 3, make sure they are removed from the token owners list
     await darc.entrance({
+      notes: "burn all tokens from target 2 and target 3",
       programOperatorAddress: programOperatorAddress,
       operations: [
       {

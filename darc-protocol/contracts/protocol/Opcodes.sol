@@ -227,8 +227,9 @@ enum EnumOpcode {
 
   /**
    * @notice Call a contract with the given abi
-   * @param address contractAddress: the address of the contract to call
-   * @param bytes abi: the abi of the function to call
+   * @param ADDRESS_2D[0][0] address contractAddress: the address of the contract to call
+   * @param bytes abi the encodedWithSignature abi of the function to call
+   * @param UINT256_2DARRAY[0][0] uint256 the value to send to the contract
    * ID:25
    */
   CALL_CONTRACT_ABI,

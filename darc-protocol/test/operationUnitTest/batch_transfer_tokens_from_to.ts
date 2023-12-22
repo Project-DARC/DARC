@@ -38,6 +38,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -70,6 +71,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // mint tokens
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "mint tokens and transfer tokens from-to",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token
@@ -135,6 +137,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // transfer tokens level 0 and 1 from target 2, 3 adddress to addr6
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "transfer tokens from target 2, 3 adddress to addr6",
       operations: [
       {
         operatorAddress: programOperatorAddress,
@@ -175,6 +178,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // 2. the token owner list of level 0 and 1 are correct
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "transfer tokens from target 1 to addr 6 multiple times",
       operations: [
       {
         operatorAddress: programOperatorAddress,

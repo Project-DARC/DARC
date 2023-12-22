@@ -11,7 +11,8 @@ contract DelegateCallTest {
 
     Program memory mintTokenProgram = Program({
       programOperatorAddress: address(this),
-      operations: new Operation[](2)
+      operations: new Operation[](2),
+      notes: "test program for delegate call"
     });
 
     mintTokenProgram.operations[0] = Operation({

@@ -28,6 +28,7 @@ describe("batch_add_membership_test", function () {
 
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "add 4 membership",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 7, // add membership

@@ -28,6 +28,7 @@ describe("test for batch create token class instruction", function () {
 
     const result_entrance = await darc.entrance({
       programOperatorAddress: initProgram.programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: initProgram.programOperatorAddress,
         opcode: 2, // create token class

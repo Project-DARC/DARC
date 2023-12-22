@@ -36,7 +36,7 @@ const program = {
         [target1,target1], // to = target 1
       ],
       BYTES: []
-    }
+    },
   },
   {
     operatorAddress: programOperatorAddress,
@@ -60,6 +60,7 @@ const program = {
       BYTES: []
     }
   }], 
+  notes: "batch mint token test"
 };
 
 describe.skip("ABI test", function () {

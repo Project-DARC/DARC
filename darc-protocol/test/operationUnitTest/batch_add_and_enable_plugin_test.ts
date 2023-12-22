@@ -57,6 +57,7 @@ describe("test for batch add and enable plugins", function () {
           BYTES: []
         }
       }], 
+      notes: "create token class"
     });
 
     // add and enable a before-operation plugin: user with address = target1 cannnot operate the darc
@@ -79,6 +80,7 @@ describe("test for batch add and enable plugins", function () {
     await darc.entrance(
       {
         programOperatorAddress: initProgram.programOperatorAddress,
+        notes: "add and enable a before-operation plugin: user with address = target1 cannnot operate the darc",
         operations: [{
           operatorAddress: initProgram.programOperatorAddress,
           opcode: 15, // create token class
@@ -157,6 +159,7 @@ describe("test for batch add and enable plugins", function () {
     try {
       const result = await  darc2.entrance({
         programOperatorAddress: target_addr,
+        notes: "try to run a batch mint token instruction with target1 as the operator",
         operations: [{
           operatorAddress: target_addr,
           opcode: 1, // mint token
@@ -198,6 +201,7 @@ describe("test for batch add and enable plugins", function () {
     try {
         const result3 = await  darc.entrance({
           programOperatorAddress: programOperatorAddress,
+          notes: "try to run a batch mint token instruction with target1 as the operator",
           operations: [{
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
