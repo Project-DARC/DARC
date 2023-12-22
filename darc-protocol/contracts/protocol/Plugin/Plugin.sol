@@ -172,7 +172,7 @@ struct VotingRule {
   /**
    * the note of the voting policy
    */
-  string note;
+  string notes;
 
   /**
    * the voting policy is absolute majority or relative majority.

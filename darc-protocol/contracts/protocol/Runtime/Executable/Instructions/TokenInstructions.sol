@@ -8,6 +8,7 @@ import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "../../../Plugin/Plugin.sol";
 import "../../../Utilities/ErrorMsg.sol";
 import "../../../TokenOwnerListManager.sol";
+import "../../../Utilities/ArrayUtils.sol";
 
 /**
  * @title Implementation of all token-related operation
@@ -61,10 +62,27 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
-    // then update the token owner list for each token level
-    // first get all the token levels
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
-    address[] memory uniqueTarget = removeDuplicateAddressFromArray(target);
+    /**
+     *  Update the token owner list for each token level
+
+        first get all the token levels
+        for example, if the operation is minting tokens like 
+        number: [100, 100, 100, 100, 100, 100]
+        level: [1,1,2,2,2,3]
+        targetAddress: [addr1, addr2, add2,addr3,addr4,addr4]
+        then we need to update the token owner list [addr1, addr2, addr3, addr4] 
+        and level [1,2,3]
+
+        And in the following loop, we are doing the following things:
+        for token_level in [1,2,3]:
+          update_token_owner_list( 
+             [addr1, addr2, addr3, addr4],    // try adding 
+             [],    //remove nothing
+             token_level
+          )
+     */
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueTarget = ArrayUtils.removeDuplicateAddressFromArray(target);
 
     // then go through each token level and update the token owner list
     address[] memory empty = new address[](0);
@@ -125,8 +143,8 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
-    address[] memory uniqueTarget = removeDuplicateAddressFromArray(target);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueTarget = ArrayUtils.removeDuplicateAddressFromArray(target);
 
     // then go through each token level and update the token owner list
     address[] memory empty = new address[](0);
@@ -232,8 +250,8 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
-    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(target);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = ArrayUtils.removeDuplicateAddressFromArray(target);
     address[] memory uniqueToRemove = new address[](1);
     uniqueToRemove[0] = operation.operatorAddress;
 
@@ -298,9 +316,9 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
-    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(toAddr);
-    address[] memory uniqueToRemove = removeDuplicateAddressFromArray(fromAddr);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = ArrayUtils.removeDuplicateAddressFromArray(toAddr);
+    address[] memory uniqueToRemove = ArrayUtils.removeDuplicateAddressFromArray(fromAddr);
 
     // then go through each token level and update the token owner list
     for (uint256 i = 0; i < uniqueTokenLevelList.length; i++) {
@@ -366,8 +384,8 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
       }
     }
 
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
-    address[] memory uniqueToAdd = removeDuplicateAddressFromArray(target);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
+    address[] memory uniqueToAdd = ArrayUtils.removeDuplicateAddressFromArray(target);
     address[] memory uniqueToRemove = new address[](1);
     uniqueToRemove[0] = operation.operatorAddress;
 
@@ -405,6 +423,7 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
         require(currentMachineState.tokenList[tokenClass[i]].tokenBalance[operation.operatorAddress] >= tokenAmount[i], ErrorMsg.By(2));
       }
     }
+    
 
     // start burning tokens: deduct from the operator first
     for (uint i=0;i<tokenClass.length;i++) {
@@ -422,7 +441,7 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
 
     // then update the token owner list for each token level
     // first get all the token levels
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClass);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClass);
     address[] memory uniqueTarget = new address[](1);
     uniqueTarget[0] = operation.operatorAddress;
 
@@ -480,8 +499,8 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
 
     // then update the token owner list for each token level
     // first get all the token levels
-    uint256[] memory uniqueTokenLevelList = removeDuplicateIntFromArray(tokenClasses);
-    address[] memory toRemove = removeDuplicateAddressFromArray(addresses);
+    uint256[] memory uniqueTokenLevelList = ArrayUtils.removeDuplicateIntFromArray(tokenClasses);
+    address[] memory toRemove = ArrayUtils.removeDuplicateAddressFromArray(addresses);
   
     // then go through each token level and update the token owner list
     address[] memory empty = new address[](0);

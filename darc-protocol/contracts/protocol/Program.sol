@@ -4,41 +4,12 @@ pragma solidity ^0.8.9;
 import "./Opcodes.sol";
 import "./Plugin/Plugin.sol";
 
-
-
-/*
-  * @notice ParameterType enum is used to represent the parameter type of the DARC protocol.
-*/
-enum EnumParameterType {
-  UINT8,
-  UINT256,
-  ADDRESS,
-  STRING,
-  BOOL,
-  UINT8_ARRAY,
-  UINT256_ARRAY,
-  ADDRESS_ARRAY,
-  STRING_ARRAY,
-  BOOL_ARRAY,
-  PLUGIN_ARRAY
-} 
-
 enum MachineParameter{
   UNDEFINED,
   dividendPermyriadPerTransaction,
   dividendCycleOfTransactions,
   currentCashBalanceForDividends,
   dividendCycleCounter
-}
-
-/* 
-  * @notice Parameter struct is used to represent the parameter of the DARC protocol.
-  Each parameter contains a parameter type and a parameter value.
-  Parameter value is encoded in bytes via abi.encodePacked() function.
-*/
-struct Parameter{
-  EnumParameterType parameterType; 
-  bytes parameterValue;
 }
 
 struct Param{
@@ -51,6 +22,7 @@ struct Param{
   MachineParameter[] PARAMETER_ARRAY;
   uint256[][] UINT256_2DARRAY;
   address[][] ADDRESS_2DARRAY;
+  bytes BYTES;
 }
 
 /* 
@@ -92,4 +64,9 @@ struct Program {
    * @notice operations: the array of the operations to be executed
    */
   Operation[] operations;
+
+  /**
+   * @notice notes: the notes of the program
+   */
+  string notes;
 }

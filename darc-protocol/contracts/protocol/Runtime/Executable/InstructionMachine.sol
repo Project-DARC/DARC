@@ -155,8 +155,8 @@ OfferDividendsInstructions
     }
 
     // opcode id == 23
-    else if (operation.opcode == EnumOpcode.WITHDRAW_CASH_TO) {
-      op_WITHDRAW_CASH_TO(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.RESERVED_ID_23) {
+      revert("Reserved opcode id 23 is not implemented.");
     }
 
     // opcode id == 24 
@@ -180,8 +180,8 @@ OfferDividendsInstructions
     }
 
     // opcode id == 28
-    else if (operation.opcode == EnumOpcode.WITHDRAW_DIVIDENDS_TO) {
-      op_WITHDRAW_DIVIDENDS_TO(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.RESERVED_ID_28) {
+      revert("Reserved opcode id 28 is not implemented.");
     }
 
     // opcode id == 29

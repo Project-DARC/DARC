@@ -42,4 +42,7 @@ export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:s
   });
 
   await attachedDARC.entrance(program);
+
+  // after execution, clear the operation list
+  instructions.operationList.length = 0;
 }

@@ -159,16 +159,16 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Add Withdrawable Balance Operation
-   * @param address[] addressArray: the array of the address to add withdrawable balance
-   * @param uint256[] amountArray: the array of the amount to add withdrawable balance
+   * @param ADDRESS_2DARRAY[0] addressArray: the array of the address to add withdrawable balance
+   * @param UINT256_2DARRAY[0] amountArray: the array of the amount to add withdrawable balance
    * ID:17
    */
   BATCH_ADD_WITHDRAWABLE_BALANCES,
 
   /**
    * @notice Batch Reduce Withdrawable Balance Operation
-   * @param address[] addressArray: the array of the address to substract withdrawable balance
-   * @param uint256[] amountArray: the array of the amount to substract withdrawable balance
+   * @param ADDRESS_2DARRAY[0] addressArray: the array of the address to substract withdrawable balance
+   * @param UINT256_2DARRAY[0] amountArray: the array of the amount to substract withdrawable balance
    * ID:18
    */
   BATCH_REDUCE_WITHDRAWABLE_BALANCES,
@@ -212,12 +212,10 @@ enum EnumOpcode {
   ADD_EMERGENCY,
 
   /**
-   * @notice withdraw cash from the contract's cash balance
-   * @param address[] addressArray: the array of the address to withdraw cash to
-   * @param uint256[] amountArray: the array of the amount of cash to withdraw
+   * @notice Reserved ID 23 DO NOT USE
    * ID:23
    */
-  WITHDRAW_CASH_TO,
+  RESERVED_ID_23,
 
   /**
    * @notice Call emergency agents to handle emergency situations
@@ -229,8 +227,9 @@ enum EnumOpcode {
 
   /**
    * @notice Call a contract with the given abi
-   * @param address contractAddress: the address of the contract to call
-   * @param bytes abi: the abi of the function to call
+   * @param ADDRESS_2D[0][0] address contractAddress: the address of the contract to call
+   * @param bytes abi the encodedWithSignature abi of the function to call
+   * @param UINT256_2DARRAY[0][0] uint256 the value to send to the contract
    * ID:25
    */
   CALL_CONTRACT_ABI,
@@ -255,12 +254,10 @@ enum EnumOpcode {
   OFFER_DIVIDENDS,
 
   /**
-   * @notice Withdraw dividends from the withdrawable dividends balance
-   * @param address[] addressArray: the array of the address to withdraw dividends to
-   * @param uint256[] amountArray: the array of the amount of dividends to withdraw
+   * @notice Reserved ID 28 DO NOT USE
    * ID:28
    */
-  WITHDRAW_DIVIDENDS_TO,
+  RESERVED_ID_28,
 
   /**
    * @notice Set the approval for all transfer operations by address
@@ -328,11 +325,5 @@ enum EnumOpcode {
    * @notice Upgrade the contract to the latest version
    * ID:37
    */
-  UPGRADE_TO_THE_LATEST,
-
-  /**
-   * @notice Batch Pay to Trasnfer Tokens Operation
-   * ID:38
-   */
-  op_BATCH_PAY_TO_TRANSFER_TOKENS
+  UPGRADE_TO_THE_LATEST
 }

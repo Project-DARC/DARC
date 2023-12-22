@@ -38,6 +38,7 @@ describe("batch_transfer_tokens_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -54,7 +55,8 @@ describe("batch_transfer_tokens_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -67,6 +69,7 @@ describe("batch_transfer_tokens_test", function () {
     // mint tokens
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "mint and transfer tokens",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token
@@ -84,7 +87,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -104,7 +108,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1, target2, target1, target2], 
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -128,6 +133,7 @@ describe("batch_transfer_tokens_test", function () {
     // transfer all remaining tokens from programOperatorAddress to target1
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "transfer all remaining tokens from programOperatorAddress to target1",
       operations: [
       {
         operatorAddress: programOperatorAddress,
@@ -146,7 +152,8 @@ describe("batch_transfer_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1, target1], 
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

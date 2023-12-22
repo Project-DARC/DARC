@@ -37,6 +37,7 @@ describe("batch_pay_to_mint_token_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -53,7 +54,8 @@ describe("batch_pay_to_mint_token_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -61,6 +63,7 @@ describe("batch_pay_to_mint_token_test", function () {
 
     const result_entrance = await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "pay to mint tokens",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 20, // pay to mint token
@@ -79,7 +82,8 @@ describe("batch_pay_to_mint_token_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-          ]
+          ],
+          BYTES: []
         }
       }], 
     }, 
@@ -94,6 +98,7 @@ describe("batch_pay_to_mint_token_test", function () {
 
   const result_entrance2 = await darc.entrance({
     programOperatorAddress: programOperatorAddress,
+    notes: "pay to mint tokens",
     operations: [{
       operatorAddress: programOperatorAddress,
       opcode: 20, // pay to mint token
@@ -112,7 +117,8 @@ describe("batch_pay_to_mint_token_test", function () {
         ],
         ADDRESS_2DARRAY: [
           [addr1,addr2], // to = programOperatorAddress
-        ]
+        ],
+        BYTES: []
       }
     }], 
     }, 

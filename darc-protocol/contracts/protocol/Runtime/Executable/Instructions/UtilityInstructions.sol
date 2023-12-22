@@ -66,9 +66,45 @@ contract UtilityInstructions is MachineStateManager {
       }
     }
   }
-
+  
+  /**
+   * @notice The implementation of the operation CALL_CONTRACT_ABI
+   * @param operation The operation index to be executed
+   * @param bIsSandbox The boolean flag that indicates if the operation is executed in sandbox
+   */
   function op_CALL_CONTRACT_ABI(Operation memory operation, bool bIsSandbox) internal {
+      /**
+       * @notice Call a contract with the given abi
+       * @param ADDRESS_2D[0][0] address contractAddress: the address of the contract to call
+       * @param bytes abi the encodedWithSignature abi of the function to call
+       * @param UINT256_2DARRAY[0][0] uint256 the value to send to the contract
+       * ID:25
+       */
+      if (bIsSandbox) {
+        // do not execute the operation, just do nothing, it's ok
+      }
 
+      else {
+        // initialize the valueEthers, the value that will be sent to the contract
+        uint256 valueEthers = 0;
+        if (operation.param.UINT256_2DARRAY.length > 0) {
+          if (operation.param.UINT256_2DARRAY[0].length > 0) {
+            valueEthers = operation.param.UINT256_2DARRAY[0][0];
+          }
+        }
+
+        // get the abi
+        bytes memory abidata = operation.param.BYTES;
+        // get the address of the contract to call
+        address contractAddress = operation.param.ADDRESS_2DARRAY[0][0];
+ 
+        // call the contract
+        (bool success, bytes memory returnData) = contractAddress.call{value: valueEthers}(abidata);
+        // check if the call is successful
+        if (!success) {
+          revert(string(abi.encodePacked("The call to the contract is not successful. Return data: ", returnData)));
+        }
+      }
   }
 
 

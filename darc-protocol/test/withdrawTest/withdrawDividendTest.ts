@@ -5,7 +5,7 @@ import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
 
 const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
-const addr1 = "0x90F79bf6EB2c4f870365E785982E1f101E93b906";
+const addr1 = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
 const addr2 = '0x976EA74026E726554dB657fA54763abd0C3a0aa9';
 const addr3 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
 // test for batch mint token instruction on DARC
@@ -100,7 +100,7 @@ describe("offer_dividends_test", function () {
               PLUGIN_ARRAY: [],
               UINT256_2DARRAY: [
                 // pay 20000
-                [BigNumber.from(200000000000), BigNumber.from(0), BigNumber.from(1)],
+                [BigNumber.from(1000000000000000000n ), BigNumber.from(0), BigNumber.from(1)],
               ],
               ADDRESS_2DARRAY: [],
               BYTES: []
@@ -111,7 +111,7 @@ describe("offer_dividends_test", function () {
 
       // get current dividend per unit
       const dividendPerUnit = await darc.getCurrentDividendPerUnit();
-      expect(dividendPerUnit.toString()).to.equal("20000000");
+      expect(dividendPerUnit.toString()).to.equal("100000000000000");
 
 
       // get total dividends weight of each token owners
@@ -161,60 +161,44 @@ describe("offer_dividends_test", function () {
         }]});
 
       // get all dividends offered address
-      let dividendsOffered = await darc.getWithdrawableCashOwnerList();
+      let dividendOwnerList = await darc.getWithdrawableDividendOwnerList();
+    
 
-      // get dividends amount
-      for (let i = 0; i < dividendsOffered.length; i++) {
-        let dividendsAmount = await darc.getWithdrawableDividendBalance(dividendsOffered[i]);
-        if (dividendsOffered[i]==='0x90F79bf6EB2c4f870365E785982E1f101E93b906'.toLowerCase()){
-          expect(dividendsAmount).to.equal(26000000000);
-        }
-        else if (dividendsOffered[i].toLowerCase()==='0x976EA74026E726554dB657fA54763abd0C3a0aa9'.toLowerCase()) {
-          expect (dividendsAmount).to.equal(34000000000);
-        }
-        else if (dividendsOffered[i].toLowerCase()==='0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'.toLowerCase()) {
-          expect (dividendsAmount).to.equal(40000000000);
-        }
-      }
+      // next withdraw dividends from addr1
+      // get the balance of addr1
+      let balanceBefore = await ethers.provider.getBalance(addr1);
+      await darc.withdrawDividends(BigNumber.from(30000000000000000n));
+      let balanceAfter = await ethers.provider.getBalance(addr1);
+      let withdrawFromDARC = balanceAfter.sub(balanceBefore);
 
-      // // get all token classes and owners
-      // let tokenClasses = await darc.getNumberOfTokenClasses();
-      // console.log("number of token classes: ", tokenClasses);
+      const remaining_1 = await darc.getWithdrawableDividendBalance(addr1);
+      expect(withdrawFromDARC.lte(30000000000000000n)).to.equal(true);
+      expect(withdrawFromDARC.gt(29000000000000000n)).to.equal(true);
 
-      // // get dividends balance list
-      // const dividendsOwnerList = await darc.getWithdrawableDividendOwnerList();
-      // for (let i = 0; i < dividendsOwnerList.length; i++) {
-      //   const dividendsBalance = await darc.getWithdrawableDividendBalance(dividendsOwnerList[i]);
-      //   console.log("dividendsBalance: ", dividendsBalance.toString(), " by address: " , dividendsOwnerList[i]);
-      // }
+      // next withdraw 100000000000000000n dividends from addr1
+      balanceBefore = await ethers.provider.getBalance(addr1);
+      await darc.withdrawDividends(BigNumber.from(90000000000000000n));
+      balanceAfter = await ethers.provider.getBalance(addr1);
+      withdrawFromDARC = balanceAfter.sub(balanceBefore);
 
+      expect(withdrawFromDARC.lte(90000000000000000n)).to.equal(true);
+      expect(withdrawFromDARC.gt(89000000000000000n)).to.equal(true);
 
+      // check the remaining balance of addr1
+      let remainintBalance = await darc.getWithdrawableDividendBalance(addr1);
+      expect(remainintBalance.toString()).to.equal("10000000000000000");
 
+      // withdraw all remaining balance
+      balanceBefore = await ethers.provider.getBalance(addr1);
+      await darc.withdrawDividends(BigNumber.from(10000000000000000n));
+      balanceAfter = await ethers.provider.getBalance(addr1);
+      withdrawFromDARC = balanceAfter.sub(balanceBefore);
+      expect(withdrawFromDARC.lte(10000000000000000n)).to.equal(true);
+      expect(withdrawFromDARC.gt(9000000000000000n)).to.equal(true);
 
-
-      // // list all the balance of the signers
-      // const signerList = await ethers.getSigners();
-      // for (let i = 0; i < signerList.length; i++) {
-      //   const signer = signerList[i];
-      //   const balance = await signer.getBalance();
-      //   console.log("signer: ", signer.address, " balance: ", balance.toString());
-      // }
-
-      // // list all total supply of each token class
-      // for (let i = 0; i < (await darc.getNumberOfTokenClasses()).toNumber(); i++) {
-      //   const result = await darc.getTokenInfo(i);
-      //   console.log("token class: ", i, " total supply: ", result[3].toString());
-      // }
-
-      // // list all withdrawable cash balance
-      // console.log("list all withdrawable cash balance: ")
-      // const ownerList = await darc.getWithdrawableCashOwnerList();
-      // for (let i=0; i< (ownerList).length; i++){
-      //   const address = ownerList[i];
-      //   const balance = await darc.getWithdrawableCashBalance(address);
-      //   console.log("address: ", address, " balance: ", balance.toString());
-      // }
-
+      // check the list of withdrawable dividends owner list, make sure addr1 is not in the list
+      dividendOwnerList = await darc.getWithdrawableDividendOwnerList();
+      expect(containsAddr(dividendOwnerList, addr1)).to.equal(false);
   });
 
 });

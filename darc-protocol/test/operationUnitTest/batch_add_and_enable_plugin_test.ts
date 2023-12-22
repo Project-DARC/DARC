@@ -3,7 +3,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
-import { ConditionNodeStruct } from "../../typechain-types/contracts/DARC";
+import { ConditionNodeStruct } from "../../typechain-types/contracts/protocol/DARC"
 
 // test for batch create token class instruction on DARC
 
@@ -28,7 +28,7 @@ describe("test for batch add and enable plugins", function () {
 
     const numberOfTokenClasses = await darc.getNumberOfTokenClasses();
 
-    expect (numberOfTokenClasses).to.equal(0);
+    expect (numberOfTokenClasses.toString()).to.equal("0");
 
     const initProgram = {
       programOperatorAddress: "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
@@ -53,9 +53,11 @@ describe("test for batch add and enable plugins", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
+      notes: "create token class"
     });
 
     // add and enable a before-operation plugin: user with address = target1 cannnot operate the darc
@@ -78,6 +80,7 @@ describe("test for batch add and enable plugins", function () {
     await darc.entrance(
       {
         programOperatorAddress: initProgram.programOperatorAddress,
+        notes: "add and enable a before-operation plugin: user with address = target1 cannnot operate the darc",
         operations: [{
           operatorAddress: initProgram.programOperatorAddress,
           opcode: 15, // create token class
@@ -103,7 +106,8 @@ describe("test for batch add and enable plugins", function () {
               }
             ],
             UINT256_2DARRAY: [],
-            ADDRESS_2DARRAY: []
+            ADDRESS_2DARRAY: [],
+            BYTES: []
           }
         },
         // {
@@ -155,6 +159,7 @@ describe("test for batch add and enable plugins", function () {
     try {
       const result = await  darc2.entrance({
         programOperatorAddress: target_addr,
+        notes: "try to run a batch mint token instruction with target1 as the operator",
         operations: [{
           operatorAddress: target_addr,
           opcode: 1, // mint token
@@ -172,7 +177,8 @@ describe("test for batch add and enable plugins", function () {
             ],
             ADDRESS_2DARRAY: [
               [target_addr],
-            ]
+            ],
+            BYTES: []
           }
         }], 
       });
@@ -195,6 +201,7 @@ describe("test for batch add and enable plugins", function () {
     try {
         const result3 = await  darc.entrance({
           programOperatorAddress: programOperatorAddress,
+          notes: "try to run a batch mint token instruction with target1 as the operator",
           operations: [{
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
@@ -212,7 +219,8 @@ describe("test for batch add and enable plugins", function () {
               ],
               ADDRESS_2DARRAY: [
                 [target1],
-              ]
+              ],
+              BYTES: []
             }
           }], 
         });

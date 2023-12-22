@@ -38,6 +38,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // create a token class first
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
@@ -54,7 +55,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -69,6 +71,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // mint tokens
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "mint tokens and transfer tokens from-to",
       operations: [{
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token
@@ -86,7 +89,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [target1,target1], // to = target 1
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -107,7 +111,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target1, target1, target1, target1], // from = target 1
             [target2, target3, target2, target3], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -132,6 +137,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // transfer tokens level 0 and 1 from target 2, 3 adddress to addr6
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "transfer tokens from target 2, 3 adddress to addr6",
       operations: [
       {
         operatorAddress: programOperatorAddress,
@@ -151,7 +157,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target2, target3, target2, target3], // from = target 1
             [addr6, addr6, addr6, addr6], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });
@@ -171,6 +178,7 @@ describe("batch_transfer_tokens_from_to_test", function () {
     // 2. the token owner list of level 0 and 1 are correct
     await darc.entrance({
       programOperatorAddress: programOperatorAddress,
+      notes: "transfer tokens from target 1 to addr 6 multiple times",
       operations: [
       {
         operatorAddress: programOperatorAddress,
@@ -190,7 +198,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
           ADDRESS_2DARRAY: [
             [target1, addr6, target1, addr6], // from = target 1
             [addr6, target1, addr6, target1], // to = target 2
-          ]
+          ],
+          BYTES: []
         }
       }], 
     });

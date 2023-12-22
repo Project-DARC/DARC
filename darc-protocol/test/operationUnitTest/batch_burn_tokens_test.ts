@@ -32,6 +32,7 @@ describe("batch_burn_tokens_test", function () {
 
     // create a token class first
     await darc.entrance({
+      notes: "create token class",
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
@@ -49,7 +50,8 @@ describe("batch_burn_tokens_test", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -57,6 +59,7 @@ describe("batch_burn_tokens_test", function () {
 
     // mint tokens
     await darc.entrance({
+      notes: "mint tokens and burn some tokens",
       programOperatorAddress: programOperatorAddress,
       operations: [{
         operatorAddress: programOperatorAddress,
@@ -75,7 +78,8 @@ describe("batch_burn_tokens_test", function () {
           ],
           ADDRESS_2DARRAY: [
             [programOperatorAddress,programOperatorAddress], // to = target 1
-          ]
+          ],
+          BYTES: []
         }
       },
       {
@@ -93,7 +97,8 @@ describe("batch_burn_tokens_test", function () {
             [BigNumber.from(0),BigNumber.from(1)],  // token class = 0, 1
             [BigNumber.from(10), BigNumber.from(40)], // amount = 10, 40
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
@@ -110,6 +115,7 @@ describe("batch_burn_tokens_test", function () {
     // burn remaining tokens and check balance
     // mint tokens
     await darc.entrance({
+      notes: "burn remaining tokens",
       programOperatorAddress: programOperatorAddress,
       operations: [
       {
@@ -127,7 +133,8 @@ describe("batch_burn_tokens_test", function () {
             [BigNumber.from(0),BigNumber.from(1)],  // token class = 0, 1
             [BigNumber.from(90), BigNumber.from(160)], // amount = 10, 40
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });

@@ -19,7 +19,7 @@ describe("test for batch create token class instruction", function () {
 
     const numberOfTokenClasses = await darc.getNumberOfTokenClasses();
 
-    expect (numberOfTokenClasses).to.equal(0);
+    expect (numberOfTokenClasses.toString()).to.equal("0");
 
     const initProgram = {
       programOperatorAddress: "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
@@ -28,6 +28,7 @@ describe("test for batch create token class instruction", function () {
 
     const result_entrance = await darc.entrance({
       programOperatorAddress: initProgram.programOperatorAddress,
+      notes: "create token class",
       operations: [{
         operatorAddress: initProgram.programOperatorAddress,
         opcode: 2, // create token class
@@ -44,14 +45,15 @@ describe("test for batch create token class instruction", function () {
             [BigNumber.from(10), BigNumber.from(1)],
             [BigNumber.from(10), BigNumber.from(1)],
           ],
-          ADDRESS_2DARRAY: []
+          ADDRESS_2DARRAY: [],
+          BYTES: []
         }
       }], 
     });
 
     const numberOfTokenClasses2 = await darc.getNumberOfTokenClasses();
 
-    expect(numberOfTokenClasses2 ).to.equal(2);
+    expect(numberOfTokenClasses2.toString() ).to.equal("2");
     
     const tokenResult0 = await darc.getTokenInfo(0);
     const tokenResult1 = await darc.getTokenInfo(1);
