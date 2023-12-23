@@ -39,8 +39,8 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * This is function to check if the opcode of the current/sandbox machine state is equal to the opcode of the condition node
     */
     function exp_OPERATION_NAME_EQUALS(Operation memory operation, NodeParam memory param) internal pure returns (bool) {
-        //get the uint256 value of the first parameter
-        uint256 paramOpcodeID = param.UINT256_ARRAY[0];
+        //get the uint256 value of the UINT256_2DARRAY[0][0]
+        uint256 paramOpcodeID = param.UINT256_2DARRAY[0][0];
         // compare
         return OpcodeMap.opcodeVal(operation.opcode) == paramOpcodeID;
     }
@@ -52,7 +52,7 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * @param param: the parameters of the condition node.
      * This is function to check if the operator name of the current/sandbox machine state is equal to the operator name of the condition node
     */
-    function exp_OPERATOR_NAME_EQUALS(bool bIsBeforeOperation, Operation memory operation, Param memory param) internal view returns (bool) {
+    function exp_OPERATOR_NAME_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         // get operator address from opeartion
         address operatorAddress = operation.operatorAddress;
 
@@ -72,12 +72,12 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * @param param: the parameters of the condition node.
      * This is function to check if the operator role of the current/sandbox machine state is equal to the operator role of the condition node
     */
-    function exp_OPERATOR_ROLE_INDEX_EQUALS(bool bIsBeforeOperation, Operation memory operation, Param memory param) internal view returns (bool) {
+    function exp_OPERATOR_ROLE_INDEX_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         // get the operator address from the operation
         address operatorAddress = operation.operatorAddress;
 
-        //get the uint256 value of the first parameter
-        uint256 currentOperatorRole = param.UINT256_ARRAY[0];
+        //get the uint256 value of the UINT256_2DARRAY[0][0]
+        uint256 currentOperatorRole = param.UINT256_2DARRAY[0][0];
         if (bIsBeforeOperation) {
             return currentMachineState.memberInfoMap[operatorAddress].role == currentOperatorRole;
         } else {
@@ -92,7 +92,7 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * @param param: the parameters of the condition node.
      * This is function to check if the operator address is equal to the operator role of the condition node
     */
-    function exp_OPERATOR_ADDRESS_EUQALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+    function exp_OPERATOR_ADDRESS_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         // the address is the ADDRESS_2DARRAY[0][0]
         require (param.ADDRESS_2DARRAY.length == 1, "Operator address is not provided");
         require(param.ADDRESS_2DARRAY[0].length == 1, "Operator address is not provided");

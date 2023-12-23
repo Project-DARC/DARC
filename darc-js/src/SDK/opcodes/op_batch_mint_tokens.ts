@@ -1,5 +1,5 @@
 import { ethers } from "ethers";  
-import {OperationStruct} from "../struct/basicTypes";
+import {OperationStruct} from "../../types/basicTypes";
 
 export function op_batch_mint_tokens(addressArray: string[], tokenClass: bigint[], amountArray: bigint[]): OperationStruct {
   // make sure the length of addressArray and amountArray are the same
@@ -45,8 +45,8 @@ export function op_batch_mint_tokens(addressArray: string[], tokenClass: bigint[
     operatorAddress: "",
     opcode: 1, // mint token
     param: {
-      UINT256_ARRAY: [],
-      ADDRESS_ARRAY: [],
+      
+      
       STRING_ARRAY: [],
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],

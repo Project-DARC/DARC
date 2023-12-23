@@ -94,12 +94,11 @@ contract MachineStateManager {
       EnumConditionExpression.UNDEFINED,
       new uint256[](0),
       NodeParam(
-        new uint256[](0),
-        new address[](0),
         new string[](0),
         new uint256[][](0),
         new address[][](0),
-        new string[][](0)
+        new string[][](0),
+        new bytes(0)
       )
     );
     currentMachineState.beforeOpPlugins.push(Plugin(

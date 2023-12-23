@@ -44,28 +44,25 @@ export type VotingRuleStructOutput = [
 };
 
 export type NodeParamStruct = {
-  UINT256_ARRAY: PromiseOrValue<BigNumberish>[];
-  ADDRESS_ARRAY: PromiseOrValue<string>[];
   STRING_ARRAY: PromiseOrValue<string>[];
   UINT256_2DARRAY: PromiseOrValue<BigNumberish>[][];
   ADDRESS_2DARRAY: PromiseOrValue<string>[][];
   STRING_2DARRAY: PromiseOrValue<string>[][];
+  BYTES: PromiseOrValue<BytesLike>;
 };
 
 export type NodeParamStructOutput = [
-  BigNumber[],
-  string[],
   string[],
   BigNumber[][],
   string[][],
-  string[][]
+  string[][],
+  string
 ] & {
-  UINT256_ARRAY: BigNumber[];
-  ADDRESS_ARRAY: string[];
   STRING_ARRAY: string[];
   UINT256_2DARRAY: BigNumber[][];
   ADDRESS_2DARRAY: string[][];
   STRING_2DARRAY: string[][];
+  BYTES: string;
 };
 
 export type ConditionNodeStruct = {
@@ -125,8 +122,6 @@ export type PluginStructOutput = [
 };
 
 export type ParamStruct = {
-  UINT256_ARRAY: PromiseOrValue<BigNumberish>[];
-  ADDRESS_ARRAY: PromiseOrValue<string>[];
   STRING_ARRAY: PromiseOrValue<string>[];
   BOOL_ARRAY: PromiseOrValue<boolean>[];
   VOTING_RULE_ARRAY: VotingRuleStruct[];
@@ -138,8 +133,6 @@ export type ParamStruct = {
 };
 
 export type ParamStructOutput = [
-  BigNumber[],
-  string[],
   string[],
   boolean[],
   VotingRuleStructOutput[],
@@ -149,8 +142,6 @@ export type ParamStructOutput = [
   string[][],
   string
 ] & {
-  UINT256_ARRAY: BigNumber[];
-  ADDRESS_ARRAY: string[];
   STRING_ARRAY: string[];
   BOOL_ARRAY: boolean[];
   VOTING_RULE_ARRAY: VotingRuleStructOutput[];

@@ -43,8 +43,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["Class1", "Class2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -76,8 +76,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -97,8 +97,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 4, // transfer tokens
         param:{
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -143,8 +143,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 4, // transfer tokens
         param:{
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -184,8 +184,8 @@ describe("batch_transfer_tokens_from_to_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 4, // transfer tokens
         param:{
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],

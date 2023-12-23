@@ -19,8 +19,6 @@ contract DelegateCallTest {
       operatorAddress: address(this),
       opcode: EnumOpcode.BATCH_CREATE_TOKEN_CLASSES,
       param: Param({
-        UINT256_ARRAY: new uint256[](0),
-        ADDRESS_ARRAY: new address[](0),
         STRING_ARRAY: new string[](0),
         BOOL_ARRAY: new bool[](0),
         VOTING_RULE_ARRAY: new VotingRule[](0),

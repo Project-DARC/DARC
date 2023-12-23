@@ -1,6 +1,6 @@
 import * as instructions from "./includes";
 import { ethers, Contract } from 'ethers';
-import { OperationStruct, OperationStructOutput, ProgramStruct } from "./struct/basicTypes";
+import { OperationStruct, OperationStructOutput, ProgramStruct } from "../types/basicTypes";
 import * as DARC from "../DARC/DARC";
 
 

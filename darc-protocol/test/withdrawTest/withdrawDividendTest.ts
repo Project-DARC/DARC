@@ -43,8 +43,8 @@ describe("offer_dividends_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["1", "2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -63,8 +63,8 @@ describe("offer_dividends_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 1, // mint token to addr 1,2,3
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -91,8 +91,8 @@ describe("offer_dividends_test", function () {
             operatorAddress: programOperatorAddress,
             opcode: 26, // pay cash
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -147,8 +147,8 @@ describe("offer_dividends_test", function () {
           operatorAddress: programOperatorAddress,
           opcode: 27, // offer dividends
           param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
+            
+            
             STRING_ARRAY: [],
             BOOL_ARRAY: [],
             VOTING_RULE_ARRAY: [],

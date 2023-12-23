@@ -21,8 +21,8 @@ const program = {
     operatorAddress: programOperatorAddress,
     opcode: 1, // mint token
     param: {
-      UINT256_ARRAY: [],
-      ADDRESS_ARRAY: [],
+      
+      
       STRING_ARRAY: [],
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],
@@ -42,8 +42,8 @@ const program = {
     operatorAddress: programOperatorAddress,
     opcode: 4, // transfer tokens
     param:{
-      UINT256_ARRAY: [],
-      ADDRESS_ARRAY: [],
+      
+      
       STRING_ARRAY: [],
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],

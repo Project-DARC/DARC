@@ -33,8 +33,8 @@ describe("test for batch create token class instruction", function () {
         operatorAddress: initProgram.programOperatorAddress,
         opcode: 2, // create token class
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["Class1", "Class2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],

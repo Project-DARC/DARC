@@ -41,8 +41,8 @@ describe("batch_add_withdrawable_balances_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -74,8 +74,8 @@ describe("batch_add_withdrawable_balances_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 17, // BATCH_ADD_WITHDRAWABLE_BALANCES
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],

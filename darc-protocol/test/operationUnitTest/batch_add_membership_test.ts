@@ -33,8 +33,8 @@ describe("batch_add_membership_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 7, // add membership
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["member1", "member2", "member3", "member4"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],

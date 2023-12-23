@@ -7,7 +7,7 @@ import 'mocha';
 const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/'); 
 import { DARC_VERSION, darcBinary } from '../../src/darcBinary/darcBinary';
 import * as DARC from '../../src/DARC/DARC';
-import { OperationStruct, ProgramStruct } from '../../src/SDK/struct/basicTypes';
+import { OperationStruct, ProgramStruct } from '../../src/types/basicTypes';
 
 describe('class DARC dashboard test', 
   () => { 
@@ -52,8 +52,8 @@ describe('class DARC dashboard test',
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -72,9 +72,7 @@ describe('class DARC dashboard test',
           {
             operatorAddress: programOperatorAddress,
             opcode: 3, // transfer tokens
-            param:{
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+            param:{              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -100,8 +98,8 @@ describe('class DARC dashboard test',
             operatorAddress: programOperatorAddress,
             opcode: 2, // create token class
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: ["Class1", "Class2"],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -123,8 +121,8 @@ describe('class DARC dashboard test',
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -144,8 +142,8 @@ describe('class DARC dashboard test',
             operatorAddress: programOperatorAddress,
             opcode: 3, // transfer tokens
             param:{
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -181,7 +179,7 @@ describe('class DARC dashboard test',
       // check the number of token classes. If it is 0, then create a token class first
       const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
 
-      console.log("token_class_count: " + token_class_count.toString());
+      //console.log("token_class_count: " + token_class_count.toString());
 
       console.log(token_class_count.toString() === "0");
       if (token_class_count.toString() === "0") {
