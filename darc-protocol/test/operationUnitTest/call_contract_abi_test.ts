@@ -17,7 +17,7 @@ const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 
 const target4 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
 
-describe.only("test for call contract abi", function () {
+describe("test for call contract abi", function () {
 
   
   it ("should call contract abi successfully", async function () {

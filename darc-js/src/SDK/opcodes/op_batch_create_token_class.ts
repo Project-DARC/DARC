@@ -77,7 +77,8 @@ export function op_batch_create_token_class(
         votingWeightArray,
         dividendWeightArray
       ],
-      ADDRESS_2DARRAY: []
+      ADDRESS_2DARRAY: [],
+      BYTES: []
     }
   };
   return operation;

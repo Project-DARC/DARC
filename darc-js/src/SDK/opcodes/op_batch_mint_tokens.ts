@@ -59,7 +59,8 @@ export function op_batch_mint_tokens(addressArray: string[], tokenClass: bigint[
       ],
       ADDRESS_2DARRAY: [
         addressArray
-      ]
+      ],
+      BYTES: []
     }
   };
 
