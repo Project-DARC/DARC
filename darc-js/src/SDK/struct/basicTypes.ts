@@ -14,13 +14,14 @@ import type {
 
 type PromiseOrValue<T> = T | Promise<T>;
 
+
 export type VotingRuleStruct = {
   votingTokenClassList: PromiseOrValue<BigNumberish>[];
   approvalThresholdPercentage: PromiseOrValue<BigNumberish>;
   votingDurationInSeconds: PromiseOrValue<BigNumberish>;
   executionPendingDurationInSeconds: PromiseOrValue<BigNumberish>;
   isEnabled: PromiseOrValue<boolean>;
-  note: PromiseOrValue<string>;
+  notes: PromiseOrValue<string>;
   bIsAbsoluteMajority: PromiseOrValue<boolean>;
 };
 
@@ -38,7 +39,7 @@ export type VotingRuleStructOutput = [
   votingDurationInSeconds: BigNumber;
   executionPendingDurationInSeconds: BigNumber;
   isEnabled: boolean;
-  note: string;
+  notes: string;
   bIsAbsoluteMajority: boolean;
 };
 
@@ -133,6 +134,7 @@ export type ParamStruct = {
   PARAMETER_ARRAY: PromiseOrValue<BigNumberish>[];
   UINT256_2DARRAY: PromiseOrValue<BigNumberish>[][];
   ADDRESS_2DARRAY: PromiseOrValue<string>[][];
+  BYTES: PromiseOrValue<BytesLike>;
 };
 
 export type ParamStructOutput = [
@@ -144,7 +146,8 @@ export type ParamStructOutput = [
   PluginStructOutput[],
   number[],
   BigNumber[][],
-  string[][]
+  string[][],
+  string
 ] & {
   UINT256_ARRAY: BigNumber[];
   ADDRESS_ARRAY: string[];
@@ -155,6 +158,7 @@ export type ParamStructOutput = [
   PARAMETER_ARRAY: number[];
   UINT256_2DARRAY: BigNumber[][];
   ADDRESS_2DARRAY: string[][];
+  BYTES: string;
 };
 
 export type OperationStruct = {
@@ -172,4 +176,11 @@ export type OperationStructOutput = [string, number, ParamStructOutput] & {
 export type ProgramStruct = {
   programOperatorAddress: PromiseOrValue<string>;
   operations: OperationStruct[];
+  notes: PromiseOrValue<string>;
+};
+
+export type ProgramStructOutput = [string, OperationStructOutput[], string] & {
+  programOperatorAddress: string;
+  operations: OperationStructOutput[];
+  notes: string;
 };

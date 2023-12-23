@@ -11,7 +11,7 @@ import * as DARC from "../DARC/DARC";
  * @param targetDARCAddress The address of the DARC contract to be used
  * @returns nothing
  */
-export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:string, darcVersion: DARC.DARC_VERSION = DARC.DARC_VERSION.Test) {
+export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:string, darcVersion: DARC.DARC_VERSION = DARC.DARC_VERSION.Latest) {
   let include = '';
   for (const key in instructions) {
     include += `let ${key} = instructions.${key};\n`;
@@ -31,13 +31,14 @@ export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:s
   // create the program
   const program:ProgramStruct = {
     programOperatorAddress: operatorAddress,
-    operations: resultList
+    operations: resultList,
+    notes: ""
   };
 
   // create the attached DARC
   const attachedDARC = new DARC.DARC({
     address: targetDARCAddress,
-    version: DARC.DARC_VERSION.Test,
+    version: darcVersion,
     wallet: wallet,
   });
 
@@ -45,4 +46,5 @@ export async function run(code:string, wallet:ethers.Wallet, targetDARCAddress:s
 
   // after execution, clear the operation list
   instructions.operationList.length = 0;
+  instructions.programNotes.replace(instructions.programNotes, '');
 }

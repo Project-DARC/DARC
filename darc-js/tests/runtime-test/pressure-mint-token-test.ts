@@ -49,15 +49,15 @@ batch_create_token_class(['token_0', 'token_1'],
 batch_mint_tokens(addressList, tokenClassList1, tokenNumberList);
 `;
 
-describe('Runtime execution test', () => {
+describe('Pressure mint token execution test', () => {
   it('should run the program', async () => {
-    await deployDARC(DARC_VERSION.Test, signer).then(async (address:string) => {
+    await deployDARC(DARC_VERSION.Latest, signer).then(async (address:string) => {
       await run(code_pressure, signer, address).then(async ()=>{
 
         const attached_local_darc2 = new DARC.DARC({
           address: address,
           wallet: signer,
-          version: DARC_VERSION.Test,
+          version: DARC_VERSION.Latest,
         });
   
   

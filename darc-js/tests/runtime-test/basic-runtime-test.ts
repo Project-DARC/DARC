@@ -29,14 +29,14 @@ batch_mint_tokens([ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
 
 describe('Runtime execution test', () => {
   it('should run the program', async () => {
-    const darc_contract_address = await deployDARC(DARC_VERSION.Test, signer);
+    const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
 
     await run(code, signer, darc_contract_address).then(async ()=>{
 
       const attached_local_darc2 = new DARC.DARC({
         address: darc_contract_address,
         wallet: signer,
-        version: DARC_VERSION.Test,
+        version: DARC_VERSION.Latest,
       });
 
       // read the token info and make sure that address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 has 100 token_0 and 200 token_1

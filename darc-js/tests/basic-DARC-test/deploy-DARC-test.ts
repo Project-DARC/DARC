@@ -1,6 +1,7 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
 import { deployDARC } from '../../src/deployDARC/deployDARC';
+import {ProgramStruct} from '../../src/SDK/struct/basicTypes';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
@@ -30,7 +31,7 @@ describe('class DARC test',
 
 
       const darc_contract_address = 
-      await deployDARC(DARC_VERSION.Test, signer);
+      await deployDARC(DARC_VERSION.Latest, signer);
 
       console.log("Class DARC test - deployed at: " + darc_contract_address);
 
@@ -44,8 +45,9 @@ describe('class DARC test',
       //console.log("my_addr: " + my_addr);
       //console.log(JSON.stringify(wallet_address));
 
-      const mint_and_transfer_program = {
+      const mint_and_transfer_program:ProgramStruct = {
         programOperatorAddress: programOperatorAddress,
+        notes: "mint_and_transfer_program",
         operations: [
           {
             operatorAddress: programOperatorAddress,
@@ -58,14 +60,14 @@ describe('class DARC test',
               VOTING_RULE_ARRAY: [],
               PARAMETER_ARRAY: [],
               PLUGIN_ARRAY: [],
-              MachineParameter: [],
               UINT256_2DARRAY: [
                 [BigInt(0), BigInt(1)],  // token class = 0
                 [BigInt(100), BigInt(200)], // amount = 100
               ],
               ADDRESS_2DARRAY: [
                 [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-              ]
+              ],
+              BYTES: []
             }
           },
           {
@@ -85,14 +87,16 @@ describe('class DARC test',
               ],
               ADDRESS_2DARRAY: [
                 [target1, target2, target1, target2], 
-              ]
+              ],
+              BYTES: []
             }
           }
         ], 
       };
 
-      const create_mint_and_transter_program = {
+      const create_mint_and_transter_program: ProgramStruct = {
         programOperatorAddress: programOperatorAddress,
+        notes: "create_token_class_mint_and_transter_program",
         operations: [{
             operatorAddress: programOperatorAddress,
             opcode: 2, // create token class
@@ -112,7 +116,8 @@ describe('class DARC test',
                 [BigInt(1000), BigInt(200)],
                 [BigInt(300), BigInt(400)],
               ],
-              ADDRESS_2DARRAY: []
+              ADDRESS_2DARRAY: [],
+              BYTES: []
             }
           },
           {
@@ -132,7 +137,8 @@ describe('class DARC test',
               ],
               ADDRESS_2DARRAY: [
                 [programOperatorAddress,programOperatorAddress], // to = programOperatorAddress
-              ]
+              ],
+              BYTES: []
             }
           },
           {
@@ -152,7 +158,8 @@ describe('class DARC test',
               ],
               ADDRESS_2DARRAY: [
                 [target1, target2, target1, target2], 
-              ]
+              ],
+              BYTES: []
             }
           }
         ], 
@@ -162,18 +169,11 @@ describe('class DARC test',
         wallet: signer,
         provider: provider
       };
-  
-
-      // const attached_local_darc2 = await attachDARCwithWallet(
-      //   darc_contract_address,
-      //   DARC_VERSION.Test,
-      //   signer,
-      // );
 
       const attached_local_darc2 = new DARC.DARC({
         address: darc_contract_address,
         wallet: signer,
-        version: DARC_VERSION.Test,
+        version: DARC_VERSION.Latest,
       });
 
       console.log("The attached contract of local_darc 2 is " + attached_local_darc2.address());
@@ -189,27 +189,25 @@ describe('class DARC test',
         await attached_local_darc2.entrance(create_mint_and_transter_program);
         await attached_local_darc2.entrance(mint_and_transfer_program);
 
-        console.log(" Executed create_mint_and_transter_program");
       }
       else {
         await attached_local_darc2.entrance(mint_and_transfer_program);
-        console.log(" Executed mint_and_transfer_program");
       }
 
       //// Delay of 1000ms (1 second)
-      await new Promise(resolve1 => setTimeout(resolve1, 100)); 
-      console.log(attached_local_darc2.address());
-      console.log("Here is the token owner balance: ");
-      console.log("target1: " + target1);
+      //await new Promise(resolve1 => setTimeout(resolve1, 100)); 
+      // console.log(attached_local_darc2.address());
+      // console.log("Here is the token owner balance: ");
+      // console.log("target1: " + target1);
 
       const balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0), target1);
-      console.log("balance: " + balance.toString());
+      // console.log("balance: " + balance.toString());
 
-      function json_stringifyWithBigInt(obj: any) {
-        return JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? `${v}n` : v);
-      }
+      // function json_stringifyWithBigInt(obj: any) {
+      //   return JSON.stringify(obj, (_, v) => typeof v === 'bigint' ? `${v}n` : v);
+      // }
 
-      console.log("Token info: \n" + json_stringifyWithBigInt(await attached_local_darc2.getTokenInfo(BigInt(1))));
+      //console.log("Token info: \n" + json_stringifyWithBigInt(await attached_local_darc2.getTokenInfo(BigInt(1))));
 
       expect(balance.toString()).to.equal("20");
   }); 

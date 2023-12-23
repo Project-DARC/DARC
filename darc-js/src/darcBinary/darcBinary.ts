@@ -1,7 +1,10 @@
 import * as DARCTest from "./DARC-test.json";
 
+import * as DARCLatest from "./DARC-latest.json";
+
 export enum DARC_VERSION {
   Test,
+  Latest,
 }
 
 export type DARCBinaryStruct = {
@@ -16,6 +19,14 @@ export function darcBinary(version: DARC_VERSION): DARCBinaryStruct{
       version: DARC_VERSION.Test,
       bytecode: DARCTest.bytecode,
       abi: DARCTest.abi,
+    }
+  }
+
+  else if (version === DARC_VERSION.Latest){
+    return {
+      version: DARC_VERSION.Latest,
+      bytecode: DARCLatest.bytecode,
+      abi: DARCLatest.abi,
     }
   }
 
