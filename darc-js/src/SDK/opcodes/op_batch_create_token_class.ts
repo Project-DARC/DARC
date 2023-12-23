@@ -1,5 +1,5 @@
 import { ethers } from "ethers";  
-import {OperationStruct} from "../struct/basicTypes";
+import {OperationStruct} from "../../types/basicTypes";
 
 /**
  * @notice Batch Create Token Class Operation
@@ -64,8 +64,8 @@ export function op_batch_create_token_class(
     operatorAddress: "", // address will be filled in later
     opcode: 2, // mint token
     param: {
-      UINT256_ARRAY: [],
-      ADDRESS_ARRAY: [],
+      
+      
       STRING_ARRAY: nameArray,
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],

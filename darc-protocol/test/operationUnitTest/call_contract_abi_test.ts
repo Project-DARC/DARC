@@ -54,8 +54,8 @@ describe("test for call contract abi", function () {
         operatorAddress: programOperatorAddress,
         opcode: 25, // call contract abi
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -100,8 +100,8 @@ describe("test for call contract abi", function () {
           operatorAddress: programOperatorAddress,
           opcode: 25, // call contract abi
           param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
+            
+            
             STRING_ARRAY: [],
             BOOL_ARRAY: [],
             VOTING_RULE_ARRAY: [],

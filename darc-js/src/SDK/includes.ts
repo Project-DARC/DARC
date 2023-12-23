@@ -3,7 +3,7 @@
 
 import { TokenOperations } from "./struct/token-operation-map";
 import { Plugin } from "./struct/Plugin";
-import { OperationStruct } from "./struct/basicTypes";
+import { OperationStruct } from "../types/basicTypes";
 
 import { op_batch_mint_tokens } from "./opcodes/op_batch_mint_tokens";
 import { op_batch_create_token_class } from "./opcodes/op_batch_create_token_class";

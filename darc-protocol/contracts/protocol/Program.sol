@@ -13,8 +13,8 @@ enum MachineParameter{
 }
 
 struct Param{
-  uint256[] UINT256_ARRAY;
-  address[] ADDRESS_ARRAY;
+  // uint256[] UINT256_ARRAY;
+  // address[] ADDRESS_ARRAY;
   string[] STRING_ARRAY;
   bool[] BOOL_ARRAY;
   VotingRule[] VOTING_RULE_ARRAY;

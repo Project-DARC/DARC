@@ -31,7 +31,7 @@ describe('Runtime execution test', () => {
   it('should run the program', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
 
-    await run(code, signer, darc_contract_address).then(async ()=>{
+    await run(code, signer, darc_contract_address, DARC_VERSION.Latest).then(async ()=>{
 
       const attached_local_darc2 = new DARC.DARC({
         address: darc_contract_address,

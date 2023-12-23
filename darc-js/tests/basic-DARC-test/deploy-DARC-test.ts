@@ -1,7 +1,7 @@
 import {ethers} from 'ethers';
 import { expect } from 'chai';
 import { deployDARC } from '../../src/deployDARC/deployDARC';
-import {ProgramStruct} from '../../src/SDK/struct/basicTypes';
+import {ProgramStruct} from '../../src/types/basicTypes';
 
 import 'mocha';
 //import { setTimeout } from "timers/promises";
@@ -53,8 +53,8 @@ describe('class DARC test',
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -74,8 +74,8 @@ describe('class DARC test',
             operatorAddress: programOperatorAddress,
             opcode: 3, // transfer tokens
             param:{
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -101,8 +101,8 @@ describe('class DARC test',
             operatorAddress: programOperatorAddress,
             opcode: 2, // create token class
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: ["Class1", "Class2"],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -124,8 +124,8 @@ describe('class DARC test',
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -145,8 +145,8 @@ describe('class DARC test',
             operatorAddress: programOperatorAddress,
             opcode: 3, // transfer tokens
             param:{
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],
@@ -182,7 +182,7 @@ describe('class DARC test',
       // check the number of token classes. If it is 0, then create a token class first
       const token_class_count = await attached_local_darc2.getNumberOfTokenClasses();
 
-      console.log("token_class_count: " + token_class_count.toString());
+      //console.log("token_class_count: " + token_class_count.toString());
 
       console.log(token_class_count.toString() === "0");
       if (token_class_count.toString() === "0") {

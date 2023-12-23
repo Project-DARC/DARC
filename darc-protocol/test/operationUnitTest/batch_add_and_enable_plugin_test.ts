@@ -41,8 +41,8 @@ describe("test for batch add and enable plugins", function () {
         operatorAddress: initProgram.programOperatorAddress,
         opcode: 2, // create token class
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["Class1", "Class2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -69,12 +69,11 @@ describe("test for batch add and enable plugins", function () {
       conditionExpression: 3, // OPERATOR_ADDRESS_EQUALS
       childList: [], // empty
       param: {
-        UINT256_ARRAY: [],
-        ADDRESS_ARRAY: [],
         STRING_ARRAY: [],
         UINT256_2DARRAY: [],
         ADDRESS_2DARRAY: [ ["0x70997970C51812dc3A010C7d01b50e0d17dc79C8"] ],
         STRING_2DARRAY: [],
+        BYTES: [],
       }
     };
     await darc.entrance(
@@ -85,8 +84,8 @@ describe("test for batch add and enable plugins", function () {
           operatorAddress: initProgram.programOperatorAddress,
           opcode: 15, // create token class
           param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
+            
+            
             STRING_ARRAY: [],
             BOOL_ARRAY: [],
             VOTING_RULE_ARRAY: [],
@@ -114,8 +113,8 @@ describe("test for batch add and enable plugins", function () {
         //   operatorAddress: programOperatorAddress,
         //   opcode: 1, // mint token
         //   param: {
-        //     UINT256_ARRAY: [],
-        //     ADDRESS_ARRAY: [],
+        //     
+        //     
         //     STRING_ARRAY: [],
         //     BOOL_ARRAY: [],
         //     VOTING_RULE_ARRAY: [],
@@ -164,8 +163,6 @@ describe("test for batch add and enable plugins", function () {
           operatorAddress: target_addr,
           opcode: 1, // mint token
           param: {
-            UINT256_ARRAY: [],
-            ADDRESS_ARRAY: [],
             STRING_ARRAY: [],
             BOOL_ARRAY: [],
             VOTING_RULE_ARRAY: [],
@@ -206,8 +203,8 @@ describe("test for batch add and enable plugins", function () {
             operatorAddress: programOperatorAddress,
             opcode: 1, // mint token
             param: {
-              UINT256_ARRAY: [],
-              ADDRESS_ARRAY: [],
+              
+              
               STRING_ARRAY: [],
               BOOL_ARRAY: [],
               VOTING_RULE_ARRAY: [],

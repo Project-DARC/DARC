@@ -24,8 +24,8 @@ describe("payment_pay_cash_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 26, // pay cash
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],

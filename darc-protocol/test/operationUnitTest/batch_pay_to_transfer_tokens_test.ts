@@ -39,8 +39,8 @@ describe("batch_pay_to_transfer_token_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 2, // create token class
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: ["Class1", "Class2"],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -65,8 +65,8 @@ describe("batch_pay_to_transfer_token_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 20, // pay to mint token
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
@@ -87,8 +87,8 @@ describe("batch_pay_to_transfer_token_test", function () {
         operatorAddress: programOperatorAddress,
         opcode: 21, // pay to transfer tokens
         param: {
-          UINT256_ARRAY: [],
-          ADDRESS_ARRAY: [],
+          
+          
           STRING_ARRAY: [],
           BOOL_ARRAY: [],
           VOTING_RULE_ARRAY: [],
