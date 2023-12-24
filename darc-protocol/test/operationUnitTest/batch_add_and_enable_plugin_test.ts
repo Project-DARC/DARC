@@ -82,7 +82,7 @@ describe("test for batch add and enable plugins", function () {
         notes: "add and enable a before-operation plugin: user with address = target1 cannnot operate the darc",
         operations: [{
           operatorAddress: initProgram.programOperatorAddress,
-          opcode: 15, // create token class
+          opcode: 15, // add and enable a before-operation plugin
           param: {
             
             

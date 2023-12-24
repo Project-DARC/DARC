@@ -29,8 +29,6 @@ contract Runtime is Executable, PaymentCheck{
    * will be changed to idle. There is also a timeout for execution pending, if the execution is not
    * finished within the timeout, the state will be changed to idle when the next program is submitted.
    * -----------------
-   * 
-   * The 
    * @param program The program that is being executed 
    */
 
