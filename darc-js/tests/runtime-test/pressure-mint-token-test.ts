@@ -63,7 +63,7 @@ describe('Pressure mint token execution test', () => {
   
         const token_owner_balance = await attached_local_darc2.getTokenOwnerBalance(BigInt(0),my_wallet_address);
   
-        console.log("token_info", token_owner_balance);
+        //console.log("token_info", token_owner_balance);
         expect(token_owner_balance.toString()).to.equal("100000");
       });
     }
