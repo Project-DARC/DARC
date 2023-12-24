@@ -7,7 +7,7 @@ import "../../protocol/Opcodes.sol";
  * @author DARC Team
  * @notice Only used for testing
  */
-contract PluginJudgementTest is Executable {
+contract PluginTest is Executable {
 
   function test() public {
   }
@@ -52,7 +52,7 @@ contract PluginJudgementTest is Executable {
    * Directly execute program without checking the plugin system
    * @param currentProgram The program to be executed
    */
-  function executeProgram(Program memory currentProgram) public {
-    executeProgram_Executable(currentProgram, false);
+  function executeProgram(Program memory currentProgram, bool bIsSandbox) public {
+    executeProgram_Executable(currentProgram, bIsSandbox);
   }
 }
