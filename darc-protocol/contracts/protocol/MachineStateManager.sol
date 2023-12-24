@@ -97,7 +97,7 @@ contract MachineStateManager {
         new string[](0),
         new uint256[][](0),
         new address[][](0),
-        new string[][](0),
+        //new string[][](0),
         new bytes(0)
       )
     );

@@ -72,7 +72,6 @@ describe("test for batch add and enable plugins", function () {
         STRING_ARRAY: [],
         UINT256_2DARRAY: [],
         ADDRESS_2DARRAY: [ ["0x70997970C51812dc3A010C7d01b50e0d17dc79C8"] ],
-        STRING_2DARRAY: [],
         BYTES: [],
       }
     };

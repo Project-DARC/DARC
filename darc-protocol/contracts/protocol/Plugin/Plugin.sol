@@ -96,12 +96,9 @@ enum EnumPluginParamType {
  * Each expression node has a list of uint256, 
  */
 struct NodeParam {
-  // uint256[] UINT256_ARRAY;
-  // address[] ADDRESS_ARRAY;
   string[] STRING_ARRAY;
   uint256[][] UINT256_2DARRAY;
   address[][] ADDRESS_2DARRAY;
-  string[][] STRING_2DARRAY;
   bytes BYTES;
 }
 

@@ -11,6 +11,6 @@ import "../../protocol/Runtime/Executable/Executable.sol";
 contract PluginJudgementTest is Executable {
 
   function testPluginJudgement() public {
-    
+    uint256[] memory input = new uint256[](1);
   }
 }

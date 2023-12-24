@@ -278,7 +278,7 @@ enum EnumOpcode {
 
   /**
    * @notice Add storage IPFS hash to the storage list permanently
-   * @paran STRING_2DARRAY[0] address: the address to set approval for all cash withdraw operations
+   * @paran STRING_ARRAY[0][0] address: the address to set approval for all cash withdraw operations
    * ID:31
    */
   ADD_STORAGE_IPFS_HASH,

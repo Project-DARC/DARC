@@ -47,7 +47,6 @@ export type NodeParamStruct = {
   STRING_ARRAY: PromiseOrValue<string>[];
   UINT256_2DARRAY: PromiseOrValue<BigNumberish>[][];
   ADDRESS_2DARRAY: PromiseOrValue<string>[][];
-  STRING_2DARRAY: PromiseOrValue<string>[][];
   BYTES: PromiseOrValue<BytesLike>;
 };
 
@@ -61,7 +60,6 @@ export type NodeParamStructOutput = [
   STRING_ARRAY: string[];
   UINT256_2DARRAY: BigNumber[][];
   ADDRESS_2DARRAY: string[][];
-  STRING_2DARRAY: string[][];
   BYTES: string;
 };
 

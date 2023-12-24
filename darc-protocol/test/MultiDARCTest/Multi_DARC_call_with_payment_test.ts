@@ -19,7 +19,7 @@ const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 
 const target4 = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
 
-describe.only("test for multi DARC call test with payment", function () {
+describe("test for multi DARC call test with payment", function () {
 
   
   it ("should let DARC1 execute program on DARC2 successfully with payment", async function () {
@@ -53,7 +53,6 @@ describe.only("test for multi DARC call test with payment", function () {
         STRING_ARRAY: [],
         UINT256_2DARRAY: [],
         ADDRESS_2DARRAY: [ [darc1.address] ], // if operator === darc1.address
-        STRING_2DARRAY: [],
         BYTES: [],
       }
     };

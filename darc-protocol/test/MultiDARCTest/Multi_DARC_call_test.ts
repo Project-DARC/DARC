@@ -53,7 +53,6 @@ describe("test for multi DARC call test", function () {
         STRING_ARRAY: [],
         UINT256_2DARRAY: [],
         ADDRESS_2DARRAY: [ [darc1.address] ], // if operator === darc1.address
-        STRING_2DARRAY: [],
         BYTES: [],
       }
     };
