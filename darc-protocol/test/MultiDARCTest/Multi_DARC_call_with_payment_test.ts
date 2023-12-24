@@ -26,21 +26,21 @@ describe("test for multi DARC call test with payment", function () {
     // create darc1 contract, deploy it and initialize it
     const DARC1 = await ethers.getContractFactory("DARC");
     const darc1 = await DARC1.deploy();
-    console.log("DARC1 address: ", darc1.address);
+    // console.log("DARC1 address: ", darc1.address);
     await darc1.deployed();
     await darc1.initialize();
 
     // create darc2 contract, deploy it and initialize it
     const DARC2 = await ethers.getContractFactory("DARC");
     const darc2 = await DARC2.deploy();
-    console.log("DARC2 address: ", darc2.address);
+    // console.log("DARC2 address: ", darc2.address);
     await darc2.deployed();
     await darc2.initialize();
 
     const signer1 = ethers.provider.getSigner(target1);
     const darc2_with_signer1 = (await ethers.getContractFactory("DARC")).attach(darc2.address).connect(signer1);
 
-    console.log("Current darc2 with signer's signer address is " + JSON.stringify(await darc2_with_signer1.signer.getAddress()));
+    //console.log("Current darc2 with signer's signer address is " + JSON.stringify(await darc2_with_signer1.signer.getAddress()));
 
     // let DARC2 to accept any program from DARC1
     const node_allow_signer1_target1: ConditionNodeStruct = {

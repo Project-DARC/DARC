@@ -13,7 +13,7 @@ describe("test for batch create token class instruction", function () {
 
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
-    console.log("DARC address: ", darc.address);
+    //console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
 
