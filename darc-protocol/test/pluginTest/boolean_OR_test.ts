@@ -17,20 +17,13 @@ const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 describe.only("plugin judgement contract test", function () {
   it ("should pass all plugin judgement test in PluginTest.sol", async function () {
 
-    // const PluginJudgementTestFactory = await ethers.getContractFactory("PluginTest");
-    // const pluginJudgementTest = await PluginJudgementTestFactory.deploy();
-    // await pluginJudgementTest.deployed();
-    // await pluginJudgementTest.initialize();
-    // let bIsSuccess = true;
-    // try{
-    //   await pluginJudgementTest.test();
-    // }
-    // catch (error) {
-    //   console.log("error: ", error);
-    //   bIsSuccess = false;
-    // }
 
-    //expect(true).to.equal(true);
+    const PluginTestFactory = await ethers.getContractFactory("PluginTest");
+    const pluginTest = await PluginTestFactory.deploy();
+    await pluginTest.deployed();
+    await pluginTest.initialize();
+
+    // add a plugin with level
   });
 
 
