@@ -93,7 +93,7 @@ export type PluginStruct = {
   level: PromiseOrValue<BigNumberish>;
   conditionNodes: ConditionNodeStruct[];
   votingRuleIndex: PromiseOrValue<BigNumberish>;
-  note: PromiseOrValue<string>;
+  notes: PromiseOrValue<string>;
   bIsEnabled: PromiseOrValue<boolean>;
   bIsInitialized: PromiseOrValue<boolean>;
   bIsBeforeOperation: PromiseOrValue<boolean>;
@@ -113,7 +113,7 @@ export type PluginStructOutput = [
   level: BigNumber;
   conditionNodes: ConditionNodeStructOutput[];
   votingRuleIndex: BigNumber;
-  note: string;
+  notes: string;
   bIsEnabled: boolean;
   bIsInitialized: boolean;
   bIsBeforeOperation: boolean;

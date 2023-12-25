@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.19;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../../../MachineState.sol";
 import "../../../MachineStateManager.sol";
@@ -138,7 +138,7 @@ contract PluginInstructions is MachineStateManager{
 
     // check if all the plugins are on the right level
     pluginCheck(plugins);
-    
+
     for (uint256 i=0;i<plugins.length;i++){
       if (bIsSandbox) { // if running in sandbox
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin

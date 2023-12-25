@@ -76,7 +76,7 @@ describe("test for multi DARC call test with payment", function () {
                   node_allow_signer1_target1
                 ],
                 votingRuleIndex: 0,
-                note: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should operate",
+                notes: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should operate",
                 bIsEnabled: true,
                 bIsInitialized: true,
                 bIsBeforeOperation: true,

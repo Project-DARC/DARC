@@ -97,7 +97,7 @@ describe("test for batch add and enable plugins", function () {
                   node_deny_target1
                 ],
                 votingRuleIndex: 0,
-                note: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should not operate",
+                notes: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should not operate",
                 bIsEnabled: true,
                 bIsInitialized: true,
                 bIsBeforeOperation: true,
