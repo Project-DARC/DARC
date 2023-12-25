@@ -12,9 +12,9 @@ const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
 
 const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
-const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
+const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
-describe.skip("plugin judgement contract test", function () {
+describe.only("plugin judgement contract test", function () {
   it ("should pass all plugin judgement test in PluginTest.sol", async function () {
 
 
@@ -26,13 +26,173 @@ describe.skip("plugin judgement contract test", function () {
     // add a plugin operatorAddress == target1 | operatorAddress == target2
     // level == 4
     // return type: yes and skip sandbox
-    // pluginTest.addBeforeOpPlugin({
-    //   returnType: 4, // yes and skip sandbox
-    //   level: BigNumber.from(4),
-    //   votingRuleIndex: BigNumber.from(0),
-    //   notes: "",
+    await pluginTest.addBeforeOpPlugin({
+      returnType: BigNumber.from(4), // yes and skip sandbox
+      level: BigNumber.from(103),
+      votingRuleIndex: BigNumber.from(0),
+      notes: "",
+      bIsEnabled: true,
+      bIsInitialized: true,
+      bIsBeforeOperation: true,
+      conditionNodes:[
+        // node 0: boolean operator OR
+        {
+          id: BigNumber.from(0),
+          nodeType: BigNumber.from(2), // logical operator
+          logicalOperator: BigNumber.from(2), // OR
+          conditionExpression: 0, // no expression
+          childList: [BigNumber.from(1), BigNumber.from(2)],
+          param: {
+            STRING_ARRAY: [],
+            UINT256_2DARRAY: [],
+            ADDRESS_2DARRAY: [],
+            BYTES: []
+          }
+        },
 
-    // });
+        // node 1: operatorAddress == target1
+        {
+          id : BigNumber.from(0),
+          nodeType: BigNumber.from(1), // expression
+          logicalOperator: BigNumber.from(0), // no operator
+          conditionExpression: BigNumber.from(3), // OPERATOR_ADDRESS_EQUALS
+          childList: [],
+          param: {
+            STRING_ARRAY: [],
+            UINT256_2DARRAY: [],
+            ADDRESS_2DARRAY: [[target1]],
+            BYTES: []
+          }
+        },
+
+        // node 2: operatorAddress == target2
+        {
+          id : BigNumber.from(2),
+          nodeType: BigNumber.from(1), // expression
+          logicalOperator: BigNumber.from(0), // no operator
+          conditionExpression: BigNumber.from(3), // OPERATOR_ADDRESS_EQUALS
+          childList: [],
+          param: {
+            STRING_ARRAY: [],
+            UINT256_2DARRAY: [],
+            ADDRESS_2DARRAY: [[target2]],
+            BYTES: []
+          }
+        }
+      ]
+
+    });
+
+    const r1 = await pluginTest.checkProgram_beforeOp({
+      programOperatorAddress: programOperatorAddress,
+      operations: [{
+        operatorAddress: programOperatorAddress,
+        opcode: 2, // create token class
+        param: {
+          
+          
+          STRING_ARRAY: ["Class1", "Class2"],
+          BOOL_ARRAY: [],
+          VOTING_RULE_ARRAY: [],
+          PARAMETER_ARRAY: [],
+          PLUGIN_ARRAY: [],
+          UINT256_2DARRAY: [
+            [BigNumber.from(0), BigNumber.from(1)],
+            [BigNumber.from(10), BigNumber.from(1)],
+            [BigNumber.from(10), BigNumber.from(1)],
+          ],
+          ADDRESS_2DARRAY: [],
+          BYTES: []
+        }
+      }], 
+      notes: "create token class"
+    }
+    );
+    
+    return;
+    // next check if program with operator address == target1 can be aprove by the plugin
+    const returnType = await pluginTest.checkProgram_beforeOp(
+      {
+        programOperatorAddress: target1,
+        notes: "",
+        operations: [
+          {
+            operatorAddress: target1,
+            opcode: 1, // mint token
+            param: {
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [],
+              ADDRESS_2DARRAY: [],
+              BYTES: []
+            }
+          }
+        ]
+      }
+
+    );
+
+    return;
+    // it should return "YES and skip sandbox" (4)
+    console.log(returnType.toString());
+
+    // next check if program with operator address == target2 can be aprove by the plugin
+    const returnType2 = await pluginTest.checkProgram_beforeOp(
+      {
+        programOperatorAddress: target2,
+        notes: "",
+        operations: [
+          {
+            operatorAddress: target2,
+            opcode: 0, // mint token
+            param: {
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [],
+              ADDRESS_2DARRAY: [],
+              BYTES: []
+            }
+          }
+        ]
+      }
+
+    );
+
+    // it should return "YES and skip sandbox" (4)
+    console.log(returnType2.toString());
+    //return;
+    const returnType3 = await pluginTest.checkProgram_beforeOp(
+      {
+        programOperatorAddress: target3,
+        notes: "",
+        operations: [
+          {
+            operatorAddress: target3,
+            opcode: 0, // mint token
+            param: {
+              STRING_ARRAY: [],
+              BOOL_ARRAY: [],
+              VOTING_RULE_ARRAY: [],
+              PARAMETER_ARRAY: [],
+              PLUGIN_ARRAY: [],
+              UINT256_2DARRAY: [],
+              ADDRESS_2DARRAY: [],
+              BYTES: []
+            }
+          }
+        ]
+      }
+
+    );
+
+    console.log(returnType3.toString());
+
   });
 
 
