@@ -14,7 +14,7 @@ const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
 const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 
-describe.only("plugin judgement contract test", function () {
+describe("plugin judgement contract test", function () {
   it ("should pass all plugin judgement test in PluginTest.sol", async function () {
 
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.17;
 
 library StringUtils {
     /// @notice Does a byte-by-byte lexicographical comparison of two strings.

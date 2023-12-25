@@ -92,7 +92,7 @@ describe("test for batch add and enable plugins", function () {
             PLUGIN_ARRAY: [
               {
                 returnType: BigNumber.from(2), // NO
-                level: 100,
+                level: 9,
                 conditionNodes: [
                   node_deny_target1
                 ],

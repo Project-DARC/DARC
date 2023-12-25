@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.17;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../../../MachineState.sol";
 import "../../../MachineStateManager.sol";
@@ -7,7 +7,7 @@ import "../../../Plugin/PluginSystem.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "../../../Plugin/Plugin.sol";
 import "../../../Utilities/ErrorMsg.sol";
-
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
  * @title Implementation of BATCH_ADD_AND_ENABLE_PLUGINS operation
@@ -43,44 +43,52 @@ contract PluginInstructions is MachineStateManager{
    * If the return type is UNDEFINED, then just throw the error and revert the transaction
    * 
    * @param pluginList The list of plugins to be checked
-   * @param bIsBeforeOperation The flag to indicate if the plugins are before operation plugins
    */
-  function pluginCheck(Plugin[] memory pluginList, bool bIsBeforeOperation) internal view returns (bool) {
-    if (bIsBeforeOperation) { // if the plugins are before operation plugins
-      if (currentMachineState.beforeOpPlugins.length == 0) { // if there is no before operation plugin
-        return true;
-      }
-      else { // if there is at least one before operation plugin
-        // get the return type of the program
-        EnumReturnType returnType = currentMachineState.beforeOpPlugins[0].returnType;
-        // check if all the plugins are on the right level
-        for (uint256 i=0;i<pluginList.length;i++) {
-          if (returnType == EnumReturnType.YES_AND_SKIP_SANDBOX) { // if the return type is YES_AND_SKIP_SANDBOX
-            if (pluginList[i].level % 3 != 1) { // if the plugin level is not L%3 == 1
-
-              // revert the transaction with error message: level x plugin is with return type YES_AND_SKIP_SANDBOX, but the level x plugin is not on the right level
-              revert("Invalid plugin level. Level x plugin is with return type YES_AND_SKIP_SANDBOX, but the level x plugin is not on the right level");
-            }
-          }
-          else if (returnType == EnumReturnType.SANDBOX_NEEDED) { // if the return type is SANDBOX_NEEDED
-            if (pluginList[i].level % 3 != 2) { // if the plugin level is not L%3 == 2
-              revert("Invalid plugin level");
-            }
-          }
-          else if (returnType == EnumReturnType.NO) { // if the return type is NO
-            if (pluginList[i].level % 3 != 0) { // if the plugin level is not L%3 == 0
-              revert("Invalid plugin level");
-            }
-          }
-          else { // if the return type is UNDEFINED
-            revert("Invalid return type");
+   function pluginCheck(Plugin[] memory pluginList) internal view {
+    for (uint256 i = 0; i < pluginList.length; i++) {
+      if (pluginList[i].bIsBeforeOperation) {
+        if (pluginList[i].returnType == EnumReturnType.YES_AND_SKIP_SANDBOX) {
+          if (pluginList[i].level % 3 != 1) {
+            revert(string.concat("Invalid before-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type YES_AND_SKIP_SANDBOX, should be on level [1, 4, 7, 10, ...]"));
           }
         }
-        return true;
+        else if (pluginList[i].returnType == EnumReturnType.SANDBOX_NEEDED) {
+          if (pluginList[i].level % 3 != 2) {
+            revert(string.concat("Invalid before-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type SANDBOX_NEEDED, should be on level [2, 5, 8, 11, ...]"));
+          }
+        }
+        else if (pluginList[i].returnType == EnumReturnType.NO) {
+          if (pluginList[i].level % 3 != 0) {
+            revert(string.concat("Invalid before-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type NO, should be on level [3, 6, 9, 12, ...]"));
+          }
+        }
+        else {
+          revert("Invalid return type: UNDEFINED");
+        }
+      }
+      else {
+        if (pluginList[i].returnType == EnumReturnType.YES) {
+          if (pluginList[i].level % 3 != 1) {
+            revert(string.concat("Invalid after-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type YES, should be on level [1, 4, 7, 10, ...]"));
+          }
+        }
+        else if (pluginList[i].returnType == EnumReturnType.VOTING_NEEDED) {
+          if (pluginList[i].level % 3 != 2) {
+            revert(string.concat("Invalid after-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type VOTING_NEEDED, should be on level [2, 5, 8, 11, ...]"));
+          }
+        }
+        else if (pluginList[i].returnType == EnumReturnType.NO) {
+          if (pluginList[i].level % 3 != 0) {
+            revert(string.concat("Invalid after-op plugin level. Level ", Strings.toString(pluginList[i].level), " plugin with index ", Strings.toString(i) ," is with return type NO, should be on level [3, 6, 9, 12, ...]"));
+          }
+        }
+        else {
+          revert("Invalid return type: UNDEFINED");
+        }
       }
     }
-
   }
+
   /**
    * @notice The function that executes the BATCH_ADD_PLUGINS operation
    * @param operation The operation to be executed
@@ -89,6 +97,9 @@ contract PluginInstructions is MachineStateManager{
   function op_BATCH_ADD_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugins
     Plugin[] memory plugins = operation.param.PLUGIN_ARRAY;
+
+    // check if all the plugins are on the right level
+    pluginCheck(plugins);
     for (uint256 i=0;i<plugins.length;i++){
       if (bIsSandbox) { // if running in sandbox
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin
@@ -124,6 +135,10 @@ contract PluginInstructions is MachineStateManager{
   function op_BATCH_ADD_AND_ENABLE_PLUGINS(Operation memory operation, bool bIsSandbox) internal {
     // parameter 1 is the array of plugins
     Plugin[] memory plugins = operation.param.PLUGIN_ARRAY;
+
+    // check if all the plugins are on the right level
+    pluginCheck(plugins);
+    
     for (uint256 i=0;i<plugins.length;i++){
       if (bIsSandbox) { // if running in sandbox
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin

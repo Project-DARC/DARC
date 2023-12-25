@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.17;
 
 import './EnumConditionExpression.sol';
 
@@ -26,6 +26,10 @@ enum EnumLogicalOperatorType {UNDEFINED, AND, OR, NOT }
  * 3. Otherwise, if any operation in the program is YES_AND_SKIP_SANDBOX, the program should skip the sandbox 
  * check and be executed in current machine state.
  * 4. Otherwise, the program is invalid and should be rejected.
+ * 
+ * 
+ * ----------------------------------------------
+ * 
  * 
  * For the After Operation Plugin System (after executed in sandbox), the priority of the return value is:
  * NO > VOTING_NEEDED > YES > UNDEFINED,
