@@ -46,7 +46,7 @@ describe.only("plugin judgement contract test", function () {
         }
       }]
     });
-
+    //return;
     // add a plugin operatorAddress == target1 | operatorAddress == target2
     // level == 4
     // return type: yes and skip sandbox
@@ -154,9 +154,8 @@ describe.only("plugin judgement contract test", function () {
     );
 
 
-    console.log(r1.toString());
-
-    console.log(await pluginTest.getBeforeOpPlugins());
+    expect(r1.toString()).to.equal("2");
+    //console.log(await pluginTest.getBeforeOpPlugins());
 
     // next check if program with operator address == target1 can be aprove by the plugin
     const returnType = await pluginTest.checkProgram_beforeOp(
@@ -185,7 +184,7 @@ describe.only("plugin judgement contract test", function () {
 
     //return;
     // it should return "YES and skip sandbox" (4)
-    console.log(returnType.toString());
+    expect(returnType.toString()).to.equal("4");
 
     // next check if program with operator address == target2 can be aprove by the plugin
     const returnType2 = await pluginTest.checkProgram_beforeOp(
@@ -213,8 +212,7 @@ describe.only("plugin judgement contract test", function () {
     );
 
     // it should return "YES and skip sandbox" (4)
-    console.log(returnType2.toString());
-    //return;
+    expect(returnType2.toString()).to.equal("4");
 
     console.log("final test");
     const returnType3 = await pluginTest.checkProgram_beforeOp(
@@ -241,7 +239,7 @@ describe.only("plugin judgement contract test", function () {
 
     );
 
-    console.log(returnType3.toString());
+    expect(returnType3.toString()).to.equal("2");
 
   });
 
