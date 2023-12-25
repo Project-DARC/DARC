@@ -55,4 +55,27 @@ contract PluginTest is Executable {
   function executeProgram(Program memory currentProgram, bool bIsSandbox) public {
     executeProgram_Executable(currentProgram, bIsSandbox);
   }
+
+  function getBeforeOpPlugins() public view returns (Plugin[] memory) {
+    return currentMachineState.beforeOpPlugins;
+  }
+
+  function getAfterOpPlugins() public view returns (Plugin[] memory) {
+    return currentMachineState.afterOpPlugins;
+  }
+
+  function checkConditionExpressionNodeResult(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) public view returns (bool) {
+    return checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, nodeIndex);
+  }
+
+  /**
+   * Test for pluginSystemJudgment from PluginSystem.sol
+   * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
+   * @param currentProgram The program to be executed
+   * @return EnumReturnType The return type of the program
+   * @return uint256[] The voting rule index list of the program, if the return type is VOTING_NEEDED
+   */
+  function pluginSystemJudgmentTest(bool bIsBeforeOperation, Program memory currentProgram) public view returns (EnumReturnType, uint256[] memory) {
+    return pluginSystemJudgment(bIsBeforeOperation, currentProgram);
+  }
 }

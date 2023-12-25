@@ -44,7 +44,7 @@ contract PluginInstructions is MachineStateManager{
    * 
    * @param pluginList The list of plugins to be checked
    */
-   function pluginCheck(Plugin[] memory pluginList) internal view {
+   function pluginCheck(Plugin[] memory pluginList) internal pure {
     for (uint256 i = 0; i < pluginList.length; i++) {
       if (pluginList[i].bIsBeforeOperation) {
         if (pluginList[i].returnType == EnumReturnType.YES_AND_SKIP_SANDBOX) {

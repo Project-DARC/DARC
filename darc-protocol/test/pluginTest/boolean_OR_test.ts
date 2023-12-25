@@ -23,6 +23,30 @@ describe.only("plugin judgement contract test", function () {
     await pluginTest.deployed();
     await pluginTest.initialize();
 
+    // add a plugin to disable all program
+    await pluginTest.addBeforeOpPlugin({
+      returnType: BigNumber.from(2), // no
+      level: BigNumber.from(3),
+      votingRuleIndex: BigNumber.from(0),
+      notes: "disable all program",
+      bIsEnabled: true,
+      bIsInitialized: true,
+      bIsBeforeOperation: true,
+      conditionNodes:[{
+        id: BigNumber.from(0),
+        nodeType: BigNumber.from(3), // expression
+        logicalOperator: BigNumber.from(0), // no operator
+        conditionExpression: BigNumber.from(0), // always true
+        childList: [],
+        param: {
+          STRING_ARRAY: [],
+          UINT256_2DARRAY: [],
+          ADDRESS_2DARRAY: [],
+          BYTES: []
+        }
+      }]
+    });
+
     // add a plugin operatorAddress == target1 | operatorAddress == target2
     // level == 4
     // return type: yes and skip sandbox
@@ -30,7 +54,7 @@ describe.only("plugin judgement contract test", function () {
       returnType: BigNumber.from(4), // yes and skip sandbox
       level: BigNumber.from(103),
       votingRuleIndex: BigNumber.from(0),
-      notes: "",
+      notes: "allow operatorAddress == target1 | operatorAddress == target2",
       bIsEnabled: true,
       bIsInitialized: true,
       bIsBeforeOperation: true,
@@ -52,7 +76,7 @@ describe.only("plugin judgement contract test", function () {
 
         // node 1: operatorAddress == target1
         {
-          id : BigNumber.from(0),
+          id : BigNumber.from(1),
           nodeType: BigNumber.from(1), // expression
           logicalOperator: BigNumber.from(0), // no operator
           conditionExpression: BigNumber.from(3), // OPERATOR_ADDRESS_EQUALS
@@ -83,6 +107,26 @@ describe.only("plugin judgement contract test", function () {
 
     });
 
+    //console.log(await pluginTest.getBeforeOpPlugins());
+
+    // console.log(await pluginTest.checkConditionExpressionNodeResult(true, 
+    //   {
+    //     operatorAddress: target3,
+    //     opcode: 1, // mint token
+    //     param: {
+    //       STRING_ARRAY: [],
+    //       BOOL_ARRAY: [],
+    //       VOTING_RULE_ARRAY: [],
+    //       PARAMETER_ARRAY: [],
+    //       PLUGIN_ARRAY: [],
+    //       UINT256_2DARRAY: [],
+    //       ADDRESS_2DARRAY: [],
+    //       BYTES: []
+    //     }
+    //   }, 1, 0 ));
+
+
+
     const r1 = await pluginTest.checkProgram_beforeOp({
       programOperatorAddress: programOperatorAddress,
       operations: [{
@@ -108,8 +152,12 @@ describe.only("plugin judgement contract test", function () {
       notes: "create token class"
     }
     );
-    
-    return;
+
+
+    console.log(r1.toString());
+
+    console.log(await pluginTest.getBeforeOpPlugins());
+
     // next check if program with operator address == target1 can be aprove by the plugin
     const returnType = await pluginTest.checkProgram_beforeOp(
       {
@@ -135,7 +183,7 @@ describe.only("plugin judgement contract test", function () {
 
     );
 
-    return;
+    //return;
     // it should return "YES and skip sandbox" (4)
     console.log(returnType.toString());
 
@@ -167,6 +215,8 @@ describe.only("plugin judgement contract test", function () {
     // it should return "YES and skip sandbox" (4)
     console.log(returnType2.toString());
     //return;
+
+    console.log("final test");
     const returnType3 = await pluginTest.checkProgram_beforeOp(
       {
         programOperatorAddress: target3,
