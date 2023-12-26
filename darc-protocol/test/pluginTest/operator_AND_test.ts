@@ -14,14 +14,16 @@ const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
 const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
-describe.only("plugin judgement contract test", function () {
-  it ("should pass all plugin judgement test in PluginTest.sol", async function () {
+describe.only("operator OR  test", function () {
+  it ("should pass operator OR test", async function () {
 
 
     const PluginTestFactory = await ethers.getContractFactory("PluginTest");
     const pluginTest = await PluginTestFactory.deploy();
     await pluginTest.deployed();
     await pluginTest.initialize();
+
+    // first set role of operator target 1 as level-1 operator
 
     // add a plugin to disable all program
     await pluginTest.addBeforeOpPlugin({

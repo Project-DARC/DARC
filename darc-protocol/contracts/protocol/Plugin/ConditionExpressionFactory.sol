@@ -52,8 +52,8 @@ contract ConditionExpressionFactory is
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].param;
 
     // check the condition expression node
-    if (exp == EnumConditionExpression.OPERATION_NAME_EQUALS) {
-      return exp_OPERATION_NAME_EQUALS(operation, param);
+    if (exp == EnumConditionExpression.OPERATION_EQUALS) {
+      return exp_OPERATION_EQUALS(operation, param);
     }
     else if (exp == EnumConditionExpression.OPERATOR_NAME_EQUALS) {
       return false;//exp_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, paramList);
