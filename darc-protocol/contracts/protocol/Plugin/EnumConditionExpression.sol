@@ -23,9 +23,16 @@ enum EnumConditionExpression{
   OPERATOR_ROLE_LARGER_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_LESS_THAN, // params: uint256 operatorRoleIndex
   OPERATOR_ROLE_IN_RANGE,  // params: uint256 operatorRoleIndex
+  OPERATOR_ROLE_IN_LIST, // params: uint256[] operatorRoleIndexArray
+
   OPERATOR_TOKEN_X_LARGER_THAN,  // params: uint256 token class, uint256 amount
   OPERATOR_TOKEN_X_LESS_THAN,  // params: uint256 token class, uint256 amount
   OPERATOR_TOKEN_X_IN_RANGE,  // params: uint256 token class, uint256 amount
+  OPERATOR_TOKEN_X_PERCENTAGE_LARGER_THAN,  // params: uint256 token class, uint256 percentage
+  OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN,  // params: uint256 token class, uint256 percentage
+  OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE,  // params: uint256 token class, uint256 percentage
+  OPERATOR_TOKEN_X_PERCENTAGE_EQUALS,  // params: uint256 token class, uint256 percentage
+
   OPERATOR_VOTING_WEIGHT_LARGER_THAN,  // params: uint256 amount
   OPERATOR_VOTING_WEIGHT_LESS_THAN,  // params: uint256 amount
   OPERATOR_VOTING_WEIGHT_IN_RANGE,  // params: uint256 amount
@@ -35,11 +42,14 @@ enum EnumConditionExpression{
   OPERATOR_DIVIDEND_WITHDRAWABLE_LARGER_THAN,  // params: uint256 amount
   OPERATOR_DIVIDEND_WITHDRAWABLE_LESS_THAN,  // params: uint256 amount
   OPERATOR_DIVIDEND_WITHDRAWABLE_IN_RANGE,  // params: uint256 amount
+
   OPERATOR_WITHDRAWABLE_CASH_LARGER_THAN,  // params: uint256 amount
   OPERATOR_WITHDRAWABLE_CASH_LESS_THAN,  // params: uint256 amount
   OPERATOR_WITHDRAWABLE_CASH_IN_RANGE,  // params: uint256 amount
+
   OPERATOR_ADDRESS_IN_LIST, // params: address[] the list of addresses、
   OPERATOR_NAME_IN_LIST, // params: string[] the list of names
+    
   PlaceHolder1,
   PlaceHolder2,
   PlaceHolder3,
@@ -169,19 +179,18 @@ enum EnumConditionExpression{
 
 
   // ----------------------------------------------------------
-  /**
-   * @notice mint new token related expressions
-   */
+  // Mint token operation related expressions
+  MINT_TOKENS_TOTAL_AMOUNT_MORE_THAN,
+  MINT_TOKENS_TOTAL_AMOUNT_LESS_THAN,
+  MINT_TOKENS_TOTAL_AMOUNT_IN_RANGE,
+  MINT_TOKENS_TOTAL_AMOUNT_EQUALS,
+  MINT_TOKENS_TARGET_ADDRESS_IN_LIST,
+  MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_MORE_THAN,
+  MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_LESS_THAN,
+  MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_IN_RANGE,
+  MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_EQUALS,
 
-  /**
-   * This condition expression will be ture if 
-   * 1. the current operation is minting new tokens
-   * 2. the token mint now is in token class array
-   * 3. the amount larger than the amount X in the condition node.
-   * 
-   * params: address[] toAddressArray, uint256[] tokenClassIndexArray, uint256 amount
-   * */ 
-  MINT_TOKEN_MORE_THAN,
+
 
   /**
    * This condition expression will be ture if the current operation is
@@ -249,23 +258,22 @@ enum EnumConditionExpression{
 
 
   // ----------------------------------------------------------
-  // Time related expressions
-
-  // ----------------------------------------------------------
   // Cash related expressions
 
   // ----------------------------------------------------------
   // Dividend related expressions
 
   // ----------------------------------------------------------
-  // Emergency related expressions
+  // Emergency operations related expressions
 
   // ----------------------------------------------------------
-  // member list related expressions
+  // member list operations related expressions
 
   // ----------------------------------------------------------
-  // parameter setup related expressions
+  // parameter setup operations related expressions
 
   // ----------------------------------------------------------
+  // plugin operations related expressions
+  // 
 
 } 
