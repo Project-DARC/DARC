@@ -78,7 +78,7 @@ describe("test for multi DARC call test", function () {
                   node_allow_signer1_target1
                 ],
                 votingRuleIndex: 0,
-                note: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should operate",
+                notes: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should operate",
                 bIsEnabled: true,
                 bIsInitialized: true,
                 bIsBeforeOperation: true,
@@ -91,7 +91,7 @@ describe("test for multi DARC call test", function () {
         }],
       }
     )
-    
+
     // next get the ABI of the darc2 contract entrance, and encode it
     //const abiDARC2 = darc2.interface.getFunction("entrance").format();
 

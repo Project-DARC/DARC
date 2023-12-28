@@ -98,7 +98,7 @@ contract MachineStateManager {
       EnumLogicalOperatorType.UNDEFINED,
 
       // expression: operation == initialOwnerAddress
-      EnumConditionExpression.UNDEFINED,
+      0,
       new uint256[](0),
       NodeParam(
         new string[](0),
@@ -129,7 +129,7 @@ contract MachineStateManager {
       EnumLogicalOperatorType.UNDEFINED,
 
       // expression: operation == initialOwnerAddress
-      EnumConditionExpression.UNDEFINED,
+      0,
       new uint256[](0),
       NodeParam(
         new string[](0),

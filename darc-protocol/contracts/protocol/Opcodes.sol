@@ -262,6 +262,7 @@ enum EnumOpcode {
   /**
    * @notice Set the approval for all transfer operations by address
    * @paran address: the address to set approval for all transfer operations
+   * ADDRESS_2DARRAY[0][0] targetAddress
    * ID:29
    */
   SET_APPROVAL_FOR_ALL_OPERATIONS,

@@ -14,7 +14,7 @@ const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
 const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
-describe.only("operator OR  test", function () {
+describe("operator AND  test", function () {
   it ("should pass operator OR test", async function () {
 
 

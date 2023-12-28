@@ -6,7 +6,7 @@ import "../Utilities/StringUtils.sol";
 import "../Program.sol";
 
 // import all the condition expression big list
-import "./EnumConditionExpression.sol";
+//import "./EnumConditionExpression.sol";
 
 // import each implementation of the condition expression function
 import "./Conditions/OperatorExpressionFunction.sol";
@@ -38,7 +38,7 @@ contract ConditionExpressionFactory is
    */
   function conditionExpressionCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
     // get current condition expression node
-    EnumConditionExpression exp = bIsBeforeOperation ?
+    uint256 exp = bIsBeforeOperation ?
      currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].conditionExpression : 
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].conditionExpression;
 
@@ -48,13 +48,13 @@ contract ConditionExpressionFactory is
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].param;
 
     // check the condition expression node
-    if (exp == EnumConditionExpression.OPERATION_EQUALS) {
+    if (exp == 151) {
       return exp_OPERATION_EQUALS(operation, param);
     }
-    else if (exp == EnumConditionExpression.OPERATOR_NAME_EQUALS) {
+    else if (exp == 1) {
       return false;//exp_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, paramList);
     }
-    else if (exp == EnumConditionExpression.OPERATOR_ADDRESS_EQUALS) {
+    else if (exp == 3) {
       return exp_OPERATOR_ADDRESS_EQUALS(bIsBeforeOperation, operation, param);
     }
 

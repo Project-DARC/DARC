@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 
-import './EnumConditionExpression.sol';
-
 /**
  * @notice condition node types
  */
@@ -128,7 +126,7 @@ struct ConditionNode {
   /**
    * the condition expression of the current condition node
    */
-  EnumConditionExpression conditionExpression;
+  uint256 conditionExpression;
 
   /**
    * a list of the child nodes of the current condition node
