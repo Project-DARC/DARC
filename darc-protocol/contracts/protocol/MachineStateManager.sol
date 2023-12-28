@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.19;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
 import "./Plugin/Plugin.sol";
@@ -83,27 +83,37 @@ contract MachineStateManager {
     dividendBufferSize = 10000;
     
     /**
-     * Todo:
-     * 1. create a plugin that allows all the operation by the initial owner address
+     * We need to initialze the first plugin for both before operation 
+     * plugin system and after operation plugin system.
+     * 
+     * Before-op Rule: If the operation is executed by the initial owner, then skip the plugin system
+     * After-op Rule: If the operation is executed by the initial owner, then approve the operation
+     * 
+     * Level: both before-op and after-op plugin system, level 1, the lowest level
      */
     ConditionNode[] memory conditionNodes = new ConditionNode[](1);
     conditionNodes[0] = ConditionNode(
       0,
-      EnumConditionNodeType.BOOLEAN_TRUE, //todo: change to "operator==tx.origin"
+      EnumConditionNodeType.BOOLEAN_TRUE, 
       EnumLogicalOperatorType.UNDEFINED,
-      EnumConditionExpression.UNDEFINED,
+
+      // expression: operation == initialOwnerAddress
+      0,
       new uint256[](0),
       NodeParam(
         new string[](0),
         new uint256[][](0),
+
+        // leave the address 2d array as 1x1
         new address[][](0),
-        new string[][](0),
         new bytes(0)
       )
     );
+
+
     currentMachineState.beforeOpPlugins.push(Plugin(
       EnumReturnType.YES_AND_SKIP_SANDBOX,
-      1,  //todo: change it back to 1
+      1,  //YES_AND_SKIP_SANDBOX can be set to level%3 == 1
       conditionNodes,
       0,
       "",
@@ -111,10 +121,30 @@ contract MachineStateManager {
       true,
       true
     ));
+
+    ConditionNode[] memory conditionNodes_afterOp = new ConditionNode[](1);
+    conditionNodes_afterOp[0] = ConditionNode(
+      0,
+      EnumConditionNodeType.BOOLEAN_TRUE, 
+      EnumLogicalOperatorType.UNDEFINED,
+
+      // expression: operation == initialOwnerAddress
+      0,
+      new uint256[](0),
+      NodeParam(
+        new string[](0),
+        new uint256[][](0),
+
+        // leave the address 2d array as 1x1
+        new address[][](0),
+        //new string[][](0),
+        new bytes(0)
+      )
+    );
     currentMachineState.afterOpPlugins.push(Plugin(
-      EnumReturnType.NO,
-      1,  // todo: change it back to 1
-      conditionNodes,
+      EnumReturnType.YES, // 
+      1,  // YES can be set to level%3 == 1
+      conditionNodes_afterOp,
       0,
       "",
       true,

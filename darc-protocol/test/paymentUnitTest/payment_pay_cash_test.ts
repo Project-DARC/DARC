@@ -10,7 +10,7 @@ describe("payment_pay_cash_test", function () {
     // initialize DARC
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
-    console.log("DARC address: ", darc.address);
+    //console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
 

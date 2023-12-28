@@ -22,7 +22,7 @@ describe("test for batch add and enable plugins", function () {
 
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
-    console.log("DARC address: ", darc.address);
+    //console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
 
@@ -72,7 +72,6 @@ describe("test for batch add and enable plugins", function () {
         STRING_ARRAY: [],
         UINT256_2DARRAY: [],
         ADDRESS_2DARRAY: [ ["0x70997970C51812dc3A010C7d01b50e0d17dc79C8"] ],
-        STRING_2DARRAY: [],
         BYTES: [],
       }
     };
@@ -82,7 +81,7 @@ describe("test for batch add and enable plugins", function () {
         notes: "add and enable a before-operation plugin: user with address = target1 cannnot operate the darc",
         operations: [{
           operatorAddress: initProgram.programOperatorAddress,
-          opcode: 15, // create token class
+          opcode: 15, // add and enable a before-operation plugin
           param: {
             
             
@@ -93,12 +92,12 @@ describe("test for batch add and enable plugins", function () {
             PLUGIN_ARRAY: [
               {
                 returnType: BigNumber.from(2), // NO
-                level: 100,
+                level: 9,
                 conditionNodes: [
                   node_deny_target1
                 ],
                 votingRuleIndex: 0,
-                note: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should not operate",
+                notes: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8 should not operate",
                 bIsEnabled: true,
                 bIsInitialized: true,
                 bIsBeforeOperation: true,

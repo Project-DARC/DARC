@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.19;
 
 import "../MachineState.sol";
 import "../MachineStateManager.sol";
@@ -29,8 +29,6 @@ contract Runtime is Executable, PaymentCheck{
    * will be changed to idle. There is also a timeout for execution pending, if the execution is not
    * finished within the timeout, the state will be changed to idle when the next program is submitted.
    * -----------------
-   * 
-   * The 
    * @param program The program that is being executed 
    */
 

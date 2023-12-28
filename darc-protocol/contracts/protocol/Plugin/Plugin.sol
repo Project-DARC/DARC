@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
-
-import './EnumConditionExpression.sol';
+pragma solidity ^0.8.19;
 
 /**
  * @notice condition node types
@@ -26,6 +24,10 @@ enum EnumLogicalOperatorType {UNDEFINED, AND, OR, NOT }
  * 3. Otherwise, if any operation in the program is YES_AND_SKIP_SANDBOX, the program should skip the sandbox 
  * check and be executed in current machine state.
  * 4. Otherwise, the program is invalid and should be rejected.
+ * 
+ * 
+ * ----------------------------------------------
+ * 
  * 
  * For the After Operation Plugin System (after executed in sandbox), the priority of the return value is:
  * NO > VOTING_NEEDED > YES > UNDEFINED,
@@ -96,12 +98,9 @@ enum EnumPluginParamType {
  * Each expression node has a list of uint256, 
  */
 struct NodeParam {
-  // uint256[] UINT256_ARRAY;
-  // address[] ADDRESS_ARRAY;
   string[] STRING_ARRAY;
   uint256[][] UINT256_2DARRAY;
   address[][] ADDRESS_2DARRAY;
-  string[][] STRING_2DARRAY;
   bytes BYTES;
 }
 
@@ -127,7 +126,7 @@ struct ConditionNode {
   /**
    * the condition expression of the current condition node
    */
-  EnumConditionExpression conditionExpression;
+  uint256 conditionExpression;
 
   /**
    * a list of the child nodes of the current condition node
@@ -229,7 +228,7 @@ struct Plugin {
   /**
    * the plugin note
    */
-  string note;
+  string notes;
 
   /**
    * the boolean that indicates whether the plugin is enabled or not

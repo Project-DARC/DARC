@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.19;
 
 import './Plugin.sol';
 import '../MachineStateManager.sol';
 import './ConditionExpressionFactory.sol';
-
+import "@openzeppelin/contracts/utils/Strings.sol";
 /**
  * @title The plugin factory contract of DARC
  * @author DARC Team
@@ -77,12 +77,12 @@ contract PluginFactory is ConditionExpressionFactory{
    */
   function checkConditionExpressionNode(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
     if (bIsBeforeOperation) {
-      require(pluginIndex < currentMachineState.beforeOpPlugins.length, "Checking condition exp: plugin index out of range");
-      require(nodeIndex < currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes.length, "Checking condition exp: node index out of range");
+      require(pluginIndex < currentMachineState.beforeOpPlugins.length, string.concat("Checking condition exp: plugin index out of range, plugin index: ", Strings.toString(pluginIndex)));
+      require(nodeIndex < currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes.length, string.concat("Checking condition exp: node index out of range, plugin index: ", Strings.toString(pluginIndex), ", node index: ", Strings.toString(nodeIndex)));
     }
     else {
-      require(pluginIndex < currentMachineState.afterOpPlugins.length, "Checking condition exp: plugin index out of range");
-      require(nodeIndex < currentMachineState.afterOpPlugins[pluginIndex].conditionNodes.length, "Checking condition exp: node index out of range");
+      require(pluginIndex < currentMachineState.afterOpPlugins.length, string.concat("Checking condition exp: plugin index out of range, plugin index: ", Strings.toString(pluginIndex)));
+      require(nodeIndex < currentMachineState.afterOpPlugins[pluginIndex].conditionNodes.length, string.concat("Checking condition exp: node index out of range, plugin index: ", Strings.toString(pluginIndex), ", node index: ", Strings.toString(nodeIndex)));
     }
     // check the type of current node
     EnumConditionNodeType nodeType = bIsBeforeOperation? 
@@ -117,19 +117,19 @@ contract PluginFactory is ConditionExpressionFactory{
       // get the valid length of the childList: 
       // For a logical operator, if the value of childList[i] is 0, 
       // it means the nodes with index >= i are not initialized
-      uint256 validLength = 0;
-      for (uint256 i = 0; i < currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList.length; i++) {
-        if (currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i] != 0) {
-          validLength++;
-        }
-      }
+      uint256 validLength = bIsBeforeOperation? 
+        currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList.length : 
+        currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList.length;
+
 
       // get the boolean value of each node in the list
       bool[] memory bResultList = new bool[](validLength);
 
       // traverse the list of nodes and save the result into the bResultList
       for (uint256 i = 0; i < validLength; i++) {
-        uint256 val = currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i];
+        uint256 val = bIsBeforeOperation? 
+          currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i]:
+          currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i];
         bResultList[i] = checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, val);
       }
 

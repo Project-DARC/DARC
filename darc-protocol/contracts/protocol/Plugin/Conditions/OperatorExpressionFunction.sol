@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.19;
 /**
  * @title ConditionExpressionFunctions
  * @author DARC Team
@@ -38,7 +38,7 @@ contract OperatorExpressionFunctions is MachineStateManager {
      * The first parameter is the opcode ID (in uint256) of the condition node
      * This is function to check if the opcode of the current/sandbox machine state is equal to the opcode of the condition node
     */
-    function exp_OPERATION_NAME_EQUALS(Operation memory operation, NodeParam memory param) internal pure returns (bool) {
+    function exp_OPERATION_EQUALS(Operation memory operation, NodeParam memory param) internal pure returns (bool) {
         //get the uint256 value of the UINT256_2DARRAY[0][0]
         uint256 paramOpcodeID = param.UINT256_2DARRAY[0][0];
         // compare

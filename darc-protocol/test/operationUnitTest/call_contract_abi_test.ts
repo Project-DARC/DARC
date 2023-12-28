@@ -24,7 +24,7 @@ describe("test for call contract abi", function () {
     // create darc contract, deploy it and initialize it
     const DARC = await ethers.getContractFactory("DARC");
     const darc = await DARC.deploy();
-    console.log("DARC address: ", darc.address);
+    //console.log("DARC address: ", darc.address);
     await darc.deployed();
     await darc.initialize();
 
