@@ -23,13 +23,28 @@ pragma solidity ^0.8.19;
  */
 
 
-import "../../MachineState.sol";
-import "../../MachineStateManager.sol";
-import "../../Utilities/StringUtils.sol";
-import "../../Utilities/OpcodeMap.sol";
-import "../Plugin.sol";
+import "../MachineState.sol";
+import "../MachineStateManager.sol";
+import "../Utilities/StringUtils.sol";
+import "../Utilities/OpcodeMap.sol";
+import "./Plugin.sol";
 
 contract OperatorExpressionFunctions is MachineStateManager { 
+
+    function operationExpressionCheck(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param, uint256 exp) internal view returns (bool) {
+        if (exp == 1) {
+            return exp_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, param);
+        }
+        else if (exp == 3) {
+            return exp_OPERATOR_ADDRESS_EQUALS(bIsBeforeOperation, operation, param);
+        }
+        else if (exp == 4) {
+            return exp_OPERATOR_ROLE_INDEX_EQUALS(bIsBeforeOperation, operation, param);
+        }
+        else {
+            return false;
+        }
+    }
   
     /** 
      * @notice Check if the opcode of the current/sandbox machine state is equal to the opcode of the condition node

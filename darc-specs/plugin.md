@@ -1,3 +1,6 @@
+# Plugin Table
+
+
 | ID | Plugin Name  | Plugin Parameter| Plugin Notes|
 |------------|------|------|-------|
 | 0  | UNDEFINED |  | Invalid Operation |
@@ -7,7 +10,7 @@
 | 4 | OPERATOR_ROLE_GREATER_THAN | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is greater than operatorRoleIndex|
 | 5 | OPERATOR_ROLE_LESS_THAN   | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is less than operatorRoleIndex|
 | 6 | OPERATOR_ROLE_IN_RANGE| UINT256_2DARRAY[0][0] operatorRoleIndex   ||
-| 7 | OPERATOR_ROLE_IN_LIST | UINT256_2DARRAY[0][0]_2DARRAY[0] operatorRoleIndexArray||
+| 7 | OPERATOR_ROLE_IN_LIST | UINT256_2DARRAY[0][0] operatorRoleIndexArray||
 | 8 | OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
 | 9 | OPERATOR_TOKEN_X_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
 | 10 | OPERATOR_TOKEN_X_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
@@ -53,104 +56,6 @@
 | 50 | Placeholder50  |  |  |
 | 51 | TIMESTAMP_GREATER_THAN | uint256 timestamp ||
 | 52 | TIMESTAMP_LESS_THAN | uint256 timestamp ||
-| 53 | TIMESTAMP_IN_RANGE | uint256 timestamp, uint256 timestamp ||
-| 54 | DATE_YEAR_GREATER_THAN | uint256 year ||
-| 55 | DATE_YEAR_LESS_THAN | uint256 year ||
-| 56 | DATE_YEAR_IN_RANGE | uint256 year, uint256 year ||
-| 57 | DATE_MONTH_GREATER_THAN | uint256 month ||
-| 58 | DATE_MONTH_LESS_THAN | uint256 month ||
-| 59 | DATE_MONTH_IN_RANGE | uint256 month, uint256 month ||
-| 60 | DATE_DAY_GREATER_THAN | uint256 day ||
-| 61 | DATE_DAY_LESS_THAN | uint256 day ||
-| 62 | DATE_DAY_IN_RANGE | uint256 day, uint256 day ||
-| 63 | DATE_HOUR_GREATER_THAN | uint256 hour ||
-| 64 | DATE_HOUR_LESS_THAN | uint256 hour ||
-| 65 | DATE_HOUR_IN_RANGE | uint256 hour, uint256 hour ||
-| 66 | ADDRESS_VOTING_WEIGHT_GREATER_THAN | UINT256_2DARRAY[0][0] amount  ||
-| 67 | ADDRESS_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 68 | ADDRESS_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
-| 69 | ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 70 | ADDRESS_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 71 | ADDRESS_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount  ||
-| 72 | ADDRESS_TOKEN_X_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 73 | ADDRESS_TOKEN_X_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 74 | ADDRESS_TOKEN_X_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 75 | TOTAL_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 76 | TOTAL_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 77 | TOTAL_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
-| 78 | TOTAL_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 79 | TOTAL_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 80 | TOTAL_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount  ||
-| 81 | TOTAL_CASH_GREATER_THAN | UINT256_2DARRAY[0][0] amount  ||
-| 82 | TOTAL_CASH_LESS_THAN   | UINT256_2DARRAY[0][0] amount  ||
-| 83 | TOTAL_CASH_IN_RANGE| UINT256_2DARRAY[0][0] amount  ||
-| 84 | TOTAL_CASH_EQUALS| UINT256_2DARRAY[0][0] amount  ||
-| 85 | TOKEN_IN_LIST_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 86 | TOKEN_IN_LIST_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 87 | TOKEN_IN_LIST_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
-| 88 | TOKEN_IN_LIST_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 89 | TOKEN_IN_LIST_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 90 | TOKEN_IN_LIST_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount  ||
-| 91 | TOKEN_IN_LIST_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] amount  ||
-| 92 | TOKEN_IN_LIST_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] amount  ||
-| 93 | TOKEN_IN_LIST_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0][0] amount  ||
-| 94 | TOKEN_IN_LIST_AMOUNT_EQUALS| UINT256_2DARRAY[0][0] amount  ||
-| 95 | Placeholder95  |  |  |
-| 96 | Placeholder96  |  |  |
-| 97 | Placeholder97  |  |  |
-| 98 | Placeholder98  |  |  |
-| 99 | Placeholder99  |  |  |
-| 100 | Placeholder100  |  |  |
-| 101 | Placeholder101  |  |  |
-| 102 | Placeholder102  |  |  |
-| 103 | Placeholder103  |  |  |
-| 104 | Placeholder104  |  |  |
-| 105 | Placeholder105  |  |  |
-| 106 | Placeholder106  |  |  |
-| 107 | Placeholder107  |  |  |
-| 108 | Placeholder108  |  |  |
-| 109 | Placeholder109  |  |  |
-| 110 | Placeholder110  |  |  |
-| 111 | Placeholder111  |  |  |
-| 112 | Placeholder112  |  |  |
-| 113 | Placeholder113  |  |  |
-| 114 | Placeholder114  |  |  |
-| 115 | Placeholder115  |  |  |
-| 116 | Placeholder116  |  |  |
-| 117 | Placeholder117  |  |  |
-| 118 | Placeholder118  |  |  |
-| 119 | Placeholder119  |  |  |
-| 120 | Placeholder120  |  |  |
-| 121 | Placeholder121  |  |  |
-| 122 | Placeholder122  |  |  |
-| 123 | Placeholder123  |  |  |
-| 124 | Placeholder124  |  |  |
-| 125 | Placeholder125  |  |  |
-| 126 | Placeholder126  |  |  |
-| 127 | Placeholder127  |  |  |
-| 128 | Placeholder128  |  |  |
-| 129 | Placeholder129  |  |  |
-| 130 | Placeholder130  |  |  |
-| 131 | Placeholder131  |  |  |
-| 132 | Placeholder132  |  |  |
-| 133 | Placeholder133  |  |  |
-| 134 | Placeholder134  |  |  |
-| 135 | Placeholder135  |  |  |
-| 136 | Placeholder136  |  |  |
-| 137 | Placeholder137  |  |  |
-| 138 | Placeholder138  |  |  |
-| 139 | Placeholder139  |  |  |
-| 140 | Placeholder140  |  |  |
-| 141 | Placeholder141  |  |  |
-| 142 | Placeholder142  |  |  |
-| 143 | Placeholder143  |  |  |
-| 144 | Placeholder144  |  |  |
-| 145 | Placeholder145  |  |  |
-| 146 | Placeholder146  |  |  |
-| 147 | Placeholder147  |  |  |
-| 148 | Placeholder148  |  |  |
-| 149 | Placeholder149  |  |  |
-| 150 | Placeholder150  |  |  |
 | 53 | TIMESTAMP_IN_RANGE | uint256 timestamp, uint256 timestamp ||
 | 54 | DATE_YEAR_GREATER_THAN | uint256 year ||
 | 55 | DATE_YEAR_LESS_THAN | uint256 year ||
@@ -309,30 +214,93 @@
 | 208 | Placeholder208  |  |  |
 | 209 | Placeholder209  |  |  |
 | 210 | Placeholder210  |  |  |
-| 211 | MINT_TOKENS_TOTAL_AMOUNT_MORE_THAN | uint256 amount ||
-| 212 | MINT_TOKENS_TOTAL_AMOUNT_LESS_THAN | uint256 amount ||
-| 213 | MINT_TOKENS_TOTAL_AMOUNT_IN_RANGE | uint256 minAmount, uint256 maxAmount ||
-| 214 | MINT_TOKENS_TOTAL_AMOUNT_EQUALS | uint256 amount ||
-| 215 | MINT_TOKENS_ALL_TARGETS_ADDRESS_IN_LIST | address[] addresses ||
-| 216 | MINT_TOKENS_ALL_TARGETS_ADDRESS_TO_ITSELF |  ||
-| 217 | MINT_TOKENS_ALL_TARGETS_ADDRESS_TO_ROLE_INDEX_IN_LIST | uint256[] roleIndexes ||
-| 218 | MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_MORE_THAN | uint256 level, uint256 amount ||
-| 219 | MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_LESS_THAN | uint256 level, uint256 amount ||
-| 220 | MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_IN_RANGE | uint256 level, uint256 minAmount, uint256 maxAmount ||
-| 221 | MINT_TOKENS_TOTAL_AMOUNT_LEVEL_X_EQUALS | uint256 level, uint256 amount ||
-| 222 | MINT_TOKENS_TOTAL_VOTING_WEIGHT_LARGER_THAN | uint256 weight ||
-| 223 | MINT_TOKENS_TOTAL_VOTING_WEIGHT_LESS_THAN | uint256 weight ||
-| 224 | MINT_TOKENS_TOTAL_VOTING_WEIGHT_IN_RANGE | uint256 minWeight, uint256 maxWeight ||
-| 225 | MINT_TOKENS_TOTAL_DIVIDEND_WEIGHT_LARGER_THAN | uint256 weight ||
-| 226 | MINT_TOKENS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN | uint256 weight ||
-| 227 | MINT_TOKENS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE | uint256 minWeight, uint256 maxWeight ||
-| 228 | MINT_TOKEN_EACH_BATCH_AMOUNT_MORE_THAN | uint256 amount ||
-| 229 | MINT_TOKEN_EACH_BATCH_AMOUNT_LESS_THAN | uint256 amount ||
-| 230 | MINT_TOKEN_EACH_BATCH_AMOUNT_IN_RANGE | uint256 minAmount, uint256 maxAmount ||
-| 231 | MINT_TOKEN_EACH_BATCH_AMOUNT_EQUALS | uint256 amount ||
-| 232 | MINT_TOKEN_EACH_BATCH_AMOUNT_LEVEL_X_MORE_THAN | uint256 level, uint256 amount ||
-| 233 | MINT_TOKEN_EACH_BATCH_AMOUNT_LEVEL_X_LESS_THAN | uint256 level, uint256 amount ||
-| 234 | MINT_TOKEN_EACH_BATCH_AMOUNT_LEVEL_X_IN_RANGE | uint256 level, uint256 minAmount, uint256 maxAmount ||
-| 235 | MINT_TOKEN_EACH_BATCH_AMOUNT_LEVEL_X_EQUALS | uint256 level, uint256 amount ||
-| 236 | MINT_TOKEN_EACH_BATCH_TARGET_ADDRESS_IN_LIST | address[] addresses ||
-| 237 | MINT_TOKEN_EACH_BATCH_TARGET_ADDRESS_TO_ROLE_INDEX_IN_LIST | uint256[] roleIndexes ||
+| 211 | BATCH_OP_SIZE_GREATER_THAN | UINT256_2DARRAY[0][0] batchSize ||
+| 212 | BATCH_OP_SIZE_LESS_THAN | UINT256_2DARRAY[0][0] batchSize ||
+| 213 | BATCH_OP_SIZE_IN_RANGE | UINT256_2DARRAY[0][0] startBatchSize, UINT256_2DARRAY[0][0] endBatchSize ||
+| 214 | BATCH_OP_SIZE_EQUALS | UINT256_2DARRAY[0][0] batchSize ||
+| 215 | BATCH_OP_ALL_TARGET_ADDRESSES_EQUALS | ADDRESS_2DARRAY[0][0] targetAddress ||
+| 216 | BATCH_OP_ALL_TARGET_ADDRESSES_IN_LIST | ADDRESS_2DARRAY[0] targetAddressArray ||
+| 217 | BATCH_OP_ALL_TARGET_ADDRESSES_IN_MEMBER_ROLE | UINT256_2DARRAY[0][0] memberRole ||
+| 218 | BATCH_OP_ANY_TARGET_ADDRESS_EQUALS | ADDRESS_2DARRAY[0][0] targetAddress ||
+| 219 | BATCH_OP_ANY_TARGET_ADDRESS_IN_LIST | ADDRESS_2DARRAY[0] targetAddressArray ||
+| 220 | BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE | UINT256_2DARRAY[0][0] memberRole ||
+| 221 | BATCH_OP_ALL_TARGET_ADDRESSES_TO_ITSELF |  ||
+| 222 | BATCH_OP_ANY_TARGET_ADDRESS_TO_ITSELF |  ||
+| 223 | BATCH_OP_ALL_SOURCE_ADDRESSES_EQUAL | ADDRESS_2DARRAY[0][0] sourceAddress ||
+| 224 | BATCH_OP_ALL_SOURCE_ADDRESSES_IN_LIST | ADDRESS_2DARRAY[0] sourceAddressArray ||
+| 225 | BATCH_OP_ALL_SOURCE_ADDRESSES_IN_MEMBER_ROLE | UINT256_2DARRAY[0][0] memberRole ||
+| 226 | BATCH_OP_ANY_SOURCE_ADDRESS_EQUAL | ADDRESS_2DARRAY[0][0] sourceAddress ||
+| 227 | BATCH_OP_ANY_SOURCE_ADDRESS_IN_LIST | ADDRESS_2DARRAY[0] sourceAddressArray ||
+| 228 | BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE | UINT256_2DARRAY[0][0] memberRole ||
+| 229 | BATCH_OP_ALL_SOURCE_ADDRESSES_FROM_ITSELF |  ||
+| 230 | BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF |  |
+| 231 | BATCH_OP_TOKEN_CLASS_EQUALS | UINT256_2DARRAY[0][0] tokenClass ||
+| 232 | BATCH_OP_TOKEN_CLASS_IN_LIST | UINT256_2DARRAY[0] tokenClassArray ||
+| 233 | BATCH_OP_TOKEN_CLASS_IN_RANGE | UINT256_2DARRAY[0][0] startTokenClass, UINT256_2DARRAY[0][0] endTokenClass ||
+| 234 | BATCH_OP_TOKEN_CLASS_GREATER_THAN | UINT256_2DARRAY[0][0] tokenClass ||
+| 235 | BATCH_OP_TOKEN_CLASS_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass ||
+| 236 | BATCH_OP_TOTAL_TOKEN_AMOUNT_GREATER_THAN | UINT256_2DARRAY[0][0] amount ||
+| 237 | BATCH_OP_TOTAL_TOKEN_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] amount ||
+| 238 | BATCH_OP_TOTAL_TOKEN_AMOUNT_IN_RANGE | UINT256_2DARRAY[0][0] startAmount, UINT256_2DARRAY[0][0] endAmount ||
+| 239 | BATCH_OP_TOTAL_TOKEN_AMOUNT_EQUALS | UINT256_2DARRAY[0][0] amount ||
+| 240 | BATCH_OP_ANY_TOKEN_AMOUNT_GREATER_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount ||
+| 241 | BATCH_OP_ANY_TOKEN_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount ||
+| 242 | BATCH_OP_ANY_TOKEN_AMOUNT_IN_RANGE | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] startAmount, UINT256_2DARRAY[0][0] endAmount ||
+| 243 | BATCH_OP_ANY_TOKEN_AMOUNT_EQUALS | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount ||
+| 244 | BATCH_OP_TOKEN_CLASS_GREATER_THAN | UINT256_2DARRAY[0][0] tokenClass ||
+| 245 | BATCH_OP_TOKEN_CLASS_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass ||
+| 246 | BATCH_OP_TOKEN_CLASS_IN_RANGE | UINT256_2DARRAY[0][0] startTokenClass, UINT256_2DARRAY[0][0] endTokenClass ||
+| 247 | BATCH_OP_TOKEN_CLASS_EQUALS | UINT256_2DARRAY[0][0] tokenClass ||
+| 248 | BATCH_OP_TOKEN_CLASS_IN_LIST | UINT256_2DARRAY[0] tokenClassArray ||
+| 249 | Placeholder249  |  |  |
+| 250 | Placeholder250  |  |  |
+| 251 | Placeholder251  |  |  |
+| 252 | Placeholder252  |  |  |
+| 253 | Placeholder253  |  |  |
+| 254 | Placeholder254  |  |  |
+| 255 | Placeholder255  |  |  |
+| 256 | Placeholder256  |  |  |
+| 257 | Placeholder257  |  |  |
+| 258 | Placeholder258  |  |  |
+| 259 | Placeholder259  |  |  |
+| 260 | Placeholder260  |  |  |
+| 261 | Placeholder261  |  |  |
+| 262 | Placeholder262  |  |  |
+| 263 | Placeholder263  |  |  |
+| 264 | Placeholder264  |  |  |
+| 265 | Placeholder265  |  |  |
+| 266 | Placeholder266  |  |  |
+| 267 | Placeholder267  |  |  |
+| 268 | Placeholder268  |  |  |
+| 269 | Placeholder269  |  |  |
+| 270 | Placeholder270  |  |  |
+| 271 | Placeholder271  |  |  |
+| 272 | Placeholder272  |  |  |
+| 273 | Placeholder273  |  |  |
+| 274 | Placeholder274  |  |  |
+| 275 | Placeholder275  |  |  |
+| 276 | Placeholder276  |  |  |
+| 277 | Placeholder277  |  |  |
+| 278 | Placeholder278  |  |  |
+| 279 | Placeholder279  |  |  |
+| 280 | Placeholder280  |  |  |
+| 281 | Placeholder281  |  |  |
+| 282 | Placeholder282  |  |  |
+| 283 | Placeholder283  |  |  |
+| 284 | Placeholder284  |  |  |
+| 285 | Placeholder285  |  |  |
+| 286 | Placeholder286  |  |  |
+| 287 | Placeholder287  |  |  |
+| 288 | Placeholder288  |  |  |
+| 289 | Placeholder289  |  |  |
+| 290 | Placeholder290  |  |  |
+| 291 | Placeholder291  |  |  |
+| 292 | Placeholder292  |  |  |
+| 293 | Placeholder293  |  |  |
+| 294 | Placeholder294  |  |  |
+| 295 | Placeholder295  |  |  |
+| 296 | Placeholder296  |  |  |
+| 297 | Placeholder297  |  |  |
+| 298 | Placeholder298  |  |  |
+| 299 | Placeholder299  |  |  |
+| 300 | Placeholder300  |  |  |

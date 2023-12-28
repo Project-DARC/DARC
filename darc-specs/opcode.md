@@ -1,4 +1,4 @@
-DARC Instruction Set Opcode Table
+# DARC Instruction Set Opcode Table
 
 | Opcode ID | Opcode Name                                  | Opcode Parameter                                        | Opcode Notes                                                |
 |-----------|----------------------------------------------|----------------------------------------------------------|------------------------------------------------------------|

@@ -9,7 +9,7 @@ import "../Program.sol";
 //import "./EnumConditionExpression.sol";
 
 // import each implementation of the condition expression function
-import "./Conditions/OperatorExpressionFunction.sol";
+import "./OperatorExpressionFunction.sol";
 import "./Conditions/MachineStateExpressionFunction.sol";
 //import "./Conditions/MintTokensExpressionFunction.sol";
 //import "./Conditions/TransferTokensExpressionFunction.sol";
@@ -24,8 +24,7 @@ import "./Conditions/MachineStateExpressionFunction.sol";
   //TransferTokensExpressionFunctions 
  */
 contract ConditionExpressionFactory is  
-  OperatorExpressionFunctions, 
-  MachineStateExpressionFunction
+  OperatorExpressionFunctions
 {
 
   /**
@@ -47,16 +46,13 @@ contract ConditionExpressionFactory is
      currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].param : 
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].param;
 
+    if (exp <= 50) { return operationExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+
     // check the condition expression node
-    if (exp == 151) {
+    else if (exp == 151) {
       return exp_OPERATION_EQUALS(operation, param);
     }
-    else if (exp == 1) {
-      return false;//exp_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, paramList);
-    }
-    else if (exp == 3) {
-      return exp_OPERATOR_ADDRESS_EQUALS(bIsBeforeOperation, operation, param);
-    }
+
 
     // default:
     return false;
