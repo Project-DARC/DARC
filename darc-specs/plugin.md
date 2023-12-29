@@ -1,8 +1,37 @@
 # Plugin Table
 
+## Notes
 
-| ID | Plugin Name  | Plugin Parameter| Plugin Notes|
-|------------|------|------|-------|
+1. There are multiple batch-operations, including:
+    - Batch Mint Tokens
+    - Batch Create Token Classes
+    - Batch Transfer Tokens
+    - Batch Transfer Tokens From To
+    - Batch Burn Tokens
+    - Batch Burn Tokens From
+    - Batch Add Membership
+    - Batch Suspend Membership
+    - Batch Resume Membership
+    - Batch Change Member Roles
+    - Batch Change Member Names
+    - Batch Add Plugins
+    - Batch Enable Plugins
+    - Batch Disable Plugins
+    - Batch Add and Enable Plugins
+    - Batch Set Parameters
+    - Batch Add Withdrawable Balances
+    - Batch Reduce Withdrawable Balances
+    - Batch Add Voting Rules
+    - Batch Pay to Mint Tokens
+    - Batch Pay to Transfer Tokens
+    - Batch Burn Tokens and Refund
+
+For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)](opcode.md)
+
+2. Placeholders are reserved for future use.
+
+| ID | Plugin Name  | Plugin Parameter| Plugin Notes| Ready |
+|------------|------|------|-------| ---- |
 | 0  | UNDEFINED |  | Invalid Operation |
 | 1 | OPERATOR_NAME_EQUALS| STRING_ARRAY[0] operatorName  | The operator name is exactly the same as the given string |
 | 2 | OPERATOR_ROLE_INDEX_EQUALS| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is exactly the same as operatorRoleIndex |
