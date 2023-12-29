@@ -40,7 +40,7 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 3 | OPERATOR_ADDRESS_EQUALS   | ADDRESS_2DARRAY[0][0] operatorAddress | The operator address equals operatorAddress|
 | 4 | OPERATOR_ROLE_GREATER_THAN | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is greater than operatorRoleIndex|
 | 5 | OPERATOR_ROLE_LESS_THAN   | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is less than operatorRoleIndex|
-| 6 | OPERATOR_ROLE_IN_RANGE| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is in the range of [startOperatorRoleIndex, endOperatorRoleIndex]|
+| 6 | OPERATOR_ROLE_IN_RANGE| UINT256_2DARRAY[0][0] startingOperatorRoleIndex,  UINT256_2DARRAY[0][1] endingOperatorRoleIndex  | The operator role index is in the range of [startingOperatorRoleIndex, endingOperatorRoleIndex]|
 | 7 | OPERATOR_ROLE_IN_LIST | UINT256_2DARRAY[0] operatorRoleIndexArray| The operator role index is in the list of operatorRoleIndexArray|
 | 8 | OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  | The operator has more than amount of token at tokenClass|
 | 9 | OPERATOR_TOKEN_X_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  ||
@@ -88,23 +88,23 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 51 | TIMESTAMP_GREATER_THAN | UINT256_2DARRAY[0][0] timestamp | The current timestamp is greater than timestamp|
 | 52 | TIMESTAMP_LESS_THAN | UINT256_2DARRAY[0][0] timestamp | The current timestamp is less than timestamp|
 | 53 | TIMESTAMP_IN_RANGE | UINT256_2DARRAY[0][0] startTimestamp, UINT256_2DARRAY[0][0] endTimestamp | The current timestamp is in the range of [startTimestamp, endTimestamp]|
-| 54 | DATE_YEAR_GREATER_THAN | UINT256_2DARRAY[0][0] year ||
-| 55 | DATE_YEAR_LESS_THAN | UINT256_2DARRAY[0][0] year ||
-| 56 | DATE_YEAR_IN_RANGE | UINT256_2DARRAY[0][0] startYear, UINT256_2DARRAY[0][0] endYear ||
-| 57 | DATE_MONTH_GREATER_THAN | UINT256_2DARRAY[0][0] month ||
-| 58 | DATE_MONTH_LESS_THAN | UINT256_2DARRAY[0][0] month ||
-| 59 | DATE_MONTH_IN_RANGE | UINT256_2DARRAY[0][0] startMonth, UINT256_2DARRAY[0][0] endMonth ||
-| 60 | DATE_DAY_GREATER_THAN | UINT256[0][0] day ||
-| 61 | DATE_DAY_LESS_THAN | UINT256[0][0] day ||
-| 62 | DATE_DAY_IN_RANGE | UINT256[0][0] startDay, UINT256[0][0] endDay ||
-| 63 | DATE_HOUR_GREATER_THAN | uint256 hour ||
-| 64 | DATE_HOUR_LESS_THAN | uint256 hour ||
-| 65 | DATE_HOUR_IN_RANGE | uint256 hour, uint256 hour ||
-| 66 | ADDRESS_VOTING_WEIGHT_GREATER_THAN | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
-| 67 | ADDRESS_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
-| 68 | ADDRESS_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
-| 69 | ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
-| 70 | ADDRESS_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 54 | DATE_YEAR_GREATER_THAN | UINT256_2DARRAY[0][0] year | The current year is greater than year|
+| 55 | DATE_YEAR_LESS_THAN | UINT256_2DARRAY[0][0] year | The current year is less than year|
+| 56 | DATE_YEAR_IN_RANGE | UINT256_2DARRAY[0][0] startYear, UINT256_2DARRAY[0][0] endYear | The current year is in the range of [startYear, endYear]|
+| 57 | DATE_MONTH_GREATER_THAN | UINT256_2DARRAY[0][0] month | The current month is greater than month|
+| 58 | DATE_MONTH_LESS_THAN | UINT256_2DARRAY[0][0] month | The current month is less than month|
+| 59 | DATE_MONTH_IN_RANGE | UINT256_2DARRAY[0][0] startMonth, UINT256_2DARRAY[0][0] endMonth | The current month is in the range of [startMonth, endMonth]|
+| 60 | DATE_DAY_GREATER_THAN | UINT256[0][0] day | The current day is greater than day|
+| 61 | DATE_DAY_LESS_THAN | UINT256[0][0] day | The current day is less than day|
+| 62 | DATE_DAY_IN_RANGE | UINT256[0][0] startDay, UINT256[0][0] endDay | The current day is in the range of [startDay, endDay]|
+| 63 | DATE_HOUR_GREATER_THAN | uint256 hour | The current hour is greater than hour|
+| 64 | DATE_HOUR_LESS_THAN | uint256 hour | The current hour is less than hour|
+| 65 | DATE_HOUR_IN_RANGE | uint256 startHour, uint256 endHour | The current hour is in the range of [startHour, endHour]|
+| 66 | ADDRESS_VOTING_WEIGHT_GREATER_THAN | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has more than amount of voting weight|
+| 67 | ADDRESS_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has less than amount of voting weight|
+| 68 | ADDRESS_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has voting weight in the range of [startingAmount, endingAmount]|
+| 69 | ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has more than amount of dividend weight|
+| 70 | ADDRESS_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has less than amount of dividend weight|
 | 71 | ADDRESS_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount , ADDRESS_2DARRAY[0][0] address ||
 | 72 | ADDRESS_TOKEN_X_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
 | 73 | ADDRESS_TOKEN_X_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||

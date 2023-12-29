@@ -459,4 +459,42 @@ contract MachineStateManager {
       return (cashPerUnit);
     }
   }
+
+  /**
+   * Calculate the total voting weight of all tokens owned by a certain address
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @param addr The address to be checked
+   */
+  function addressTotalVotingWeight(bool bIsSandbox, address addr) internal view returns (uint256) {
+      uint256 totalVotingWeight = 0;
+      if (!bIsSandbox) {
+          for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+              totalVotingWeight += currentMachineState.tokenList[i].tokenBalance[addr] * currentMachineState.tokenList[i].votingWeight;
+          }
+      } else {
+          for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+              totalVotingWeight += sandboxMachineState.tokenList[i].tokenBalance[addr] * sandboxMachineState.tokenList[i].votingWeight;
+          }
+      }
+      return totalVotingWeight;
+  }
+
+  /**
+   * Calculate the total dividend weight of all tokens owned by a certain address
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @param addr The address to be checked
+   */
+  function addressTotalDividendWeight(bool bIsSandbox, address addr) internal view returns (uint256) {
+      uint256 totalTokenBalance = 0;
+      if (!bIsSandbox) {
+          for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+              totalTokenBalance += currentMachineState.tokenList[i].tokenBalance[addr] * currentMachineState.tokenList[i].dividendWeight;
+          }
+      } else {
+          for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+              totalTokenBalance += sandboxMachineState.tokenList[i].tokenBalance[addr] * sandboxMachineState.tokenList[i].dividendWeight;
+          }
+      }
+      return totalTokenBalance;
+  }
 }
