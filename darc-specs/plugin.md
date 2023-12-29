@@ -33,7 +33,7 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | ID | Plugin Name  | Plugin Parameter| Plugin Notes| Ready |
 |------------|------|------|-------| ---- |
 | 0  | UNDEFINED |  | Invalid Operation |
-| 1 | OPERATOR_NAME_EQUALS| STRING_ARRAY[0] operatorName  | The operator name is exactly the same as the given string |
+| 1 | OPERATOR_NAME_EQUALS| STRING_2DARRAY[0][0] operatorName  | The operator name is exactly the same as the given string |
 | 2 | OPERATOR_ROLE_INDEX_EQUALS| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is exactly the same as operatorRoleIndex |
 | 3 | OPERATOR_ADDRESS_EQUALS   | address operatorAddress | The operator address equals operatorAddress|
 | 4 | OPERATOR_ROLE_GREATER_THAN | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is greater than operatorRoleIndex|
