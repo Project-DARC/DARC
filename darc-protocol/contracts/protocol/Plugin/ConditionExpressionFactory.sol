@@ -5,26 +5,19 @@ import "../MachineStateManager.sol";
 import "../Utilities/StringUtils.sol";
 import "../Program.sol";
 
-// import all the condition expression big list
-//import "./EnumConditionExpression.sol";
-
-// import each implementation of the condition expression function
 import "./Condition_Operator.sol";
+import "./Condition_MachineState.sol";
 import "./Conditions/MachineStateExpressionFunction.sol";
-//import "./Conditions/MintTokensExpressionFunction.sol";
-//import "./Conditions/TransferTokensExpressionFunction.sol";
+
 
 
 /**
  * @title The condition expression factory contract of DARC
  * @author DARC Team
  * @notice The factory contract is used to create and check all the condition expressions.
- * 
- *   //MintTokensExpressionFunctions, 
-  //TransferTokensExpressionFunctions 
  */
 contract ConditionExpressionFactory is  
-  Condition_Operator
+  Condition_Operator, Condition_MachineState
 {
 
   /**

@@ -1,27 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 /**
- * @title ConditionExpressionFunctions
+ * @title Condition of Operator
  * @author DARC Team
- * @notice This contract contains the functions that determine the return value of the condition node.
-    For example, the function "opcodeEquals" will return true if the operation
-    name of the current machine state is equal to the opcode of the condition node
-    the input parameters will be the machine state, operation and operator
-    the output will be a boolean value.
-
-    Since the DARC machine state contains nested structs (mapping), we need to inherit 
-    the MachineStateManager contract to use the functions in the MachineStateManager 
-    contract, instead of creating a library with pure functions. In this way, we can 
-    have access to the machine state struct (including the current machine state and 
-    the sandbox machine state), instead of copying the machine state struct to the
-    library via the input parameters.
-
-    In the DARC protocol design, each restriction plugin will have its own condition 
-    tree, composed of condition nodes. The condition nodes can be either expression nodes,
-    logic operators or boolean nodes. Each return value of the condition node will be 
-    determined by the functions in this contract. 
-
-    For the specs of all the condition nodes, please refer to 
+ * @notice All the condition expression functions related to Operator
  */
 
 

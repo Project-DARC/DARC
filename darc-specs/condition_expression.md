@@ -85,18 +85,18 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 48 | Placeholder48  |  |  |
 | 49 | Placeholder49  |  |  |
 | 50 | Placeholder50  |  |  |
-| 51 | TIMESTAMP_GREATER_THAN | uint256 timestamp ||
-| 52 | TIMESTAMP_LESS_THAN | uint256 timestamp ||
-| 53 | TIMESTAMP_IN_RANGE | uint256 timestamp, uint256 timestamp ||
-| 54 | DATE_YEAR_GREATER_THAN | uint256 year ||
-| 55 | DATE_YEAR_LESS_THAN | uint256 year ||
-| 56 | DATE_YEAR_IN_RANGE | uint256 year, uint256 year ||
-| 57 | DATE_MONTH_GREATER_THAN | uint256 month ||
-| 58 | DATE_MONTH_LESS_THAN | uint256 month ||
-| 59 | DATE_MONTH_IN_RANGE | uint256 month, uint256 month ||
-| 60 | DATE_DAY_GREATER_THAN | uint256 day ||
-| 61 | DATE_DAY_LESS_THAN | uint256 day ||
-| 62 | DATE_DAY_IN_RANGE | uint256 day, uint256 day ||
+| 51 | TIMESTAMP_GREATER_THAN | UINT256_2DARRAY[0][0] timestamp | The current timestamp is greater than timestamp|
+| 52 | TIMESTAMP_LESS_THAN | UINT256_2DARRAY[0][0] timestamp | The current timestamp is less than timestamp|
+| 53 | TIMESTAMP_IN_RANGE | UINT256_2DARRAY[0][0] startTimestamp, UINT256_2DARRAY[0][0] endTimestamp | The current timestamp is in the range of [startTimestamp, endTimestamp]|
+| 54 | DATE_YEAR_GREATER_THAN | UINT256_2DARRAY[0][0] year ||
+| 55 | DATE_YEAR_LESS_THAN | UINT256_2DARRAY[0][0] year ||
+| 56 | DATE_YEAR_IN_RANGE | UINT256_2DARRAY[0][0] startYear, UINT256_2DARRAY[0][0] endYear ||
+| 57 | DATE_MONTH_GREATER_THAN | UINT256_2DARRAY[0][0] month ||
+| 58 | DATE_MONTH_LESS_THAN | UINT256_2DARRAY[0][0] month ||
+| 59 | DATE_MONTH_IN_RANGE | UINT256_2DARRAY[0][0] startMonth, UINT256_2DARRAY[0][0] endMonth ||
+| 60 | DATE_DAY_GREATER_THAN | UINT256[0][0] day ||
+| 61 | DATE_DAY_LESS_THAN | UINT256[0][0] day ||
+| 62 | DATE_DAY_IN_RANGE | UINT256[0][0] startDay, UINT256[0][0] endDay ||
 | 63 | DATE_HOUR_GREATER_THAN | uint256 hour ||
 | 64 | DATE_HOUR_LESS_THAN | uint256 hour ||
 | 65 | DATE_HOUR_IN_RANGE | uint256 hour, uint256 hour ||
