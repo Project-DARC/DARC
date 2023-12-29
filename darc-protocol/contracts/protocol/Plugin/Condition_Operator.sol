@@ -119,6 +119,7 @@ contract Condition_Operator is MachineStateManager {
     function ID_8_OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         require(param.UINT256_2DARRAY.length == 1, "CE ID_8: UINT256_2DARRAY must have one element");
         require(param.UINT256_2DARRAY[0].length == 2, "CE ID_8: UINT256_2DARRAY[0] must have two elements");
+        require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_8: UINT256_2DARRAY[0][0] (token level X) must be less than the length of tokenList");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] > param.UINT256_2DARRAY[0][1];
         } else { 
@@ -129,6 +130,7 @@ contract Condition_Operator is MachineStateManager {
     function ID_9_OPERATOR_TOKEN_X_AMOUNT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         require(param.UINT256_2DARRAY.length == 1, "CE ID_9: UINT256_2DARRAY must have one element");
         require(param.UINT256_2DARRAY[0].length == 2, "CE ID_9: UINT256_2DARRAY[0] must have two elements");
+        require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_9: UINT256_2DARRAY[0][0] (token level X) must be less than the length of tokenList");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] < param.UINT256_2DARRAY[0][1];
         } else { 
@@ -138,6 +140,8 @@ contract Condition_Operator is MachineStateManager {
 
     function ID_10_OPERATOR_TOKEN_X_AMOUNT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
         require(param.UINT256_2DARRAY.length == 1, "CE ID_10: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 3, "CE ID_10: UINT256_2DARRAY[0] must have three elements");
+        require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_10: UINT256_2DARRAY[0][0] (token level X) must be less than the length of tokenList");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] >= param.UINT256_2DARRAY[0][1] && currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] <= param.UINT256_2DARRAY[0][2];
         } else { 
@@ -146,6 +150,9 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_11_OPERATOR_TOKEN_X_AMOUNT_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_11: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 2, "CE ID_11: UINT256_2DARRAY[0] must have two elements");
+        require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_11: UINT256_2DARRAY[0][0] (token level X) must be less than the length of tokenList");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] == param.UINT256_2DARRAY[0][1];
         } else { 
@@ -154,6 +161,9 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_12_OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_12: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 2, "CE ID_12: UINT256_2DARRAY[0] must have two elements");
+        require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_12: UINT256_2DARRAY[0][0] (token level X) must be less than the length of tokenList");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply > param.UINT256_2DARRAY[0][1];
         } else { 
@@ -162,6 +172,8 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_13_OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_13: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 2, "CE ID_13: UINT256_2DARRAY[0] must have two elements");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply < param.UINT256_2DARRAY[0][1];
         } else { 
@@ -170,6 +182,8 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_14_OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_14: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 2, "CE ID_14: UINT256_2DARRAY[0] must have two elements");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply >= param.UINT256_2DARRAY[0][1] && currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply <= param.UINT256_2DARRAY[0][2];
         } else { 
@@ -178,6 +192,8 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_15_OPERATOR_TOKEN_X_PERCENTAGE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_15: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 2, "CE ID_15: UINT256_2DARRAY[0] must have two elements");
         if (bIsBeforeOperation) { 
             return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply == param.UINT256_2DARRAY[0][1];
         } else { 
@@ -186,6 +202,8 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_16_OPERATOR_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_16: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 1, "CE ID_16: UINT256_2DARRAY[0] must have one element");
         if (bIsBeforeOperation) {
             return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) > param.UINT256_2DARRAY[0][0];
         } else {
@@ -194,6 +212,8 @@ contract Condition_Operator is MachineStateManager {
     }
 
     function ID_17_OPERATOR_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        require(param.UINT256_2DARRAY.length == 1, "CE ID_17: UINT256_2DARRAY must have one element");
+        require(param.UINT256_2DARRAY[0].length == 1, "CE ID_17: UINT256_2DARRAY[0] must have one element");
         if (bIsBeforeOperation) {
             return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) < param.UINT256_2DARRAY[0][0];
         } else {
