@@ -50,6 +50,24 @@ contract Condition_Operator is MachineStateManager {
         else if (id == 8) { return ID_8_OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN(bIsBeforeOperation, operation, param); }
         else if (id == 9) { return ID_9_OPERATOR_TOKEN_X_AMOUNT_LESS_THAN(bIsBeforeOperation, operation, param); }
         else if (id == 10) { return ID_10_OPERATOR_TOKEN_X_AMOUNT_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 11) { return ID_11_OPERATOR_TOKEN_X_AMOUNT_EQUALS(bIsBeforeOperation, operation, param); }
+        else if (id == 12) { return ID_12_OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 13) { return ID_13_OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 14) { return ID_14_OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 15) { return ID_15_OPERATOR_TOKEN_X_PERCENTAGE_EQUALS(bIsBeforeOperation, operation, param); }
+        else if (id == 16) { return ID_16_OPERATOR_VOTING_WEIGHT_GREATER_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 17) { return ID_17_OPERATOR_VOTING_WEIGHT_LESS_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 18) { return ID_18_OPERATOR_VOTING_WEIGHT_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 19) { return ID_19_OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 20) { return ID_20_OPERATOR_DIVIDEND_WEIGHT_LESS_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 21) { return ID_21_OPERATOR_DIVIDEND_WEIGHT_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 25) { return ID_25_OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 26) { return ID_26_OPERATOR_WITHDRAWABLE_CASH_LESS_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 27) { return ID_27_OPERATOR_WITHDRAWABLE_CASH_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 28) { return ID_28_OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 29) { return ID_29_OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN(bIsBeforeOperation, operation, param); }
+        else if (id == 30) { return ID_30_OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE(bIsBeforeOperation, operation, param); }
+        else if (id == 31) { return ID_31_OPERATOR_ADDRESS_IN_LIST(bIsBeforeOperation, operation, param); }
         else {
             return false;
         }
@@ -126,5 +144,189 @@ contract Condition_Operator is MachineStateManager {
         }
     }
 
+    function ID_11_OPERATOR_TOKEN_X_AMOUNT_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) { 
+            return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] == param.UINT256_2DARRAY[0][1];
+        } else { 
+            return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] == param.UINT256_2DARRAY[0][1];
+        }
+    }
 
+    function ID_12_OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) { 
+            return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply > param.UINT256_2DARRAY[0][1];
+        } else { 
+            return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply > param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_13_OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) { 
+            return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply < param.UINT256_2DARRAY[0][1];
+        } else { 
+            return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply < param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_14_OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) { 
+            return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply >= param.UINT256_2DARRAY[0][1] && currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply <= param.UINT256_2DARRAY[0][2];
+        } else { 
+            return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply >= param.UINT256_2DARRAY[0][1] && sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply <= param.UINT256_2DARRAY[0][2];
+        }
+    }
+
+    function ID_15_OPERATOR_TOKEN_X_PERCENTAGE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) { 
+            return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply == param.UINT256_2DARRAY[0][1];
+        } else { 
+            return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[operation.operatorAddress] * 100 / sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].totalSupply == param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_16_OPERATOR_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) > param.UINT256_2DARRAY[0][0];
+        } else {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) > param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_17_OPERATOR_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) < param.UINT256_2DARRAY[0][0];
+        } else {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) < param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_18_OPERATOR_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) <= param.UINT256_2DARRAY[0][1];
+        } else {
+            return addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(bIsBeforeOperation, operation.operatorAddress) <= param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_19_OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) > param.UINT256_2DARRAY[0][0];
+        } else {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) > param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_20_OPERATOR_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) < param.UINT256_2DARRAY[0][0];
+        } else {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) < param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_21_OPERATOR_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) <= param.UINT256_2DARRAY[0][1];
+        } else {
+            return addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(bIsBeforeOperation, operation.operatorAddress) <= param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_25_OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return currentMachineState.withdrawableCashMap[operation.operatorAddress] > param.UINT256_2DARRAY[0][0];
+        } else {
+            return sandboxMachineState.withdrawableCashMap[operation.operatorAddress] > param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_26_OPERATOR_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return currentMachineState.withdrawableCashMap[operation.operatorAddress] < param.UINT256_2DARRAY[0][0];
+        } else {
+            return sandboxMachineState.withdrawableCashMap[operation.operatorAddress] < param.UINT256_2DARRAY[0][0];
+        }
+    }
+
+    function ID_27_OPERATOR_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        if (bIsBeforeOperation) {
+            return currentMachineState.withdrawableCashMap[operation.operatorAddress] >= param.UINT256_2DARRAY[0][0] && currentMachineState.withdrawableCashMap[operation.operatorAddress] <= param.UINT256_2DARRAY[0][1];
+        } else {
+            return sandboxMachineState.withdrawableCashMap[operation.operatorAddress] >= param.UINT256_2DARRAY[0][0] && sandboxMachineState.withdrawableCashMap[operation.operatorAddress] <= param.UINT256_2DARRAY[0][1];
+        }
+    }
+
+    function ID_28_OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        uint256 withdrawableDividends = 0;
+        if (bIsBeforeOperation) {
+            withdrawableDividends = currentMachineState.withdrawableDividendMap[operation.operatorAddress];
+        } else {
+            withdrawableDividends = sandboxMachineState.withdrawableDividendMap[operation.operatorAddress];
+        }
+        return withdrawableDividends > param.UINT256_2DARRAY[0][0];
+    }
+
+    function ID_29_OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        uint256 withdrawableDividends = 0;
+        if (bIsBeforeOperation) {
+            withdrawableDividends = currentMachineState.withdrawableDividendMap[operation.operatorAddress];
+        } else {
+            withdrawableDividends = sandboxMachineState.withdrawableDividendMap[operation.operatorAddress];
+        }
+        return withdrawableDividends < param.UINT256_2DARRAY[0][0];
+    }
+
+    function ID_30_OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+        uint256 withdrawableDividends = 0;
+        if (bIsBeforeOperation) {
+            withdrawableDividends = currentMachineState.withdrawableDividendMap[operation.operatorAddress];
+        } else {
+            withdrawableDividends = sandboxMachineState.withdrawableDividendMap[operation.operatorAddress];
+        }
+        return withdrawableDividends >= param.UINT256_2DARRAY[0][0] && withdrawableDividends <= param.UINT256_2DARRAY[0][1];
+    }
+
+    function ID_31_OPERATOR_ADDRESS_IN_LIST(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal pure returns (bool) {
+        if (bIsBeforeOperation) {
+            for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
+                if (operation.operatorAddress == param.ADDRESS_2DARRAY[0][i]) { return true; }
+            }
+            return false;
+        } else {
+            for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
+                if (operation.operatorAddress == param.ADDRESS_2DARRAY[0][i]) { return true; }
+            }
+            return false;
+        }
+    }
+
+
+    // below are the helper functions
+    function addressTotalVotingWeight(bool bIsBeforeOp, address addr) internal view returns (uint256) {
+        uint256 totalVotingWeight = 0;
+        if (bIsBeforeOp) {
+            for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+                totalVotingWeight += currentMachineState.tokenList[i].tokenBalance[addr] * currentMachineState.tokenList[i].votingWeight;
+            }
+        } else {
+            for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+                totalVotingWeight += sandboxMachineState.tokenList[i].tokenBalance[addr] * sandboxMachineState.tokenList[i].votingWeight;
+            }
+        }
+        return totalVotingWeight;
+    }
+
+    function addressTotalDividendWeight(bool bIsBeforeOp, address addr) internal view returns (uint256) {
+        uint256 totalTokenBalance = 0;
+        if (bIsBeforeOp) {
+            for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+                totalTokenBalance += currentMachineState.tokenList[i].tokenBalance[addr] * currentMachineState.tokenList[i].dividendWeight;
+            }
+        } else {
+            for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+                totalTokenBalance += sandboxMachineState.tokenList[i].tokenBalance[addr] * sandboxMachineState.tokenList[i].dividendWeight;
+            }
+        }
+        return totalTokenBalance;
+    }
 }

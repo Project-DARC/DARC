@@ -45,27 +45,27 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 8 | OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  | The operator has more than amount of token at tokenClass|
 | 9 | OPERATOR_TOKEN_X_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  ||
 | 10 | OPERATOR_TOKEN_X_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] startingAmount, UINT256_2DARRAY[0][2] endingAmount  | The operator has token amount in the range of [startingAmount, endingAmount] at tokenClass|
-| 11 | OPERATOR_TOKEN_X_AMOUNT_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  ||
-| 12 | OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
-| 13 | OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
-| 14 | OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
-| 15 | OPERATOR_TOKEN_X_PERCENTAGE_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
-| 16 | OPERATOR_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 17 | OPERATOR_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 18 | OPERATOR_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
-| 19 | OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 20 | OPERATOR_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 21 | OPERATOR_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount  ||
+| 11 | OPERATOR_TOKEN_X_AMOUNT_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  | The operator has exactly amount of token at tokenClass|
+| 12 | OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  | The operator has more than percentage of token at tokenClass|
+| 13 | OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  | The operator has less than percentage of token at tokenClass|
+| 14 | OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentageStartingValue,  UINT256_2DARRAY[0][2] percentageEndingValue  | The operator has token percentage in the range of [percentageStartingValue, percentageEndingValue] at tokenClass|
+| 15 | OPERATOR_TOKEN_X_PERCENTAGE_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  | The operator has exactly percentage of token at tokenClass|
+| 16 | OPERATOR_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  | The operator has more than amount of voting weight|
+| 17 | OPERATOR_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  | The operator has less than amount of voting weight|
+| 18 | OPERATOR_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] startingAmount, UINT256_2DARRAY[0][1] endingAmount  | The operator has voting weight in the range of [startingAmount, endingAmount]|
+| 19 | OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  | The operator has more than amount of dividend weight|
+| 20 | OPERATOR_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  | The operator has less than amount of dividend weight|
+| 21 | OPERATOR_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] startingAmount, UINT256_2DARRAY[0][1] endingAmount  | The operator has dividend weight in the range of [startingAmount, endingAmount]|
 | 22 | Placeholder22  |  |  |
 | 23 | Placeholder23  |  |  |
 | 24 | Placeholder24  |  |  |
-| 25 | OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN | UINT256_2DARRAY[0][0] amount  ||
-| 26 | OPERATOR_WITHDRAWABLE_CASH_LESS_THAN   | UINT256_2DARRAY[0][0] amount  ||
-| 27 | OPERATOR_WITHDRAWABLE_CASH_IN_RANGE| UINT256_2DARRAY[0][0] amount  ||
-| 28 | OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||
-| 29 | OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
-| 30 | OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
-| 31 | OPERATOR_ADDRESS_IN_LIST  | address[] the list of addresses ||
+| 25 | OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN | UINT256_2DARRAY[0][0] amount  | The operator has more than amount of withdrawable cash|
+| 26 | OPERATOR_WITHDRAWABLE_CASH_LESS_THAN   | UINT256_2DARRAY[0][0] amount  | The operator has less than amount of withdrawable cash|
+| 27 | OPERATOR_WITHDRAWABLE_CASH_IN_RANGE| UINT256_2DARRAY[0][0] startingAmount, UINT256_2DARRAY[0][1] endingAmount  | The operator has withdrawable cash in the range of [startingAmount, endingAmount]|
+| 28 | OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN| UINT256_2DARRAY[0][0] amount  | The operator has more than amount of withdrawable dividends|
+| 29 | OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN  | UINT256_2DARRAY[0][0] amount  | The operator has less than amount of withdrawable dividends|
+| 30 | OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE   | UINT256_2DARRAY[0][0] amount  | The operator has withdrawable dividends in the range of [startingAmount, endingAmount]|
+| 31 | OPERATOR_ADDRESS_IN_LIST  | ADDRESS_2DARRAY[0] addressArray  | The operator address is in the list of addressArray|
 | 32 | Placeholder32  |  |  |
 | 33 | Placeholder33  |  |  |
 | 34 | Placeholder34  |  |  |
