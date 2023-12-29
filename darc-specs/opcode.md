@@ -26,7 +26,7 @@
 | 21        | BATCH_PAY_TO_TRANSFER_TOKENS                 | ADDRESS_2DARRAY[0] toAddressArray, UINT256_2DARRAY[0] tokenClassArray, UINT256_2DARRAY[1] amountArray, UINT256_2DARRAY[2] priceArray, UINT256_2DARRAY[3] dividendableFlag | Pay some cash to transfer tokens Operation (product coins) |
 | 22        | ADD_EMERGENCY                               | ADDRESS_2DARRAY[0] addressArray                           | Add an array of address as emergency agents Operation        |
 | 23        | RESERVED_ID_23                               |                                                          | Reserved ID 23 DO NOT USE                                    |
-| 24        | CALL_EMERGENCY                               | UINT256_2DARRAY[0] addressArray                           | Call emergency agents to handle emergency situations         |
+| 24        | CALL_EMERGENCY                               | UINT256_2DARRAY[0][0] emergencyAgentIndex                           | Call emergency agents to handle emergency situations         |
 | 25        | CALL_CONTRACT_ABI                            | ADDRESS_2D[0][0] contractAddress, bytes abi, UINT256_2DARRAY[0][0] value | Call a contract with the given abi Operation                |
 | 26        | PAY_CASH                                     | uint256 amount, uint256 paymentType, uint256 dividendable | Pay some cash Operation                                     |
 | 27        | OFFER_DIVIDENDS                              |                                                          | Calculate the dividends and offer to token holders Operation|

@@ -1,4 +1,4 @@
-# Plugin Table
+# Condition Expression Table
 
 ## Notes
 
@@ -30,33 +30,35 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 
 2. Placeholders are reserved for future use.
 
-| ID | Plugin Name  | Plugin Parameter| Plugin Notes| Ready |
+3. the range [staringValue, endingValue] is inclusive. For example, if the range is [1, 3], then the value 1, 2, 3 are all included.
+
+| ID | Expression Name  | Parameter| Notes| Ready |
 |------------|------|------|-------| ---- |
 | 0  | UNDEFINED |  | Invalid Operation |
-| 1 | OPERATOR_NAME_EQUALS| STRING_2DARRAY[0][0] operatorName  | The operator name is exactly the same as the given string |
-| 2 | OPERATOR_ROLE_INDEX_EQUALS| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is exactly the same as operatorRoleIndex |
-| 3 | OPERATOR_ADDRESS_EQUALS   | address operatorAddress | The operator address equals operatorAddress|
+| 1 | OPERATOR_NAME_EQUALS| STRING_ARRAY[0] operatorName  | The operator name is exactly the same as the given string |
+| 2 | OPERATOR_ROLE_EQUALS| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is exactly the same as operatorRoleIndex |
+| 3 | OPERATOR_ADDRESS_EQUALS   | ADDRESS_2DARRAY[0][0] operatorAddress | The operator address equals operatorAddress|
 | 4 | OPERATOR_ROLE_GREATER_THAN | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is greater than operatorRoleIndex|
 | 5 | OPERATOR_ROLE_LESS_THAN   | UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is less than operatorRoleIndex|
-| 6 | OPERATOR_ROLE_IN_RANGE| UINT256_2DARRAY[0][0] operatorRoleIndex   ||
-| 7 | OPERATOR_ROLE_IN_LIST | UINT256_2DARRAY[0][0] operatorRoleIndexArray||
-| 8 | OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 9 | OPERATOR_TOKEN_X_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 10 | OPERATOR_TOKEN_X_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 11 | OPERATOR_TOKEN_X_AMOUNT_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount  ||
-| 12 | OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] percentage  ||
-| 13 | OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] percentage  ||
-| 14 | OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] percentage  ||
-| 15 | OPERATOR_TOKEN_X_PERCENTAGE_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] percentage  ||
+| 6 | OPERATOR_ROLE_IN_RANGE| UINT256_2DARRAY[0][0] operatorRoleIndex   | The operator role index is in the range of [startOperatorRoleIndex, endOperatorRoleIndex]|
+| 7 | OPERATOR_ROLE_IN_LIST | UINT256_2DARRAY[0] operatorRoleIndexArray| The operator role index is in the list of operatorRoleIndexArray|
+| 8 | OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  | The operator has more than amount of token at tokenClass|
+| 9 | OPERATOR_TOKEN_X_AMOUNT_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  ||
+| 10 | OPERATOR_TOKEN_X_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] startingAmount, UINT256_2DARRAY[0][2] endingAmount  | The operator has token amount in the range of [startingAmount, endingAmount] at tokenClass|
+| 11 | OPERATOR_TOKEN_X_AMOUNT_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount  ||
+| 12 | OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
+| 13 | OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
+| 14 | OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
+| 15 | OPERATOR_TOKEN_X_PERCENTAGE_EQUALS| UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] percentage  ||
 | 16 | OPERATOR_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||
 | 17 | OPERATOR_VOTING_WEIGHT_LESS_THAN  | UINT256_2DARRAY[0][0] amount  ||
 | 18 | OPERATOR_VOTING_WEIGHT_IN_RANGE   | UINT256_2DARRAY[0][0] amount  ||
 | 19 | OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount  ||
 | 20 | OPERATOR_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount  ||
 | 21 | OPERATOR_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount  ||
-| 22 | OPERATOR_DIVIDEND_WITHDRAWABLE_GREATER_THAN | UINT256_2DARRAY[0][0] amount  ||
-| 23 | OPERATOR_DIVIDEND_WITHDRAWABLE_LESS_THAN   | UINT256_2DARRAY[0][0] amount  ||
-| 24 | OPERATOR_DIVIDEND_WITHDRAWABLE_IN_RANGE| UINT256_2DARRAY[0][0] amount  ||
+| 22 | Placeholder22  |  |  |
+| 23 | Placeholder23  |  |  |
+| 24 | Placeholder24  |  |  |
 | 25 | OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN | UINT256_2DARRAY[0][0] amount  ||
 | 26 | OPERATOR_WITHDRAWABLE_CASH_LESS_THAN   | UINT256_2DARRAY[0][0] amount  ||
 | 27 | OPERATOR_WITHDRAWABLE_CASH_IN_RANGE| UINT256_2DARRAY[0][0] amount  ||
@@ -438,8 +440,8 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 403 | CHANGE_MEMBER_ROLE_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST | UINT256_2DARRAY[0]memberRoleList ||
 | 404 | CHANGE_MEMBER_ROLE_NEW_MEMBER_ROLE_EQUALS | UINT256_2DARRAY[0][0] newMemberRole ||
 | 405 | CHANGE_MEMBER_ROLE_NEW_MEMBER_ROLE_IN_LIST | UINT256_2DARRAY[0] newMemberRoleArray ||
-| 406 | CHANGE_MEMBER_NAME_TO_STRING_LIST | STRING_2DARRAY[0] nameList ||
-| 407 | CHANGE_MEMBER_NAME_TO_STRING_CONTAINS | STRING_2DARRAY[0][0] subString ||
+| 406 | CHANGE_MEMBER_NAME_TO_STRING_LIST | STRING_ARRAY nameList ||
+| 407 | CHANGE_MEMBER_NAME_TO_STRING_CONTAINS | STRING_ARRAY[0] subString ||
 | 408 | Placeholder408  |  |  |
 | 409 | Placeholder409  |  |  |
 | 410 | Placeholder410  |  |  |

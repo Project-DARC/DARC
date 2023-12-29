@@ -9,7 +9,7 @@ import "../Program.sol";
 //import "./EnumConditionExpression.sol";
 
 // import each implementation of the condition expression function
-import "./OperatorExpressionFunction.sol";
+import "./Condition_Operator.sol";
 import "./Conditions/MachineStateExpressionFunction.sol";
 //import "./Conditions/MintTokensExpressionFunction.sol";
 //import "./Conditions/TransferTokensExpressionFunction.sol";
@@ -24,7 +24,7 @@ import "./Conditions/MachineStateExpressionFunction.sol";
   //TransferTokensExpressionFunctions 
  */
 contract ConditionExpressionFactory is  
-  OperatorExpressionFunctions
+  Condition_Operator
 {
 
   /**
@@ -50,7 +50,7 @@ contract ConditionExpressionFactory is
 
     // check the condition expression node
     else if (exp == 151) {
-      return exp_OPERATION_EQUALS(operation, param);
+      return ID_151_OPERATION_EQUALS(operation, param);
     }
 
 
