@@ -21,6 +21,8 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
    * @notice Execute the program in DARC
    */
   function execute(Program memory currentProgram) internal {
+    // 0. Read the contract current balance,
+
     // 1. Check if the program is valid for before operation plugins
     EnumReturnType returnType = checkBeforeOperationPlugins(currentProgram);
 

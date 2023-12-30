@@ -168,5 +168,10 @@ struct MachineState {
    * The machine state parameters of the DARC protocol
    */
   MachineStateParameters machineStateParameters;
+
+  /**
+   * The current balance of the DARC protocol
+   */
+  uint256 currentBalance;
 }
 

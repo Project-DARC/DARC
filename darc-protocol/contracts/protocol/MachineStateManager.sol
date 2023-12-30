@@ -364,6 +364,60 @@ contract MachineStateManager {
   }
 
   /**
+   * Calculate the total voting weights of all tokens
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @return uint256 The total voting weights of all tokens
+   */
+  function totalVotingWeights(bool bIsSandbox) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 totalVotingWeight = 0;
+      for (uint256 i = 0; i < sandboxMachineState.tokenList.length; i++) {
+        if (sandboxMachineState.tokenList[i].bIsInitialized == false) {
+          break;
+        }
+        totalVotingWeight += sumVotingWeightForTokenClass(bIsSandbox, i);
+      }
+      return totalVotingWeight;
+    } else {
+      uint256 totalVotingWeight = 0;
+      for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+        if (currentMachineState.tokenList[i].bIsInitialized == false) {
+          break;
+        }
+        totalVotingWeight += sumVotingWeightForTokenClass(bIsSandbox, i);
+      }
+      return totalVotingWeight;
+    }
+  }
+
+  /**
+   * Calculate the total dividend weights of all tokens
+   * @param bIsSandbox The flag to indicate whether is the sandbox
+   * @return uint256 The total dividend weights of all tokens
+   */
+  function totalDividendWeights(bool bIsSandbox) internal view returns (uint256) {
+    if (bIsSandbox) {
+      uint256 totalDividendWeight = 0;
+      for (uint256 i = 0; i < sandboxMachineState.tokenList.length; i++) {
+        if (sandboxMachineState.tokenList[i].bIsInitialized == false) {
+          break;
+        }
+        totalDividendWeight += sumDividendWeightForTokenClass(bIsSandbox, i);
+      }
+      return totalDividendWeight;
+    } else {
+      uint256 totalDividendWeight = 0;
+      for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+        if (currentMachineState.tokenList[i].bIsInitialized == false) {
+          break;
+        }
+        totalDividendWeight += sumDividendWeightForTokenClass(bIsSandbox, i);
+      }
+      return totalDividendWeight;
+    }
+  }
+  
+  /**
    * Calculate the current dividend per unit
    * @param bIsSandbox The flag to indicate whether is the sandbox
    */
