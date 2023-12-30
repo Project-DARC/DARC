@@ -7,7 +7,7 @@ import "../Program.sol";
 
 import "./Condition_Operator.sol";
 import "./Condition_MachineState.sol";
-import "./Conditions/MachineStateExpressionFunction.sol";
+//import "./Conditions/MachineStateExpressionFunction.sol";
 
 
 

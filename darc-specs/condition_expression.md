@@ -106,7 +106,7 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 69 | ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has more than amount of dividend weight|
 | 70 | ADDRESS_DIVIDEND_WEIGHT_LESS_THAN| UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  | The address has less than amount of dividend weight|
 | 71 | ADDRESS_DIVIDEND_WEIGHT_IN_RANGE | UINT256_2DARRAY[0][0] amount , ADDRESS_2DARRAY[0][0] address ||
-| 72 | ADDRESS_TOKEN_X_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 72 | ADDRESS_TOKEN_X_GREATER_THAN   | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] amount, ADDRESS_2DARRAY[0][0] address  ||
 | 73 | ADDRESS_TOKEN_X_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
 | 74 | ADDRESS_TOKEN_X_IN_RANGE  | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
 | 75 | TOTAL_VOTING_WEIGHT_GREATER_THAN| UINT256_2DARRAY[0][0] amount  ||

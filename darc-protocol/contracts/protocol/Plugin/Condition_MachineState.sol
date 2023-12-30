@@ -12,7 +12,7 @@ import "../MachineStateManager.sol";
 import "../Utilities/StringUtils.sol";
 import "../Utilities/OpcodeMap.sol";
 import "./Plugin.sol";
-import "./Conditions";
+//import "./Conditions";
 
 contract Condition_MachineState is MachineStateManager { 
   /**
@@ -82,7 +82,6 @@ contract Condition_MachineState is MachineStateManager {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_57: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_57: UINT256_2DARRAY[0] must have 1 element");
     (, uint256 month, , , , ) = getDateTime(block.timestamp);
-    (, uint256 month, , , , ) = getDateTime(block.timestamp);
     return month > param.UINT256_2DARRAY[0][0];
   }
 
@@ -136,55 +135,95 @@ contract Condition_MachineState is MachineStateManager {
   }
 
   function ID_65_DATE_HOUR_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_65: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_65: UINT256_2DARRAY[0] must have 2 elements");
     (, , , uint256 hour, , ) = getDateTime(block.timestamp);
     return hour >= param.UINT256_2DARRAY[0][0] && hour <= param.UINT256_2DARRAY[0][1];
   }
 
   function ID_66_ADDRESS_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_66: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_66: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_66: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_66: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
-    return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+      return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
     } else {
-    return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+      return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
     }
   }
 
   function ID_67_ADDRESS_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_67: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_67: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_67: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_67: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
-    return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+      return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
     } else {
-    return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+      return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
     }
   }
 
   function ID_68_ADDRESS_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_68: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_68: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_68: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_68: UINT256_2DARRAY[0] must have 2 elements");
     if (bIsBeforeOp) {
-    return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+      return addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
     } else {
-    return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+      return addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalVotingWeight(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
     }
   }
 
   function ID_69_ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_69: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_69: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_69: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_69: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
-    return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+      return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
     } else {
-    return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+      return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
     }
   }
 
   function ID_70_ADDRESS_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_70: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_70: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_70: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_70: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
-    return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+      return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
     } else {
-    return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+      return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
     }
   }
 
   function ID_71_ADDRESS_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_71: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_71: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_71: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_71: UINT256_2DARRAY[0] must have 2 elements");
     if (bIsBeforeOp) {
-    return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+      return addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
     } else {
-    return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+      return addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && addressTotalDividendWeight(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+    }
+  }
+
+  function ID_72_ADDRESS_TOKEN_X_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_72: ADDRESS_2DARRAY must have 1 element");
+    require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_72: ADDRESS_2DARRAY[0] must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_72: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_72: UINT256_2DARRAY[0] must have 2 elements");
+    if (bIsBeforeOp) {
+      require(param.UINT256_2DARRAY[0][0] < currentMachineState.tokenList.length, "CE ID_72: tokenClassIndex (param.UINT256_2DARRAY[0][0]) is out of range");
+      return currentMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[param.ADDRESS_2DARRAY[0][0]] > param.UINT256_2DARRAY[0][1];
+    } else {
+      require(param.UINT256_2DARRAY[0][0] < sandboxMachineState.tokenList.length, "CE ID_72: tokenClassIndex (param.UINT256_2DARRAY[0][0]) is out of range");
+      return sandboxMachineState.tokenList[param.UINT256_2DARRAY[0][0]].tokenBalance[param.ADDRESS_2DARRAY[0][0]] > param.UINT256_2DARRAY[0][1];
     }
   }
 
