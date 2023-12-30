@@ -46,6 +46,8 @@ contract ConditionExpressionFactory is
       return ID_151_OPERATION_EQUALS(operation, param);
     }
 
+    else if (exp > 50 && exp < 150) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
+
 
     // default:
     return false;

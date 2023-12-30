@@ -18,11 +18,10 @@ contract Condition_MachineState is MachineStateManager {
   /**
    * The entrance and table of all machine-state-related condition expression functions
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
-   * @param operation The operation index to be checked
    * @param param The parameters of the condition node
    * @param id The expression ID of the condition node
    */
-  function machineStateExpressionCheck(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param, uint256 id) internal view returns (bool) {
+  function machineStateExpressionCheck(bool bIsBeforeOperation, NodeParam memory param, uint256 id) internal view returns (bool) {
     if (id==51) return ID_51_TIMESTAMP_GREATER_THAN(param);
     else if (id==52) return ID_52_TIMESTAMP_LESS_THAN(param);
     else if (id==53) return ID_53_TIMESTAMP_IN_RANGE(param);
