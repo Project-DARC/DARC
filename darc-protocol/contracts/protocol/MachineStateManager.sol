@@ -83,7 +83,7 @@ contract MachineStateManager {
     dividendBufferSize = 10000;
     
     /**
-     * We need to initialze the first plugin for both before operation 
+     * We need to initialize the first plugin for both before operation 
      * plugin system and after operation plugin system.
      * 
      * Before-op Rule: If the operation is executed by the initial owner, then skip the plugin system
@@ -167,22 +167,31 @@ contract MachineStateManager {
     
     // 1. clone the plugin list
     sandboxMachineState.afterOpPlugins = new Plugin[](currentMachineState.afterOpPlugins.length);
-    for (uint256 i = 0; i < currentMachineState.afterOpPlugins.length; i++) {
+    for (uint256 i; i < currentMachineState.afterOpPlugins.length;) {
       sandboxMachineState.afterOpPlugins[i] = currentMachineState.afterOpPlugins[i];
+      unchecked {
+        ++i;
+      }
     }
     sandboxMachineState.beforeOpPlugins = new Plugin[](currentMachineState.beforeOpPlugins.length);
-    for (uint256 i = 0; i < currentMachineState.beforeOpPlugins.length; i++) {
+    for (uint256 i; i < currentMachineState.beforeOpPlugins.length;) {
       sandboxMachineState.beforeOpPlugins[i] = currentMachineState.beforeOpPlugins[i];
+      unchecked {
+        ++i;
+      }
     }
 
     // 2. clone the token list
     // 2.1 clean all the token info from the sandbox token info map
-    for (uint256 i = 0; i < sandboxMachineState.tokenList.length; i++) {
+    for (uint256 i; i < sandboxMachineState.tokenList.length;) {
 
       // if the token is initialized, then clean the token info
       if (sandboxMachineState.tokenList[i].bIsInitialized == true) {
-        for (uint256 j = 0; j < sandboxMachineState.tokenList[i].ownerList.length; j++) {
+        for (uint256 j; j < sandboxMachineState.tokenList[i].ownerList.length;) {
           delete sandboxMachineState.tokenList[i].tokenBalance[sandboxMachineState.tokenList[i].ownerList[j]];
+          unchecked {
+            ++j;
+          }
         }
 
         sandboxMachineState.tokenList[i].ownerList = new address[](0);
@@ -193,10 +202,14 @@ contract MachineStateManager {
         sandboxMachineState.tokenList[i].tokenInfo = "";
         sandboxMachineState.tokenList[i].totalSupply = 0;
       }
+
+      unchecked {
+        ++i;
+      }
     }
 
     // 2.2 Clone the token list of the current state to the sandbox state
-    for (uint256 i = 0; i < currentMachineState.tokenList.length; i++) {
+    for (uint256 i; i < currentMachineState.tokenList.length;) {
       // if the token is initialized, then clone the token info
       if (currentMachineState.tokenList[i].bIsInitialized == true) {
         sandboxMachineState.tokenList[i].ownerList = currentMachineState.tokenList[i].ownerList;
@@ -207,111 +220,159 @@ contract MachineStateManager {
         sandboxMachineState.tokenList[i].tokenInfo = currentMachineState.tokenList[i].tokenInfo;
         sandboxMachineState.tokenList[i].totalSupply = currentMachineState.tokenList[i].totalSupply;
       }
+
+      unchecked {
+        ++i;
+      }
     }
 
     // 3. clone the member list
     // 3.1 clean all the member info from the member info map
-    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+    for (uint256 i; i < currentMachineState.memberList.length;) {
       delete sandboxMachineState.memberInfoMap[currentMachineState.memberList[i]];
+      unchecked {
+        ++i;
+      }
     }
     
     // 3.2 delete the member list of the sandbox state and clone the member list of 
     // the current state to the sandbox state
     sandboxMachineState.memberList = new address[](currentMachineState.memberList.length);
-    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+    for (uint256 i; i < currentMachineState.memberList.length;) {
       sandboxMachineState.memberList[i] = currentMachineState.memberList[i];
+      unchecked {
+        ++i;
+      }
     }
 
     // 3.3 clone the member info map of the current state to the sandbox state
-    for (uint256 i = 0; i < currentMachineState.memberList.length; i++) {
+    for (uint256 i; i < currentMachineState.memberList.length;) {
       sandboxMachineState.memberInfoMap[currentMachineState.memberList[i]] 
         = currentMachineState.memberInfoMap[currentMachineState.memberList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
     // 4. Clone the operationLogMap
-    // 4.1 clean all the operation log from the operation log map
-    for (uint256 i = 0; i < sandboxMachineState.operationLogMapAddressList.length; i++) {
+    // 4.1 clean all the operation logs from the operation log map
+    for (uint256 i; i < sandboxMachineState.operationLogMapAddressList.length;) {
       delete sandboxMachineState.operationLogMap[sandboxMachineState.operationLogMapAddressList[i]];
+      unchecked {
+        ++i;
+      }
     }
     // 4.2 copy the operation log address list from current machine state to sandbox
     sandboxMachineState.operationLogMapAddressList = new address[](currentMachineState.operationLogMapAddressList.length);
-    for (uint256 i = 0; i < currentMachineState.operationLogMapAddressList.length; i++) {
+    for (uint256 i; i < currentMachineState.operationLogMapAddressList.length;) {
       sandboxMachineState.operationLogMapAddressList[i] = currentMachineState.operationLogMapAddressList[i];
+      unchecked {
+        ++i;
+      }
     }
     // 4.3 copy the operation log map from current machine state to sandbox
-    for (uint256 i = 0; i < currentMachineState.operationLogMapAddressList.length; i++) {
+    for (uint256 i; i < currentMachineState.operationLogMapAddressList.length;) {
       sandboxMachineState.operationLogMap[currentMachineState.operationLogMapAddressList[i]] 
         = currentMachineState.operationLogMap[currentMachineState.operationLogMapAddressList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
     // 5. Clone the machine state parameters
     sandboxMachineState.machineStateParameters = currentMachineState.machineStateParameters;
 
     // 6. Clone the withdrawable cash from sandbox to current machine state
-    // 6.1 clean all value in sandbox
-    for (uint256 i = 0; i < sandboxMachineState.withdrawableCashOwnerList.length; i++) {
+    // 6.1 clean all values in sandbox
+    for (uint256 i; i < sandboxMachineState.withdrawableCashOwnerList.length;) {
       delete sandboxMachineState.withdrawableCashMap[sandboxMachineState.withdrawableCashOwnerList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
     // 6.2 copy the withdrawable cash owner list from current machine state to sandbox
     sandboxMachineState.withdrawableCashOwnerList = new address[](currentMachineState.withdrawableCashOwnerList.length);
-    for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+    for (uint256 i; i < currentMachineState.withdrawableCashOwnerList.length;) {
       sandboxMachineState.withdrawableCashOwnerList[i] = currentMachineState.withdrawableCashOwnerList[i];
+      unchecked {
+        ++i;
+      }
     }
 
     // 6.3 copy the withdrawable cash map from current machine state to sandbox
-    for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+    for (uint256 i; i < currentMachineState.withdrawableCashOwnerList.length;) {
       sandboxMachineState.withdrawableCashMap[currentMachineState.withdrawableCashOwnerList[i]] 
         = currentMachineState.withdrawableCashMap[currentMachineState.withdrawableCashOwnerList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
-    // 7. Clone the wirhdarwable dividends from sandbox to current machine state
+    // 7. Clone the withdrawable dividends from sandbox to current machine state
     // 7.1 clean all value in sandbox
-    for (uint256 i = 0; i < sandboxMachineState.withdrawableDividendOwnerList.length; i++) {
+    for (uint256 i; i < sandboxMachineState.withdrawableDividendOwnerList.length;) {
       delete sandboxMachineState.withdrawableDividendMap[sandboxMachineState.withdrawableDividendOwnerList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
     // 7.2 copy the withdrawable dividends owner list from current machine state to sandbox
     sandboxMachineState.withdrawableDividendOwnerList = new address[](currentMachineState.withdrawableDividendOwnerList.length);
-    for (uint256 i = 0; i < currentMachineState.withdrawableDividendOwnerList.length; i++) {
+    for (uint256 i; i < currentMachineState.withdrawableDividendOwnerList.length;) {
       sandboxMachineState.withdrawableDividendOwnerList[i] = currentMachineState.withdrawableDividendOwnerList[i];
+      unchecked {
+        ++i;
+      }
     }
 
     // 7.3 copy the withdrawable dividends map from current machine state to sandbox
-    for (uint256 i = 0; i < currentMachineState.withdrawableDividendOwnerList.length; i++) {
+    for (uint256 i; i < currentMachineState.withdrawableDividendOwnerList.length;) {
       sandboxMachineState.withdrawableDividendMap[currentMachineState.withdrawableDividendOwnerList[i]] 
         = currentMachineState.withdrawableDividendMap[currentMachineState.withdrawableDividendOwnerList[i]];
+      unchecked {
+        ++i;
+      }
     }
 
   }   
 
 
   /**
-   * This function that get the total number of tokens for a certain token class
+   * This function gets the total number of tokens for a certain token class
    * @param bIsSandbox The flag to indicate whether is the sandbox
    * @param tokenClassIndex The index of the token class
    */
   function totalTokensPerTokenClass(bool bIsSandbox, uint256 tokenClassIndex) internal view returns (uint256) {
     if (bIsSandbox) {
       uint256 numberOfOwners = sandboxMachineState.tokenList[tokenClassIndex].ownerList.length;
-      uint256 totalTokens = 0;
+      uint256 totalTokens;
       bool bIsValid = true;
-      for (uint256 i = 0; i < numberOfOwners; i++) {
+      for (uint256 i; i < numberOfOwners;) {
         address currentOwner = sandboxMachineState.tokenList[tokenClassIndex].ownerList[i];
         uint256 currentNumberOfTokens = sandboxMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
         (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
         require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+
+        unchecked {
+          ++i;
+        }
       }
       return totalTokens;
     } else {
       uint256 numberOfOwners = currentMachineState.tokenList[tokenClassIndex].ownerList.length;
-      uint256 totalTokens = 0;
+      uint256 totalTokens;
       bool bIsValid = true;
-      for (uint256 i = 0; i < numberOfOwners; i++) {
+      for (uint256 i; i < numberOfOwners;) {
         address currentOwner = currentMachineState.tokenList[tokenClassIndex].ownerList[i];
         uint256 currentNumberOfTokens = currentMachineState.tokenList[tokenClassIndex].tokenBalance[currentOwner];
         (bIsValid, totalTokens) = SafeMathUpgradeable.tryAdd(totalTokens, currentNumberOfTokens);
         require(bIsValid, "totalTokensPerTokenClass: totalTokens overflow");
+
+        unchecked {
+          ++i;
+        }
       }
       return totalTokens;
     }
@@ -326,14 +387,14 @@ contract MachineStateManager {
     if (bIsSandbox) {
       uint256 dividendWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].dividendWeight;
       bool bIsValid = true;
-      uint256 dividendWeight = 0;
+      uint256 dividendWeight;
       (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
       require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
       return dividendWeight;
     } else {
       uint256 dividendWeightUnit = currentMachineState.tokenList[tokenClassIndex].dividendWeight;
       bool bIsValid = true;
-      uint256 dividendWeight = 0;
+      uint256 dividendWeight;
       (bIsValid, dividendWeight) = SafeMathUpgradeable.tryMul(dividendWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
       require(bIsValid, "sumDividendWeightForTokenClass: dividendWeight overflow");
       return dividendWeight;
@@ -341,7 +402,7 @@ contract MachineStateManager {
   }
 
   /**
-   * Return the number of voting weight for a certain token class
+   * Return the number of voting weights for a certain token class
    * @param bIsSandbox Whether is the sandbox
    * @param tokenClassIndex The index of the token class 
    */
@@ -349,14 +410,14 @@ contract MachineStateManager {
     if (bIsSandbox) {
       uint256 votingWeightUnit = sandboxMachineState.tokenList[tokenClassIndex].votingWeight;
       bool bIsValid = true;
-      uint256 votingWeight = 0;
+      uint256 votingWeight;
       (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
       require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
       return votingWeight;
     } else {
       uint256 votingWeightUnit = currentMachineState.tokenList[tokenClassIndex].votingWeight;
       bool bIsValid = true;
-      uint256 votingWeight = 0;
+      uint256 votingWeight;
       (bIsValid, votingWeight) = SafeMathUpgradeable.tryMul(votingWeightUnit, totalTokensPerTokenClass(bIsSandbox, tokenClassIndex));
       require(bIsValid, "sumVotingWeightForTokenClass: votingWeight overflow");
       return votingWeight;
@@ -374,13 +435,13 @@ contract MachineStateManager {
       require(sandboxMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
-      // make sure that cycle counter is less than the threashold
+      // make sure that cycle counter is less than the threshold
       require(sandboxMachineState.machineStateParameters.dividendCycleCounter >= 
         sandboxMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
       // 1. calculate the total amount of dividends to be offered
       bool bIsValid = true;
-      uint256 totalDividends = 0;
+      uint256 totalDividends;
 
       (bIsValid, totalDividends) = SafeMathUpgradeable.tryMul(
         sandboxMachineState.machineStateParameters.currentCashBalanceForDividends,
@@ -391,10 +452,10 @@ contract MachineStateManager {
       10000);
       require (bIsValid, ErrorMsg.By(12));
 
-      // 2. calculate the total dividends weight of all dividendable tokens
-      uint256 totalDividendsWeight = 0;
+      // 2. calculate the total dividend weight of all dividendable tokens
+      uint256 totalDividendsWeight;
 
-      for (uint256 index=0; index < sandboxMachineState.tokenList.length; index++) {
+      for (uint256 index; index < sandboxMachineState.tokenList.length;) {
 
         if (sandboxMachineState.tokenList[index].bIsInitialized == false) {
           break;
@@ -404,10 +465,14 @@ contract MachineStateManager {
           totalDividendsWeight,
           sumDividendWeightForTokenClass(bIsSandbox, index));
         require(bIsValid, ErrorMsg.By(12));
+
+        unchecked {
+          ++index;
+        }
       }
 
       // 3. calculate the cash dividend per unit
-      uint256 cashPerUnit = 0;
+      uint256 cashPerUnit;
       (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
         totalDividends,
         totalDividendsWeight);
@@ -418,7 +483,7 @@ contract MachineStateManager {
       require(currentMachineState.machineStateParameters.dividendPermyriadPerTransaction < 10000, 
         ErrorMsg.By(15));
 
-      // make sure that cycle counter is less than the threashold
+      // make sure that cycle counter is less than the threshold
       require(currentMachineState.machineStateParameters.dividendCycleCounter >= 
         currentMachineState.machineStateParameters.dividendCycleOfTransactions, ErrorMsg.By(16));
 
@@ -435,8 +500,8 @@ contract MachineStateManager {
       10000);
       require (bIsValid, ErrorMsg.By(12));
 
-      // 2. calculate the total dividends weight of all dividendable tokens
-      uint256 totalDividendsWeight = 0;
+      // 2. calculate the total dividend weight of all dividendable tokens
+      uint256 totalDividendsWeight;
 
       for (uint256 index=0; index < currentMachineState.tokenList.length; index++) {
 
@@ -451,7 +516,7 @@ contract MachineStateManager {
       }
 
       // 3. calculate the cash dividend per unit
-      uint256 cashPerUnit = 0;
+      uint256 cashPerUnit;
       (bIsValid, cashPerUnit) = SafeMathUpgradeable.tryDiv(
         totalDividends,
         totalDividendsWeight);
