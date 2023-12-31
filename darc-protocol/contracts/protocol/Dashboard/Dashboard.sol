@@ -8,7 +8,7 @@ import "../Runtime/Runtime.sol";
  * @author DARC Team
  * @notice The dashboard (a set of view functions) of the DARC machine state,
  * which is used to read the machine state, including machine state, voting state,
- * token informatin, plugin information, etc.
+ * token information, plugin information, etc.
  */
 contract Dashboard is MachineStateManager {
   
@@ -20,13 +20,17 @@ contract Dashboard is MachineStateManager {
   }
 
   /**
-   * @notice Get the avaiilable token classes
+   * @notice Get the available token classes
    */
   function getNumberOfTokenClasses() public view returns (uint256) {
-    uint256 i = 0;
-    for (; i < currentMachineState.tokenList.length; i++) {
+    uint256 i;
+    for (; i < currentMachineState.tokenList.length;) {
       if (!currentMachineState.tokenList[i].bIsInitialized) {
         break;
+      }
+
+      unchecked {
+        ++i;
       }
     }
     return i;
