@@ -191,12 +191,12 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 154 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | string operation, address operator, uint256 timestamp ||
 | 155 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | string operation, address operator, uint256 startTimestamp, uint256 endTimestamp ||
 | 156 | OPERATION_EVERYONE_SINCE_LAST_TIME_LARGER_THAN | string operation, uint256 timestamp ||
-| 157 | OPERATION_EVERYONE_SINCE_LAST_TIME_LESS_THAN | string operation, uint256 timestamp ||
-| 158 | OPERATION_EVERYONE_SINCE_LAST_TIME_IN_RANGE | string operation, uint256 startTimestamp, uint256 endTimestamp ||
-| 159 | OPERATION_BATCH_SIZE_LARGER_THAN | uint256 batchSize ||
-| 160 | OPERATION_BATCH_SIZE_LESS_THAN | uint256 batchSize ||
-| 161 | OPERATION_BATCH_SIZE_IN_RANGE | uint256 startBatchSize, uint256 endBatchSize ||
-| 162 | OPERATION_BATCH_SIZE_EQUALS | uint256 batchSize ||
+| 157 | Placeholder157  |  |  |
+| 158 | Placeholder158  |  |  |
+| 159 | Placeholder159  |  |  |
+| 160 | Placeholder160  |  |  |
+| 161 | Placeholder161  |  |  |
+| 162 | Placeholder162  |  |  |
 | 163 | Placeholder163  |  |  |
 | 164 | Placeholder164  |  |  |
 | 165 | Placeholder165  |  |  |
