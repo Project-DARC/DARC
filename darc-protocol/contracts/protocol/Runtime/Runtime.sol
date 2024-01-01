@@ -48,11 +48,15 @@ contract Runtime is Executable, PaymentCheck{
       // check if the current balance of owner is 0,
       // and if so, check if the owner is in the withdrawable cash owner list
       if (currentMachineState.withdrawableCashMap[program.programOperatorAddress] == 0) {
-        bool bExist = false;
-        for (uint256 i = 0; i < currentMachineState.withdrawableCashOwnerList.length; i++) {
+        bool bExist;
+        for (uint256 i; i < currentMachineState.withdrawableCashOwnerList.length;) {
           if (currentMachineState.withdrawableCashOwnerList[i] == program.programOperatorAddress) {
             bExist = true;
             break;
+          }
+
+          unchecked {
+            ++i;
           }
         }
 
