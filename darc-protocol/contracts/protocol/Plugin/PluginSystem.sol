@@ -32,7 +32,7 @@ contract PluginSystem is PluginFactory{
   function pluginSystemJudgment(bool bIsBeforeOperation, Program memory currentProgram) internal view returns (EnumReturnType, uint256[] memory) {
 
     // 1. get the total number of plugins, depending on the flag of sandbox and the flag of before operation
-    uint256 totalNumberOfPlugin = 0;
+    uint256 totalNumberOfPlugin;
 
     if (bIsBeforeOperation){
       totalNumberOfPlugin = currentMachineState.beforeOpPlugins.length;
@@ -42,7 +42,7 @@ contract PluginSystem is PluginFactory{
     }
 
     // 1.1 initialize the highest return level and highest return type as temporary variables
-    uint256 highestReturnLevel = 0;
+    uint256 highestReturnLevel;
     EnumReturnType highestReturnType = EnumReturnType.UNDEFINED;
 
     // initialize the result of each operations
@@ -57,7 +57,7 @@ contract PluginSystem is PluginFactory{
       totalNumberOfPlugin, currentProgram.operations.length);
     require(bIsValid, "The length of voting rule list is overflow");
     uint256[] memory VotingRuleIndexList = new uint256[](initialLength);
-    uint256 VotingRuleIndex = 0;
+    uint256 VotingRuleIndex;
 
     // if the program is empty, return undefined
     if (currentProgram.operations.length == 0) { 
@@ -74,11 +74,11 @@ contract PluginSystem is PluginFactory{
     uint256 currentOperationVotingRuleIndex = 0;
 
     // 2. go through each operation 
-    for(uint256 operationIndex = 0; operationIndex < currentProgram.operations.length; operationIndex++){
+    for(uint256 operationIndex; operationIndex < currentProgram.operations.length;){
 
       
       // initialize the highest return level = 0 and highest return type = UNDEFINED 
-      highestReturnLevel = 0;
+      highestReturnLevel;
       highestReturnType = EnumReturnType.UNDEFINED;
 
       // reset the current operation voting rule index
@@ -86,7 +86,7 @@ contract PluginSystem is PluginFactory{
 
       // for each of the operation, go through each plugin and check the result and 
       // return the highest level of return type
-      for (uint256 pluginIndex = 0; pluginIndex < pluginListLength; pluginIndex++) {
+      for (uint256 pluginIndex; pluginIndex < pluginListLength;) {
 
         //2.1.1 get the current plugin index and check the result
         (uint256 currentReturnLevel , EnumReturnType currentReturnType, uint256 currentVotingRuleIdx) = 
@@ -124,6 +124,10 @@ contract PluginSystem is PluginFactory{
         else {
           // do nothing
         }
+
+        unchecked {
+          ++pluginIndex;
+        }
       }  // end of for loop of plugin
 
       //2.2 after looping through all plugins, store the highest return type of current operation
@@ -131,11 +135,19 @@ contract PluginSystem is PluginFactory{
 
       // if the highest return type is vote needed, add the voting rule list to the voting rule list
       if (highestReturnType == EnumReturnType.VOTING_NEEDED) {
-        for (uint256 i = 0; i < currentOperationVotingRuleIndex; i++) {
+        for (uint256 i; i < currentOperationVotingRuleIndex;) {
           VotingRuleIndexList[VotingRuleIndex] = currentOperationVotingRuleList[i];
           VotingRuleIndex++;
+
+          unchecked {
+            ++i;
+          }
         }
       }
+
+    unchecked {
+      ++operationIndex;
+    }
 
     } // end of for loop of operation
 
@@ -175,7 +187,7 @@ contract PluginSystem is PluginFactory{
     if (bIsBeforeOperation) {
       //3.1.1 for before operation plugin system, the priority of the return value is:
       // NO > SANDBOX_NEEDED > YES_AND_SKIP_SANDBOX > UNDEFINED
-      for (uint256 i = 0; i < operationReturnTypeList.length; i++) {
+      for (uint256 i; i < operationReturnTypeList.length;) {
         if (operationReturnTypeList[i] == EnumReturnType.NO) {
           finalReturnType = EnumReturnType.NO;
         }
@@ -188,12 +200,16 @@ contract PluginSystem is PluginFactory{
         && finalReturnType != EnumReturnType.NO) {
           finalReturnType = EnumReturnType.YES_AND_SKIP_SANDBOX;
         }
+
+        unchecked {
+          ++i;
+        }
       }
     }
     else {
       //3.1.2 for after operation plugin system, the priority of the return value is:
       // NO > VOTING_NEEDED > YES > UNDEFINED
-      for (uint256 i = 0; i < operationReturnTypeList.length; i++) {
+      for (uint256 i; i < operationReturnTypeList.length;) {
         if (operationReturnTypeList[i] == EnumReturnType.NO) {
           finalReturnType = EnumReturnType.NO;
 
@@ -209,6 +225,10 @@ contract PluginSystem is PluginFactory{
           finalReturnType = EnumReturnType.YES;
 
         }
+
+        unchecked {
+          ++i;
+        }
       }
     }
     
@@ -218,8 +238,12 @@ contract PluginSystem is PluginFactory{
       VotingRuleIndex = 0;
     }
     uint256[] memory trimmedList = new uint256[](VotingRuleIndex);
-    for (uint256 i = 0; i < VotingRuleIndex; i++) {
-      trimmedList[i] = VotingRuleIndexList[i];
+    for (uint256 i; i < VotingRuleIndex;) {
+      trimmedList[i] = VotingRuleIndexList[I];
+
+      unchecked {
+        ++i;
+      }
     }
 
     // return the highest return type and the voting rule list
