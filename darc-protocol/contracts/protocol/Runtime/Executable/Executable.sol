@@ -90,9 +90,13 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
    */
   function executeProgram_Executable(Program memory program, bool bIsSandbox) internal {
     // 1. go through each operation
-    for (uint256 i = 0; i < program.operations.length; i++) {
+    for (uint256 i; i < program.operations.length;) {
       // 1.1 execute the operation
       executeOperation(program.operations[i], bIsSandbox);
+
+      unchecked {
+        ++i;
+      }
     }
   }
 }
