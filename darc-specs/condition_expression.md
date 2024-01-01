@@ -187,10 +187,10 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 150 | Placeholder150  |  |  |
 | 151 | OPERATION_EQUALS | string operation, uint256 value ||
 | 152 | OPERATION_IN_LIST | string operation, uint256[] values ||
-| 153 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LARGER_THAN | string operation, address operator, uint256 timestamp ||
-| 154 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | string operation, address operator, uint256 timestamp ||
-| 155 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | string operation, address operator, uint256 startTimestamp, uint256 endTimestamp ||
-| 156 | OPERATION_EVERYONE_SINCE_LAST_TIME_LARGER_THAN | string operation, uint256 timestamp ||
+| 153 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LARGER_THAN | string operation, address operator, uint256 timestamp | NOT READY, DO NOT USE
+| 154 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | string operation, address operator, uint256 timestamp | NOT READY, DO NOT USE
+| 155 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | string operation, address operator, uint256 startTimestamp, uint256 endTimestamp | NOT READY, DO NOT USE
+| 156 | OPERATION_EVERYONE_SINCE_LAST_TIME_LARGER_THAN | string operation, uint256 timestamp | NOT READY, DO NOT USE
 | 157 | Placeholder157  |  |  |
 | 158 | Placeholder158  |  |  |
 | 159 | Placeholder159  |  |  |

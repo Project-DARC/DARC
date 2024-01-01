@@ -7,6 +7,7 @@ import "../Program.sol";
 
 import "./Condition_Operator.sol";
 import "./Condition_MachineState.sol";
+import "./Condition_Operation.sol";
 //import "./Conditions/MachineStateExpressionFunction.sol";
 
 
@@ -17,7 +18,7 @@ import "./Condition_MachineState.sol";
  * @notice The factory contract is used to create and check all the condition expressions.
  */
 contract ConditionExpressionFactory is  
-  Condition_Operator, Condition_MachineState
+  Condition_Operator, Condition_MachineState, Condition_Operation
 {
 
   /**
@@ -39,14 +40,11 @@ contract ConditionExpressionFactory is
      currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].param : 
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].param;
 
-    if (exp <= 50) { return operationExpressionCheck(bIsBeforeOperation, operation, param, exp); }
-
-    // check the condition expression node
-    else if (exp == 151) {
-      return ID_151_OPERATION_EQUALS(operation, param);
-    }
+    if (exp <= 50) { return operatorExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     else if (exp > 50 && exp < 150) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
+
+    else if (exp >=151 && exp <= 180) { return operationExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
 
     // default:

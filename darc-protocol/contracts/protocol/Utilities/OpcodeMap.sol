@@ -36,7 +36,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULES) return 19;
     if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return 20;
     if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return 21;
-    if (opcode == EnumOpcode.CALL_EMERGENCY) return 22;
+    if (opcode == EnumOpcode.ADD_EMERGENCY) return 22;
     if (opcode == EnumOpcode.RESERVED_ID_23) return 23;
     if (opcode == EnumOpcode.CALL_EMERGENCY) return 24;
     if (opcode == EnumOpcode.CALL_CONTRACT_ABI) return 25;
@@ -48,6 +48,10 @@ library OpcodeMap{
     if (opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) return 31;
     if (opcode == EnumOpcode.VOTE) return 32;
     if (opcode == EnumOpcode.EXECUTE_PROGRAM) return 33;
+    if (opcode == EnumOpcode.END_EMERGENCY) return 34;
+    if (opcode == EnumOpcode.UPGRADE_TO_ADDRESS) return 35;
+    if (opcode == EnumOpcode.CONFIRM_UPGRAED_FROM_ADDRESS) return 36;
+    if (opcode == EnumOpcode.UPGRADE_TO_THE_LATEST) return 37;
     return 0;
   }
 

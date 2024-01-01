@@ -54,10 +54,6 @@ contract Condition_Operator is MachineStateManager {
       return false;
     }
   }
-  
-  function ID_151_OPERATION_EQUALS(Operation memory operation, NodeParam memory param) internal pure returns (bool) {
-    return OpcodeMap.opcodeVal(operation.opcode) == param.UINT256_2DARRAY[0][0];
-  }
 
   function ID_1_OPERATOR_NAME_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
     require(param.STRING_ARRAY.length == 1, "CE ID_1: STRING_ARRAY must have one element");
