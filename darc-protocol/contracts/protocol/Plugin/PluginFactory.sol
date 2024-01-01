@@ -26,11 +26,11 @@ contract PluginFactory is ConditionExpressionFactory{
   function pluginCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) internal view returns (uint256, EnumReturnType, uint256) {
 
     // initialize the return value
-    uint256 returnLevel = 0;
+    uint256 returnLevel;
     EnumReturnType returnType = EnumReturnType.UNDEFINED;
-    uint256 returnVotingRuleIndex = 0;
+    uint256 returnVotingRuleIndex;
 
-    // if the condition node list is not even initialized, just return UNDEFINED and defalut values
+    // if the condition node list is not even initialized, just return UNDEFINED and default values
     if (bIsBeforeOperation)
     {
       require(pluginIndex < currentMachineState.beforeOpPlugins.length, "PluginFactory: plugin index out of range");
@@ -126,27 +126,37 @@ contract PluginFactory is ConditionExpressionFactory{
       bool[] memory bResultList = new bool[](validLength);
 
       // traverse the list of nodes and save the result into the bResultList
-      for (uint256 i = 0; i < validLength; i++) {
+      for (uint256 i; i < validLength;) {
         uint256 val = bIsBeforeOperation? 
           currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i]:
           currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i];
         bResultList[i] = checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, val);
+
+        unchecked {
+          ++i;
+        }
       }
 
       // construct the result for each logical operator and return
       if (loType == EnumLogicalOperatorType.AND) {
         // if the operator is AND, the result is true only if all the nodes in the list are true
         bool bResult = true;
-        for (uint256 i = 0; i < validLength; i++) {
-          bResult = bResult && bResultList[i];
+        for (uint256 i; i < validLength;) {
+          bResult = bResult && bResultList[I];
+          unchecked {
+            ++i;
+          }
         }
         return bResult;
       }
       else if (loType == EnumLogicalOperatorType.OR) {
         // if the operator is OR, the result is true if any of the nodes in the list is true
-        bool bResult = false;
-        for (uint256 i = 0; i < validLength; i++) {
+        bool bResult;
+        for (uint256 i; i < validLength;) {
           bResult = bResult || bResultList[i];
+          unchecked {
+            ++i;
+          }
         }
         return bResult;
       }
