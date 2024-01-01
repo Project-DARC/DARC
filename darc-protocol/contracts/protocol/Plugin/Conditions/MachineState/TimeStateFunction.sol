@@ -38,10 +38,14 @@ contract TimeStateFunction is MachineStateManager {
         _daysPerMonth[11] = 31;
 
         uint256 _month;
-        for (_month = 0; _month < 12; _month++) {
+        for (_month; _month < 12;) {
             if (_remainingSeconds < _daysPerMonth[_month] * 86400)
                 break;
             _remainingSeconds -= _daysPerMonth[_month] * 86400;
+
+            unchecked {
+                ++_month;
+            }
         }
         uint256 _day = _remainingSeconds / 86400 + 1;
         
