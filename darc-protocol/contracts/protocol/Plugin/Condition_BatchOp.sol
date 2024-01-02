@@ -21,8 +21,77 @@ contract Condition_BatchOp is MachineStateManager {
    * @param param The parameter list of the condition expression
    * @param id The id of the condition expression
    */
-  function operatorExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal pure returns (bool)
+  function operatorExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
   {
+    if (id == 211) return ID_211_BATCH_OP_SIZE_GREATER_THAN(op, param);
+    if (id == 212) return ID_212_BATCH_OP_SIZE_LESS_THAN(op, param);
+    if (id == 213) return ID_213_BATCH_OP_SIZE_IN_RANGE(op, param);
+    if (id == 214) return ID_214_BATCH_OP_SIZE_EQUALS(op, param);
+    if (id == 215) return ID_215_BATCH_OP_EACH_TARGET_ADDRESSES_EQUALS(op, param);
+    if (id == 216) return ID_216_BATCH_OP_EACH_TARGET_ADDRESSES_IN_LIST(op, param);
+    if (id == 217) return ID_217_BATCH_OP_EACH_TARGET_ADDRESSES_IN_MEMBER_ROLE(bIsBeforeOperation, op, param);
+    if (id == 218) return ID_218_BATCH_OP_ANY_TARGET_ADDRESS_EQUALS(op, param);
+    if (id == 219) return ID_219_BATCH_OP_ANY_TARGET_ADDRESS_IN_LIST(op, param);
+    if (id == 220) return ID_220_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE(bIsBeforeOperation, op, param);
+    if (id == 221) return ID_221_BATCH_OP_EACH_TARGET_ADDRESS_TO_ITSELF(op);
+    if (id == 222) return ID_222_BATCH_OP_ANY_TARGET_ADDRESS_TO_ITSELF(op);
+    if (id == 223) return ID_223_BATCH_OP_EACH_SOURCE_ADDRESS_EQUALS(op, param);
+    if (id == 224) return ID_224_BATCH_OP_EACH_SOURCE_ADDRESS_IN_LIST(op, param); 
+    if (id == 225) return ID_225_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE(bIsBeforeOperation, op, param);
+    if (id == 226) return ID_226_BATCH_OP_ANY_SOURCE_ADDRESS_EQUALS(op, param);
+    if (id == 227) return ID_227_BATCH_OP_ANY_SOURCE_ADDRESS_IN_LIST(op, param);
+    if (id == 228) return ID_228_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE(bIsBeforeOperation, op, param);
+    if (id == 229) return ID_229_BATCH_OP_EACH_SOURCE_ADDRESS_FROM_ITSELF(op);
+    if (id == 230) return ID_230_BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF(op);
+    if (id == 231) return ID_231_BATCH_OP_EACH_TOKEN_CLASS_EQUALS(op, param);
+    if (id == 232) return ID_232_BATCH_OP_EACH_TOKEN_CLASS_IN_LIST(op, param);
+    if (id == 233) return ID_233_BATCH_OP_EACH_TOKEN_CLASS_IN_RANGE(op, param);
+    if (id == 234) return ID_234_BATCH_OP_EACH_TOKEN_CLASS_GREATER_THAN(op, param);
+    if (id == 235) return ID_235_BATCH_OP_EACH_TOKEN_CLASS_LESS_THAN(op, param);
+    if (id == 236) return ID_236_BATCH_OP_TOTAL_TOKEN_AMOUNT_GREATER_THAN(op, param);
+    if (id == 237) return ID_237_BATCH_OP_TOTAL_TOKEN_AMOUNT_LESS_THAN(op, param);
+    if (id == 238) return ID_238_BATCH_OP_TOTAL_TOKEN_AMOUNT_IN_RANGE(op, param);
+    if (id == 239) return ID_239_BATCH_OP_TOTAL_TOKEN_AMOUNT_EQUALS(op, param);
+    if (id == 240) return ID_240_BATCH_OP_ANY_TOKEN_AMOUNT_GREATER_THAN(op, param);
+    if (id == 241) return ID_241_BATCH_OP_ANY_TOKEN_AMOUNT_LESS_THAN(op, param);
+    if (id == 242) return ID_242_BATCH_OP_ANY_TOKEN_AMOUNT_IN_RANGE(op, param);
+    if (id == 243) return ID_243_BATCH_OP_ANY_TOKEN_AMOUNT_EQUALS(op, param);
+    if (id == 244) return ID_244_BATCH_OP_ANY_TOKEN_CLASS_GREATER_THAN(op, param);
+    if (id == 245) return ID_245_BATCH_OP_ANY_TOKEN_CLASS_LESS_THAN(op, param);
+    if (id == 246) return ID_246_BATCH_OP_ANY_TOKEN_CLASS_IN_RANGE(op, param);
+    if (id == 247) return ID_247_BATCH_OP_ANY_TOKEN_CLASS_EQUALS(op, param);
+    if (id == 248) return ID_248_BATCH_OP_ANY_TOKEN_CLASS_IN_LIST(op, param);
+    if (id == 249) return ID_249_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bIsBeforeOperation, op, param); 
+    if (id == 250) return ID_250_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bIsBeforeOperation, op, param);
+    if (id == 251) return ID_251_BATCH_OP_EACH_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bIsBeforeOperation, op, param);
+    if (id == 252) return ID_252_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bIsBeforeOperation, op, param); 
+    if (id == 253) return ID_253_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 254) return ID_254_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 255) return ID_255_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bIsBeforeOperation, op, param); 
+    if (id == 256) return ID_256_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_EQUALS(bIsBeforeOperation, op, param);
+    if (id == 257) return ID_257_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 258) return ID_258_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 259) return ID_259_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 260) return ID_260_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 261) return ID_261_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 262) return ID_262_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 263) return ID_263_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_EQUALS(bIsBeforeOperation, op, param);
+    if (id == 264) return ID_264_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 265) return ID_265_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bIsBeforeOperation, op, param); 
+    if (id == 266) return ID_266_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 267) return ID_267_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 268) return ID_268_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 269) return ID_269_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bIsBeforeOperation, op, param); 
+    if (id == 270) return ID_270_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bIsBeforeOperation, op, param);
+    if (id == 271) return ID_271_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 272) return ID_272_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 273) return ID_273_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bIsBeforeOperation, op, param); 
+    if (id == 274) return ID_274_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 275) return ID_275_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 276) return ID_276_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bIsBeforeOperation, op, param); 
+    if (id == 277) return ID_277_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bIsBeforeOperation, op, param);
+    if (id == 278) return ID_278_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bIsBeforeOperation, op, param);
+    return false;
   }
 
   function ID_211_BATCH_OP_SIZE_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
@@ -313,7 +382,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_229_BATCH_OP_EACH_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_229_BATCH_OP_EACH_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) internal pure returns (bool)
   {
     (address[] memory sourceAddressList, bool bIsValid) = getAllSourceAddress(op);
     if (!bIsValid) return false;
@@ -324,7 +393,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_230_BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_230_BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) internal pure returns (bool)
   {
     (address[] memory sourceAddressList, bool bIsValid) = getAllSourceAddress(op);
     if (!bIsValid) return false;
