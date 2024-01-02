@@ -373,11 +373,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalVotingWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_85: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_85: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_85: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_85: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalVotingWeight > param.UINT256_2DARRAY[1][0];
@@ -390,11 +390,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalVotingWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_86: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_86: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_86: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_86: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalVotingWeight < param.UINT256_2DARRAY[1][0];
@@ -407,11 +407,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalVotingWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_87: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_87: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_87: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_87: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalVotingWeight += sumVotingWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalVotingWeight >= param.UINT256_2DARRAY[1][0] && totalVotingWeight <= param.UINT256_2DARRAY[1][1];
@@ -424,11 +424,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalDividendWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_88: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_88: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_88: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_88: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalDividendWeight > param.UINT256_2DARRAY[1][0];
@@ -441,11 +441,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalDividendWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_89: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_89: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_89: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_89: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalDividendWeight < param.UINT256_2DARRAY[1][0];
@@ -458,11 +458,11 @@ contract Condition_MachineState is MachineStateManager {
     uint256 totalDividendWeight = 0;
     for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
       if (bIsBeforeOp) {
-        require(param.UINT256_2DARRAY[0][1] < currentMachineState.tokenList.length, "CE ID_90: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < currentMachineState.tokenList.length, "CE ID_90: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(false, param.UINT256_2DARRAY[0][i]);
       } else {
-        require(param.UINT256_2DARRAY[0][1] < sandboxMachineState.tokenList.length, "CE ID_90: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
-        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][1]);
+        require(param.UINT256_2DARRAY[0][i] < sandboxMachineState.tokenList.length, "CE ID_90: tokenClassIndex (param.UINT256_2DARRAY[0][i]) is out of range");
+        totalDividendWeight += sumDividendWeightForTokenClass(true, param.UINT256_2DARRAY[0][i]);
       }
     }
     return totalDividendWeight >= param.UINT256_2DARRAY[1][0] && totalDividendWeight <= param.UINT256_2DARRAY[1][1];

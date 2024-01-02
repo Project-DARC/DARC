@@ -40,7 +40,7 @@ contract ConditionExpressionFactory is
      currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].param : 
      currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].param;
 
-    if (exp <= 50) { return operatorExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+    if (exp <= 50) { return operatorExpressionCheck(operation, param, exp); }
 
     else if (exp > 50 && exp < 150) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
 

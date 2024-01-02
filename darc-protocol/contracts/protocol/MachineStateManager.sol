@@ -416,7 +416,8 @@ contract MachineStateManager {
       return totalDividendWeight;
     }
   }
-  
+
+
   /**
    * Calculate the current dividend per unit
    * @param bIsSandbox The flag to indicate whether is the sandbox

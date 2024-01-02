@@ -47,8 +47,8 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Transfer Token From Addr A to Addr B Operation
-   * @param ADDRESS_2DARRAY[0] address[] fromAddressArray: the array of the address to transfer token from
-   * @param ADDRESS_2DARRAY[1] address[] toAddressArray: the array of the address to transfer token to
+   * @param ADDRESS_2DARRAY[0] address[] fromAddressArray (source): the array of the address to transfer token from
+   * @param ADDRESS_2DARRAY[1] address[] toAddressArray (target): the array of the address to transfer token to
    * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to transfer token from
    * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount of the token to transfer
    * 
@@ -270,9 +270,9 @@ enum EnumOpcode {
 
   /**
    * @notice Batch Burn tokens and Refund
-   * @param UINT256_2D[0] uint256[] tokenClassArray: the array of the token class index to burn tokens from
-   * @param UINT256_2D[1] uint256[] amountArray: the array of the amount of the token to burn
-   * @param UINT256_2D[2] uint256[] priceArray: the price of each token class to burn
+   * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to burn tokens from
+   * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount of the token to burn
+   * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to burn
    * ID:30
    */
   BATCH_BURN_TOKENS_AND_REFUND,
