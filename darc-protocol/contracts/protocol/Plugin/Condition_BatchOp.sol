@@ -21,7 +21,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @param param The parameter list of the condition expression
    * @param id The id of the condition expression
    */
-  function operatorExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
+  function batchOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
   {
     if (id == 211) return ID_211_BATCH_OP_SIZE_GREATER_THAN(op, param);
     if (id == 212) return ID_212_BATCH_OP_SIZE_LESS_THAN(op, param);

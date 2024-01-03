@@ -8,7 +8,7 @@ import "../Program.sol";
 import "./Condition_Operator.sol";
 import "./Condition_MachineState.sol";
 import "./Condition_Operation.sol";
-//import "./Conditions/MachineStateExpressionFunction.sol";
+import "./Condition_BatchOp.sol";
 
 
 
@@ -18,7 +18,7 @@ import "./Condition_Operation.sol";
  * @notice The factory contract is used to create and check all the condition expressions.
  */
 contract ConditionExpressionFactory is  
-  Condition_Operator, Condition_MachineState, Condition_Operation
+  Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp
 {
 
   /**
@@ -42,10 +42,11 @@ contract ConditionExpressionFactory is
 
     if (exp <= 50) { return operatorExpressionCheck(operation, param, exp); }
 
-    else if (exp > 50 && exp < 150) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
+    else if (exp >= 51 && exp <= 149) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
 
     else if (exp >=151 && exp <= 180) { return operationExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
+    else if (exp >= 211 && exp <= 370) { return batchOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     // default:
     return false;
