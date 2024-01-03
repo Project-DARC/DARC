@@ -86,12 +86,12 @@ enum EnumReturnType {
   YES 
 }
 
-/**
- * @notice parameter types
- */
-enum EnumPluginParamType { 
-  UINT8, UINT256, ADDRESS, STRING, BYTES, UINT8_ARRAY, 
-  UINT256_ARRAY, ADDRESS_ARRAY, STRING_ARRAY, UNDEFINED }
+// /**
+//  * @notice parameter types
+//  */
+// enum EnumPluginParamType { 
+//   UINT8, UINT256, ADDRESS, STRING, BYTES, UINT8_ARRAY, 
+//   UINT256_ARRAY, ADDRESS_ARRAY, STRING_ARRAY, UNDEFINED }
 
 /**
  * @notice parameter struct for the condtiion expression node
