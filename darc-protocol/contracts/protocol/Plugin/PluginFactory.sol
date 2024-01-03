@@ -142,7 +142,7 @@ contract PluginFactory is ConditionExpressionFactory{
         // if the operator is AND, the result is true only if all the nodes in the list are true
         bool bResult = true;
         for (uint256 i; i < validLength;) {
-          bResult = bResult && bResultList[I];
+          bResult = bResult && bResultList[i];
           unchecked {
             ++i;
           }
