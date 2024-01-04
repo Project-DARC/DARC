@@ -35,4 +35,3 @@ Then open another terminal and run all unit tests by running the following comma
 ```bash
 npx hardhat test
 ```
-
