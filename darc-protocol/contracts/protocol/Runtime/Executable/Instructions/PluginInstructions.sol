@@ -5,7 +5,7 @@ import "../../../MachineState.sol";
 import "../../../MachineStateManager.sol";
 import "../../../Plugin/PluginSystem.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
-import "../../../Plugin/Plugin.sol";
+import "../../../Plugin.sol";
 import "../../../Utilities/ErrorMsg.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -20,7 +20,7 @@ contract PluginInstructions is MachineStateManager{
   /**
    * This is a helper function that helps checking if all the plugins are on the right level
    * based on the return type.
-   * Check the "/Plugin/Plugin.sol" for the definition of "level" and "return type"
+   * Check the "/Plugin.sol" for the definition of "level" and "return type"
    * 
    * ----------------------------------------------
    * 

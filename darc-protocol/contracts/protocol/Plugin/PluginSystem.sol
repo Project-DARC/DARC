@@ -4,7 +4,7 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../MachineState.sol";
 import "../MachineStateManager.sol";
 import "../Program.sol";
-import "./Plugin.sol";
+import "../Plugin.sol";
 import "./PluginFactory.sol";
 
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";

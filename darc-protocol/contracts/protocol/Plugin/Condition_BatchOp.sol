@@ -11,7 +11,7 @@ import "../MachineState.sol";
 import "../MachineStateManager.sol";
 import "../Utilities/StringUtils.sol";
 import "../Utilities/OpcodeMap.sol";
-import "./Plugin.sol";
+import "../Plugin.sol";
 
 contract Condition_BatchOp is MachineStateManager { 
   /**

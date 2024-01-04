@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 
-import './Plugin.sol';
+import '../Plugin.sol';
 import '../MachineStateManager.sol';
 import './ConditionExpressionFactory.sol';
 import "@openzeppelin/contracts/utils/Strings.sol";

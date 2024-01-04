@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./MachineState.sol";
-import "./Plugin/Plugin.sol";
+import "./Plugin.sol";
 import "./MachineStateManager.sol";
 import "./Utilities/ArrayUtils.sol";
 

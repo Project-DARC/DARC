@@ -5,7 +5,7 @@ import "../../MachineState.sol";
 import "../../MachineStateManager.sol";
 import "../../Plugin/PluginSystem.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
-import "../../Plugin/Plugin.sol";
+import "../../Plugin.sol";
 import "../../Utilities/ErrorMsg.sol";
 
 // below are the imports of the operation implementations

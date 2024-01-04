@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 import "./Program.sol";
-import "./Plugin/Plugin.sol";
+import "./Plugin.sol";
 /**
  * @notice The token information of the DARC protocol
  * This struct is used to store the balance of each token class of each token owner  

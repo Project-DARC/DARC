@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./Opcodes.sol";
-import "./Plugin/Plugin.sol";
+import "./Plugin.sol";
 
 enum MachineParameter{
   UNDEFINED,
