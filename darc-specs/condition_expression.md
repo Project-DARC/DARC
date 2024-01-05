@@ -413,9 +413,9 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 368 | Placeholder368  |  |  |
 | 369 | Placeholder369  |  |  |
 | 370 | Placeholder370  |  |  |
-| 371 | ADD_VOTING_RULE_IS_ABSOLUTE_MAJORITY |  ||
-| 372 | ADD_VOTING_RULE_APPROVAL_PERCENTAGE_IN_RANGE | UINT256_2DARRAY[0][0] startPercentage, UINT256_2DARRAY[0][1] endPercentage ||
-| 373 | ADD_VOTING_RULE_TOKEN_CLASS_CONTAINS | UINT256_2DARRAY[0][0] tokenClass ||
+| 371 | ADD_ANY_VOTING_RULE_IS_ABSOLUTE_MAJORITY |  ||
+| 372 | ADD_ANY_VOTING_RULE_APPROVAL_PERCENTAGE_IN_RANGE | UINT256_2DARRAY[0][0] startPercentage, UINT256_2DARRAY[0][1] endPercentage ||
+| 373 | ADD_ANY_VOTING_RULE_TOKEN_CLASS_CONTAINS | UINT256_2DARRAY[0][0] tokenClass ||
 | 374 | Placeholder374  |  |  |
 | 375 | Placeholder375  |  |  |
 | 376 | Placeholder376  |  |  |

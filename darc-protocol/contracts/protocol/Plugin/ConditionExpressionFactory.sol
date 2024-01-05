@@ -9,7 +9,7 @@ import "./Condition_Operator.sol";
 import "./Condition_MachineState.sol";
 import "./Condition_Operation.sol";
 import "./Condition_BatchOp.sol";
-import "./Condition_Plugin.sol";
+import "./Condition_PluginAndVoting.sol";
 
 
 
@@ -19,7 +19,7 @@ import "./Condition_Plugin.sol";
  * @notice The factory contract is used to create and check all the condition expressions.
  */
 contract ConditionExpressionFactory is  
-  Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_Plugin
+  Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting
 {
 
   /**
@@ -47,9 +47,9 @@ contract ConditionExpressionFactory is
 
     if (exp >=151 && exp <= 180) { return operationExpressionCheck( operation, param, exp); }
 
-    if (exp >= 211 && exp <= 370) { return batchOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+    if (exp >= 211 && exp <= 300) { return batchOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
-    if (exp >= 301 && exp < 370 ) { return pluginOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+    if (exp >= 301 && exp < 400 ) { return pluginAndVotingOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     // default:
     return false;

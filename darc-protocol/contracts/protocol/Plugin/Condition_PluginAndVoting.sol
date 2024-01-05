@@ -13,7 +13,7 @@ import "../Utilities/StringUtils.sol";
 import "../Utilities/OpcodeMap.sol";
 import "../Plugin.sol";
 
-contract Condition_Plugin is MachineStateManager { 
+contract Condition_PluginAndVoting is MachineStateManager { 
   /**
    * The function to check the batch operation related condition expression
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
@@ -21,7 +21,7 @@ contract Condition_Plugin is MachineStateManager {
    * @param param The parameter list of the condition expression
    * @param id The id of the condition expression
    */
-  function pluginOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
+  function pluginAndVotingOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
   {
     if (id == 301) return ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
     if (id == 302) return ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
@@ -51,6 +51,9 @@ contract Condition_Plugin is MachineStateManager {
     if (id == 326) return ID_326_ADD_PLUGIN_ANY_RETURN_TYPE_EQUALS(op, param);
     if (id == 327) return ID_327_ADD_PLUGIN_ANY_VOTING_RULE_INDEX_IN_LIST(op, param);
   }
+
+
+  // ---------------------- Plugin Condition ----------------------
 
   function ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
   {
@@ -441,6 +444,25 @@ contract Condition_Plugin is MachineStateManager {
     return false;
   }
 
+  // ------------------------ Voting Conditions ------------------------
+
+
+  function ID_371_ADD_ANY_VOTING_RULE_IS_ABSOLUTE_MAJORITY(Operation memory op) internal pure returns (bool) {
+    if (op.opcode != EnumOpcode.BATCH_ADD_VOTING_RULES) return false;
+    for (uint256 index = 0; index < op.param.VOTING_RULE_ARRAY.length; index++) {
+      if (op.param.VOTING_RULE_ARRAY[index].bIsAbsoluteMajority == true) { return true; }
+    }
+    return false;
+  }
+
+  function ID_372_ADD_ANY_VOTING_RULE_APPROVAL_PERCENTAGE_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_372: The UINT_256_2DARRAY length is not 1");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_372: The UINT_256_2DARRAY[0] length is not 2");
+    if (op.opcode != EnumOpcode.BATCH_ADD_VOTING_RULES) return false;
+    for (uint256 index = 0; index < op.param.VOTING_RULE_ARRAY.length; index++) {
+      if (op.param.VOTING_RULE_ARRAY[index].approvalThresholdPercentage >= param.UINT256_2DARRAY[0][0] && op.param.VOTING_RULE_ARRAY[index].approvalThresholdPercentage <= param.UINT256_2DARRAY[0][1]) { return true; }
+    }
+  }
 
 
   // ------------------------ Helper Functions ------------------------
