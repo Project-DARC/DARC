@@ -23,7 +23,33 @@ contract Condition_Plugin is MachineStateManager {
    */
   function pluginOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
   {
-
+    if (id == 301) return ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 302) return ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 303) return ID_303_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 304) return ID_304_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 305) return ID_305_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 306) return ID_306_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 307) return ID_307_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 308) return ID_308_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 309) return ID_309_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 310) return ID_310_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 311) return ID_311_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 312) return ID_312_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 313) return ID_313_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 314) return ID_314_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 315) return ID_315_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 316) return ID_316_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 317) return ID_317_ARE_ALL_PLUGINS_BEFORE_OPERATION(op);
+    if (id == 318) return ID_318_ARE_ALL_PLUGINS_AFTER_OPERATION(op);
+    if (id == 319) return ID_319_IS_ANY_PLUGIN_BEFORE_OPERATION(op);
+    if (id == 320) return ID_320_IS_ANY_PLUGIN_AFTER_OPERATION(op);
+    if (id == 321) return ID_321_ADD_PLUGIN_ANY_LEVEL_EQUALS(op, param);
+    if (id == 322) return ID_322_ADD_PLUGIN_ANY_LEVEL_IN_LIST(op, param);
+    if (id == 323) return ID_323_ADD_PLUGIN_ANY_LEVEL_IN_RANGE(op, param);
+    if (id == 324) return ID_324_ADD_PLUGIN_ANY_LEVEL_GREATER_THAN(op, param);
+    if (id == 325) return ID_325_ADD_PLUGIN_ANY_LEVEL_LESS_THAN(op, param);
+    if (id == 326) return ID_326_ADD_PLUGIN_ANY_RETURN_TYPE_EQUALS(op, param);
+    if (id == 327) return ID_327_ADD_PLUGIN_ANY_VOTING_RULE_INDEX_IN_LIST(op, param);
   }
 
   function ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
@@ -400,6 +426,17 @@ contract Condition_Plugin is MachineStateManager {
       if (op.param.PLUGIN_ARRAY[index].returnType == EnumReturnType.VOTING_NEEDED && param.UINT256_2DARRAY[0][0] == 3) { return true; }
       if (op.param.PLUGIN_ARRAY[index].returnType == EnumReturnType.YES_AND_SKIP_SANDBOX && param.UINT256_2DARRAY[0][0] == 4) { return true; }
       if (op.param.PLUGIN_ARRAY[index].returnType == EnumReturnType.YES && param.UINT256_2DARRAY[0][0] == 5) { return true; }
+    }
+    return false;
+  }
+
+  function ID_327_ADD_PLUGIN_ANY_VOTING_RULE_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_327: The UINT_256_2DARRAY length is not 1");
+    if (op.opcode != EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGINS && op.opcode != EnumOpcode.BATCH_ADD_PLUGINS) return false;
+    for (uint256 index = 0; index < op.param.PLUGIN_ARRAY.length; index++) {
+      for (uint256 i = 0; i < param.UINT256_2DARRAY[0].length; i++) {
+        if (op.param.PLUGIN_ARRAY[index].votingRuleIndex == param.UINT256_2DARRAY[0][i]) { return true; }
+      }
     }
     return false;
   }
