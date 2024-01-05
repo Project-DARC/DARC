@@ -16,7 +16,7 @@ import "../Utilities/OpcodeMap.sol";
 //import "./Conditions";
 
 contract Condition_Operation is MachineStateManager{
-  function operatorExpressionCheck(Operation memory op, NodeParam memory param, uint256 id) internal pure returns (bool)
+  function operationExpressionCheck(Operation memory op, NodeParam memory param, uint256 id) internal pure returns (bool)
   {
     if (id== 151) return ID_151_OPERATION_EQUALS(op, param);
     if (id== 152) return ID_152_OPERATION_IN_LIST(op, param);

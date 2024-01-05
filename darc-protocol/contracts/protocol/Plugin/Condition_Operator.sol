@@ -21,7 +21,7 @@ contract Condition_Operator is MachineStateManager {
    * @param param The parameters of the condition node
    * @param id The expression ID of the condition node
    */
-  function operationExpressionCheck(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param, uint256 id) internal view returns (bool) {
+  function operatorExpressionCheck(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param, uint256 id) internal view returns (bool) {
     if (id == 1) {return ID_1_OPERATOR_NAME_EQUALS(bIsBeforeOperation, operation, param);}
     else if (id == 2) { return ID_2_OPERATOR_ROLE_EQUALS(bIsBeforeOperation, operation, param);}
     else if (id == 3) { return ID_3_OPERATOR_ADDRESS_EQUALS(operation, param); }

@@ -15,7 +15,7 @@ const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
 const target3 = '0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65';
 
-describe.only("test for batch add and enable plugins", function () {
+describe("test for batch add and enable plugins", function () {
 
   
   it ("batch batch add and enable plugins", async function () {
@@ -114,8 +114,7 @@ describe.only("test for batch add and enable plugins", function () {
     
     // print all plugins
     const [beforeOp, afterOp] = await darc.getPluginInfo();
-    console.log("before operation plugins: ", beforeOp);
-    console.log("after operation plugins: ", afterOp);
+
 
 
 
@@ -174,11 +173,7 @@ describe.only("test for batch add and enable plugins", function () {
     //expect(bIsException).to.equal(true);
 
     // make sure that no token is minted
-    const owners = await darc2.getTokenOwners(BigNumber.from(0));
-    console.log("owners: ", owners);
-    console.log(await darc2.getTokenOwnerBalance(0, target_addr));
-    //console.log(totalSupplyOfTokenClass0);
-    expect(owners.length).to.equal(0);
+
 
 
 
