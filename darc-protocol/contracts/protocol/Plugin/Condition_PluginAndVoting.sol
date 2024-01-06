@@ -50,6 +50,14 @@ contract Condition_PluginAndVoting is MachineStateManager {
     if (id == 325) return ID_325_ADD_PLUGIN_ANY_LEVEL_LESS_THAN(op, param);
     if (id == 326) return ID_326_ADD_PLUGIN_ANY_RETURN_TYPE_EQUALS(op, param);
     if (id == 327) return ID_327_ADD_PLUGIN_ANY_VOTING_RULE_INDEX_IN_LIST(op, param);
+
+
+    // below are for voting rule
+    if (id == 371) return ID_371_ADD_ANY_VOTING_RULE_IS_ABSOLUTE_MAJORITY(op);
+    if (id == 372) return ID_372_ADD_ANY_VOTING_RULE_APPROVAL_PERCENTAGE_IN_RANGE(op, param);
+    if (id == 373) return ID_373_ADD_ANY_VOTING_RULE_TOKEN_CLASS_CONTAINS(op, param);
+
+    return false;
   }
 
 
@@ -462,6 +470,18 @@ contract Condition_PluginAndVoting is MachineStateManager {
     for (uint256 index = 0; index < op.param.VOTING_RULE_ARRAY.length; index++) {
       if (op.param.VOTING_RULE_ARRAY[index].approvalThresholdPercentage >= param.UINT256_2DARRAY[0][0] && op.param.VOTING_RULE_ARRAY[index].approvalThresholdPercentage <= param.UINT256_2DARRAY[0][1]) { return true; }
     }
+  }
+
+  function ID_373_ADD_ANY_VOTING_RULE_TOKEN_CLASS_CONTAINS(Operation memory op, NodeParam memory param) internal pure returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_373: The STRING_2DARRAY length is not 1");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_373: The STRING_2DARRAY[0] length is not 1");
+    if (op.opcode != EnumOpcode.BATCH_ADD_VOTING_RULES) return false;
+    for (uint256 index = 0; index < op.param.VOTING_RULE_ARRAY.length; index++) {
+      for (uint256 j = 0; j < op.param.VOTING_RULE_ARRAY[index].votingTokenClassList.length; j++) {
+        if (op.param.VOTING_RULE_ARRAY[index].votingTokenClassList[j] == param.UINT256_2DARRAY[0][0]) { return true; }
+      }
+    }
+    return false;
   }
 
 

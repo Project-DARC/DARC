@@ -443,13 +443,13 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 398 | Placeholder398  |  |  |
 | 399 | Placeholder399  |  |  |
 | 400 | Placeholder400  |  |  |
-| 401 | CHANGE_MEMBER_ROLE_TARGET_ADDRESS_EQUALS | ADDRESS_2DARRAY[0][0] targetAddress ||
-| 402 | CHANGE_MEMBER_ROLE_TARGET_ADDRESS_IN_LIST | ADDRESS_2DARRAY[0] targetAddressArray ||
-| 403 | CHANGE_MEMBER_ROLE_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST | UINT256_2DARRAY[0]memberRoleList ||
-| 404 | CHANGE_MEMBER_ROLE_NEW_MEMBER_ROLE_EQUALS | UINT256_2DARRAY[0][0] newMemberRole ||
-| 405 | CHANGE_MEMBER_ROLE_NEW_MEMBER_ROLE_IN_LIST | UINT256_2DARRAY[0] newMemberRoleArray ||
-| 406 | CHANGE_MEMBER_NAME_TO_STRING_LIST | STRING_ARRAY nameList ||
-| 407 | CHANGE_MEMBER_NAME_TO_STRING_CONTAINS | STRING_ARRAY[0] subString ||
+| 401 | CHANGE_MEMBER_ROLE_TO_ANY_ROLE_EQUALS | ADDRESS_2DARRAY[0][0] targetAddress ||
+| 402 | CHANGE_MEMBER_ROLE_TO_ANY_ROLE_IN_LIST | ADDRESS_2DARRAY[0] targetAddressArray ||
+| 403 | CHANGE_MEMBER_ROLE_TO_ANY_ROLE_IN_RANGE | ADDRESS_2DARRAY[0][0] startTargetAddress, ADDRESS_2DARRAY[0][1] endTargetAddress ||
+| 404 | Placeholder404  |  |  |
+| 405 | Placeholder405  |  |  |
+| 406 | CHANGE_MEMBER_NAME_TO_ANY_STRING_IN_LIST | STRING_ARRAY nameList ||
+| 407 | CHANGE_MEMBER_NAME_TO_ANY_STRING_CONTAINS | STRING_ARRAY[0] subString ||
 | 408 | Placeholder408  |  |  |
 | 409 | Placeholder409  |  |  |
 | 410 | Placeholder410  |  |  |
