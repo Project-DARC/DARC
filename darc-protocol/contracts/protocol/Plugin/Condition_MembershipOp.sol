@@ -22,8 +22,11 @@ contract Condition_MembershipOp is MachineStateManager {
    * @param id The id of the condition expression
    */
   function membershipOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool) {
-    // if (id == 301) return ID_301_PLUGIN_AND_VOTING_PLUGIN(bIsBeforeOperation, op, param);
-    // if (id == 302) return ID_302_PLUGIN_AND_VOTING_VOTING(bIsBeforeOperation, op, param);
+    if (id == 401)  return ID_401_CHANGE_MEMBER_ROLE_TO_ANY_ROLE_EQUALS(bIsBeforeOperation, op, param);
+    if (id == 402)  return ID_402_CHANGE_MEMBER_ROLE_TO_ANY_ROLE_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 403)  return ID_403_CHANGE_MEMBER_ROLE_TO_ANY_ROLE_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 406)  return ID_406_CHANGE_MEMBER_NAME_TO_ANY_STRING_IN_LIST(bIsBeforeOperation, op, param);
+    if (id == 407)  return ID_407_CHANGE_MEMBER_NAME_TO_ANY_STRING_CONTAINS(bIsBeforeOperation, op, param);
     return false;
   }
 
@@ -57,4 +60,48 @@ contract Condition_MembershipOp is MachineStateManager {
     }
     return false;
   }
+
+  function ID_406_CHANGE_MEMBER_NAME_TO_ANY_STRING_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool) {
+    require(param.STRING_ARRAY.length == 1, "CE ID_406: The STRING_ARRAY length is not 1");
+    if (op.opcode != EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) return false;
+    for (uint256 i = 0; i < op.param.STRING_ARRAY.length; i++) {
+      if (StringUtils.compareStrings(op.param.STRING_ARRAY[i], param.STRING_ARRAY[0])) { return true; }
+    }
+    return false;
+  }
+
+  function ID_407_CHANGE_MEMBER_NAME_TO_ANY_STRING_CONTAINS(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool) {
+    require(param.STRING_ARRAY.length == 1, "CE ID_407: The STRING_ARRAY length is not 1");
+    if (op.opcode != EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) return false;
+    for (uint256 i = 0; i < op.param.STRING_ARRAY.length; i++) {
+      if (contains(op.param.STRING_ARRAY[i], param.STRING_ARRAY[0])) { return true; }
+    }
+    return false;
+  }
+
+  // --------------------------------------------------------------
+  // ----------------- Below are helper functions ------------------
+  function contains(string memory haystack, string memory needle) public pure returns (bool) {
+        bytes memory haystackBytes = bytes(haystack);
+        bytes memory needleBytes = bytes(needle);
+
+        if (haystackBytes.length < needleBytes.length) {
+            return false;
+        }
+
+        for (uint i = 0; i <= haystackBytes.length - needleBytes.length; i++) {
+            bool found = true;
+            for (uint j = 0; j < needleBytes.length; j++) {
+                if (haystackBytes[i + j] != needleBytes[j]) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
