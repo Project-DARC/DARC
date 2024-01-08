@@ -11,7 +11,7 @@ import "./Condition_Operation.sol";
 import "./Condition_BatchOp.sol";
 import "./Condition_PluginAndVoting.sol";
 import "./Condition_MembershipOp.sol";
-
+import "./Condition_Withdrawable.sol";
 
 
 /**
@@ -21,7 +21,7 @@ import "./Condition_MembershipOp.sol";
  */
 contract ConditionExpressionFactory is  
   Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting,
-  Condition_MembershipOp
+  Condition_MembershipOp, Condition_Withdrawable
 {
 
   /**
@@ -54,6 +54,8 @@ contract ConditionExpressionFactory is
     if (exp >= 301 && exp < 400 ) { return pluginAndVotingOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     if (exp >= 401 && exp <= 430) { return membershipOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+
+    if (exp >= 431 && exp <= 460) { return withdrawableExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     // default:
     return false;
