@@ -12,6 +12,8 @@ import "./Condition_BatchOp.sol";
 import "./Condition_PluginAndVoting.sol";
 import "./Condition_MembershipOp.sol";
 import "./Condition_Withdrawable.sol";
+import "./Condition_TokenAndCash.sol";
+import "./Condition_CreateTokenClass.sol";
 
 
 /**
@@ -21,7 +23,8 @@ import "./Condition_Withdrawable.sol";
  */
 contract ConditionExpressionFactory is  
   Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting,
-  Condition_MembershipOp, Condition_Withdrawable
+  Condition_MembershipOp, Condition_Withdrawable, Condition_TokenAndCash,
+  Condition_CreateTokenClass
 {
 
   /**
@@ -56,6 +59,10 @@ contract ConditionExpressionFactory is
     if (exp >= 401 && exp <= 430) { return membershipOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     if (exp >= 431 && exp <= 460) { return withdrawableExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+
+    if (exp >= 461 && exp <= 500) { return tokenAndCashExpressionCheck(bIsBeforeOperation, operation, param, exp);}
+
+    if (exp>=501) { return createTokenClassExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     // default:
     return false;
