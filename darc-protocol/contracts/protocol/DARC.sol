@@ -23,9 +23,12 @@ contract DARC is Runtime, Dashboard {
   function entrance(Program memory program) public payable returns (string memory) {
     require(program.programOperatorAddress == msg.sender, 
     string.concat(string.concat("Invalid program address. Msg.sender: ", StringUtils.toAsciiString(msg.sender)), string.concat(", and program operator address: ", StringUtils.toAsciiString(program.programOperatorAddress))));
-    for (uint256 opIdx = 0; opIdx < program.operations.length; opIdx++) {
+    for (uint256 opIdx; opIdx < program.operations.length;) {
       require(program.operations[opIdx].operatorAddress == msg.sender, 
       string.concat(string.concat("Invalid program address. Msg.sender: ", StringUtils.toAsciiString(msg.sender)), string.concat(", and program operator address: ", StringUtils.toAsciiString(program.operations[opIdx].operatorAddress))));
+      unchecked {
+        ++opIdx;
+      }
     }
     return runtimeEntrance(program);
   }
@@ -44,8 +47,8 @@ contract DARC is Runtime, Dashboard {
     require(amount <= currentMachineState.withdrawableCashMap[msg.sender], string.concat("Invalid withdraw amount. Amount: ", Strings.toString(amount), ", and withdrawable cash: ", Strings.toString(currentMachineState.withdrawableCashMap[msg.sender])));
 
     // first update the withdrawable cash map
-    bool bIsValid = false;
-    uint256 result = 0;
+    bool bIsValid;
+    uint256 result;
     (bIsValid, result) = SafeMathUpgradeable.trySub(currentMachineState.withdrawableCashMap[msg.sender], amount);
     require(bIsValid, string.concat("Invalid withdraw amount. Amount: ", Strings.toString(amount), ", and withdrawable cash: ", Strings.toString(currentMachineState.withdrawableCashMap[msg.sender])));
 
@@ -54,18 +57,25 @@ contract DARC is Runtime, Dashboard {
     // if the message sender owns zero withdrawable cash balance, then remove it from the withdrawable cash owner list
     if (currentMachineState.withdrawableCashMap[msg.sender] == 0) {
       address[] memory newWithdrawableCashOwnerList = new address[](currentMachineState.withdrawableCashOwnerList.length);
-      uint256 pt = 0;
-      for (uint256 index = 0; index < currentMachineState.withdrawableCashOwnerList.length; index++) {
+      uint256 pt;
+      for (uint256 index; index < currentMachineState.withdrawableCashOwnerList.length;) {
         if (currentMachineState.withdrawableCashOwnerList[index] != msg.sender) {
           newWithdrawableCashOwnerList[pt] = currentMachineState.withdrawableCashOwnerList[index];
           pt++;
+        }
+
+        unchecked {
+          ++index;
         }
       }
 
       // update the withdrawable cash owner list
       currentMachineState.withdrawableCashOwnerList = new address[](pt);
-      for (uint256 index = 0; index < pt; index++) {
+      for (uint256 index; index < pt;) {
         currentMachineState.withdrawableCashOwnerList[index] = newWithdrawableCashOwnerList[index];
+        unchecked {
+          ++index;
+        }
       }
     }
 
@@ -74,7 +84,7 @@ contract DARC is Runtime, Dashboard {
   }
 
   /**
-   * This is the only way to withdraw dividens from the DARC virtual machine
+   * This is the only way to withdraw dividends from the DARC virtual machine
    * @param amount The amount of cash to be withdrawn
    */
   function withdrawDividends(uint256 amount) public {
@@ -86,8 +96,8 @@ contract DARC is Runtime, Dashboard {
       require(amount <= currentMachineState.withdrawableDividendMap[msg.sender], string.concat("Invalid withdraw amount. Amount: ", Strings.toString(amount), ", and withdrawable dividends: ", Strings.toString(currentMachineState.withdrawableDividendMap[msg.sender])));
   
       // first update the withdrawable cash map
-      bool bIsValid = false;
-      uint256 result = 0;
+      bool bIsValid;
+      uint256 result;
       (bIsValid, result) = SafeMathUpgradeable.trySub(currentMachineState.withdrawableDividendMap[msg.sender], amount);
       require(bIsValid, string.concat("Invalid withdraw amount. Amount: ", Strings.toString(amount), ", and withdrawable dividends: ", Strings.toString(currentMachineState.withdrawableDividendMap[msg.sender])));
   
@@ -100,18 +110,25 @@ contract DARC is Runtime, Dashboard {
       // if the message sender owns zero withdrawable dividend balance, then remove it from the withdrawable dividend owner list
       if (currentMachineState.withdrawableDividendMap[msg.sender] == 0) {
         address[] memory newWithdrawableDividendsOwnerList = new address[](currentMachineState.withdrawableDividendOwnerList.length);
-        uint256 pt = 0;
-        for (uint256 index = 0; index < currentMachineState.withdrawableDividendOwnerList.length; index++) {
+        uint256 pt;
+        for (uint256 index; index < currentMachineState.withdrawableDividendOwnerList.length;) {
           if (currentMachineState.withdrawableDividendOwnerList[index] != msg.sender) {
             newWithdrawableDividendsOwnerList[pt] = currentMachineState.withdrawableDividendOwnerList[index];
             pt++;
+          }
+
+          unchecked {
+            ++index;
           }
         }
   
         // update the withdrawable cash owner list
         currentMachineState.withdrawableDividendOwnerList = new address[](pt);
-        for (uint256 index = 0; index < pt; index++) {
+        for (uint256 index; index < pt;) {
           currentMachineState.withdrawableDividendOwnerList[index] = newWithdrawableDividendsOwnerList[index];
+          unchecked {
+            ++index;
+          }
         }
       }
 
