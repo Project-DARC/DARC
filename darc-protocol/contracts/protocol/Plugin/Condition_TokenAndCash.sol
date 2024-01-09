@@ -24,4 +24,10 @@ contract Condition_TokenAndCash is MachineStateManager {
   function tokenAndCashExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool) {
     return false;
   }
+
+  function ID_461_TOKEN_X_OP_PRICE_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool) {
+    return false;
+  }
+
+
 }
