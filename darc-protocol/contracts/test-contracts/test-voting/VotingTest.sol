@@ -9,8 +9,12 @@ import '../../protocol/Runtime/VotingMachine/VotingMachine.sol';
  * @notice null
  */
 
-contract VotingTestContract is VotingMachine{
+contract VotingTestContract is VotingMachine {
   function initializeVotingTest() public {
     this.initialize();
+  }
+
+  function getValue() public view returns (uint256) {
+    return 1;
   }
 } 
