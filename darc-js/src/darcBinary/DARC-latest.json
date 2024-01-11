@@ -105,7 +105,7 @@
                         },
                         {
                           "internalType": "bool",
-                          "name": "isEnabled",
+                          "name": "bIsEnable",
                           "type": "bool"
                         },
                         {
@@ -866,7 +866,7 @@
                         },
                         {
                           "internalType": "bool",
-                          "name": "isEnabled",
+                          "name": "bIsEnable",
                           "type": "bool"
                         },
                         {
@@ -1140,7 +1140,7 @@
                         },
                         {
                           "internalType": "bool",
-                          "name": "isEnabled",
+                          "name": "bIsEnable",
                           "type": "bool"
                         },
                         {

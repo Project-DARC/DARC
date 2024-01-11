@@ -133,12 +133,8 @@ contract Runtime is Executable, PaymentCheck{
    * 2. The operation is a vote operation
    * 3. The vote operation contains the same number boolean values as the number of the voting policy
    */
-  function validateVoteProgram(Program memory program) internal view returns (bool) {
-    //1. check if the program is empty
-    if (program.operations.length == 0) { return false; }
-
-    //2. check if the program is valid
-    return true;//ProgramValidator.validate();
+  function validateVoteProgram(Program memory program) internal pure returns (bool) {
+    return ProgramValidator.validateVoteProgram(program);
   }
 
   /**
@@ -147,12 +143,8 @@ contract Runtime is Executable, PaymentCheck{
    * 2. The operation is a execute pending operation: ExecutePending
    * 3. The execute pending operation contains the same number boolean values as the number of the voting policy
    */
-  function validateExecutePendingProgram(Program memory program) internal view returns (bool) {
-    //1. check if the program is empty
-    if (program.operations.length == 0) { return false; }
-
-    //2. check if the program is valid
-    return true; //ProgramValidator.validate(currentProgram);
+  function validateExecutePendingProgram(Program memory program) internal pure returns (bool) {
+    return ProgramValidator.validateExecutePendingProgram(program);
   }
 
   /**

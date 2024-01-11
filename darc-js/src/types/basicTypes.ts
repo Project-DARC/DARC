@@ -20,7 +20,7 @@ export type VotingRuleStruct = {
   approvalThresholdPercentage: PromiseOrValue<BigNumberish>;
   votingDurationInSeconds: PromiseOrValue<BigNumberish>;
   executionPendingDurationInSeconds: PromiseOrValue<BigNumberish>;
-  isEnabled: PromiseOrValue<boolean>;
+  bIsEnable: PromiseOrValue<boolean>;
   notes: PromiseOrValue<string>;
   bIsAbsoluteMajority: PromiseOrValue<boolean>;
 };
@@ -38,7 +38,7 @@ export type VotingRuleStructOutput = [
   approvalThresholdPercentage: BigNumber;
   votingDurationInSeconds: BigNumber;
   executionPendingDurationInSeconds: BigNumber;
-  isEnabled: boolean;
+  bIsEnable: boolean;
   notes: string;
   bIsAbsoluteMajority: boolean;
 };

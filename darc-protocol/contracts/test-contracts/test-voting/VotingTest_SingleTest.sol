@@ -1,0 +1,173 @@
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity ^0.8.19;
+import '../../protocol/Runtime/VotingMachine/VotingMachine.sol';
+import '../../protocol/Runtime/Runtime.sol';
+
+
+/**
+ * @title The single voting test contract of the voting machine
+ * @author DARC Team
+ * @notice null
+ */
+
+contract VotingTest_SingleTest is Runtime {
+  function initializeVotingTest() public {
+    this.initialize();
+  }
+
+  function runTest() public {
+    
+    // create a token class first
+    currentMachineState.tokenList[0].bIsInitialized = true;
+    currentMachineState.tokenList[0].tokenInfo = "token_0";
+    currentMachineState.tokenList[0].votingWeight = 1;
+    currentMachineState.tokenList[0].dividendWeight = 1;
+    currentMachineState.tokenList[0].totalSupply = 1000;
+
+    // mint 600 tokens to "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
+    currentMachineState.tokenList[0].tokenBalance[0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266] = 600;
+
+    // mint 200 tokens to '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
+    currentMachineState.tokenList[0].tokenBalance[0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC] = 200;
+
+    // mint 200 tokens to '0x90F79bf6EB2c4f870365E785982E1f101E93b906'
+    currentMachineState.tokenList[0].tokenBalance[0x90F79bf6EB2c4f870365E785982E1f101E93b906] = 200;
+
+    // add addresses to owner list
+    currentMachineState.tokenList[0].ownerList.push(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    currentMachineState.tokenList[0].ownerList.push(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC);
+    currentMachineState.tokenList[0].ownerList.push(0x90F79bf6EB2c4f870365E785982E1f101E93b906);
+
+
+    // add a plugin to the before-op and after-op
+    // before-op: any operation need sandbox
+    // after-op: any operation need voting
+
+
+    // Plugin storage beforeOpPlugin = Plugin({
+    //   returnType: EnumReturnType.SANDBOX_NEEDED,
+    //   level: 5,
+    //   conditionNodes: new ConditionNode[](1),
+    //   votingRuleIndex: 0,
+    //   notes: "test",
+    //   bIsEnabled: true,
+    //   bIsInitialized: true,
+    //   bIsBeforeOperation: true
+    // });
+
+    // beforeOpPlugin.conditionNodes[0] = ConditionNode({
+    //     id:0,
+    //     nodeType: EnumConditionNodeType.BOOLEAN_TRUE,
+    //     logicalOperator: EnumLogicalOperatorType.UNDEFINED,
+    //     conditionExpression: 0,
+    //     childList: new uint256[](0),
+    //     param: NodeParam({
+    //       STRING_ARRAY: new string[](0),
+    //       UINT256_2DARRAY: new uint256[][](0),
+    //       ADDRESS_2DARRAY: new address[][](0),
+    //       BYTES: new bytes(0)
+    //     })
+    //   });
+
+    currentMachineState.beforeOpPlugins.push(Plugin({
+      returnType: EnumReturnType.SANDBOX_NEEDED,
+      level: 5,
+      conditionNodes: new ConditionNode[](1),
+      votingRuleIndex: 0,
+      notes: "test",
+      bIsEnabled: true,
+      bIsInitialized: true,
+      bIsBeforeOperation: true
+    }));
+
+    currentMachineState.beforeOpPlugins[1].conditionNodes[0] = ConditionNode({
+        id:0,
+        nodeType: EnumConditionNodeType.BOOLEAN_TRUE,
+        logicalOperator: EnumLogicalOperatorType.UNDEFINED,
+        conditionExpression: 0,
+        childList: new uint256[](0),
+        param: NodeParam({
+          STRING_ARRAY: new string[](0),
+          UINT256_2DARRAY: new uint256[][](0),
+          ADDRESS_2DARRAY: new address[][](0),
+          BYTES: new bytes(0)
+        })
+      });
+
+    // add a voting rule
+    currentMachineState.votingRuleList.push(VotingRule({
+      votingTokenClassList: new uint256[](1),  
+      approvalThresholdPercentage: 50, // 50 percent to approve
+      votingDurationInSeconds: 1000,   // 1000 seconds to vote
+      executionPendingDurationInSeconds: 1000,  // 1000 seconds to execute
+      bIsEnable: true,
+      notes: "voting rule 0",
+      bIsAbsoluteMajority: false
+    }));
+
+    currentMachineState.votingRuleList[0].votingTokenClassList[0] = 0; // class 0 token can vote
+
+
+    
+    currentMachineState.afterOpPlugins.push(Plugin({
+      returnType: EnumReturnType.VOTING_NEEDED,
+      level: 5,
+      conditionNodes: new ConditionNode[](1),
+      votingRuleIndex: 0,
+      notes: "test",
+      bIsEnabled: true,
+      bIsInitialized: true,
+      bIsBeforeOperation: false
+    }));
+
+    currentMachineState.afterOpPlugins[1].conditionNodes[0] = ConditionNode({
+        id:0,
+        nodeType: EnumConditionNodeType.BOOLEAN_TRUE,
+        logicalOperator: EnumLogicalOperatorType.UNDEFINED,
+        conditionExpression: 0,
+        childList: new uint256[](0),
+        param: NodeParam({
+          STRING_ARRAY: new string[](0),
+          UINT256_2DARRAY: new uint256[][](0),
+          ADDRESS_2DARRAY: new address[][](0),
+          BYTES: new bytes(0)
+        })
+      });
+
+
+    // try to run a program with 1 operation
+    Program memory program = Program({
+      programOperatorAddress: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266,
+      operations: new Operation[](1),
+      notes: "test"
+    });
+
+    program.operations[0] = Operation({
+      operatorAddress: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266,
+      opcode: EnumOpcode.BATCH_MINT_TOKENS,
+      param: Param({
+        STRING_ARRAY: new string[](0),
+        BOOL_ARRAY: new bool[](0),
+        VOTING_RULE_ARRAY: new VotingRule[](0),
+        PLUGIN_ARRAY: new Plugin[](0),
+        PARAMETER_ARRAY: new MachineParameter[](0),
+        UINT256_2DARRAY: new uint256[][](0),
+        ADDRESS_2DARRAY: new address[][](0),
+        BYTES: new bytes(0)
+      })
+    });
+
+    // make sure that the checkBeforeOperationPlugins returns SANDBOX_NEEDED
+    EnumReturnType returnType = checkBeforeOperationPlugins(program);
+    require(returnType == EnumReturnType.SANDBOX_NEEDED, "VotingTest SingleTest: The return type should be SANDBOX_NEEDED");
+
+    // make sure that the checkAfterOperationPlugins returns VOTING_NEEDED
+    (EnumReturnType afterReturnType, uint256[] memory afterRuleIdxList) = checkAfterOperationPlugins(program);
+
+    require(afterReturnType == EnumReturnType.VOTING_NEEDED, "VotingTest SingleTest: The return type should be VOTING_NEEDED");
+
+    require(afterRuleIdxList.length == 1, "VotingTest SingleTest: The length of the rule index list should be 1");
+
+    require(afterRuleIdxList[0] == 0, "VotingTest SingleTest: The rule index should be 0");
+  }
+} 

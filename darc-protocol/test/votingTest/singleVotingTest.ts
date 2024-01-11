@@ -16,12 +16,11 @@ const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
 describe.only("single voting test", function () {
   it ("should pass single voting test", async function () {
-    const VotingTestFactory = await ethers.getContractFactory("VotingTestContract");
-    const votingTest = await VotingTestFactory.deploy();
-    await votingTest.deployed();
-    await votingTest.initialize();
-
-    console.log("votingTest.address: ", votingTest.address);
-    console.log(await votingTest.getValue());
+    const VotingTestSingleTestFactory = await ethers.getContractFactory("VotingTest_SingleTest");
+    const votingTestSingleTest = await VotingTestSingleTestFactory.deploy();
+    await votingTestSingleTest.deployed();
+    await votingTestSingleTest.initializeVotingTest();  
+    await votingTestSingleTest.runTest();
+    console.log("votingTest.address: ", votingTestSingleTest.address);
   });
 })
