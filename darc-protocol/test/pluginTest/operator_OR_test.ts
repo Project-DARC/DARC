@@ -18,7 +18,7 @@ describe("operator OR  test", function () {
   it ("should pass operator OR test", async function () {
 
 
-    const PluginTestFactory = await ethers.getContractFactory("PluginTest");
+    const PluginTestFactory = await ethers.getContractFactory("TestBaseContract");
     const pluginTest = await PluginTestFactory.deploy();
     await pluginTest.deployed();
     await pluginTest.initialize();

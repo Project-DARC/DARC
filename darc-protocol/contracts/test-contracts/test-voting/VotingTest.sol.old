@@ -10,10 +10,20 @@ import '../../protocol/Runtime/Runtime.sol';
  * @notice null
  */
 
-contract VotingTest_SingleTest is Runtime {
+contract VotingTest is Runtime {
   function initializeVotingTest() public {
     this.initialize();
   }
+
+  function votingTest_RunProgramDirectly(Program memory program, bool bIsSandbox) public {
+    executeProgram_Executable(program,bIsSandbox);
+  }
+
+  function votingTest_Execute(Program memory program) public {
+    execute(program);
+  }
+
+  function votingTest_
 
   function runTest() public {
     
@@ -100,7 +110,7 @@ contract VotingTest_SingleTest is Runtime {
       approvalThresholdPercentage: 50, // 50 percent to approve
       votingDurationInSeconds: 1000,   // 1000 seconds to vote
       executionPendingDurationInSeconds: 1000,  // 1000 seconds to execute
-      bIsEnable: true,
+      bIsEnabled: true,
       notes: "voting rule 0",
       bIsAbsoluteMajority: false
     }));
@@ -169,5 +179,28 @@ contract VotingTest_SingleTest is Runtime {
     require(afterRuleIdxList.length == 1, "VotingTest SingleTest: The length of the rule index list should be 1");
 
     require(afterRuleIdxList[0] == 0, "VotingTest SingleTest: The rule index should be 0");
+
+
+    // run the program in entrance
+    execute(program);
+
+    // make sure that voting item is initialized
+    VotingItem memory votingItem0 = votingItems[1];
+
+    // make sure that the voting item is initialized
+    require(votingItem0.votingStatus == VotingStatus.Ongoing, "VotingTest SingleTest: The voting item should be ongoing");
+
+    require(votingItem0.program.programOperatorAddress == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, "VotingTest SingleTest: The program operator address should be 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266");
+
+    require(votingItem0.program.operations.length == 1, "VotingTest SingleTest: The length of the operations should be 1");
+
+    require(votingItem0.program.operations[0].opcode == EnumOpcode.BATCH_MINT_TOKENS, "VotingTest SingleTest: The opcode of the operation should be BATCH_MINT_TOKENS");
+
+    // make sure that the voting rule indices only contains 0
+    require(votingItem0.votingRuleIndices.length == 1, "VotingTest SingleTest: The length of the voting rule indices should be 1");
+
+    require(votingItem0.votingRuleIndices[0] == 0, "VotingTest SingleTest: The voting rule index should be 0");
+    return;
+    require(votingItem0.totalPower[0] == 1000);
   }
 } 

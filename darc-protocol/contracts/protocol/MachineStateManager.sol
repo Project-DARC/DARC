@@ -30,8 +30,8 @@ contract MachineStateManager {
   /**
    * ======== DARC Machine State ========
    */
-  MachineState currentMachineState;
-  MachineState sandboxMachineState;
+  MachineState public currentMachineState;
+  MachineState public sandboxMachineState;
 
 
   /**
@@ -66,6 +66,10 @@ contract MachineStateManager {
    */
   uint256 dividendBufferSize;
   
+  /**
+   * @notice The logs of the DARC machine state
+   */
+  string[] DARClogs;
 
 
 

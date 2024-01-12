@@ -1,15 +1,58 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
-import "../../protocol/Runtime/Executable/Executable.sol";
-import "../../protocol/Opcodes.sol";
+import "../protocol/Runtime/Executable/Executable.sol";
+import "../protocol/Opcodes.sol";
+import "../protocol/Dashboard/Dashboard.sol";
 /**
  * @title The test contract of PluginJudgement
  * @author DARC Team
  * @notice Only used for testing
  */
-contract PluginTest is Executable {
+contract TestBaseContract is Executable, Dashboard {
 
-  function test() public {
+  function runProgramDirectly(Program memory currentProgram, bool bIsSandbox) public {
+    executeProgram_Executable(currentProgram, bIsSandbox);
+  }
+
+  function testExecute(Program memory currentProgram) public {
+    DARClogs.push("before execute");
+    execute(currentProgram);
+    DARClogs.push("after execute");
+  }
+
+  function testCloneStateToSandbox() public {
+    cloneStateToSandbox();
+  }
+
+  function addVotingRule(VotingRule memory votingRule, bool bIsSandbox) public {
+    if (bIsSandbox) {
+      sandboxMachineState.votingRuleList.push(votingRule);
+    } else {
+      currentMachineState.votingRuleList.push(votingRule);
+    }
+  }
+
+  function helper_createToken0AndMint() public {
+    // create a token class first
+    currentMachineState.tokenList[0].bIsInitialized = true;
+    currentMachineState.tokenList[0].tokenInfo = "token_0";
+    currentMachineState.tokenList[0].votingWeight = 1;
+    currentMachineState.tokenList[0].dividendWeight = 1;
+    currentMachineState.tokenList[0].totalSupply = 1000;
+
+    // mint 600 tokens to "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
+    currentMachineState.tokenList[0].tokenBalance[0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266] = 600;
+
+    // mint 200 tokens to '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC'
+    currentMachineState.tokenList[0].tokenBalance[0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC] = 200;
+
+    // mint 200 tokens to '0x90F79bf6EB2c4f870365E785982E1f101E93b906'
+    currentMachineState.tokenList[0].tokenBalance[0x90F79bf6EB2c4f870365E785982E1f101E93b906] = 200;
+
+    // add addresses to owner list
+    currentMachineState.tokenList[0].ownerList.push(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
+    currentMachineState.tokenList[0].ownerList.push(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC);
+    currentMachineState.tokenList[0].ownerList.push(0x90F79bf6EB2c4f870365E785982E1f101E93b906);
   }
 
   /**

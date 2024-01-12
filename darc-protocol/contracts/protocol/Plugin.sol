@@ -189,7 +189,7 @@ struct VotingRule {
   /**
    * the voting policy is enabled or not
    */
-  bool bIsEnable;
+  bool bIsEnabled;
 
   /**
    * the note of the voting policy

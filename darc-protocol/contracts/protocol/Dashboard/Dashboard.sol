@@ -131,4 +131,11 @@ contract Dashboard is MachineStateManager {
   function getCurrentDividendPerUnit() public view returns (uint256) {
     return currentDividendPerUnit(false);
   }
+
+  /**
+   * Get all logs of DARC
+   */
+  function getDARClogs() public view returns (string[] memory) {
+    return DARClogs;
+  }
 }

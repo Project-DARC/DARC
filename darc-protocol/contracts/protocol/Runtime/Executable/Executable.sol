@@ -55,7 +55,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
 
       // 2.4 If the program is voting needed, initialize the voting machine
       else if (afterReturnType == EnumReturnType.VOTING_NEEDED){
-        this.initializeVoting(afterRuleIdxList, currentProgram);
+        initializeVoting(afterRuleIdxList, currentProgram);
       }
 
       // 2.5 If the program is approved, just execute and end

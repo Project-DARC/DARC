@@ -82,7 +82,7 @@ contract VotingMachine is MachineStateManager {
    * @notice If address has voted for the voting item with index i,
    * and if so, voted[address][i] = true
    */
-  mapping(address => mapping(uint256 => bool)) voted;
+  mapping(address => mapping(uint256 => bool)) public voted;
 
 
   /**
@@ -105,7 +105,7 @@ contract VotingMachine is MachineStateManager {
   /**
    * @notice start the voting period
    */
-  function initializeVoting(uint256[] memory votingRuleIndices, Program memory currentProgram) external {
+  function initializeVoting(uint256[] memory votingRuleIndices, Program memory currentProgram) internal {
     // make sure the voting period is not in progress
     require(!isVotingProcesss(), "voting is already in progress");
 
@@ -132,19 +132,36 @@ contract VotingMachine is MachineStateManager {
     votingItems[latestVotingItemIndex].powerNo = new uint256[](votingRuleIndices.length);
     votingItems[latestVotingItemIndex].powerYes = new uint256[](votingRuleIndices.length);
     votingItems[latestVotingItemIndex].totalPower = new uint256[](votingRuleIndices.length);
-
-    (bIsValid, votingItems[latestVotingItemIndex].votingEndTime) = SafeMathUpgradeable.tryAdd(
+    return; // checkpoint 2
+    uint256 resultVotingDeadline = 0;
+    (bIsValid, resultVotingDeadline) = SafeMathUpgradeable.tryAdd(
       block.timestamp, 
       minVotingDuration);
     require(bIsValid, "voting end time overflow");
-    (bIsValid, votingItems[latestVotingItemIndex].executingEndTime) = SafeMathUpgradeable.tryAdd(
+
+    // update the voting end time in the voting items map 
+    votingItems[latestVotingItemIndex].votingEndTime = resultVotingDeadline;
+
+    // update the voting end time in the machine state manager
+    votingDeadline = resultVotingDeadline;
+
+    uint256 resultExecutionPendingDeadline = 0;
+    (bIsValid, resultExecutionPendingDeadline) = SafeMathUpgradeable.tryAdd(
       votingItems[latestVotingItemIndex].votingEndTime,
       minExecutingDuration
     );
     require(bIsValid, "executing end time overflow");
+
+    // update the executing end time in the voting items map
+    votingItems[latestVotingItemIndex].executingEndTime = resultExecutionPendingDeadline;
+
+    // update the executing end time in the machine state manager
+    executingPendingDeadline = resultExecutionPendingDeadline;
+
+    // update the voting status in the voting items map
     votingItems[latestVotingItemIndex].votingStatus = VotingStatus.Ongoing;
     votingItems[latestVotingItemIndex].votingRuleIndices = new uint256[](votingRuleIndices.length);
-
+    // return; // checkpoint 1 failed
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
       votingItems[latestVotingItemIndex].votingRuleIndices[i] = votingRuleIndices[i];
     }
@@ -171,7 +188,7 @@ contract VotingMachine is MachineStateManager {
    * @param voter the address of the voter
    * @param votes the list of votes, true for yes, false for no
    */
-  function vote(address voter, bool[] memory votes) external {
+  function vote(address voter, bool[] memory votes) internal {
     require(isVotingProcesss(), "voting is not in progress");
     require(block.timestamp < currentVotingEndTime, "voting period has ended");
     require(!voted[voter][latestVotingItemIndex], "voter has already voted");
@@ -243,7 +260,7 @@ contract VotingMachine is MachineStateManager {
    */
   function endVoting() private {
     require(block.timestamp >= currentVotingEndTime, "voting period has not ended");
-    VotingStatus[] memory result = this.checkVotingResults();
+    VotingStatus[] memory result = checkVotingResults();
     for (uint256 i = 0; i < result.length; i++) {
 
       // if any voting rule failed, the whole voting process failed,
@@ -323,10 +340,10 @@ contract VotingMachine is MachineStateManager {
   /**
    * @notice Check the voting state of all the voting rules
    */
-  function checkVotingResults() external view returns (VotingStatus[] memory) {  
+  function checkVotingResults() internal view returns (VotingStatus[] memory) {  
     VotingStatus[] memory votingStatus = new VotingStatus[](votingItems[latestVotingItemIndex].votingRuleIndices.length);
     for (uint256 i = 0; i < votingItems[latestVotingItemIndex].votingRuleIndices.length; i++) {
-      votingStatus[i] = this.checkVotingResult(i);
+      votingStatus[i] = checkVotingResult(i);
     }
     return votingStatus;
   }
@@ -340,7 +357,7 @@ contract VotingMachine is MachineStateManager {
    * No "OnGoing" state because the voting machine will check this function to change the state
    * @param idx the index of the voting rule
    */
-  function checkVotingResult(uint256 idx) external view returns (VotingStatus) {
+  function checkVotingResult(uint256 idx) internal view returns (VotingStatus) {
     bool bIsValid = false;
     uint256 threshold = currentMachineState.votingRuleList[idx].approvalThresholdPercentage;
     uint256 currentYes = votingItems[latestVotingItemIndex].powerYes[idx];
