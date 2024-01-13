@@ -3,7 +3,7 @@ import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { BigNumber } from "ethers";
-import { ConditionNodeStruct } from "../../typechain-types/contracts/protocol/DARC"
+import { ConditionNodeStruct, ProgramStruct } from "../../typechain-types/contracts/protocol/DARC"
 
 
 const target0 = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
@@ -17,13 +17,14 @@ const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 describe.only("single voting test", function () {
   it ("should pass single voting test", async function () {
 
-    // const VotingTestBaseFactory = await ethers.getContractFactory("VotingTestBase");
+     const VotingTestBaseFactory = await ethers.getContractFactory("VotingTestBase");
 
-    // const votingTestBase = await VotingTestBaseFactory.deploy();
-    // await votingTestBase.deployed();
+     const votingTestBase = await VotingTestBaseFactory.deploy();
+     await votingTestBase.deployed();
 
-    // await votingTestBase.initializeVotingTest();
-
+     await votingTestBase.initializeVotingTest();
+    //return;
+     //return;
     // //get 
     // console.log(await votingTestBase.finiteState());
 
@@ -75,7 +76,7 @@ describe.only("single voting test", function () {
       bIsEnabled: true,
       notes: "50% to approve in relative majority",
       bIsAbsoluteMajority: false,
-    }, true);
+    }, false);
 
 
     //add an after-op plugin that ask all operation to be voting_neede by vote rule 0
@@ -143,7 +144,7 @@ describe.only("single voting test", function () {
    
     const result3 = await votingTestSingleTest.checkProgram_afterOp(program);
     console.log("result3: ", result3);
-    
+     
     // now run in sandbox
     await votingTestSingleTest.runProgramDirectly(program, true);
     
@@ -152,18 +153,43 @@ describe.only("single voting test", function () {
 
 
     //await votingTestSingleTest.testExecute(program);
-    try{
-      await votingTestSingleTest.testExecute(program);
-    }
-    catch(e){
-      console.log("error: ", e);
-    }
+
+    // run a program, this will trigger a voting
+    await votingTestSingleTest.testExecute(program);
+
     const result5 = await votingTestSingleTest.checkProgram_afterOp(program);
     console.log("result5: ", result5);
 
-    //
-    console.log("votingTest.address: ", votingTestSingleTest.address);
-    console.log("Logs: ");
-    console.log(await votingTestSingleTest.getDARClogs());
+    // try to vote now
+    const program_vote: ProgramStruct = {
+      programOperatorAddress: target0,
+      notes: "vote",
+      operations: [{
+        operatorAddress: target0,
+        opcode: 32, // vote
+        param: { 
+          STRING_ARRAY: [],
+          BOOL_ARRAY: [true],
+          VOTING_RULE_ARRAY: [],
+          PARAMETER_ARRAY: [],
+          PLUGIN_ARRAY: [],
+          UINT256_2DARRAY: [],
+          ADDRESS_2DARRAY: [],
+          BYTES: []
+        }
+      }],
+    }
+
+    // read the voting result
+    const votingItemIndex = 1;
+    const votingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
+    console.log(votingItem);
+
+    // vote 
+    await votingTestSingleTest.testRuntimeEntrance(program_vote);
+
+    // read the voting result again
+    const votingItem2 = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
+    console.log(votingItem2);
   });
 })

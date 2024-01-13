@@ -162,15 +162,18 @@ contract Runtime is Executable, PaymentCheck{
     //1. check if the program is valid
     require(validateVoteProgram(program), "Invalid vote program");
 
-    //2. execute the program
-    execute(program);
+
+    //2. execute the program (vote) directly, do not use execute() function
+    // execute(program); // do not use execute() function
+    vote(program.operations[0].operatorAddress, program.operations[0].param.BOOL_ARRAY);
   }
 
   function executePendingProgram(Program memory program) internal {
     //1. check if the program is valid
-    require(validateProgram(program), "Invalid program");
+    require(validateExecutePendingProgram(program), "Invalid program");
 
-    //2. execute the program
-    execute(program);
+    //2. execute the program(executing pending) directly, do not use execute() function
+    executeProgram_Executable(votingItems[latestVotingItemIndex].program, false);
+
   }
 }

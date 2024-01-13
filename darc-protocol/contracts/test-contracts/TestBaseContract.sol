@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 import "../protocol/Runtime/Executable/Executable.sol";
+import "../protocol/Runtime/Runtime.sol";
 import "../protocol/Opcodes.sol";
 import "../protocol/Dashboard/Dashboard.sol";
 /**
@@ -8,16 +9,18 @@ import "../protocol/Dashboard/Dashboard.sol";
  * @author DARC Team
  * @notice Only used for testing
  */
-contract TestBaseContract is Executable, Dashboard {
+contract TestBaseContract is Runtime, Dashboard {
 
   function runProgramDirectly(Program memory currentProgram, bool bIsSandbox) public {
     executeProgram_Executable(currentProgram, bIsSandbox);
   }
 
   function testExecute(Program memory currentProgram) public {
-    DARClogs.push("before execute");
     execute(currentProgram);
-    DARClogs.push("after execute");
+  }
+
+  function testRuntimeEntrance(Program memory currentProgram) public {
+    runtimeEntrance(currentProgram);
   }
 
   function testCloneStateToSandbox() public {

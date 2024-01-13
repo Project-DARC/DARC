@@ -14,7 +14,7 @@ enum VotingStatus {
 
 struct VotingItem {
   /**
-   * @notice The program that is being voted on
+   * @notice The  program that is being voted on
    */
   Program program;
 
@@ -123,16 +123,24 @@ contract VotingMachine is MachineStateManager {
   function initializeVotingItem(uint256[] memory votingRuleIndices, Program memory currentProgram) private {
     // calculate the shortest voting duration
     uint256 minVotingDuration = minVotingDurationInSeconds(votingRuleIndices);
+
     uint256 minExecutingDuration = minExecutePendingProgramDurationInSeconds(votingRuleIndices);
 
     bool bIsValid = false;
-
+    
     // initialize the voting item
-    votingItems[latestVotingItemIndex].program = currentProgram;
-    votingItems[latestVotingItemIndex].powerNo = new uint256[](votingRuleIndices.length);
-    votingItems[latestVotingItemIndex].powerYes = new uint256[](votingRuleIndices.length);
-    votingItems[latestVotingItemIndex].totalPower = new uint256[](votingRuleIndices.length);
-    return; // checkpoint 2
+    votingItems[latestVotingItemIndex] = VotingItem({
+      program: currentProgram,
+      votingRuleIndices: new uint256[](votingRuleIndices.length),
+      powerYes: new uint256[](votingRuleIndices.length),
+      powerNo: new uint256[](votingRuleIndices.length),
+      totalPower: new uint256[](votingRuleIndices.length),
+      votingEndTime: 0,
+      executingEndTime: 0,
+      votingStatus: VotingStatus.Ongoing,
+      bIsProgramExecuted: false
+    });
+
     uint256 resultVotingDeadline = 0;
     (bIsValid, resultVotingDeadline) = SafeMathUpgradeable.tryAdd(
       block.timestamp, 
@@ -160,8 +168,6 @@ contract VotingMachine is MachineStateManager {
 
     // update the voting status in the voting items map
     votingItems[latestVotingItemIndex].votingStatus = VotingStatus.Ongoing;
-    votingItems[latestVotingItemIndex].votingRuleIndices = new uint256[](votingRuleIndices.length);
-    // return; // checkpoint 1 failed
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
       votingItems[latestVotingItemIndex].votingRuleIndices[i] = votingRuleIndices[i];
     }
