@@ -206,8 +206,8 @@ contract VotingMachine is MachineStateManager {
           powerOf(voter, i));
         require(bIsValid, "voting for powerYes overflow");
       } else {
-        (bIsValid, votingItems[latestVotingItemIndex].powerYes[i]) = SafeMathUpgradeable.tryAdd(
-          votingItems[latestVotingItemIndex].powerYes[i], 
+        (bIsValid, votingItems[latestVotingItemIndex].powerNo[i]) = SafeMathUpgradeable.tryAdd(
+          votingItems[latestVotingItemIndex].powerNo[i], 
           powerOf(voter, i));
         require(bIsValid, "voting for powerNo overflow");
       }
