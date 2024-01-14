@@ -53,7 +53,7 @@ By defining these operations through opcodes, the DARC protocol ensures consiste
 | BATCH_BURN_TOKENS_AND_REFUND    | 30        |  `tokenClassArray`: uint256[] <br/>  | Batch Burn Tokens and Refund                                |
 | ADD_STORAGE_IPFS_HASH           | 31        | `address`: string[]                                                                                                                             | Add Storage IPFS Hash                                       |
 | VOTE                            | 32        | `voteArray`: bool[]                                                                                                                             | Vote for a Voting Pending Program                           |
-| EXECUTE_PROGRAM                 | 33        |     N/A   | Execute a Program that has been Voted and Approved          |
+| EXECUTE_PENDING_PROGRAM                 | 33        |     N/A   | Execute a Program that has been Voted and Approved          |
 
 
 

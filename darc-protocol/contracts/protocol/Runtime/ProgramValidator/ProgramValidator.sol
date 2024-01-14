@@ -58,7 +58,7 @@ library ProgramValidator{
   function validateExecutePendingProgram(Program memory currentProgram) internal pure returns (bool) {
     //1. check if the program is empty
     if (currentProgram.operations.length != 1) { return false; }
-    return validate_ID_33_EXECUTE_PROGRAM(currentProgram.operations[0]);
+    return validate_ID_33_EXECUTE_PENDING_PROGRAM(currentProgram.operations[0]);
   }
 
 
@@ -72,8 +72,8 @@ library ProgramValidator{
     return true;
   }
 
-  function validate_ID_33_EXECUTE_PROGRAM(Operation memory op) internal pure returns (bool) {
-    if (op.opcode != EnumOpcode.EXECUTE_PROGRAM) { return false; }
+  function validate_ID_33_EXECUTE_PENDING_PROGRAM(Operation memory op) internal pure returns (bool) {
+    if (op.opcode != EnumOpcode.EXECUTE_PENDING_PROGRAM) { return false; }
     if (op.param.UINT256_2DARRAY.length != 0) { return false; }
     if (op.param.ADDRESS_2DARRAY.length != 0) { return false; }
     if (op.param.STRING_ARRAY.length != 0) { return false; }

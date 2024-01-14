@@ -16,25 +16,6 @@ const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
 describe.only("single voting test", function () {
   it ("should pass single voting test", async function () {
-
-    //  const VotingTestBaseFactory = await ethers.getContractFactory("VotingTestBase");
-
-    //  const votingTestBase = await VotingTestBaseFactory.deploy();
-    //  await votingTestBase.deployed();
-
-    //  await votingTestBase.initializeVotingTest();
-    //return;
-     //return;
-    // //get 
-    // console.log(await votingTestBase.finiteState());
-
-    // console.log(await votingTestBase.votingDeadline());
-    // console.log("Voting Item 0");
-    // console.log(await votingTestBase.votingItems(0));
-    // console.log("Voting Item 1");
-    // console.log(await votingTestBase.votingItems(1));
-
-
     const VotingTestFactory = await ethers.getContractFactory("TestBaseContract");
     const votingTestSingleTest = await VotingTestFactory.deploy();
     await votingTestSingleTest.deployed();
@@ -71,11 +52,11 @@ describe.only("single voting test", function () {
     await votingTestSingleTest.addVotingRule({
       votingTokenClassList: [BigNumber.from(0)],
       approvalThresholdPercentage: BigNumber.from(50),
-      votingDurationInSeconds: BigNumber.from(100000),
-      executionPendingDurationInSeconds: BigNumber.from(100000),
+      votingDurationInSeconds: BigNumber.from(1000),
+      executionPendingDurationInSeconds: BigNumber.from(1000),
       bIsEnabled: true,
       notes: "50% to approve in relative majority",
-      bIsAbsoluteMajority: false,
+      bIsAbsoluteMajority: true,
     }, false);
 
 
@@ -128,37 +109,7 @@ describe.only("single voting test", function () {
       }], 
     };
     
-    // const result1 = await votingTestSingleTest.checkProgram_afterOp(program);
-    // const result2 = await votingTestSingleTest.checkProgram_beforeOp(program);
-    // console.log("result1: ", result1);
-    // console.log("result2: ", result2);
-
-    // // check after-op result
-    // const result = await votingTestSingleTest.checkProgram_afterOp(program);
-    // await votingTestSingleTest.testCloneStateToSandbox();
-    
-    // // get balance of target0 at level 0
-    // const balance0 = await votingTestSingleTest.getTokenOwnerBalance(0,target0);
-
-    // console.log("balance0: ", balance0.toString());
-   
-    // const result3 = await votingTestSingleTest.checkProgram_afterOp(program);
-    // console.log("result3: ", result3);
-     
-    // // now run in sandbox
-    // await votingTestSingleTest.runProgramDirectly(program, true);
-    
-    // const result4 = await votingTestSingleTest.checkProgram_afterOp(program);
-    // console.log("result4: ", result4);
-
-
-    //await votingTestSingleTest.testExecute(program);
-
-    // run a program, this will trigger a voting
     await votingTestSingleTest.testRuntimeEntrance(program);
-
-    // const result5 = await votingTestSingleTest.checkProgram_afterOp(program);
-    // console.log("result5: ", result5);
 
     // try to vote now
     const program_vote: ProgramStruct = {
@@ -179,9 +130,10 @@ describe.only("single voting test", function () {
         }
       }],
     }
+
     console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
     // read the voting result
-    const votingItemIndex = 2;
+    const votingItemIndex = 1;
     const votingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
     console.log(votingItem);
 
@@ -197,19 +149,50 @@ describe.only("single voting test", function () {
       console.log("After vote, the voting state is ", await votingTestSingleTest.finiteState());
       console.log("After vote, the voting deadline is ", await votingTestSingleTest.votingDeadline());
       console.log(await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex));
+      console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
+      console.log("current time stamp is ", (await time.latest()).toString());
+
+      //return;
+
+      const program_execute_pending_program: ProgramStruct = {
+        programOperatorAddress: target0,
+        notes: "execute_pending_program",
+        operations: [{
+          operatorAddress: target0,
+          opcode: 33, // vote
+          param: { 
+            STRING_ARRAY: [],
+            BOOL_ARRAY: [],
+            VOTING_RULE_ARRAY: [],
+            PARAMETER_ARRAY: [],
+            PLUGIN_ARRAY: [],
+            UINT256_2DARRAY: [],
+            ADDRESS_2DARRAY: [],
+            BYTES: []
+          }
+        }],
+      }
+      
+      // run the execute pending program
+      await votingTestSingleTest.testRuntimeEntrance(program_execute_pending_program).then(async (tx) => {
+        console.log("After execute pending program, the voting state is ", await votingTestSingleTest.finiteState());
+        console.log("After execute pending program, the voting deadline is ", await votingTestSingleTest.votingDeadline());
+        console.log(await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex));
+        console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
+        console.log("current time stamp is ", (await time.latest()).toString());
+
+        //print all token holders and tokens, making sure that the pending program of minting tokens is executed after voting
+        const owners = await votingTestSingleTest.getTokenOwners(0);
+        // for (let i = 0; i < owners.length; i++) {
+        //   console.log("owner ", i, " is ", owners[i]);
+        //   console.log("balance of owner ", i, " is ", await votingTestSingleTest.getTokenOwnerBalance(0, owners[i]));
+        // }
+
+        expect((await votingTestSingleTest.getTokenOwnerBalance(0, target0)).toString()).to.equal("705");
+        expect((await votingTestSingleTest.getTokenOwnerBalance(0, target1)).toString()).to.equal("716");
+        expect((await votingTestSingleTest.getTokenOwnerBalance(0, target2)).toString()).to.equal("200");
+      });
     });
 
-    // console log the voting state again
-    console.log("After vote, the voting state is ", await votingTestSingleTest.finiteState());
-    console.log("After vote, the voting deadline is ", await votingTestSingleTest.votingDeadline());
-    console.log("Voting Item 1")
-    console.log(await votingTestSingleTest.getVotingItemsByIndex(1));
-    console.log("Voting Item 2")
-    console.log(await votingTestSingleTest.getVotingItemsByIndex(2));
-    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
-    return;
-    // read the voting result again
-    const votingItem2 = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
-    console.log(votingItem2);
   });
 })

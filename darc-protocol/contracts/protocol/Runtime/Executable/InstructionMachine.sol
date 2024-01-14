@@ -205,8 +205,8 @@ OfferDividendsInstructions
     }
 
     // opcode id == 33
-    else if (operation.opcode == EnumOpcode.EXECUTE_PROGRAM) {
-      op_EXECUTE_PROGRAM(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.EXECUTE_PENDING_PROGRAM) {
+      op_EXECUTE_PENDING_PROGRAM(operation, bIsSandbox);
     }
 
     // opcode id == 34

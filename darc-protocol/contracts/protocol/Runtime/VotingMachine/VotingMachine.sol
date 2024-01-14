@@ -84,12 +84,6 @@ contract VotingMachine is MachineStateManager {
    */
   mapping(address => mapping(uint256 => bool)) public voted;
 
-
-  /**
-   * @notice the end time of the voting period
-   */
-  uint256 public currentVotingEndTime;
-
   /**
    * @notice the latest index of the voting item
    */
@@ -196,7 +190,6 @@ contract VotingMachine is MachineStateManager {
    */
   function vote(address voter, bool[] memory votes) internal {
     require(isVotingProcesss(), "voting is not in progress");
-    require(block.timestamp < currentVotingEndTime, "voting period has ended");
     require(!voted[voter][latestVotingItemIndex], "voter has already voted");
     require(votes.length == votingItems[latestVotingItemIndex].votingRuleIndices.length,
      "the number of votes does not match the number of policies");
@@ -298,7 +291,6 @@ contract VotingMachine is MachineStateManager {
     }
 
     // 2. go through all voting rules, check if all voting rules are absolute majority and passed
-    bool[] memory bIsPassed = new bool[](votingItems[latestVotingItemIndex].votingRuleIndices.length);
     for (uint256 i = 0; i < votingItems[latestVotingItemIndex].votingRuleIndices.length; i++) {
 
       // if any of the voting is not absolute majority, just finish the function and return
@@ -315,6 +307,7 @@ contract VotingMachine is MachineStateManager {
 
     // 3. OK, now all the voting rules are absolute majority and passed, change the finite state to EXECUTING_PENDING
     finiteState = FiniteState.EXECUTING_PENDING;
+    votingItems[latestVotingItemIndex].votingStatus = VotingStatus.Ended_AND_Passed;
   }
 
   /**

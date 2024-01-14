@@ -35,7 +35,7 @@
 | 30        | BATCH_BURN_TOKENS_AND_REFUND                 | UINT256_2D[0] tokenClassArray, UINT256_2D[1] amountArray, UINT256_2D[2] priceArray | Batch Burn tokens and Refund Operation                      |
 | 31        | ADD_STORAGE_IPFS_HASH                        | STRING_ARRAY[0][0] IFPSHash                              | Add storage IPFS hash to the storage list permanently Operation |
 | 32        | VOTE                                         | bool[] voteArray                                       | Vote for a voting pending program Operation                 |
-| 33        | EXECUTE_PROGRAM                               |                                                          | Execute a program that has been voted and approved Operation |
+| 33        | EXECUTE_PENDING_PROGRAM                               |                                                          | Execute a program that has been voted and approved Operation |
 | 34        | END_EMERGENCY                                |                                                          | Emergency mode termination Operation                       |
 | 35        | UPGRADE_TO_ADDRESS                           | ADDRESS_2DARRAY[0][0] targetAddress  | Upgrade the contract to a new contract address Operation     |
 | 36        | CONFIRM_UPGRAED_FROM_ADDRESS                 | ADDRESS_2DARRAY[0][0] fromAddress   | Accepting current DARCs to be upgraded from the old contract address Operation |

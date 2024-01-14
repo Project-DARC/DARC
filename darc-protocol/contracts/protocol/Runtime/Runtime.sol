@@ -110,7 +110,7 @@ contract Runtime is Executable, PaymentCheck{
       }
 
       else if (finiteState == FiniteState.EXECUTING_PENDING) {
-        require(validateExecutePendingProgram(program), "The voting is passed and now DARC is in executing pending state. The input program is not a valid EXECUTE_PROGRAM to execute the pending program.");
+        require(validateExecutePendingProgram(program), "The voting is passed and now DARC is in executing pending state. The input program is not a valid EXECUTE_PENDING_PROGRAM to execute the pending program.");
         executePendingProgram(program);
         return "The pending program is executed after voting and approval.";
       }

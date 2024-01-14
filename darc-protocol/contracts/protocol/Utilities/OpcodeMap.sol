@@ -47,7 +47,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_BURN_TOKENS_AND_REFUND) return 30;
     if (opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) return 31;
     if (opcode == EnumOpcode.VOTE) return 32;
-    if (opcode == EnumOpcode.EXECUTE_PROGRAM) return 33;
+    if (opcode == EnumOpcode.EXECUTE_PENDING_PROGRAM) return 33;
     if (opcode == EnumOpcode.END_EMERGENCY) return 34;
     if (opcode == EnumOpcode.UPGRADE_TO_ADDRESS) return 35;
     if (opcode == EnumOpcode.CONFIRM_UPGRAED_FROM_ADDRESS) return 36;
@@ -93,7 +93,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_BURN_TOKENS_AND_REFUND) return "BATCH_BURN_TOKENS_AND_REFUND";
     if (opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) return "ADD_STORAGE_IPFS_HASH";
     if (opcode == EnumOpcode.VOTE) return "VOTE";
-    if (opcode == EnumOpcode.EXECUTE_PROGRAM) return "EXECUTE_PROGRAM";
+    if (opcode == EnumOpcode.EXECUTE_PENDING_PROGRAM) return "EXECUTE_PENDING_PROGRAM";
 
     return "UNDEFINED";
   }
