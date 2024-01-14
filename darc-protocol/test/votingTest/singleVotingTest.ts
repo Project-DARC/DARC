@@ -111,6 +111,7 @@ describe.only("single voting test", function () {
     
     await votingTestSingleTest.testRuntimeEntrance(program);
 
+
     // try to vote now
     const program_vote: ProgramStruct = {
       programOperatorAddress: target0,
@@ -130,27 +131,34 @@ describe.only("single voting test", function () {
         }
       }],
     }
-
-    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
     // read the voting result
     const votingItemIndex = 1;
     const votingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
-    console.log(votingItem);
+    expect(votingItem.votingStatus.toString()).to.equal("2"); // should be VotingStatus.ON_GOING
 
     // read the voting state:
     const votingState = await votingTestSingleTest.finiteState();
-    console.log("The voting state is ", votingState);
-    console.log(await votingTestSingleTest.votingDeadline());
+    expect(votingState.toString()).to.equal("2"); // should be FiniteState.VOTING
+
     // vote 
-    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
+
     await votingTestSingleTest.testRuntimeEntrance(program_vote).then(async (tx) => {
       console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
       // console log the voting state again
-      console.log("After vote, the voting state is ", await votingTestSingleTest.finiteState());
-      console.log("After vote, the voting deadline is ", await votingTestSingleTest.votingDeadline());
-      console.log(await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex));
-      console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
-      console.log("current time stamp is ", (await time.latest()).toString());
+
+      // the voting state should be 3, which is EXECUTING_PENDING
+      expect((await votingTestSingleTest.finiteState()).toString()).to.equal("3");
+
+      const currentVotingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
+
+      // make sure that the powerYES is 600
+      expect(currentVotingItem.powerYes[0].toString()).to.equal("600");
+
+      // make sure that the total power is 1000
+      expect(currentVotingItem.totalPower.toString()).to.equal("1000");
+
+      // the latest voting index should be 1
+      expect((await votingTestSingleTest.latestVotingItemIndex()).toString()).equal("1");
 
       //return;
 
@@ -175,12 +183,26 @@ describe.only("single voting test", function () {
       
       // run the execute pending program
       await votingTestSingleTest.testRuntimeEntrance(program_execute_pending_program).then(async (tx) => {
-        console.log("After execute pending program, the voting state is ", await votingTestSingleTest.finiteState());
-        console.log("After execute pending program, the voting deadline is ", await votingTestSingleTest.votingDeadline());
-        console.log(await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex));
-        console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
-        console.log("current time stamp is ", (await time.latest()).toString());
+        expect((await votingTestSingleTest.finiteState()).toString()).to.equal('1'); // back to idle state 
+        expect((await votingTestSingleTest.latestVotingItemIndex()).toString()).to.equal("1"); // the latest voting index should be 1
+        
+        // check the latest voting items
+        const latestVotingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
+        expect(latestVotingItem.votingStatus.toString()).to.equal("0"); // should be VotingStatus.Ended_AND_Passed
 
+        // check the bIsProgramExecuted
+        expect(latestVotingItem.bIsProgramExecuted).to.equal(true);
+
+        // check the total voting power is 1000
+        expect(latestVotingItem.totalPower.toString()).to.equal("1000");
+
+        // check the powerYes is 600
+        expect(latestVotingItem.powerYes[0].toString()).to.equal("600");
+
+        // console.log("After execute pending program, the voting state is ", await votingTestSingleTest.finiteState());
+        // console.log("After execute pending program, the voting deadline is ", await votingTestSingleTest.votingDeadline());
+
+        // expect(((await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex)).toString())).to.equal("1")
         //print all token holders and tokens, making sure that the pending program of minting tokens is executed after voting
         const owners = await votingTestSingleTest.getTokenOwners(0);
         // for (let i = 0; i < owners.length; i++) {

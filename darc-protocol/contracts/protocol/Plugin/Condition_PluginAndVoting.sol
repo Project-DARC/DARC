@@ -21,24 +21,24 @@ contract Condition_PluginAndVoting is MachineStateManager {
    * @param param The parameter list of the condition expression
    * @param id The id of the condition expression
    */
-  function pluginAndVotingOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool)
+  function pluginAndVotingOpExpressionCheck(bool bIsBeforeOperation, Operation memory op, NodeParam memory param, uint256 id) internal pure returns (bool)
   {
-    if (id == 301) return ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 302) return ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 303) return ID_303_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 304) return ID_304_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 305) return ID_305_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 306) return ID_306_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 307) return ID_307_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 308) return ID_308_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bIsBeforeOperation, op, param);
-    if (id == 309) return ID_309_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 310) return ID_310_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 311) return ID_311_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 312) return ID_312_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 313) return ID_313_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 314) return ID_314_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 315) return ID_315_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
-    if (id == 316) return ID_316_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bIsBeforeOperation, op, param);
+    if (id == 301) return ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 302) return ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 303) return ID_303_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 304) return ID_304_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 305) return ID_305_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 306) return ID_306_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 307) return ID_307_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 308) return ID_308_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(op, param);
+    if (id == 309) return ID_309_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 310) return ID_310_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 311) return ID_311_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 312) return ID_312_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 313) return ID_313_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 314) return ID_314_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 315) return ID_315_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(op, param);
+    if (id == 316) return ID_316_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(op, param);
     if (id == 317) return ID_317_ARE_ALL_PLUGINS_BEFORE_OPERATION(op);
     if (id == 318) return ID_318_ARE_ALL_PLUGINS_AFTER_OPERATION(op);
     if (id == 319) return ID_319_IS_ANY_PLUGIN_BEFORE_OPERATION(op);
@@ -63,7 +63,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
 
   // ---------------------- Plugin Condition ----------------------
 
-  function ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_301_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_301: The UINT_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_ENABLE_PLUGINS) return false;
@@ -78,7 +78,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_302_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_302: The UINT_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_ENABLE_PLUGINS) return false;
@@ -93,7 +93,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_303_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_303_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_303: The UINT_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_ENABLE_PLUGINS) return false;
@@ -110,7 +110,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_304_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_304_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_304: The UINT_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_ENABLE_PLUGINS) return false;
@@ -127,7 +127,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_305_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_305_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_305: The UINT_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_DISABLE_PLUGINS) return false;
@@ -142,7 +142,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_306_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_306_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_306: The UINT_256_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_DISABLE_PLUGINS) return false;
@@ -157,7 +157,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_307_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_307_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_307: The UINT_256_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_DISABLE_PLUGINS) return false;
@@ -174,7 +174,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_308_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_308_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_308: The UINT_256_2DARRAY length is not 1");
     if (op.opcode != EnumOpcode.BATCH_DISABLE_PLUGINS) return false;
@@ -191,7 +191,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_309_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_309_ENABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_309: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_309: The UINT_256_2DARRAY[0] length is not 2");
@@ -205,7 +205,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_310_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_310_ENABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_310: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_310: The UINT_256_2DARRAY[0] length is not 2");
@@ -219,7 +219,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_311_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_311_ENABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_311: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_311: The UINT_256_2DARRAY[0] length is not 2");
@@ -234,7 +234,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_312_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_312_ENABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_312: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_312: The UINT_256_2DARRAY[0] length is not 2");
@@ -249,7 +249,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_313_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_313_DISABLE_ANY_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_313: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_313: The UINT_256_2DARRAY[0] length is not 2");
@@ -263,7 +263,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_314_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_314_DISABLE_ANY_AFTER_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_314: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_314: The UINT_256_2DARRAY[0] length is not 2");
@@ -277,7 +277,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return false;
   }
 
-  function ID_315_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_315_DISABLE_EACH_BEFORE_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_315: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_315: The UINT_256_2DARRAY[0] length is not 2");
@@ -292,7 +292,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
     return true;
   }
 
-  function ID_316_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_316_DISABLE_EACH_AFTER_OP_PLUGIN_INDEX_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_316: The UINT_256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_316: The UINT_256_2DARRAY[0] length is not 2");
@@ -491,7 +491,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
    * The function to get the plugin index list of the before operation plugins
    * @param op The operation to be checked
    */
-  function getBeforeOpPluginIndexList(Operation memory op) internal view returns (uint256[] memory) {
+  function getBeforeOpPluginIndexList(Operation memory op) internal pure returns (uint256[] memory) {
     if (op.opcode == EnumOpcode.BATCH_ENABLE_PLUGINS || op.opcode == EnumOpcode.BATCH_DISABLE_PLUGINS) {
       uint256[] memory pluginIndexList = new uint256[](op.param.UINT256_2DARRAY[0].length);
       uint256 pt = 0;
@@ -514,7 +514,7 @@ contract Condition_PluginAndVoting is MachineStateManager {
    * The function to get the plugin index list of the after operation plugins
    * @param op The operation to be checked
    */
-  function getAfterOpPluginIndexList(Operation memory op) internal view returns (uint256[] memory) {
+  function getAfterOpPluginIndexList(Operation memory op) internal pure returns (uint256[] memory) {
     if (op.opcode == EnumOpcode.BATCH_ENABLE_PLUGINS || op.opcode == EnumOpcode.BATCH_DISABLE_PLUGINS) {
       uint256[] memory pluginIndexList = new uint256[](op.param.UINT256_2DARRAY[0].length);
       uint256 pt = 0;

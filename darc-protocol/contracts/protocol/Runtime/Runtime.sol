@@ -184,9 +184,15 @@ contract Runtime is Executable, PaymentCheck{
   function executePendingProgram(Program memory program) internal {
     //1. check if the program is valid
     require(validateExecutePendingProgram(program), "Invalid program");
+    require(votingItems[latestVotingItemIndex].bIsProgramExecuted == false, "The pending program has been executed, and should not be executed again.");
+
+    // change the state back to idle
+    finiteState = FiniteState.IDLE;
+
+    // change the latest voting item bIsProgramExecuted to true
+    votingItems[latestVotingItemIndex].bIsProgramExecuted = true;
 
     //2. execute the program(executing pending) directly, do not use execute() function
     executeProgram_Executable(votingItems[latestVotingItemIndex].program, false);
-
   }
 }
