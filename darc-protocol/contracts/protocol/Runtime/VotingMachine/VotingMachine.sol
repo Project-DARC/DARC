@@ -220,7 +220,8 @@ contract VotingMachine is MachineStateManager {
       }
     }
 
-
+    // after the vote, check if the voting period has ended
+    tryEndVotingBeforeVotingDeadline();
   }
 
   /**
@@ -260,12 +261,70 @@ contract VotingMachine is MachineStateManager {
   }
 
   /**
-   * @notice Try to end the voting period if the voting period has ended
-   * If vote is not passed after the voting deadline, change the finite state to IDLE;
-   * Otherwise, change the finite state to PENDING, and wait for the executing the pending program
+   * @notice Try to end the voting period if the voting period has not ended.
+   * This function is called before the voting deadline expires and every time a vote is casted.
+   * 1. If any abosolute majority vote is rejected, terminate the voting process
+   *   before the voting deadline and change the finite state to IDLE;
+   * 2. If all voting rules are absolute majority and passed, change the finite state to EXECUTING_PENDING;
    */
-  function endVoting() private {
-    require(block.timestamp >= currentVotingEndTime, "voting period has not ended");
+  function tryEndVotingBeforeVotingDeadline() internal {
+    // 1. go through all voting rules, check if any voting rule is absolute majority and rejected
+    for (uint256 i = 0; i < votingItems[latestVotingItemIndex].votingRuleIndices.length; i++) {
+      if (currentMachineState.votingRuleList[votingItems[latestVotingItemIndex].votingRuleIndices[i]].bIsAbsoluteMajority) {
+        // get the approval threshold percentage
+        uint256 threshold = currentMachineState.votingRuleList[votingItems[latestVotingItemIndex].votingRuleIndices[i]].approvalThresholdPercentage;
+
+        // calculate the total voting power
+        uint256 totalVotingPower = votingItems[latestVotingItemIndex].totalPower[i];
+
+        // get the current no votes
+        uint256 currentNo = votingItems[latestVotingItemIndex].powerNo[i];
+
+        // determine if the voting rule is rejected
+        bool bIsRejected = false;
+        if (currentNo * 100 > totalVotingPower * threshold) {
+          bIsRejected = true;
+        }
+
+        // if the voting rule is rejected, terminate the voting process and change the finite state to IDLE
+        if (bIsRejected) {
+          votingItems[latestVotingItemIndex].votingStatus = VotingStatus.Ended_AND_Failed;
+          finiteState = FiniteState.IDLE;
+          votingDeadline = 0;
+          executingPendingDeadline = 0;
+          return;
+        }
+      }
+    }
+
+    // 2. go through all voting rules, check if all voting rules are absolute majority and passed
+    bool[] memory bIsPassed = new bool[](votingItems[latestVotingItemIndex].votingRuleIndices.length);
+    for (uint256 i = 0; i < votingItems[latestVotingItemIndex].votingRuleIndices.length; i++) {
+
+      // if any of the voting is not absolute majority, just finish the function and return
+      if (!currentMachineState.votingRuleList[votingItems[latestVotingItemIndex].votingRuleIndices[i]].bIsAbsoluteMajority) {
+        return;
+      }
+
+      // now the i-th vote must be absolute majority.
+      // if any of the voting is not passed, just finish the function and return
+      if (checkVotingResult(i) != VotingStatus.Ended_AND_Passed) {
+        return;
+      }
+    }
+
+    // 3. OK, now all the voting rules are absolute majority and passed, change the finite state to EXECUTING_PENDING
+    finiteState = FiniteState.EXECUTING_PENDING;
+  }
+
+  /**
+   * @notice Try to check the final voting results and end the voting period if the voting period has ended
+   * This function is called after the voting deadline expires.
+   * 1. If any vote is not passed after the voting deadline, change the finite state to IDLE;
+   * 2. If all votes are passed after the voting deadline, change the finite state to EXECUTING_PENDING;
+   */
+  function tryEndVotingAfterVotingDeadline() internal {
+
     VotingStatus[] memory result = checkVotingResults();
     for (uint256 i = 0; i < result.length; i++) {
 

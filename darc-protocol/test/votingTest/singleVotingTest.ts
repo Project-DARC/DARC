@@ -17,12 +17,12 @@ const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 describe.only("single voting test", function () {
   it ("should pass single voting test", async function () {
 
-     const VotingTestBaseFactory = await ethers.getContractFactory("VotingTestBase");
+    //  const VotingTestBaseFactory = await ethers.getContractFactory("VotingTestBase");
 
-     const votingTestBase = await VotingTestBaseFactory.deploy();
-     await votingTestBase.deployed();
+    //  const votingTestBase = await VotingTestBaseFactory.deploy();
+    //  await votingTestBase.deployed();
 
-     await votingTestBase.initializeVotingTest();
+    //  await votingTestBase.initializeVotingTest();
     //return;
      //return;
     // //get 
@@ -155,7 +155,7 @@ describe.only("single voting test", function () {
     //await votingTestSingleTest.testExecute(program);
 
     // run a program, this will trigger a voting
-    await votingTestSingleTest.testExecute(program);
+    await votingTestSingleTest.testRuntimeEntrance(program);
 
     const result5 = await votingTestSingleTest.checkProgram_afterOp(program);
     console.log("result5: ", result5);
@@ -185,9 +185,13 @@ describe.only("single voting test", function () {
     const votingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
     console.log(votingItem);
 
+    // read the voting state:
+    const votingState = await votingTestSingleTest.finiteState();
+    console.log(votingState);
+    console.log(await votingTestSingleTest.votingDeadline());
     // vote 
     await votingTestSingleTest.testRuntimeEntrance(program_vote);
-
+    return;
     // read the voting result again
     const votingItem2 = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
     console.log(votingItem2);

@@ -94,13 +94,26 @@ contract Runtime is Executable, PaymentCheck{
     }
 
     // If the current state is voting but has reached the voting deadline, 
-    // terminate the voting and change to the execution pending state.abi
+    // try to end the voting and determine the next state
     else if (finiteState == FiniteState.VOTING 
     && block.timestamp >= votingDeadline 
     && block.timestamp < executingPendingDeadline) {
-      finiteState = FiniteState.EXECUTING_PENDING;
-      executeProgram(program);
-      return "The program is executed.";
+
+      // check if the voting is passed or rejected
+      tryEndVotingAfterVotingDeadline();
+
+      // if the current state is IDLE, just continue to execute the program
+      if (finiteState == FiniteState.IDLE) {
+        require(validateProgram(program), "The voting is rejected and now DARC is in idle state. The input program is not a valid program.");
+        executeProgram(program);
+        return "The program is executed.";
+      }
+
+      else if (finiteState == FiniteState.EXECUTING_PENDING) {
+        require(validateExecutePendingProgram(program), "The voting is passed and now DARC is in executing pending state. The input program is not a valid EXECUTE_PROGRAM to execute the pending program.");
+        executePendingProgram(program);
+        return "The pending program is executed after voting and approval.";
+      }
     }
 
     // If the current state is execution pending or voting but has reached the execution pending deadline,
@@ -108,7 +121,7 @@ contract Runtime is Executable, PaymentCheck{
     else if ( (finiteState == FiniteState.EXECUTING_PENDING || finiteState == FiniteState.VOTING)
     && block.timestamp >= executingPendingDeadline) {
       finiteState = FiniteState.IDLE;
-      require(validateExecutePendingProgram(program), "[Error 003]The program is not a valid execute pending program.");
+      require(validateProgram(program), "[Error 003]The program is not a valid program.");
       executeProgram(program);
       return "The program is executed.";
     }
@@ -119,7 +132,7 @@ contract Runtime is Executable, PaymentCheck{
   /**
    * @notice Check if current program is a valid program
    */
-  function validateProgram(Program memory program) internal view returns (bool) {
+  function validateProgram(Program memory program) internal pure returns (bool) {
     //1. check if the program is empty
     if (program.operations.length == 0) { return false; }
 
