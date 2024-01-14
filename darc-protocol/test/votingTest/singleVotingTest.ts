@@ -6,7 +6,7 @@ import { BigNumber } from "ethers";
 import { ConditionNodeStruct, ProgramStruct } from "../../typechain-types/contracts/protocol/DARC"
 
 
-const target0 = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
+const target0 = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
 const target1 = '0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC';
 
@@ -71,8 +71,8 @@ describe.only("single voting test", function () {
     await votingTestSingleTest.addVotingRule({
       votingTokenClassList: [BigNumber.from(0)],
       approvalThresholdPercentage: BigNumber.from(50),
-      votingDurationInSeconds: BigNumber.from(1000),
-      executionPendingDurationInSeconds: BigNumber.from(1000),
+      votingDurationInSeconds: BigNumber.from(100000),
+      executionPendingDurationInSeconds: BigNumber.from(100000),
       bIsEnabled: true,
       notes: "50% to approve in relative majority",
       bIsAbsoluteMajority: false,
@@ -128,28 +128,28 @@ describe.only("single voting test", function () {
       }], 
     };
     
-    const result1 = await votingTestSingleTest.checkProgram_afterOp(program);
-    const result2 = await votingTestSingleTest.checkProgram_beforeOp(program);
-    console.log("result1: ", result1);
-    console.log("result2: ", result2);
+    // const result1 = await votingTestSingleTest.checkProgram_afterOp(program);
+    // const result2 = await votingTestSingleTest.checkProgram_beforeOp(program);
+    // console.log("result1: ", result1);
+    // console.log("result2: ", result2);
 
-    // check after-op result
-    const result = await votingTestSingleTest.checkProgram_afterOp(program);
-    await votingTestSingleTest.testCloneStateToSandbox();
+    // // check after-op result
+    // const result = await votingTestSingleTest.checkProgram_afterOp(program);
+    // await votingTestSingleTest.testCloneStateToSandbox();
     
-    // get balance of target0 at level 0
-    const balance0 = await votingTestSingleTest.getTokenOwnerBalance(0,target0);
+    // // get balance of target0 at level 0
+    // const balance0 = await votingTestSingleTest.getTokenOwnerBalance(0,target0);
 
-    console.log("balance0: ", balance0.toString());
+    // console.log("balance0: ", balance0.toString());
    
-    const result3 = await votingTestSingleTest.checkProgram_afterOp(program);
-    console.log("result3: ", result3);
+    // const result3 = await votingTestSingleTest.checkProgram_afterOp(program);
+    // console.log("result3: ", result3);
      
-    // now run in sandbox
-    await votingTestSingleTest.runProgramDirectly(program, true);
+    // // now run in sandbox
+    // await votingTestSingleTest.runProgramDirectly(program, true);
     
-    const result4 = await votingTestSingleTest.checkProgram_afterOp(program);
-    console.log("result4: ", result4);
+    // const result4 = await votingTestSingleTest.checkProgram_afterOp(program);
+    // console.log("result4: ", result4);
 
 
     //await votingTestSingleTest.testExecute(program);
@@ -157,8 +157,8 @@ describe.only("single voting test", function () {
     // run a program, this will trigger a voting
     await votingTestSingleTest.testRuntimeEntrance(program);
 
-    const result5 = await votingTestSingleTest.checkProgram_afterOp(program);
-    console.log("result5: ", result5);
+    // const result5 = await votingTestSingleTest.checkProgram_afterOp(program);
+    // console.log("result5: ", result5);
 
     // try to vote now
     const program_vote: ProgramStruct = {
@@ -179,18 +179,34 @@ describe.only("single voting test", function () {
         }
       }],
     }
-
+    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
     // read the voting result
-    const votingItemIndex = 1;
+    const votingItemIndex = 2;
     const votingItem = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);
     console.log(votingItem);
 
     // read the voting state:
     const votingState = await votingTestSingleTest.finiteState();
-    console.log(votingState);
+    console.log("The voting state is ", votingState);
     console.log(await votingTestSingleTest.votingDeadline());
     // vote 
-    await votingTestSingleTest.testRuntimeEntrance(program_vote);
+    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
+    await votingTestSingleTest.testRuntimeEntrance(program_vote).then(async (tx) => {
+      console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
+      // console log the voting state again
+      console.log("After vote, the voting state is ", await votingTestSingleTest.finiteState());
+      console.log("After vote, the voting deadline is ", await votingTestSingleTest.votingDeadline());
+      console.log(await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex));
+    });
+
+    // console log the voting state again
+    console.log("After vote, the voting state is ", await votingTestSingleTest.finiteState());
+    console.log("After vote, the voting deadline is ", await votingTestSingleTest.votingDeadline());
+    console.log("Voting Item 1")
+    console.log(await votingTestSingleTest.getVotingItemsByIndex(1));
+    console.log("Voting Item 2")
+    console.log(await votingTestSingleTest.getVotingItemsByIndex(2));
+    console.log("The latest voting index is ", (await votingTestSingleTest.latestVotingItemIndex()).toString());
     return;
     // read the voting result again
     const votingItem2 = await votingTestSingleTest.getVotingItemsByIndex(votingItemIndex);

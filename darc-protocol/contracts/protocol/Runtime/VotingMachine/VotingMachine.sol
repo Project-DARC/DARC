@@ -355,7 +355,7 @@ contract VotingMachine is MachineStateManager {
    * @param votingRuleIndices the voting rule indices
    */
   function minVotingDurationInSeconds(uint256[] memory votingRuleIndices) private view returns (uint256){
-    uint256 minDuration = 0;
+    uint256 minDuration =  2**256 - 1; // the largest uint256
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
       if ( currentMachineState.votingRuleList[votingRuleIndices[i]].votingDurationInSeconds < minDuration) {
         minDuration = currentMachineState.votingRuleList[votingRuleIndices[i]].votingDurationInSeconds;
@@ -369,7 +369,7 @@ contract VotingMachine is MachineStateManager {
    * @param votingRuleIndices   the voting rule indices
    */
   function minExecutePendingProgramDurationInSeconds(uint256[] memory votingRuleIndices) private view returns (uint256){
-    uint256 minDuration = 0;
+    uint256 minDuration =  2**256 - 1; // the largest uint256
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
       if (currentMachineState.votingRuleList[votingRuleIndices[i]].executionPendingDurationInSeconds < minDuration) {
         minDuration = currentMachineState.votingRuleList[votingRuleIndices[i]].executionPendingDurationInSeconds;
