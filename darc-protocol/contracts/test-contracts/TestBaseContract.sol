@@ -35,6 +35,10 @@ contract TestBaseContract is Runtime, Dashboard {
     }
   }
 
+  function getVoterPowerOfVotingRule(uint256 votingRuleIndex, address voterAddress) public view returns (uint256) {
+    return powerOf(voterAddress, votingRuleIndex);
+  }
+
   function helper_createToken0AndMint() public {
     // create a token class first
     currentMachineState.tokenList[0].bIsInitialized = true;

@@ -200,15 +200,16 @@ contract VotingMachine is MachineStateManager {
     // update the voted status
     bool bIsValid = false;
     for (uint256 i = 0; i < votes.length; i++) {
+      uint256 votingRuleIndex = votingItems[latestVotingItemIndex].votingRuleIndices[i];
       if (votes[i]) {
         (bIsValid, votingItems[latestVotingItemIndex].powerYes[i]) = SafeMathUpgradeable.tryAdd(
           votingItems[latestVotingItemIndex].powerYes[i], 
-          powerOf(voter, i));
+          powerOf(voter, votingRuleIndex));
         require(bIsValid, "voting for powerYes overflow");
       } else {
         (bIsValid, votingItems[latestVotingItemIndex].powerNo[i]) = SafeMathUpgradeable.tryAdd(
           votingItems[latestVotingItemIndex].powerNo[i], 
-          powerOf(voter, i));
+          powerOf(voter, votingRuleIndex));
         require(bIsValid, "voting for powerNo overflow");
       }
     }
@@ -226,7 +227,7 @@ contract VotingMachine is MachineStateManager {
    * @param voter The address of the voter
    * @param currentVotingRuleIdx The index of the current voting item
    */
-  function powerOf(address voter, uint256 currentVotingRuleIdx) private view returns (uint256){
+  function powerOf(address voter, uint256 currentVotingRuleIdx) internal view returns (uint256){
     uint256 totalPower = 0;
     bool bIsValid = false;
     uint256 power = 0;
@@ -236,11 +237,14 @@ contract VotingMachine is MachineStateManager {
 
     // iterate through all token class index, sum up the power of the voter
     for (uint256 tokenClassIdx = 0; tokenClassIdx < currentVotingRule.votingTokenClassList.length; tokenClassIdx++) {
+
+      // current token class
+      uint256 currentTokenClass = currentVotingRule.votingTokenClassList[tokenClassIdx];
       // get the number of token
-      uint256 numberOfTokens = currentMachineState.tokenList[tokenClassIdx].tokenBalance[voter];
+      uint256 numberOfTokens = currentMachineState.tokenList[currentTokenClass].tokenBalance[voter];
 
       // get the voting weight
-      uint256 weight = currentMachineState.tokenList[tokenClassIdx].votingWeight;
+      uint256 weight = currentMachineState.tokenList[currentTokenClass].votingWeight;
 
       // get the power of voter for this token class = number of tokens * voting weight
       (bIsValid, power) = SafeMathUpgradeable.tryMul(numberOfTokens, weight);
@@ -250,7 +254,7 @@ contract VotingMachine is MachineStateManager {
       (bIsValid, totalPower) = SafeMathUpgradeable.tryAdd(totalPower, power);
       require(bIsValid, "total power overflow");
     }
-    return power;
+    return totalPower;
   }
 
   /**

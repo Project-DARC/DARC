@@ -14,7 +14,7 @@ const target2 = '0x90F79bf6EB2c4f870365E785982E1f101E93b906';
 
 const target3 = '0x870526b7973b56163a6997bb7c886f5e4ea53638';
 
-describe.only("single voting netative test", function () {
+describe("single voting netative test", function () {
   it ("should pass single voting netative test: start an absolute majority vote, vote once, reject the vote, then change back to idle state", async function () {
     const VotingTestFactory = await ethers.getContractFactory("TestBaseContract");
     const votingTestSingleTest = await VotingTestFactory.deploy();
