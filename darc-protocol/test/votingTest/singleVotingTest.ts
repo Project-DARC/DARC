@@ -48,14 +48,14 @@ describe("single voting test", function () {
       }]
     });
 
-    // add a voting rule that ask 50% to approve in relative majority
+    // add a voting rule that ask 50% to approve in absolute majority
     await votingTestSingleTest.addVotingRule({
       votingTokenClassList: [BigNumber.from(0)],
       approvalThresholdPercentage: BigNumber.from(50),
       votingDurationInSeconds: BigNumber.from(1000),
       executionPendingDurationInSeconds: BigNumber.from(1000),
       bIsEnabled: true,
-      notes: "50% to approve in relative majority",
+      notes: "50% to approve in absolute majority",
       bIsAbsoluteMajority: true,
     }, false);
 

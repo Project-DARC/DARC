@@ -92,7 +92,7 @@ contract VotingMachine is MachineStateManager {
   /**
    * @notice determine if the current state is in the voting period
    */
-  function isVotingProcesss() private view returns (bool) {
+  function isVotingProcesss() internal view returns (bool) {
     return finiteState == FiniteState.VOTING;
   } 
 
@@ -354,6 +354,11 @@ contract VotingMachine is MachineStateManager {
   function minVotingDurationInSeconds(uint256[] memory votingRuleIndices) private view returns (uint256){
     uint256 minDuration =  2**256 - 1; // the largest uint256
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
+
+      // the voting rule index must be valid, less than the length of the voting rule list
+      // if the voting rule index is invalid, throw exception with index and voting rule list length
+      require(votingRuleIndices[i] < currentMachineState.votingRuleList.length, 
+        "voting rule index out of range");
       if ( currentMachineState.votingRuleList[votingRuleIndices[i]].votingDurationInSeconds < minDuration) {
         minDuration = currentMachineState.votingRuleList[votingRuleIndices[i]].votingDurationInSeconds;
       }
@@ -368,6 +373,11 @@ contract VotingMachine is MachineStateManager {
   function minExecutePendingProgramDurationInSeconds(uint256[] memory votingRuleIndices) private view returns (uint256){
     uint256 minDuration =  2**256 - 1; // the largest uint256
     for (uint256 i = 0; i < votingRuleIndices.length; i++) {
+
+      // the voting rule index must be valid, less than the length of the voting rule list
+      // if the voting rule index is invalid, throw exception with index and voting rule list length
+      require(votingRuleIndices[i] < currentMachineState.votingRuleList.length, 
+        "voting rule index out of range");
       if (currentMachineState.votingRuleList[votingRuleIndices[i]].executionPendingDurationInSeconds < minDuration) {
         minDuration = currentMachineState.votingRuleList[votingRuleIndices[i]].executionPendingDurationInSeconds;
       }
@@ -417,11 +427,12 @@ contract VotingMachine is MachineStateManager {
    * return Ended_AND_Passed if the voting is ended and passed
    * return Ended_AND_Failed if the voting is ended and failed
    * No "OnGoing" state because the voting machine will check this function to change the state
-   * @param idx the index of the voting rule
+   * @param idx the index of voting item(which can be the voting rule index's index, or also the index of powerYes, powerNo, totalPower's index)
    */
   function checkVotingResult(uint256 idx) internal view returns (VotingStatus) {
     bool bIsValid = false;
-    uint256 threshold = currentMachineState.votingRuleList[idx].approvalThresholdPercentage;
+    uint256 votingRuleIndex = votingItems[latestVotingItemIndex].votingRuleIndices[idx];
+    uint256 threshold = currentMachineState.votingRuleList[votingRuleIndex].approvalThresholdPercentage;
     uint256 currentYes = votingItems[latestVotingItemIndex].powerYes[idx];
     uint256 currentNo = votingItems[latestVotingItemIndex].powerNo[idx];
     uint256 totalVotingPower = votingItems[latestVotingItemIndex].totalPower[idx];
@@ -431,7 +442,7 @@ contract VotingMachine is MachineStateManager {
     // then currentYes / totalVotingPower > threshold % will pass the voting
     uint256 leftValue = 0;
     uint256 rightValue = 0;
-    if (currentMachineState.votingRuleList[idx].bIsAbsoluteMajority){
+    if (currentMachineState.votingRuleList[votingRuleIndex].bIsAbsoluteMajority){
       // currentYes * 100 > totalVotingPower * threshold
       (bIsValid, leftValue) = SafeMathUpgradeable.tryMul(currentYes, 100);
       require(bIsValid, "currentYes overflow");

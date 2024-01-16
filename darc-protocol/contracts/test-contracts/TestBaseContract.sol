@@ -27,6 +27,37 @@ contract TestBaseContract is Runtime, Dashboard {
     cloneStateToSandbox();
   }
 
+  function voteTest(address voter, bool[] memory votes) public{
+    require(isVotingProcesss(), "voting is not in progress");
+    require(!voted[voter][latestVotingItemIndex], "voter has already voted");
+    require(votes.length == votingItems[latestVotingItemIndex].votingRuleIndices.length,
+     "the number of votes does not match the number of policies");
+
+    // set the boolean voted to true
+    voted[voter][latestVotingItemIndex] = true;
+
+    // update the voted status
+    bool bIsValid = false;
+    for (uint256 i = 0; i < votes.length; i++) {
+      uint256 votingRuleIndex = votingItems[latestVotingItemIndex].votingRuleIndices[i];
+      if (votes[i]) {
+        (bIsValid, votingItems[latestVotingItemIndex].powerYes[i]) = SafeMathUpgradeable.tryAdd(
+          votingItems[latestVotingItemIndex].powerYes[i], 
+          powerOf(voter, votingRuleIndex));
+        require(bIsValid, "voting for powerYes overflow");
+      } else {
+        (bIsValid, votingItems[latestVotingItemIndex].powerNo[i]) = SafeMathUpgradeable.tryAdd(
+          votingItems[latestVotingItemIndex].powerNo[i], 
+          powerOf(voter, votingRuleIndex));
+        require(bIsValid, "voting for powerNo overflow");
+      }
+    }
+
+    // after the vote, check if the voting period has ended
+    tryEndVotingBeforeVotingDeadline();
+
+  }
+
   function addVotingRule(VotingRule memory votingRule, bool bIsSandbox) public {
     if (bIsSandbox) {
       sandboxMachineState.votingRuleList.push(votingRule);

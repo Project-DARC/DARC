@@ -121,14 +121,14 @@ describe("multi address voting test", function () {
       }], 
     }, false);
 
-    // add a voting rule that ask 51% to approve in relative majority
+    // add a voting rule that ask 51% to approve in absolute majority
     await votingTestSingleTest.addVotingRule({
       votingTokenClassList: [BigNumber.from(1)],
       approvalThresholdPercentage: BigNumber.from(51), // 51% to approve  (absolute majority)
       votingDurationInSeconds: BigNumber.from(1000),
       executionPendingDurationInSeconds: BigNumber.from(1000),
       bIsEnabled: true,
-      notes: "50% to approve in relative majority",
+      notes: "50% to approve in absolute majority",
       bIsAbsoluteMajority: true,
     }, false);
 
