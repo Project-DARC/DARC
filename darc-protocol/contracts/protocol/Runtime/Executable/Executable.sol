@@ -47,7 +47,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
       executeProgram_Executable(currentProgram, true);
       // 2.2 check if the program can pass the after operation plugins in current machine state
       (EnumReturnType afterReturnType, uint256[] memory afterRuleIdxList) = checkAfterOperationPlugins(currentProgram);
-
+      //return; // checkpoint 2 all right
       // 2.3 If the program is invalid, revert the transaction
       if (afterReturnType == EnumReturnType.NO) {
         revert("The program is denied by the plugin system");
@@ -55,7 +55,7 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
 
       // 2.4 If the program is voting needed, initialize the voting machine
       else if (afterReturnType == EnumReturnType.VOTING_NEEDED){
-        this.initializeVoting(afterRuleIdxList, currentProgram);
+        initializeVoting(afterRuleIdxList, currentProgram);
       }
 
       // 2.5 If the program is approved, just execute and end

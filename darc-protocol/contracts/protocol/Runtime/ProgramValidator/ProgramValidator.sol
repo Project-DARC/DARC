@@ -37,5 +37,48 @@ library ProgramValidator{
     return true;
   }
 
+  /**
+   * Returns true if the program is a valid vote program
+   * 1. There is only one operation in the program
+   * 2. The operation is a vote operation
+   * @param currentProgram The program to be validated
+   */
+  function validateVoteProgram(Program memory currentProgram) internal pure returns (bool) {
+    //1. check if the program is empty
+    if (currentProgram.operations.length != 1) { return false; }
+    return validate_ID_32_VOTE(currentProgram.operations[0]);
+  }
+
+  /**
+   * Returns true if the program is a valid execute pending program
+   * 1. There is only one operation in the program
+   * 2. The operation is a execute pending operation: ExecutePendingProgram
+   * @param currentProgram The program to be validated
+   */
+  function validateExecutePendingProgram(Program memory currentProgram) internal pure returns (bool) {
+    //1. check if the program is empty
+    if (currentProgram.operations.length != 1) { return false; }
+    return validate_ID_33_EXECUTE_PENDING_PROGRAM(currentProgram.operations[0]);
+  }
+
+
+  //----------------- validate each operation -----------------
+
+  function validate_ID_32_VOTE(Operation memory op) internal pure returns (bool) {
+    if (op.opcode != EnumOpcode.VOTE) { return false; }
+    if (op.param.UINT256_2DARRAY.length != 0) { return false; }
+    if (op.param.ADDRESS_2DARRAY.length != 0) { return false; }
+    if (op.param.STRING_ARRAY.length != 0) { return false; }
+    return true;
+  }
+
+  function validate_ID_33_EXECUTE_PENDING_PROGRAM(Operation memory op) internal pure returns (bool) {
+    if (op.opcode != EnumOpcode.EXECUTE_PENDING_PROGRAM) { return false; }
+    if (op.param.UINT256_2DARRAY.length != 0) { return false; }
+    if (op.param.ADDRESS_2DARRAY.length != 0) { return false; }
+    if (op.param.STRING_ARRAY.length != 0) { return false; }
+    return true;
+  }
+
 
 }

@@ -300,7 +300,7 @@ enum EnumOpcode {
    * @notice Execute a program that has been voted and approved
    * ID:33
    */
-  EXECUTE_PROGRAM,
+  EXECUTE_PENDING_PROGRAM,
 
   /**
    * @notice Emergency mode termination. Emergency agents cannot do anything after this operation

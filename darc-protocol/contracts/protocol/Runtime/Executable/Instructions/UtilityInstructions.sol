@@ -126,8 +126,8 @@ contract UtilityInstructions is MachineStateManager {
 
   }
 
-  function op_EXECUTE_PROGRAM(Operation memory operation, bool bIsSandbox) internal {
-
+  function op_EXECUTE_PENDING_PROGRAM(Operation memory operation, bool bIsSandbox) internal {
+    
   }
 
   function op_END_EMERGENCY(Operation memory operation, bool bIsSandbox) internal {

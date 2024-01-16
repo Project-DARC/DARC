@@ -44,6 +44,28 @@ enum EnumLogicalOperatorType {UNDEFINED, AND, OR, NOT }
  * 3. plugin Z, return type: NO, level 3
  * 
  * Then the return type of the operation is YES_AND_SKIP_SANDBOX.
+ * 
+ * 
+ * 
+ * ----------------------------------------------
+ * 
+  * For before operation plugins, here is the rule:
+  * 1. If the return type is YES_AND_SKIP_SANDBOX, then all the plugin level L%3 == 1, e.g. [1, 4, 7, 10, ...]
+  * 2. If the return type is SANDBOX_NEEDED, then all the plugin level L%3 == 2, e.g. [2, 5, 8, 11, ...]
+  * 3. If the return type is NO, then all the plugin level L%3 == 0, e.g. [3, 6, 9, 12, ...]
+  * 
+  * 
+  * ----------------------------------------------
+  * 
+  * For after operation plugins, here is the rule:
+  * 1. If the return type is YES, then all the plugin level L%3 == 1, e.g. [1, 4, 7, 10, ...]
+  * 2. If the return type is VOTING_NEEDED, then all the plugin level L%3 == 2, e.g. [2, 5, 8, 11, ...]
+  * 3. If the return type is NO, then all the plugin level L%3 == 0, e.g. [3, 6, 9, 12, ...]
+  * 
+  * ----------------------------------------------
+  * 
+  * If the return type is UNDEFINED, then just throw the error and revert the transaction
+  * 
  */
 enum EnumReturnType { 
 
@@ -167,7 +189,7 @@ struct VotingRule {
   /**
    * the voting policy is enabled or not
    */
-  bool isEnabled;
+  bool bIsEnabled;
 
   /**
    * the note of the voting policy

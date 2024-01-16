@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 
-import "../Runtime/Runtime.sol";
+import "../Runtime/Executable/Executable.sol";
 
 /**
  * @title DARC Dashboard
@@ -10,7 +10,7 @@ import "../Runtime/Runtime.sol";
  * which is used to read the machine state, including machine state, voting state,
  * token information, plugin information, etc.
  */
-contract Dashboard is MachineStateManager {
+contract Dashboard is Executable {
   
   /**
    * @notice The getter function of the machine state plugins
@@ -130,5 +130,23 @@ contract Dashboard is MachineStateManager {
    */
   function getCurrentDividendPerUnit() public view returns (uint256) {
     return currentDividendPerUnit(false);
+  }
+
+  /**
+   * Get all logs of DARC
+   */
+  function getDARClogs() public view returns (string[] memory) {
+    return DARClogs;
+  }
+
+  /**
+   * Get all voting items
+   */
+  function getVotingItemsByIndex(uint256 idx) public view returns (VotingItem memory) {
+    return votingItems[idx];
+  }
+
+  function getLatestVotingItemIndex() public view returns (uint256) {
+    return latestVotingItemIndex;
   }
 }
