@@ -90,7 +90,7 @@ contract PluginSystem is PluginFactory{
 
         //2.1.1 get the current plugin index and check the result
         (uint256 currentReturnLevel , EnumReturnType currentReturnType, uint256 currentVotingRuleIdx) = 
-          checkPluginForOperation(bIsBeforeOperation, currentProgram.operations[operationIndex], pluginIndex);
+          checkPluginForOperation(bIsBeforeOperation, currentProgram.operations[operationIndex], pluginIndex, currentProgram);
 
         //2.1.2 If current return level is higher than highest return level, 
         // update the highest return level and highest return type
@@ -231,12 +231,13 @@ contract PluginSystem is PluginFactory{
    * @param bIsBeforeOperation The flag of before operation
    * @param operation The operation idx to be checked
    * @param pluginIndex The index of the plugin to be checked
+   * @param program The program to be checked (for checking the program-related conditions, such as program length)
    * @return uint256  The return level of the plugin
    * @return EnumReturnType The return type of the plugin
    * @return uint256 The corresponding voting rule index of the plugin in current machine state (if not VOTING_NEEDED, return 0)
    */
-  function checkPluginForOperation(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) internal view returns (uint256, EnumReturnType, uint256) {
+  function checkPluginForOperation(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, Program memory program) internal view returns (uint256, EnumReturnType, uint256) {
     // simply return the entrance check(bIsBeforeOperation, operation, pluginIndex) from the Plugin Factory
-    return pluginCheck(bIsBeforeOperation, operation, pluginIndex);
+    return pluginCheck(bIsBeforeOperation, operation, pluginIndex, program);
   }
 } 

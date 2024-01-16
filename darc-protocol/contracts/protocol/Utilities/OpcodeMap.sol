@@ -54,47 +54,4 @@ library OpcodeMap{
     if (opcode == EnumOpcode.UPGRADE_TO_THE_LATEST) return 37;
     return 0;
   }
-
-  /**
-   * @notice Translate from EnumOpcode value to corresponding opcode string
-   * @param opcode opcode enum
-   */
-  function opcodeStr(EnumOpcode opcode) public pure returns (string memory) {
-    if (opcode == EnumOpcode.UNDEFINED) return "UNDEFINED";
-    if (opcode == EnumOpcode.BATCH_MINT_TOKENS) return "BATCH_MINT_TOKENS";
-    if (opcode == EnumOpcode.BATCH_CREATE_TOKEN_CLASSES) return "BATCH_CREATE_TOKEN_CLASSES";
-    if (opcode == EnumOpcode.BATCH_TRANSFER_TOKENS) return "BATCH_TRANSFER_TOKENS";
-    if (opcode == EnumOpcode.BATCH_TRANSFER_TOKENS_FROM_TO) return "BATCH_TRANSFER_TOKENS_FROM_TO";
-    if (opcode == EnumOpcode.BATCH_BURN_TOKENS) return "BATCH_BURN_TOKENS";
-    if (opcode == EnumOpcode.BATCH_BURN_TOKENS_FROM) return "BATCH_BURN_TOKENS_FROM";
-    if (opcode == EnumOpcode.BATCH_ADD_MEMBERSHIP) return "BATCH_ADD_MEMBERSHIP";
-    if (opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIP) return "BATCH_SUSPEND_MEMBERSHIP";
-    if (opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIP) return "BATCH_RESUME_MEMBERSHIP";
-    if (opcode == EnumOpcode.BATCH_CHANGE_MEMBER_ROLES) return "BATCH_CHANGE_MEMBER_ROLES";
-    if (opcode == EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) return "BATCH_CHANGE_MEMBER_NAMES";
-    if (opcode == EnumOpcode.BATCH_ADD_PLUGINS) return "BATCH_ADD_PLUGINS";
-    if (opcode == EnumOpcode.BATCH_ENABLE_PLUGINS) return "BATCH_ENABLE_PLUGINS";
-    if (opcode == EnumOpcode.BATCH_DISABLE_PLUGINS) return "BATCH_DISABLE_PLUGINS";
-    if (opcode == EnumOpcode.BATCH_ADD_AND_ENABLE_PLUGINS) return "BATCH_ADD_AND_ENABLE_PLUGINS";
-    if (opcode == EnumOpcode.BATCH_SET_PARAMETERS) return "BATCH_SET_PARAMETERS";
-    if (opcode == EnumOpcode.BATCH_ADD_WITHDRAWABLE_BALANCES) return "BATCH_ADD_WITHDRAWABLE_BALANCES";
-    if (opcode == EnumOpcode.BATCH_REDUCE_WITHDRAWABLE_BALANCES) return "BATCH_REDUCE_WITHDRAWABLE_BALANCES";
-    if (opcode == EnumOpcode.BATCH_ADD_VOTING_RULES) return "BATCH_ADD_VOTING_RULES";
-    if (opcode == EnumOpcode.BATCH_PAY_TO_MINT_TOKENS) return "BATCH_PAY_TO_MINT_TOKENS";
-    if (opcode == EnumOpcode.BATCH_PAY_TO_TRANSFER_TOKENS) return "BATCH_PAY_TO_TRANSFER_TOKENS";
-    if (opcode == EnumOpcode.CALL_EMERGENCY) return "CALL_EMERGENCY";
-    if (opcode == EnumOpcode.RESERVED_ID_23) return "RESERVED_ID_23";
-    if (opcode == EnumOpcode.CALL_EMERGENCY) return "CALL_EMERGENCY";
-    if (opcode == EnumOpcode.CALL_CONTRACT_ABI) return "CALL_CONTRACT_ABI";
-    if (opcode == EnumOpcode.PAY_CASH) return "PAY_CASH";
-    if (opcode == EnumOpcode.OFFER_DIVIDENDS) return "OFFER_DIVIDENDS";
-    if (opcode == EnumOpcode.RESERVED_ID_28) return "RESERVED_ID_28";
-    if (opcode == EnumOpcode.SET_APPROVAL_FOR_ALL_OPERATIONS) return "SET_APPROVAL_FOR_ALL_OPERATIONS";
-    if (opcode == EnumOpcode.BATCH_BURN_TOKENS_AND_REFUND) return "BATCH_BURN_TOKENS_AND_REFUND";
-    if (opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) return "ADD_STORAGE_IPFS_HASH";
-    if (opcode == EnumOpcode.VOTE) return "VOTE";
-    if (opcode == EnumOpcode.EXECUTE_PENDING_PROGRAM) return "EXECUTE_PENDING_PROGRAM";
-
-    return "UNDEFINED";
-  }
 }
