@@ -52,53 +52,37 @@ contract TokenOwnerListManager is MachineStateManager {
       // 2. Check if the token owner list contains any address in the addOwnerList, 
       // if any address in the addOwnerList is not in the token owner list, 
       // and the balance of this address is not zero, then just add it to the toAdd list
-      for (uint256 index; index < addOwnerList.length;) {
+      for (uint256 index; index < addOwnerList.length;index++) {
         if ((!tokenOwnerListContainsKeyAddress(bIsSandbox, tokenLevel, addOwnerList[index]))
           && (sandboxMachineState.tokenList[tokenLevel].tokenBalance[addOwnerList[index]] > 0)
          ) {
           toAdd[toAddIndex] = addOwnerList[index];
           toAddIndex++;
         }
-
-        unchecked {
-          ++index;
-        }
       }
 
       // 3. Check if the addresses in removeOwnerList are with zero balance,
       // and if so, add them to the toRemove list
-      for (uint256 index; index < removeOwnerList.length;) {
+      for (uint256 index; index < removeOwnerList.length;index++) {
         if (sandboxMachineState.tokenList[tokenLevel].tokenBalance[removeOwnerList[index]] == 0) {
           toRemove[toRemoveIndex] = removeOwnerList[index];
           toRemoveIndex++;
-        }
-        
-        unchecked {
-          ++index;
         }
       }
 
       //4. construct the final list with all items from toRemove removed and all items from toAdd added
       address[] memory finalList = new address[](sandboxMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt;
-      for (uint256 index; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length;) {
+      for (uint256 index; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length;index++) {
         if (!ArrayUtils.inArray(toRemove, sandboxMachineState.tokenList[tokenLevel].ownerList[index])) {
           finalList[pt] = sandboxMachineState.tokenList[tokenLevel].ownerList[index];
           pt++;
         }
-
-        unchecked {
-          ++index;
-        }
       }
 
-      for (uint256 index; index < toAddIndex;) {
+      for (uint256 index; index < toAddIndex;index++) {
         finalList[pt] = toAdd[index];
         pt++;
-
-        unchecked {
-          ++index;
-        }
       }
 
       // 5. Update the token owner list
@@ -115,53 +99,37 @@ contract TokenOwnerListManager is MachineStateManager {
       // 2. Check if the token owner list contains any address in the addOwnerList, 
       // if any address in the addOwnerList is not in the token owner list, 
       // and the balance of this address is not zero, then just add it to the toAdd list
-      for (uint256 index; index < addOwnerList.length;) {
+      for (uint256 index; index < addOwnerList.length;index++) {
         if ((!tokenOwnerListContainsKeyAddress(bIsSandbox, tokenLevel, addOwnerList[index]))
           && (currentMachineState.tokenList[tokenLevel].tokenBalance[addOwnerList[index]] > 0)
         ) {
           toAdd[toAddIndex] = addOwnerList[index];
           toAddIndex++;
         }
-
-        unchecked {
-          ++index;
-        }
       }
 
       // 3. Check if the addresses in removeOwnerList are with zero balance,
       // and if so, add them to the toRemove list
-      for (uint256 index; index < removeOwnerList.length;) {
+      for (uint256 index; index < removeOwnerList.length;index++) {
         if (currentMachineState.tokenList[tokenLevel].tokenBalance[removeOwnerList[index]] == 0) {
           toRemove[toRemoveIndex] = removeOwnerList[index];
           toRemoveIndex++;
-        }
-
-        unchecked {
-          ++index;
         }
       }
 
       //4. construct the final list with all items from toRemove removed and all items from toAdd added
       address[] memory finalList = new address[](currentMachineState.tokenList[tokenLevel].ownerList.length + toAddIndex);
       uint256 pt;
-      for (uint256 index; index < currentMachineState.tokenList[tokenLevel].ownerList.length;) {
+      for (uint256 index; index < currentMachineState.tokenList[tokenLevel].ownerList.length;index++) {
         if (!ArrayUtils.inArray(toRemove, currentMachineState.tokenList[tokenLevel].ownerList[index])) {
           finalList[pt] = currentMachineState.tokenList[tokenLevel].ownerList[index];
           pt++;
         }
-
-        unchecked {
-          ++index;
-        }
       }
 
-      for (uint256 index; index < toAddIndex;) {
+      for (uint256 index; index < toAddIndex;index++) {
         finalList[pt] = toAdd[index];
         pt++;
-
-        unchecked {
-          ++index;
-        }
       }
 
       // 5. Update the token owner list
@@ -177,24 +145,16 @@ contract TokenOwnerListManager is MachineStateManager {
    */
   function tokenOwnerListContainsKeyAddress(bool bIsSandbox, uint256 tokenLevel, address key) view internal returns (bool) {
     if (bIsSandbox) {
-      for (uint256 index; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length;) {
+      for (uint256 index; index < sandboxMachineState.tokenList[tokenLevel].ownerList.length;index++) {
         if (sandboxMachineState.tokenList[tokenLevel].ownerList[index] == key) {
           return true;
-        }
-
-        unchecked {
-          ++index;
         }
       }
       return false;
     } else {
-      for (uint256 index; index < currentMachineState.tokenList[tokenLevel].ownerList.length;) {
+      for (uint256 index; index < currentMachineState.tokenList[tokenLevel].ownerList.length;index++) {
         if (currentMachineState.tokenList[tokenLevel].ownerList[index] == key) {
           return true;
-        }
-
-        unchecked {
-          ++index;
         }
       }
       return false;

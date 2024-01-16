@@ -24,13 +24,9 @@ contract Dashboard is Executable {
    */
   function getNumberOfTokenClasses() public view returns (uint256) {
     uint256 i;
-    for (; i < currentMachineState.tokenList.length;) {
+    for (i=0; i < currentMachineState.tokenList.length; i++) {
       if (!currentMachineState.tokenList[i].bIsInitialized) {
         break;
-      }
-
-      unchecked {
-        ++i;
       }
     }
     return i;

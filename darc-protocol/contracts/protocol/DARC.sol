@@ -23,12 +23,9 @@ contract DARC is Runtime, Dashboard {
   function entrance(Program memory program) public payable returns (string memory) {
     require(program.programOperatorAddress == msg.sender, 
     string.concat(string.concat("Invalid program address. Msg.sender: ", StringUtils.toAsciiString(msg.sender)), string.concat(", and program operator address: ", StringUtils.toAsciiString(program.programOperatorAddress))));
-    for (uint256 opIdx; opIdx < program.operations.length;) {
+    for (uint256 opIdx; opIdx < program.operations.length;opIdx++) {
       require(program.operations[opIdx].operatorAddress == msg.sender, 
       string.concat(string.concat("Invalid program address. Msg.sender: ", StringUtils.toAsciiString(msg.sender)), string.concat(", and program operator address: ", StringUtils.toAsciiString(program.operations[opIdx].operatorAddress))));
-      unchecked {
-        ++opIdx;
-      }
     }
     return runtimeEntrance(program);
   }
@@ -58,24 +55,17 @@ contract DARC is Runtime, Dashboard {
     if (currentMachineState.withdrawableCashMap[msg.sender] == 0) {
       address[] memory newWithdrawableCashOwnerList = new address[](currentMachineState.withdrawableCashOwnerList.length);
       uint256 pt;
-      for (uint256 index; index < currentMachineState.withdrawableCashOwnerList.length;) {
+      for (uint256 index; index < currentMachineState.withdrawableCashOwnerList.length;index++) {
         if (currentMachineState.withdrawableCashOwnerList[index] != msg.sender) {
           newWithdrawableCashOwnerList[pt] = currentMachineState.withdrawableCashOwnerList[index];
           pt++;
-        }
-
-        unchecked {
-          ++index;
         }
       }
 
       // update the withdrawable cash owner list
       currentMachineState.withdrawableCashOwnerList = new address[](pt);
-      for (uint256 index; index < pt;) {
+      for (uint256 index; index < pt;index++) {
         currentMachineState.withdrawableCashOwnerList[index] = newWithdrawableCashOwnerList[index];
-        unchecked {
-          ++index;
-        }
       }
     }
 
@@ -111,24 +101,17 @@ contract DARC is Runtime, Dashboard {
       if (currentMachineState.withdrawableDividendMap[msg.sender] == 0) {
         address[] memory newWithdrawableDividendsOwnerList = new address[](currentMachineState.withdrawableDividendOwnerList.length);
         uint256 pt;
-        for (uint256 index; index < currentMachineState.withdrawableDividendOwnerList.length;) {
+        for (uint256 index; index < currentMachineState.withdrawableDividendOwnerList.length;index++) {
           if (currentMachineState.withdrawableDividendOwnerList[index] != msg.sender) {
             newWithdrawableDividendsOwnerList[pt] = currentMachineState.withdrawableDividendOwnerList[index];
             pt++;
-          }
-
-          unchecked {
-            ++index;
           }
         }
   
         // update the withdrawable cash owner list
         currentMachineState.withdrawableDividendOwnerList = new address[](pt);
-        for (uint256 index; index < pt;) {
+        for (uint256 index; index < pt;index++) {
           currentMachineState.withdrawableDividendOwnerList[index] = newWithdrawableDividendsOwnerList[index];
-          unchecked {
-            ++index;
-          }
         }
       }
 
