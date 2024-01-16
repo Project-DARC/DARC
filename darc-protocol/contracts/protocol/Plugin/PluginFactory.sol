@@ -19,11 +19,12 @@ contract PluginFactory is ConditionExpressionFactory{
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
    * @param operation The operation to be checked
    * @param pluginIndex The index of the plugin in the plugin system
+   * @param program The program to be checked (for checking the program-related conditions, such as program length)
    * @return uint256 The return level of the plugin
    * @return EnumReturnType The return type of the plugin
    * @return uint256 The index of the plugin in the plugin system (if not VOTING_NEEDED, return 0)
    */
-  function pluginCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex) internal view returns (uint256, EnumReturnType, uint256) {
+  function pluginCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, Program memory program) internal view returns (uint256, EnumReturnType, uint256) {
 
     // initialize the return value
     uint256 returnLevel = 0;
@@ -46,7 +47,7 @@ contract PluginFactory is ConditionExpressionFactory{
     }
     
     // start from expression condition root node idx = 0, recursively check the condition expression tree
-    bool bResult = checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, 0);
+    bool bResult = checkConditionExpressionNode(bIsBeforeOperation, operation, program, pluginIndex, 0);
 
     // if result is true, which means this plugin is triggered by current operation and machine state
     // return the return level, return type and voting rule index
@@ -71,11 +72,12 @@ contract PluginFactory is ConditionExpressionFactory{
    * @notice Check if the operation is valid by checking each condition node in the condition expression tree
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
    * @param operation The operation index to be checked
+   * @param program The program to be checked (for checking the program-related conditions, such as program length)
    * @param pluginIndex The index of the plugin in the plugin system
    * @param nodeIndex The index of the node in the condition expression tree
    * @return bool The return value of the condition node
    */
-  function checkConditionExpressionNode(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
+  function checkConditionExpressionNode(bool bIsBeforeOperation, Operation memory operation, Program memory program, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
     if (bIsBeforeOperation) {
       require(pluginIndex < currentMachineState.beforeOpPlugins.length, string.concat("Checking condition exp: plugin index out of range, plugin index: ", Strings.toString(pluginIndex)));
       require(nodeIndex < currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes.length, string.concat("Checking condition exp: node index out of range, plugin index: ", Strings.toString(pluginIndex), ", node index: ", Strings.toString(nodeIndex)));
@@ -105,7 +107,7 @@ contract PluginFactory is ConditionExpressionFactory{
     // if the node is a condition expression node, return the value from condition expression factory
     else if (nodeType == EnumConditionNodeType.EXPRESSION)
     { 
-      return conditionExpressionCheck(bIsBeforeOperation, operation, pluginIndex, nodeIndex);
+      return conditionExpressionCheck(bIsBeforeOperation, operation, program, pluginIndex, nodeIndex);
     }
 
     // if the node is Logic Operator (AND, OR, NOT, XOR), check the list of nodes
@@ -130,7 +132,7 @@ contract PluginFactory is ConditionExpressionFactory{
         uint256 val = bIsBeforeOperation? 
           currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i]:
           currentMachineState.afterOpPlugins[pluginIndex].conditionNodes[nodeIndex].childList[i];
-        bResultList[i] = checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, val);
+        bResultList[i] = checkConditionExpressionNode(bIsBeforeOperation, operation, program, pluginIndex, val);
       }
 
       // construct the result for each logical operator and return

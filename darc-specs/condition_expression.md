@@ -643,14 +643,14 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 598 | Placeholder598 |  |  |
 | 599 | Placeholder599 |  |  |
 | 600 | Placeholder600 |  |  |
-| 601 | Placeholder601 |  |  |
-| 602 | Placeholder602 |  |  |
-| 603 | Placeholder603 |  |  |
-| 604 | Placeholder604 |  |  |
-| 605 | Placeholder605 |  |  |
-| 606 | Placeholder606 |  |  |
-| 607 | Placeholder607 |  |  |
-| 608 | Placeholder608 |  |  |
+| 601 | PROGRAM_OP_LENGTH_GREATER_THAN | UINT256_2DARRAY[0][0] length ||
+| 602 | PROGRAM_OP_LENGTH_LESS_THAN | UINT256_2DARRAY[0][0] length ||
+| 603 | PROGRAM_OP_LENGTH_IN_RANGE | UINT256_2DARRAY[0][0] startLength, UINT256_2DARRAY[0][1] endLength ||
+| 604 | PROGRAM_OP_LENGTH_EQUALS | UINT256_2DARRAY[0][0] length ||
+| 605 | PROGRAM_CONTAINS_OP | UINT256_2DARRAY[0][0] opCode ||
+| 606 | PROGRAM_CONTAINS_OP_IN_LIST | UINT256_2DARRAY[0] opCodeList ||
+| 607 | PROGRAM_EVERY_OP_EQUALS | UINT256_2DARRAY[0][0] opCode ||
+| 608 | PROGRAM_EVERY_OP_IN_LIST | UINT256_2DARRAY[0] opCodeList ||
 | 609 | Placeholder609 |  |  |
 | 610 | Placeholder610 |  |  |
 | 611 | Placeholder611 |  |  |

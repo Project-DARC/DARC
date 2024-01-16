@@ -15,7 +15,7 @@ import "../Plugin.sol";
 
 contract Condition_MembershipOp is MachineStateManager { 
   /**
-   * The function to check the batch operation related condition expression
+   * The function to check the membership related condition expression
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
    * @param op The operation to be checked
    * @param param The parameter list of the condition expression

@@ -14,6 +14,7 @@ import "./Condition_MembershipOp.sol";
 import "./Condition_Withdrawable.sol";
 import "./Condition_TokenAndCash.sol";
 import "./Condition_CreateTokenClass.sol";
+import "./Condition_Program.sol";
 
 
 /**
@@ -24,18 +25,19 @@ import "./Condition_CreateTokenClass.sol";
 contract ConditionExpressionFactory is  
   Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting,
   Condition_MembershipOp, Condition_Withdrawable, Condition_TokenAndCash,
-  Condition_CreateTokenClass
+  Condition_CreateTokenClass, Condition_Program
 {
 
   /**
    * @notice The entrance of the condition expression factory contract
    * @param bIsBeforeOperation The flag to indicate if the plugin is before operation plugin
    * @param operation The operation index to be checked
+   * @param program The program to be checked (for checking the program-related conditions, such as program length)
    * @param pluginIndex The index of the plugin in the plugin system
    * @param nodeIndex The index of the condition expression node in the condition expression tree
    * @return bool The result of current condition expression 
    */
-  function conditionExpressionCheck(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
+  function conditionExpressionCheck(bool bIsBeforeOperation, Operation memory operation, Program memory program, uint256 pluginIndex, uint256 nodeIndex) internal view returns (bool) {
     // get current condition expression node
     uint256 exp = bIsBeforeOperation ?
      currentMachineState.beforeOpPlugins[pluginIndex].conditionNodes[nodeIndex].conditionExpression : 
@@ -62,7 +64,10 @@ contract ConditionExpressionFactory is
 
     if (exp >= 461 && exp <= 500) { return tokenAndCashExpressionCheck(bIsBeforeOperation, operation, param, exp);}
 
-    if (exp>=501) { return createTokenClassExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+    if (exp>=501 && exp <= 600) { return createTokenClassExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+
+    if (exp>=601) { return programExpressionCheck(program, param, exp); }
+
 
     // default:
     return false;

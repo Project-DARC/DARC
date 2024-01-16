@@ -64,8 +64,8 @@ contract PluginTest is Executable {
     return currentMachineState.afterOpPlugins;
   }
 
-  function checkConditionExpressionNodeResult(bool bIsBeforeOperation, Operation memory operation, uint256 pluginIndex, uint256 nodeIndex) public view returns (bool) {
-    return checkConditionExpressionNode(bIsBeforeOperation, operation, pluginIndex, nodeIndex);
+  function checkConditionExpressionNodeResult(bool bIsBeforeOperation, Operation memory operation, Program memory program, uint256 pluginIndex, uint256 nodeIndex) public view returns (bool) {
+    return checkConditionExpressionNode(bIsBeforeOperation, operation, program, pluginIndex, nodeIndex);
   }
 
   /**
