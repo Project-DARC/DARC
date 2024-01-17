@@ -8,6 +8,7 @@ import "../VotingMachine/VotingMachine.sol";
 // import openzeppelin upgradeable contracts safe math
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "./InstructionMachine.sol";
+import "../../Utilities/OpcodeMap.sol";
 
 
 /**
@@ -93,11 +94,76 @@ contract Executable is MachineStateManager, PluginSystem, VotingMachine, Instruc
   function executeProgram_Executable(Program memory program, bool bIsSandbox) internal {
 
     // 1. add each operation to the operation log
-
+    updateOperationLog(bIsSandbox, program);
+    
     // 2. go through each operation
     for (uint256 i = 0; i < program.operations.length; i++) {
       // 2.1 execute the operation
       executeOperation(program.operations[i], bIsSandbox);
     }
+  }
+
+  /**
+   * @notice Update the user's operation log and global operation log before executing the operation
+   * @param bIsSandbox the flag of sandbox
+   * @param program the program to be executed
+   */
+  function updateOperationLog(bool bIsSandbox, Program memory program) private {
+    if (bIsSandbox) {
+      // 1. search the operation log map to see if the program operator address is in the map
+      bool bIsInOperaionLopMapAddressList = false;
+      for (uint256 index; index < sandboxMachineState.operationLogMapAddressList.length;index++) {
+        if (sandboxMachineState.operationLogMapAddressList[index] == program.programOperatorAddress) {
+          bIsInOperaionLopMapAddressList = true;
+          break;
+        }
+      }
+
+      // 2. if the program operator address is not in the map, add it to the map
+      if (!bIsInOperaionLopMapAddressList) {
+        sandboxMachineState.operationLogMapAddressList.push(program.programOperatorAddress);
+      }
+
+      // 3. traverse each operation, update the user's operation log of current operator with the latest timestamp
+      for (uint256 index; index < program.operations.length;index++) {
+        uint256 opcodeVal = OpcodeMap.opcodeVal(program.operations[index].opcode);
+        sandboxMachineState.operationLogMap[program.programOperatorAddress].latestOperationTimestamp[opcodeVal] = block.timestamp;
+      }
+      
+      // 4. traverse each operation, update the global operation log with the latest timestamp
+      for (uint256 index; index < program.operations.length;index++) {
+        uint256 opcodeVal = OpcodeMap.opcodeVal(program.operations[index].opcode);
+        sandboxMachineState.globalOperationLog.latestOperationTimestamp[opcodeVal] = block.timestamp;
+      }
+    }
+    
+    else {
+      // 1. search the operation log map to see if the program operator address is in the map
+      bool bIsInOperaionLopMapAddressList = false;
+      for (uint256 index; index < currentMachineState.operationLogMapAddressList.length;index++) {
+        if (currentMachineState.operationLogMapAddressList[index] == program.programOperatorAddress) {
+          bIsInOperaionLopMapAddressList = true;
+          break;
+        }
+      }
+
+      // 2. if the program operator address is not in the map, add it to the map
+      if (!bIsInOperaionLopMapAddressList) {
+        currentMachineState.operationLogMapAddressList.push(program.programOperatorAddress);
+      }
+
+      // 3. traverse each operation, update the user's operation log of current operator with the latest timestamp
+      for (uint256 index; index < program.operations.length;index++) {
+        uint256 opcodeVal = OpcodeMap.opcodeVal(program.operations[index].opcode);
+        currentMachineState.operationLogMap[program.programOperatorAddress].latestOperationTimestamp[opcodeVal] = block.timestamp;
+      }
+      
+      // 4. traverse each operation, update the global operation log with the latest timestamp
+      for (uint256 index; index < program.operations.length;index++) {
+        uint256 opcodeVal = OpcodeMap.opcodeVal(program.operations[index].opcode);
+        currentMachineState.globalOperationLog.latestOperationTimestamp[opcodeVal] = block.timestamp;
+      }
+    }
+
   }
 }

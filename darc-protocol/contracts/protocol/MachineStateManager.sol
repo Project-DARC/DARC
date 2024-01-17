@@ -250,6 +250,9 @@ contract MachineStateManager {
         = currentMachineState.operationLogMap[currentMachineState.operationLogMapAddressList[i]];
     }
 
+    // 4.4 copy the overall operation log from current machine state to sandbox
+    sandboxMachineState.globalOperationLog = currentMachineState.globalOperationLog;
+
     // 5. Clone the machine state parameters
     sandboxMachineState.machineStateParameters = currentMachineState.machineStateParameters;
 

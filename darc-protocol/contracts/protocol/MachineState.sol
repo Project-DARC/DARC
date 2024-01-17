@@ -165,6 +165,12 @@ struct MachineState {
   address[] operationLogMapAddressList;
 
   /**
+   * The opearation log of all operators in the DARC protocol
+   * Any operation in the DARC protocol executed by any address will be recorded here
+   */
+  OperationLog globalOperationLog;
+
+  /**
    * The machine state parameters of the DARC protocol
    */
   MachineStateParameters machineStateParameters;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.19;
 /**
- * @title Condition of Operator
+ * @title Condition of Batch Operation
  * @author DARC Team
  * @notice All the condition expression functions related to Operator
  */
@@ -94,7 +94,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_211_BATCH_OP_SIZE_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_211_BATCH_OP_SIZE_GREATER_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_211: The UINT_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_211: The UINT_2DARRAY[0] length is not 1");
@@ -103,7 +103,7 @@ contract Condition_BatchOp is MachineStateManager {
     return batchSize > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_212_BATCH_OP_SIZE_LESS_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_212_BATCH_OP_SIZE_LESS_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_212: The UINT_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_212: The UINT_2DARRAY[0] length is not 1");
@@ -112,7 +112,7 @@ contract Condition_BatchOp is MachineStateManager {
     return batchSize < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_213_BATCH_OP_SIZE_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_213_BATCH_OP_SIZE_IN_RANGE(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_213: The UINT_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_213: The UINT_2DARRAY[0] length is not 2");
@@ -121,7 +121,7 @@ contract Condition_BatchOp is MachineStateManager {
     return batchSize >= param.UINT256_2DARRAY[0][0] && batchSize <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_214_BATCH_OP_SIZE_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_214_BATCH_OP_SIZE_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_214: The UINT_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_214: The UINT_2DARRAY[0] length is not 1");
@@ -130,7 +130,7 @@ contract Condition_BatchOp is MachineStateManager {
     return batchSize == param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_215_BATCH_OP_EACH_TARGET_ADDRESSES_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_215_BATCH_OP_EACH_TARGET_ADDRESSES_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_215: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_215: The ADDRESS_2DARRAY[0] length is not 1");
@@ -142,7 +142,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_216_BATCH_OP_EACH_TARGET_ADDRESSES_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_216_BATCH_OP_EACH_TARGET_ADDRESSES_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_216: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length >= 1, "CE ID_216: The ADDRESS_2DARRAY[0] length is not greater than 1");
@@ -161,7 +161,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_217_BATCH_OP_EACH_TARGET_ADDRESSES_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_217_BATCH_OP_EACH_TARGET_ADDRESSES_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_217: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_217: The UINT256_2DARRAY[0] length is not 1");
@@ -190,7 +190,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_218_BATCH_OP_ANY_TARGET_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_218_BATCH_OP_ANY_TARGET_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_218: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_218: The ADDRESS_2DARRAY[0] length is not 1");
@@ -202,7 +202,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_219_BATCH_OP_ANY_TARGET_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_219_BATCH_OP_ANY_TARGET_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_219: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length >= 1, "CE ID_219: The ADDRESS_2DARRAY[0] length is not greater than 1");
@@ -218,7 +218,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_220_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_220_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_220: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_220: The UINT256_2DARRAY[0] length is not 1");
@@ -245,7 +245,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_221_BATCH_OP_EACH_TARGET_ADDRESS_TO_ITSELF(Operation memory op) internal pure returns (bool)
+  function ID_221_BATCH_OP_EACH_TARGET_ADDRESS_TO_ITSELF(Operation memory op) private pure returns (bool)
   {
     (address[] memory targetAddressList, bool bIsValid) = getAllTargetAddress(op);
     if (!bIsValid) return false;
@@ -256,7 +256,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_222_BATCH_OP_ANY_TARGET_ADDRESS_TO_ITSELF(Operation memory op) internal pure returns (bool)
+  function ID_222_BATCH_OP_ANY_TARGET_ADDRESS_TO_ITSELF(Operation memory op) private pure returns (bool)
   {
     (address[] memory targetAddressList, bool bIsValid) = getAllTargetAddress(op);
     if (!bIsValid) return false;
@@ -267,7 +267,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_223_BATCH_OP_EACH_SOURCE_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_223_BATCH_OP_EACH_SOURCE_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_223: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_223: The ADDRESS_2DARRAY[0] length is not 1");
@@ -279,7 +279,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_224_BATCH_OP_EACH_SOURCE_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_224_BATCH_OP_EACH_SOURCE_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_224: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length >= 1, "CE ID_224: The ADDRESS_2DARRAY[0] length is not greater than 1");
@@ -298,7 +298,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_225_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_225_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_225: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_225: The UINT256_2DARRAY[0] length is not 1");
@@ -327,7 +327,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_226_BATCH_OP_ANY_SOURCE_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_226_BATCH_OP_ANY_SOURCE_ADDRESS_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_226: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_226: The ADDRESS_2DARRAY[0] length is not 1");
@@ -339,7 +339,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_227_BATCH_OP_ANY_SOURCE_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_227_BATCH_OP_ANY_SOURCE_ADDRESS_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_227: The ADDRESS_2DARRAY length is not 1");
     require(param.ADDRESS_2DARRAY[0].length >= 1, "CE ID_227: The ADDRESS_2DARRAY[0] length is not greater than 1");
@@ -355,7 +355,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_228_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_228_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_228: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_228: The UINT256_2DARRAY[0] length is not 1");
@@ -382,7 +382,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_229_BATCH_OP_EACH_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) internal pure returns (bool)
+  function ID_229_BATCH_OP_EACH_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) private pure returns (bool)
   {
     (address[] memory sourceAddressList, bool bIsValid) = getAllSourceAddress(op);
     if (!bIsValid) return false;
@@ -393,7 +393,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_230_BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) internal pure returns (bool)
+  function ID_230_BATCH_OP_ANY_SOURCE_ADDRESS_FROM_ITSELF(Operation memory op) private pure returns (bool)
   {
     (address[] memory sourceAddressList, bool bIsValid) = getAllSourceAddress(op);
     if (!bIsValid) return false;
@@ -404,7 +404,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_231_BATCH_OP_EACH_TOKEN_CLASS_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_231_BATCH_OP_EACH_TOKEN_CLASS_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_231: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_231: The UINT256_2DARRAY[0] length is not 1");
@@ -417,7 +417,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_232_BATCH_OP_EACH_TOKEN_CLASS_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_232_BATCH_OP_EACH_TOKEN_CLASS_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_232: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_232: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -436,7 +436,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_233_BATCH_OP_EACH_TOKEN_CLASS_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_233_BATCH_OP_EACH_TOKEN_CLASS_IN_RANGE(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_233: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_233: The UINT256_2DARRAY[0] length is not 2");
@@ -448,7 +448,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_234_BATCH_OP_EACH_TOKEN_CLASS_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_234_BATCH_OP_EACH_TOKEN_CLASS_GREATER_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_234: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_234: The UINT256_2DARRAY[0] length is not 1");
@@ -460,7 +460,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_235_BATCH_OP_EACH_TOKEN_CLASS_LESS_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_235_BATCH_OP_EACH_TOKEN_CLASS_LESS_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_235: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_235: The UINT256_2DARRAY[0] length is not 1");
@@ -472,7 +472,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_236_BATCH_OP_TOTAL_TOKEN_AMOUNT_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_236_BATCH_OP_TOTAL_TOKEN_AMOUNT_GREATER_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_236: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_236: The UINT256_2DARRAY[0] length is not 1");
@@ -485,7 +485,7 @@ contract Condition_BatchOp is MachineStateManager {
     return (totalAmount > param.UINT256_2DARRAY[0][0]);
   }
 
-  function ID_237_BATCH_OP_TOTAL_TOKEN_AMOUNT_LESS_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_237_BATCH_OP_TOTAL_TOKEN_AMOUNT_LESS_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_237: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_237: The UINT256_2DARRAY[0] length is not 1");
@@ -498,7 +498,7 @@ contract Condition_BatchOp is MachineStateManager {
     return (totalAmount < param.UINT256_2DARRAY[0][0]);
   }
 
-  function ID_238_BATCH_OP_TOTAL_TOKEN_AMOUNT_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_238_BATCH_OP_TOTAL_TOKEN_AMOUNT_IN_RANGE(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_238: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_238: The UINT256_2DARRAY[0] length is not 2");
@@ -511,7 +511,7 @@ contract Condition_BatchOp is MachineStateManager {
     return (totalAmount >= param.UINT256_2DARRAY[0][0] && totalAmount <= param.UINT256_2DARRAY[0][1]);
   }
 
-  function ID_239_BATCH_OP_TOTAL_TOKEN_AMOUNT_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_239_BATCH_OP_TOTAL_TOKEN_AMOUNT_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_239: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_239: The UINT256_2DARRAY[0] length is not 1");
@@ -524,7 +524,7 @@ contract Condition_BatchOp is MachineStateManager {
     return (totalAmount == param.UINT256_2DARRAY[0][0]);
   }
 
-  function ID_240_BATCH_OP_ANY_TOKEN_AMOUNT_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_240_BATCH_OP_ANY_TOKEN_AMOUNT_GREATER_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_240: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_240: The UINT256_2DARRAY[0] length is not 1");
@@ -536,7 +536,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_241_BATCH_OP_ANY_TOKEN_AMOUNT_LESS_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_241_BATCH_OP_ANY_TOKEN_AMOUNT_LESS_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_241: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_241: The UINT256_2DARRAY[0] length is not 1");
@@ -548,7 +548,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_242_BATCH_OP_ANY_TOKEN_AMOUNT_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_242_BATCH_OP_ANY_TOKEN_AMOUNT_IN_RANGE(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_242: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_242: The UINT256_2DARRAY[0] length is not 2");
@@ -560,7 +560,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_243_BATCH_OP_ANY_TOKEN_AMOUNT_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_243_BATCH_OP_ANY_TOKEN_AMOUNT_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_243: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_243: The UINT256_2DARRAY[0] length is not 1");
@@ -572,7 +572,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_244_BATCH_OP_ANY_TOKEN_CLASS_GREATER_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_244_BATCH_OP_ANY_TOKEN_CLASS_GREATER_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_244: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_244: The UINT256_2DARRAY[0] length is not 1");
@@ -584,7 +584,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_245_BATCH_OP_ANY_TOKEN_CLASS_LESS_THAN(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_245_BATCH_OP_ANY_TOKEN_CLASS_LESS_THAN(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_245: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_245: The UINT256_2DARRAY[0] length is not 1");
@@ -596,7 +596,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_246_BATCH_OP_ANY_TOKEN_CLASS_IN_RANGE(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_246_BATCH_OP_ANY_TOKEN_CLASS_IN_RANGE(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_246: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_246: The UINT256_2DARRAY[0] length is not 2");
@@ -608,7 +608,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_247_BATCH_OP_ANY_TOKEN_CLASS_EQUALS(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_247_BATCH_OP_ANY_TOKEN_CLASS_EQUALS(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_247: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_247: The UINT256_2DARRAY[0] length is not 1");
@@ -620,7 +620,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_248_BATCH_OP_ANY_TOKEN_CLASS_IN_LIST(Operation memory op, NodeParam memory param) internal pure returns (bool)
+  function ID_248_BATCH_OP_ANY_TOKEN_CLASS_IN_LIST(Operation memory op, NodeParam memory param) private pure returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_248: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_248: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -636,7 +636,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_249_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_249_BATCH_OP_EACH_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_249: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_249: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -675,7 +675,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_250_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_250_BATCH_OP_ANY_SOURCE_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_250: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_250: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -706,7 +706,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_251_BATCH_OP_EACH_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_251_BATCH_OP_EACH_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_251: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_251: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -745,7 +745,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_252_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_252_BATCH_OP_ANY_TARGET_ADDRESS_IN_MEMBER_ROLE_LIST(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_252: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length >= 1, "CE ID_252: The UINT256_2DARRAY[0] length is not greater than 1");
@@ -776,7 +776,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_253_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_253_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_253: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_253: The UINT256_2DARRAY[0] length is not 1");
@@ -795,7 +795,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_254_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_254_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_254: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_254: The UINT256_2DARRAY[0] length is not 1");
@@ -814,7 +814,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_255_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_255_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_255: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_255: The UINT256_2DARRAY[0] length is not 2");
@@ -833,7 +833,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_256_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_EQUALS(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_256_BATCH_OP_EACH_TARGET_ADDRESS_WITHDRAWABLE_CASH_EQUALS(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_256: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_256: The UINT256_2DARRAY[0] length is not 1");
@@ -852,7 +852,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_257_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_257_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_257: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_257: The UINT256_2DARRAY[0] length is not 1");
@@ -871,7 +871,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_258_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_258_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_258: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_258: The UINT256_2DARRAY[0] length is not 1");
@@ -890,7 +890,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_259_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_259_BATCH_OP_ANY_TARGET_ADDRESS_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_259: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_259: The UINT256_2DARRAY[0] length is not 2");
@@ -909,7 +909,7 @@ contract Condition_BatchOp is MachineStateManager {
     return false;
   }
 
-  function ID_260_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_260_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_260: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_260: The UINT256_2DARRAY[0] length is not 1");
@@ -931,7 +931,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_261_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_261_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_261: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_261: The UINT256_2DARRAY[0] length is not 1");
@@ -953,7 +953,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_262_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_262_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_262: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_262: The UINT256_2DARRAY[0] length is not 2");
@@ -975,7 +975,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_263_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_EQUALS(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_263_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_EQUALS(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_263: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_263: The UINT256_2DARRAY[0] length is not 1");
@@ -997,7 +997,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_264_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_264_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_264: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_264: The UINT256_2DARRAY[0] length is not 1");
@@ -1019,7 +1019,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_265_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_265_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_265: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_265: The UINT256_2DARRAY[0] length is not 1");
@@ -1041,7 +1041,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_266_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_266_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_266: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_266: The UINT256_2DARRAY[0] length is not 2");
@@ -1063,7 +1063,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_267_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_267_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_267: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_267: The UINT256_2DARRAY[0] length is not 1");
@@ -1087,7 +1087,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_268_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_268_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_268: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_268: The UINT256_2DARRAY[0] length is not 1");
@@ -1111,7 +1111,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_269_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_269_BATCH_OP_EACH_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_269: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_269: The UINT256_2DARRAY[0] length is not 2");
@@ -1135,7 +1135,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_270_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_270_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_270: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_270: The UINT256_2DARRAY[0] length is not 1");
@@ -1157,7 +1157,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_271_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_271_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_271: The UINT256_2DARRAY[0] length is not 1");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_271: The UINT256_2DARRAY length is not 1");
@@ -1183,7 +1183,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_272_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_272_BATCH_OP_ANY_TARGET_ADDRESS_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_272: The UINT256_2DARRAY[0] length is not 2");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_272: The UINT256_2DARRAY length is not 1");
@@ -1209,7 +1209,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_273_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_273_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_273: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_273: The UINT256_2DARRAY[0] length is not 1");
@@ -1234,7 +1234,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_274_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_274_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_274: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_274: The UINT256_2DARRAY[0] length is not 1");
@@ -1259,7 +1259,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_275_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_275_BATCH_OP_EACH_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 3, "CE ID_275: The UINT256_2DARRAY[0] length is not 3");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_275: The UINT256_2DARRAY length is not 1");
@@ -1284,7 +1284,7 @@ contract Condition_BatchOp is MachineStateManager {
     return true;
   }
 
-  function ID_276_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_276_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_GREATER_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_276: The UINT256_2DARRAY[0] length is not 2");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_276: The UINT256_2DARRAY length is not 1");
@@ -1312,7 +1312,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_277_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_277_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_LESS_THAN(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_277: The UINT256_2DARRAY[0] length is not 2");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_277: The UINT256_2DARRAY length is not 1");
@@ -1340,7 +1340,7 @@ contract Condition_BatchOp is MachineStateManager {
     }
   }
 
-  function ID_278_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) internal view returns (bool)
+  function ID_278_BATCH_OP_ANY_TARGET_ADDRESS_OWNS_TOKEN_X_IN_RANGE(bool bIsBeforeOperation, Operation memory op, NodeParam memory param) private view returns (bool)
   {
     require(param.UINT256_2DARRAY[0].length == 3, "CE ID_278: The UINT256_2DARRAY[0] length is not 3");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_278: The UINT256_2DARRAY length is not 1");
@@ -1382,7 +1382,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @return bool the flag to indicate if the operation is a batch operation
    * @return uint256 the batch size of the batch operation
    */
-  function getBatchSize(Operation memory op) internal pure returns (bool, uint256) {
+  function getBatchSize(Operation memory op) private pure returns (bool, uint256) {
     bool bIsBatchOp = isBatchOp(op);
     uint256 batchSize = 0;
     if (!bIsBatchOp) return (false, batchSize);
@@ -1417,7 +1417,7 @@ contract Condition_BatchOp is MachineStateManager {
  * @param op the operation to be checked
  * @return bool the flag to indicate if the operation is a batch operation
  */
-  function isBatchOp(Operation memory op) internal pure returns (bool) {
+  function isBatchOp(Operation memory op) private pure returns (bool) {
     if (op.opcode == EnumOpcode.BATCH_MINT_TOKENS) return true;
     if (op.opcode == EnumOpcode.BATCH_CREATE_TOKEN_CLASSES) return true;
     if (op.opcode == EnumOpcode.BATCH_TRANSFER_TOKENS) return true;
@@ -1448,7 +1448,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @param op the operation to be checked
    * @return bool the flag to indicate if the operation is a token operation
    */
-  function isTokenOp(Operation memory op) internal pure returns (bool) {
+  function isTokenOp(Operation memory op) private pure returns (bool) {
     if (op.opcode == EnumOpcode.BATCH_MINT_TOKENS) return true;
     if (op.opcode == EnumOpcode.BATCH_CREATE_TOKEN_CLASSES) return false; // batch create token classes is not a token operation
     if (op.opcode == EnumOpcode.BATCH_TRANSFER_TOKENS) return true;
@@ -1468,7 +1468,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @return address[] the target address list of the batch operation
    * @return bool the flag to indicate if the operation is a batch operation
    */
-  function getAllTargetAddress(Operation memory op) pure internal returns (address[] memory, bool ) {
+  function getAllTargetAddress(Operation memory op) pure private returns (address[] memory, bool ) {
     if (!isBatchOp(op)) return (new address[](0), false);
     if (op.opcode == EnumOpcode.BATCH_TRANSFER_TOKENS_FROM_TO) {
        // ADDRESS_2DARRAY[0] is the source address list, ADDRESS_2DARRAY[1] is the target address list
@@ -1486,7 +1486,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @return address[] the source address list of the batch operation
    * @return bool the flag to indicate if the operation is a batch operation
    */
-  function getAllSourceAddress(Operation memory op) pure internal returns (address[] memory, bool ) {
+  function getAllSourceAddress(Operation memory op) pure private returns (address[] memory, bool ) {
     if (op.opcode == EnumOpcode.BATCH_TRANSFER_TOKENS_FROM_TO) {
        // ADDRESS_2DARRAY[0] is the source address list, ADDRESS_2DARRAY[1] is the target address list
       return (op.param.ADDRESS_2DARRAY[0], true);
@@ -1501,7 +1501,7 @@ contract Condition_BatchOp is MachineStateManager {
    * @return uint256[] the token amount list of the batch operation
    * @return bool the flag to indicate if the operation is a batch operation
    */
-  function getTokenClassAndAmount(Operation memory op) pure internal returns (uint256[] memory, uint256[] memory, bool ) {
+  function getTokenClassAndAmount(Operation memory op) pure private returns (uint256[] memory, uint256[] memory, bool ) {
     if (!isTokenOp(op)) return (new uint256[](0), new uint256[](0), false);
     if (op.opcode == EnumOpcode.BATCH_MINT_TOKENS) {
       return (op.param.UINT256_2DARRAY[0], op.param.UINT256_2DARRAY[1], true);

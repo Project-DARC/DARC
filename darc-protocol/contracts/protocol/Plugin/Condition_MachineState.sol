@@ -72,109 +72,109 @@ contract Condition_MachineState is MachineStateManager {
     else return false;
   }
 
-  function ID_51_TIMESTAMP_GREATER_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_51_TIMESTAMP_GREATER_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_51: UINT256_2DARRAY is empty");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_51: UINT256_2DARRAY[0] is empty");
     return block.timestamp > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_52_TIMESTAMP_LESS_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_52_TIMESTAMP_LESS_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_52: UINT256_2DARRAY is empty");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_52: UINT256_2DARRAY[0] is empty");
     return block.timestamp < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_53_TIMESTAMP_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+  function ID_53_TIMESTAMP_IN_RANGE(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_53: UINT256_2DARRAY is empty");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_53: UINT256_2DARRAY[0] must have 2 elements");
     return block.timestamp >= param.UINT256_2DARRAY[0][0] && block.timestamp <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_54_DATE_YEAR_GREATER_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_54_DATE_YEAR_GREATER_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_54: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_54: UINT256_2DARRAY[0] must have 1 element");
     (uint256 year, , , , , ) = getDateTime(block.timestamp);
     return year > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_55_DATE_YEAR_LESS_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_55_DATE_YEAR_LESS_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_55: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_55: UINT256_2DARRAY[0] must have 1 element");
     (uint256 year, , , , , ) = getDateTime(block.timestamp);
     return year < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_56_DATE_YEAR_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+  function ID_56_DATE_YEAR_IN_RANGE(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_56: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_56: UINT256_2DARRAY[0] must have 2 elements");
     (uint256 year, , , , , ) = getDateTime(block.timestamp);
     return year >= param.UINT256_2DARRAY[0][0] && year <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_57_DATE_MONTH_GREATER_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_57_DATE_MONTH_GREATER_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_57: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_57: UINT256_2DARRAY[0] must have 1 element");
     (, uint256 month, , , , ) = getDateTime(block.timestamp);
     return month > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_58_DATE_MONTH_LESS_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_58_DATE_MONTH_LESS_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_58: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_58: UINT256_2DARRAY[0] must have 1 element");
     (, uint256 month, , , , ) = getDateTime(block.timestamp);
     return month < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_59_DATE_MONTH_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+  function ID_59_DATE_MONTH_IN_RANGE(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_59: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_59: UINT256_2DARRAY[0] must have 2 elements");
     (, uint256 month, , , , ) = getDateTime(block.timestamp);
     return month >= param.UINT256_2DARRAY[0][0] && month <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_60_DATE_DAY_GREATER_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_60_DATE_DAY_GREATER_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_60: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_60: UINT256_2DARRAY[0] must have 1 element");
     (, , uint256 day, , , ) = getDateTime(block.timestamp);
     return day > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_61_DATE_DAY_LESS_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_61_DATE_DAY_LESS_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_61: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_61: UINT256_2DARRAY[0] must have 1 element");
     (, , uint256 day, , , ) = getDateTime(block.timestamp);
     return day < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_62_DATE_DAY_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+  function ID_62_DATE_DAY_IN_RANGE(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_62: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_62: UINT256_2DARRAY[0] must have 2 elements");
     (, , uint256 day, , , ) = getDateTime(block.timestamp);
     return day >= param.UINT256_2DARRAY[0][0] && day <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_63_DATE_HOUR_GREATER_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_63_DATE_HOUR_GREATER_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_63: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_63: UINT256_2DARRAY[0] must have 1 element");  
     (, , , uint256 hour, , ) = getDateTime(block.timestamp);
     return hour > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_64_DATE_HOUR_LESS_THAN(NodeParam memory param) internal view returns (bool) {
+  function ID_64_DATE_HOUR_LESS_THAN(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_64: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_64: UINT256_2DARRAY[0] must have 1 element");  
     (, , , uint256 hour, , ) = getDateTime(block.timestamp);
     return hour < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_65_DATE_HOUR_IN_RANGE(NodeParam memory param) internal view returns (bool) {
+  function ID_65_DATE_HOUR_IN_RANGE(NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_65: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_65: UINT256_2DARRAY[0] must have 2 elements");
     (, , , uint256 hour, , ) = getDateTime(block.timestamp);
     return hour >= param.UINT256_2DARRAY[0][0] && hour <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_66_ADDRESS_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_66_ADDRESS_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_66: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_66: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_66: UINT256_2DARRAY must have 1 element");
@@ -186,7 +186,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_67_ADDRESS_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_67_ADDRESS_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_67: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_67: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_67: UINT256_2DARRAY must have 1 element");
@@ -198,7 +198,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_68_ADDRESS_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_68_ADDRESS_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_68: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_68: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_68: UINT256_2DARRAY must have 1 element");
@@ -210,7 +210,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_69_ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_69_ADDRESS_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_69: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_69: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_69: UINT256_2DARRAY must have 1 element");
@@ -222,7 +222,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_70_ADDRESS_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_70_ADDRESS_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_70: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_70: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_70: UINT256_2DARRAY must have 1 element");
@@ -234,7 +234,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_71_ADDRESS_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_71_ADDRESS_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_71: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_71: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_71: UINT256_2DARRAY must have 1 element");
@@ -246,7 +246,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_72_ADDRESS_TOKEN_X_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_72_ADDRESS_TOKEN_X_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_72: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_72: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_72: UINT256_2DARRAY must have 1 element");
@@ -260,7 +260,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_73_ADDRESS_TOKEN_X_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_73_ADDRESS_TOKEN_X_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_73: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_73: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_73: UINT256_2DARRAY must have 1 element");
@@ -274,7 +274,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_74_ADDRESS_TOKEN_X_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_74_ADDRESS_TOKEN_X_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_74: ADDRESS_2DARRAY must have 1 element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_74: ADDRESS_2DARRAY[0] must have 1 element");
     require(param.UINT256_2DARRAY.length == 1, "CE ID_74: UINT256_2DARRAY must have 1 element");
@@ -288,7 +288,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_75_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_75_TOTAL_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_75: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_75: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
@@ -298,7 +298,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_76_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_76_TOTAL_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_76: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_76: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
@@ -308,7 +308,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_77_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_77_TOTAL_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_77: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_77: UINT256_2DARRAY[0] must have 2 elements");
     if (bIsBeforeOp) {
@@ -318,7 +318,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_78_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_78_TOTAL_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_78: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_78: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
@@ -328,7 +328,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_79_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_79_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_79: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_79: UINT256_2DARRAY[0] must have 1 element");
     if (bIsBeforeOp) {
@@ -338,7 +338,7 @@ contract Condition_MachineState is MachineStateManager {
     }
   }
 
-  function ID_80_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_80_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_80: UINT256_2DARRAY must have 1 element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_80: UINT256_2DARRAY[0] must have 2 elements");
     if (bIsBeforeOp) {
@@ -349,24 +349,24 @@ contract Condition_MachineState is MachineStateManager {
   }
 
 
-  function ID_81_TOTAL_CASH_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_81_TOTAL_CASH_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     // todo: need to implement
     return false;
   }
 
-  function ID_82_TOTAL_CASH_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_82_TOTAL_CASH_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     // todo: need to implement
   }
 
-  function ID_83_TOTAL_CASH_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_83_TOTAL_CASH_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     // todo: need to implement
   }
 
-  function ID_84_TOTAL_CASH_EQUALS(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_84_TOTAL_CASH_EQUALS(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     // todo: need to implement
   }
 
-  function ID_85_TOKEN_IN_LIST_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_85_TOKEN_IN_LIST_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_85: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_85: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -383,7 +383,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalVotingWeight > param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_86_TOKEN_IN_LIST_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_86_TOKEN_IN_LIST_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_86: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_86: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -400,7 +400,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalVotingWeight < param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_87_TOKEN_IN_LIST_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_87_TOKEN_IN_LIST_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_87: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 2, "CE ID_87: ADDRESS_2DARRAY[0] must have 2 elements");
 
@@ -417,7 +417,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalVotingWeight >= param.UINT256_2DARRAY[1][0] && totalVotingWeight <= param.UINT256_2DARRAY[1][1];
   }
 
-  function ID_88_TOKEN_IN_LIST_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_88_TOKEN_IN_LIST_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_88: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_88: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -434,7 +434,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalDividendWeight > param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_89_TOKEN_IN_LIST_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_89_TOKEN_IN_LIST_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_89: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_89: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -451,7 +451,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalDividendWeight < param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_90_TOKEN_IN_LIST_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_90_TOKEN_IN_LIST_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_90: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 2, "CE ID_90: ADDRESS_2DARRAY[0] must have 2 elements");
 
@@ -468,7 +468,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalDividendWeight >= param.UINT256_2DARRAY[1][0] && totalDividendWeight <= param.UINT256_2DARRAY[1][1];
   }
 
-  function ID_91_TOKEN_IN_LIST_AMOUNT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_91_TOKEN_IN_LIST_AMOUNT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_91: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_91: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -485,7 +485,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalAmount > param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_92_TOKEN_IN_LIST_AMOUNT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_92_TOKEN_IN_LIST_AMOUNT_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_92: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_92: ADDRESS_2DARRAY[0] must have 1 element");
 
@@ -502,7 +502,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalAmount < param.UINT256_2DARRAY[1][0];
   }
 
-  function ID_93_TOKEN_IN_LIST_AMOUNT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_93_TOKEN_IN_LIST_AMOUNT_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_93: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 2, "CE ID_93: ADDRESS_2DARRAY[0] must have 2 elements");
 
@@ -519,7 +519,7 @@ contract Condition_MachineState is MachineStateManager {
     return totalAmount >= param.UINT256_2DARRAY[1][0] && totalAmount <= param.UINT256_2DARRAY[1][1];
   }
 
-  function ID_94_TOKEN_IN_LIST_AMOUNT_EQUALS(bool bIsBeforeOp, NodeParam memory param) internal view returns (bool) {
+  function ID_94_TOKEN_IN_LIST_AMOUNT_EQUALS(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 2, "CE ID_94: ADDRESS_2DARRAY must have 2 element");
     require(param.UINT256_2DARRAY[1].length == 1, "CE ID_94: ADDRESS_2DARRAY[0] must have 1 element");
 

@@ -55,40 +55,40 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_1_OPERATOR_NAME_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_1_OPERATOR_NAME_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.STRING_ARRAY.length == 1, "CE ID_1: STRING_ARRAY must have one element");
     if (bIsBeforeOperation) { return StringUtils.compareStrings(currentMachineState.memberInfoMap[operation.operatorAddress].name, param.STRING_ARRAY[0]);
     } else { return StringUtils.compareStrings(sandboxMachineState.memberInfoMap[operation.operatorAddress].name, param.STRING_ARRAY[0]); }
   }
 
-  function ID_2_OPERATOR_ROLE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_2_OPERATOR_ROLE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_2: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_2: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) { return currentMachineState.memberInfoMap[operation.operatorAddress].role == param.UINT256_2DARRAY[0][0];
     } else { return sandboxMachineState.memberInfoMap[operation.operatorAddress].role == param.UINT256_2DARRAY[0][0]; }
   }
 
-  function ID_3_OPERATOR_ADDRESS_EQUALS(Operation memory operation, NodeParam memory param) internal pure returns (bool) {
+  function ID_3_OPERATOR_ADDRESS_EQUALS(Operation memory operation, NodeParam memory param) private pure returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_3: ADDRESS_2DARRAY must have one element");
     require(param.ADDRESS_2DARRAY[0].length == 1, "CE ID_3: ADDRESS_2DARRAY[0] must have one element");
     return operation.operatorAddress ==  param.ADDRESS_2DARRAY[0][0];
   } 
 
-  function ID_4_OPERATOR_ROLE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_4_OPERATOR_ROLE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_4: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_4: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) { return currentMachineState.memberInfoMap[operation.operatorAddress].role > param.UINT256_2DARRAY[0][0];
     } else { return sandboxMachineState.memberInfoMap[operation.operatorAddress].role > param.UINT256_2DARRAY[0][0]; }
   }
 
-  function ID_5_OPERATOR_ROLE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_5_OPERATOR_ROLE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_5: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_5: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) { return currentMachineState.memberInfoMap[operation.operatorAddress].role < param.UINT256_2DARRAY[0][0];
     } else { return sandboxMachineState.memberInfoMap[operation.operatorAddress].role < param.UINT256_2DARRAY[0][0]; }
   }
 
-  function ID_6_OPERATOR_ROLE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_6_OPERATOR_ROLE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_6: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_6: UINT256_2DARRAY[0] must have two elements");
     require(param.UINT256_2DARRAY[0][0] <= param.UINT256_2DARRAY[0][1], "CE ID_6: UINT256_2DARRAY[0][0] must be less than or equal to UINT256_2DARRAY[0][1]");
@@ -96,7 +96,7 @@ contract Condition_Operator is MachineStateManager {
     } else { return sandboxMachineState.memberInfoMap[operation.operatorAddress].role >= param.UINT256_2DARRAY[0][0] && sandboxMachineState.memberInfoMap[operation.operatorAddress].role <= param.UINT256_2DARRAY[0][1]; }
   }
 
-  function ID_7_OPEERATOR_ROLE_IN_LIST(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_7_OPEERATOR_ROLE_IN_LIST(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_7: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length > 0, "CE ID_7: UINT256_2DARRAY[0] must have at least one element");
     if (bIsBeforeOperation) { 
@@ -112,7 +112,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_8_OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_8_OPERATOR_TOKEN_X_AMOUNT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_8: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_8: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation){
@@ -128,7 +128,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_9_OPERATOR_TOKEN_X_AMOUNT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_9_OPERATOR_TOKEN_X_AMOUNT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_9: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_9: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) { 
@@ -143,7 +143,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_10_OPERATOR_TOKEN_X_AMOUNT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_10_OPERATOR_TOKEN_X_AMOUNT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_10: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 3, "CE ID_10: UINT256_2DARRAY[0] must have three elements");
     if (bIsBeforeOperation) { 
@@ -158,7 +158,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_11_OPERATOR_TOKEN_X_AMOUNT_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_11_OPERATOR_TOKEN_X_AMOUNT_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_11: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_11: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation){
@@ -174,7 +174,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_12_OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_12_OPERATOR_TOKEN_X_PERCENTAGE_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_12: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_12: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation){
@@ -190,7 +190,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_13_OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_13_OPERATOR_TOKEN_X_PERCENTAGE_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_13: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_13: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) { 
@@ -200,7 +200,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_14_OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_14_OPERATOR_TOKEN_X_PERCENTAGE_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_14: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_14: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) { 
@@ -210,7 +210,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_15_OPERATOR_TOKEN_X_PERCENTAGE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_15_OPERATOR_TOKEN_X_PERCENTAGE_EQUALS(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_15: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_15: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) { 
@@ -220,7 +220,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_16_OPERATOR_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_16_OPERATOR_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_16: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_16: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -230,7 +230,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_17_OPERATOR_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_17_OPERATOR_VOTING_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_17: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_17: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -240,7 +240,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_18_OPERATOR_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_18_OPERATOR_VOTING_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_18: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_18: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) {
@@ -250,7 +250,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_19_OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_19_OPERATOR_DIVIDEND_WEIGHT_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_19: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_19: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -260,7 +260,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_20_OPERATOR_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_20_OPERATOR_DIVIDEND_WEIGHT_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_20: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_20: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -270,7 +270,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_21_OPERATOR_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_21_OPERATOR_DIVIDEND_WEIGHT_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_21: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_21: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) {
@@ -280,7 +280,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_25_OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_25_OPERATOR_WITHDRAWABLE_CASH_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_25: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_25: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -290,7 +290,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_26_OPERATOR_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_26_OPERATOR_WITHDRAWABLE_CASH_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_26: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_26: UINT256_2DARRAY[0] must have one element");
     if (bIsBeforeOperation) {
@@ -300,7 +300,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_27_OPERATOR_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_27_OPERATOR_WITHDRAWABLE_CASH_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_27: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_27: UINT256_2DARRAY[0] must have two elements");
     if (bIsBeforeOperation) {
@@ -310,7 +310,7 @@ contract Condition_Operator is MachineStateManager {
     }
   }
 
-  function ID_28_OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_28_OPERATOR_WITHDRAWABLE_DIVIDENDS_GREATER_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_28: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_28: UINT256_2DARRAY[0] must have one element");
     uint256 withdrawableDividends = 0;
@@ -322,7 +322,7 @@ contract Condition_Operator is MachineStateManager {
     return withdrawableDividends > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_29_OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_29_OPERATOR_WITHDRAWABLE_DIVIDENDS_LESS_THAN(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_29: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_29: UINT256_2DARRAY[0] must have one element");
     uint256 withdrawableDividends = 0;
@@ -334,7 +334,7 @@ contract Condition_Operator is MachineStateManager {
     return withdrawableDividends < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_30_OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal view returns (bool) {
+  function ID_30_OPERATOR_WITHDRAWABLE_DIVIDENDS_IN_RANGE(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_30: UINT256_2DARRAY must have one element");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_30: UINT256_2DARRAY[0] must have two elements");
     uint256 withdrawableDividends = 0;
@@ -346,7 +346,7 @@ contract Condition_Operator is MachineStateManager {
     return withdrawableDividends >= param.UINT256_2DARRAY[0][0] && withdrawableDividends <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_31_OPERATOR_ADDRESS_IN_LIST(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) internal pure returns (bool) {
+  function ID_31_OPERATOR_ADDRESS_IN_LIST(bool bIsBeforeOperation, Operation memory operation, NodeParam memory param) private pure returns (bool) {
     require(param.ADDRESS_2DARRAY.length == 1, "CE ID_31: ADDRESS_2DARRAY must have one element");
     if (bIsBeforeOperation) {
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {

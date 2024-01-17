@@ -15,6 +15,7 @@ import "./Condition_Withdrawable.sol";
 import "./Condition_TokenAndCash.sol";
 import "./Condition_CreateTokenClass.sol";
 import "./Condition_Program.sol";
+import "./Condition_OperationLog.sol";
 
 
 /**
@@ -25,7 +26,7 @@ import "./Condition_Program.sol";
 contract ConditionExpressionFactory is  
   Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting,
   Condition_MembershipOp, Condition_Withdrawable, Condition_TokenAndCash,
-  Condition_CreateTokenClass, Condition_Program
+  Condition_CreateTokenClass, Condition_Program, Condition_OperationLog
 {
 
   /**
@@ -62,12 +63,13 @@ contract ConditionExpressionFactory is
 
     if (exp >= 431 && exp <= 460) { return withdrawableExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
-    if (exp >= 461 && exp <= 500) { return tokenAndCashExpressionCheck(bIsBeforeOperation, operation, param, exp);}
+    if (exp >= 461 && exp <= 500) { return tokenAndCashExpressionCheck(operation, param, exp);}
 
-    if (exp>=501 && exp <= 600) { return createTokenClassExpressionCheck(bIsBeforeOperation, operation, param, exp); }
+    if (exp>=501 && exp <= 600) { return createTokenClassExpressionCheck(operation, param, exp); }
 
-    if (exp>=601) { return programExpressionCheck(program, param, exp); }
+    if (exp>=601 && exp <= 700) { return programExpressionCheck(program, param, exp); }
 
+    if (exp >= 701) { return operationLogExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 
     // default:
     return false;

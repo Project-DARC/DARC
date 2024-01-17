@@ -185,12 +185,12 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 148 | Placeholder148  |  |  |
 | 149 | Placeholder149  |  |  |
 | 150 | Placeholder150  |  |  |
-| 151 | OPERATION_EQUALS | string operation, uint256 value ||
-| 152 | OPERATION_IN_LIST | string operation, uint256[] values ||
-| 153 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LARGER_THAN | string operation, address operator, uint256 timestamp | NOT READY, DO NOT USE
-| 154 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | string operation, address operator, uint256 timestamp | NOT READY, DO NOT USE
-| 155 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | string operation, address operator, uint256 startTimestamp, uint256 endTimestamp | NOT READY, DO NOT USE
-| 156 | OPERATION_EVERYONE_SINCE_LAST_TIME_LARGER_THAN | string operation, uint256 timestamp | NOT READY, DO NOT USE
+| 151 | OPERATION_EQUALS | uint256 value ||
+| 152 | OPERATION_IN_LIST | uint256[] values ||
+| 153 | Placeholder153  |  |  |
+| 154 | Placeholder154  |  |  |
+| 155 | Placeholder155  |  |  |
+| 156 | Placeholder156  |  |  |
 | 157 | Placeholder157  |  |  |
 | 158 | Placeholder158  |  |  |
 | 159 | Placeholder159  |  |  |
@@ -199,7 +199,6 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 162 | Placeholder162  |  |  |
 | 163 | Placeholder163  |  |  |
 | 164 | Placeholder164  |  |  |
-| 165 | Placeholder165  |  |  |
 | 166 | Placeholder166  |  |  |
 | 167 | Placeholder167  |  |  |
 | 168 | Placeholder168  |  |  |
@@ -216,11 +215,11 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 179 | Placeholder179  |  |  |
 | 180 | Placeholder180  |  |  |
 | 181 | ORACLE_CALL_UINT256_RESULT_EQUALS | string oracle, string method, uint256[] args, uint256 expectedValue ||
-| 182 | ORACLE_CALL_UINT256_RESULT_LARGER_THAN | string oracle, string method, uint256[] args, uint256 minValue ||
+| 182 | ORACLE_CALL_UINT256_RESULT_GREATER_THAN | string oracle, string method, uint256[] args, uint256 minValue ||
 | 183 | ORACLE_CALL_UINT256_RESULT_LESS_THAN | string oracle, string method, uint256[] args, uint256 maxValue ||
 | 184 | ORACLE_CALL_UINT256_RESULT_IN_RANGE | string oracle, string method, uint256[] args, uint256 minValue, uint256 maxValue ||
 | 185 | ORACLE_CALL_UINT256_1_LESS_THAN_2 | string oracle, string method, uint256[] args ||
-| 186 | ORACLE_CALL_UINT256_1_LARGER_THAN_2 | string oracle, string method, uint256[] args ||
+| 186 | ORACLE_CALL_UINT256_1_GREATER_THAN_2 | string oracle, string method, uint256[] args ||
 | 187 | ORACLE_CALL_UINT256_1_EQUALS_2 | string oracle, string method, uint256[] args ||
 | 188 | ORACLE_CALL_STRING_RESULT_EQUALS | string oracle, string method, string[] args, string expectedValue ||
 | 189 | ORACLE_CALL_STRING_1_EQUALS_2 | string oracle, string method, string[] args ||
@@ -743,18 +742,18 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 698 | Placeholder698 |  |  |
 | 699 | Placeholder699 |  |  |
 | 700 | Placeholder700 |  |  |
-| 701 | Placeholder701 |  |  |
-| 702 | Placeholder702 |  |  |
-| 703 | Placeholder703 |  |  |
-| 704 | Placeholder704 |  |  |
-| 705 | Placeholder705 |  |  |
-| 706 | Placeholder706 |  |  |
-| 707 | Placeholder707 |  |  |
-| 708 | Placeholder708 |  |  |
-| 709 | Placeholder709 |  |  |
-| 710 | Placeholder710 |  |  |
-| 711 | Placeholder711 |  |  |
-| 712 | Placeholder712 |  |  |
+| 701 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_GREATER_THAN | address operator, uint256 timestamp ||
+| 702 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | address operator, uint256 timestamp ||
+| 703 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | address operator, uint256 startTimestamp, uint256 endTimestamp ||
+| 704 | OPERATION_GLOBAL_SINCE_LAST_TIME_GREATER_THAN | uint256 timestamp ||
+| 705 | OPERATION_GLOBAL_SINCE_LAST_TIME_LESS_THAN | uint256 timestamp ||
+| 706 | OPERATION_GLOBAL_SINCE_LAST_TIME_IN_RANGE | uint256 startTimestamp, uint256 endTimestamp ||
+| 707 | OPERATION_BY_ANY_ADDRESS_IN_LIST_SINCE_LAST_TIME_GREATER_THAN | address[] addressList, uint256 timestamp ||
+| 708 | OPERATION_BY_ANY_ADDRESS_IN_LIST_SINCE_LAST_TIME_LESS_THAN | address[] addressList, uint256 timestamp ||
+| 709 | OPERATION_BY_ANY_ADDRESS_IN_LIST_SINCE_LAST_TIME_IN_RANGE | address[] addressList, uint256 startTimestamp, uint256 endTimestamp ||
+| 710 | OPERATION_BY_EACH_ADDRESS_IN_LIST_SINCE_LAST_TIME_GREATER_THAN | address[] addressList, uint256 timestamp ||
+| 711 | OPERATION_BY_EACH_ADDRESS_IN_LIST_SINCE_LAST_TIME_LESS_THAN | address[] addressList, uint256 timestamp ||
+| 712 | OPERATION_BY_EACH_ADDRESS_IN_LIST_SINCE_LAST_TIME_IN_RANGE | address[] addressList, uint256 startTimestamp, uint256 endTimestamp ||
 | 713 | Placeholder713 |  |  |
 | 714 | Placeholder714 |  |  |
 | 715 | Placeholder715 |  |  |
