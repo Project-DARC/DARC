@@ -742,9 +742,9 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 698 | Placeholder698 |  |  |
 | 699 | Placeholder699 |  |  |
 | 700 | Placeholder700 |  |  |
-| 701 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_GREATER_THAN | address operator, uint256 timestamp ||
-| 702 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | address operator, uint256 timestamp ||
-| 703 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | address operator, uint256 startTimestamp, uint256 endTimestamp ||
+| 701 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_GREATER_THAN | uint256 timestamp ||
+| 702 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN | uint256 timestamp ||
+| 703 | OPERATION_BY_OPERATOR_SINCE_LAST_TIME_IN_RANGE | uint256 startTimestamp, uint256 endTimestamp ||
 | 704 | OPERATION_GLOBAL_SINCE_LAST_TIME_GREATER_THAN | uint256 timestamp ||
 | 705 | OPERATION_GLOBAL_SINCE_LAST_TIME_LESS_THAN | uint256 timestamp ||
 | 706 | OPERATION_GLOBAL_SINCE_LAST_TIME_IN_RANGE | uint256 startTimestamp, uint256 endTimestamp ||

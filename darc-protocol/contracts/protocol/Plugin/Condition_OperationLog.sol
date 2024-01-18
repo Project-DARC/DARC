@@ -36,7 +36,7 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_701: The UINT256_2DARRAY[0] length is not 1");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime > param.UINT256_2DARRAY[0][0];
     }
@@ -53,13 +53,13 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_702: The UINT256_2DARRAY[0] length is not 1");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime < param.UINT256_2DARRAY[0][0];
     }
     else {
       // in after operation plugin condition check, check the sandbox machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime < param.UINT256_2DARRAY[0][0];
     }
@@ -70,13 +70,13 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_703: The UINT256_2DARRAY[0] length is not 2");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1];
     }
     else {
       // in after operation plugin condition check, check the sandbox machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[op.operatorAddress].latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1];
     }
@@ -87,13 +87,13 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_704: The UINT256_2DARRAY[0] length is not 1");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime > param.UINT256_2DARRAY[0][0];
     }
     else {
       // in after operation plugin condition check, check the sandbox machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime > param.UINT256_2DARRAY[0][0];
     }
@@ -104,13 +104,13 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 1, "CE ID_705: The UINT256_2DARRAY[0] length is not 1");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime < param.UINT256_2DARRAY[0][0];
     }
     else {
       // in after operation plugin condition check, check the sandbox machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime < param.UINT256_2DARRAY[0][0];
     }
@@ -121,13 +121,13 @@ contract Condition_OperationLog is MachineStateManager {
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_706: The UINT256_2DARRAY[0] length is not 2");
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1];
     }
     else {
       // in after operation plugin condition check, check the sandbox machine state
-      uint256 elapsedTime = block.timestamp - sandboxMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
+      uint256 elapsedTime = block.timestamp - currentMachineState.globalOperationLog.latestOperationTimestamp[getOpcodeID(op)];
 
       return elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1];
     }
@@ -139,7 +139,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime > param.UINT256_2DARRAY[0][0]) { return true; }
       }
       return false;
@@ -147,7 +147,7 @@ contract Condition_OperationLog is MachineStateManager {
     else {
       // in after operation plugin condition check, check the sandbox machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime > param.UINT256_2DARRAY[0][0]) { return true; }
       }
       return false;
@@ -160,7 +160,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime < param.UINT256_2DARRAY[0][0]) { return true; }
       }
       return false;
@@ -168,7 +168,7 @@ contract Condition_OperationLog is MachineStateManager {
     else {
       // in after operation plugin condition check, check the sandbox machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime < param.UINT256_2DARRAY[0][0]) { return true; }
       }
       return false;
@@ -181,7 +181,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1]) { return true; }
       }
       return false;
@@ -189,7 +189,7 @@ contract Condition_OperationLog is MachineStateManager {
     else {
       // in after operation plugin condition check, check the sandbox machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime >= param.UINT256_2DARRAY[0][0] && elapsedTime <= param.UINT256_2DARRAY[0][1]) { return true; }
       }
       return false;
@@ -202,7 +202,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime < param.UINT256_2DARRAY[0][0]) { return false; }
       }
       return true;
@@ -210,7 +210,7 @@ contract Condition_OperationLog is MachineStateManager {
     else {
       // in after operation plugin condition check, check the sandbox machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime < param.UINT256_2DARRAY[0][0]) { return false; }
       }
       return true;
@@ -223,7 +223,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime > param.UINT256_2DARRAY[0][0]) { return false; }
       }
       return true;
@@ -231,7 +231,7 @@ contract Condition_OperationLog is MachineStateManager {
     else {
       // in after operation plugin condition check, check the sandbox machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime > param.UINT256_2DARRAY[0][0]) { return false; }
       }
       return true;
@@ -244,7 +244,7 @@ contract Condition_OperationLog is MachineStateManager {
     if (bIsBeforeOperation) {
       // in before operation plugin condition check, just check current machine state
       for (uint256 i = 0; i < param.ADDRESS_2DARRAY[0].length; i++) {
-        uint256 elapsedTime = block.timestamp - sandboxMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
+        uint256 elapsedTime = block.timestamp - currentMachineState.operationLogMap[param.ADDRESS_2DARRAY[0][i]].latestOperationTimestamp[getOpcodeID(op)];
         if (elapsedTime < param.UINT256_2DARRAY[0][0] || elapsedTime > param.UINT256_2DARRAY[0][1]) { return false; }
       }
       return true;

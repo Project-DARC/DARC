@@ -142,7 +142,24 @@ contract Dashboard is Executable {
     return votingItems[idx];
   }
 
+  /**
+   * Get the latest voting item index
+   */
   function getLatestVotingItemIndex() public view returns (uint256) {
     return latestVotingItemIndex;
+  }
+
+  /**
+   * Get the global operation log
+   */
+  function getGlobalOperationLog() public view returns (OperationLog memory) {
+    return currentMachineState.globalOperationLog;
+  }
+
+  /**
+   * Get the operation log of the address
+   */
+  function getOperationLogByAddress(address addr) public view returns (OperationLog memory) {
+    return currentMachineState.operationLogMap[addr];
   }
 }
