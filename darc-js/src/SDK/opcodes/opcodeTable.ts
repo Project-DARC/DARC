@@ -1283,7 +1283,8 @@ function OPCODE_ID_29_SET_APPROVAL_FOR_ALL_OPERATIONS(
 
 function OPCODE_ID_30_BATCH_BURN_TOKENS_AND_REFUND(
   tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  amountArray: bigint[],
+  priceArray: bigint[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (tokenClassArray.length != amountArray.length) {
