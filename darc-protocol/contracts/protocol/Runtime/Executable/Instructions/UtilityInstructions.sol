@@ -112,7 +112,7 @@ contract UtilityInstructions is MachineStateManager {
 
   }
 
-  function op_ADD_STORAGE_IPFS_HASH(Operation memory operation, bool bIsSandbox) internal {
+  function op_ADD_STORAGE_STRING(Operation memory operation, bool bIsSandbox) internal {
     // hash string
     string memory hashString = operation.param.STRING_ARRAY[0];
     if (bIsSandbox) {

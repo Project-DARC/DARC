@@ -18,7 +18,7 @@ const my_wallet_address = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
  * 2. mint 100 token_0 and 200 token_1 to address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266  
  */
 const code = `
-batch_create_token_class(['token_0', 'token_1'],
+batch_create_token_classes(['token_0', 'token_1'],
 [0,1],
 [10,20], 
 [20,30]);

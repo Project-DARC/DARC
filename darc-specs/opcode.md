@@ -9,9 +9,9 @@
 | 4         | BATCH_TRANSFER_TOKENS_FROM_TO                | ADDRESS_2DARRAY[0] fromAddressArray, ADDRESS_2DARRAY[1] toAddressArray, UINT256_2DARRAY[0] tokenClassArray, UINT256_2DARRAY[1] amountArray | Batch Transfer Token From Addr A to Addr B Operation        |
 | 5         | BATCH_BURN_TOKENS                            | UINT256_2DARRAY[0] tokenClassArray, UINT256_2DARRAY[1] amountArray | Batch Burn Token Operation                                  |
 | 6         | BATCH_BURN_TOKENS_FROM                       | ADDRESS_2DARRAY[0] fromAddressArray, UINT256_2DARRAY[0] tokenClassArray, UINT256_2DARRAY[1] amountArray | Batch Burn Token From Addr A Operation                      |
-| 7         | BATCH_ADD_MEMBERSHIP                         | ADDRESS_2DARRAY[0] memberAddressArray, UINT256_2DARRAY[0] memberRoleArray, STRING_ARRAY memberNameArray | Batch Add Member Operation                                  |
-| 8         | BATCH_SUSPEND_MEMBERSHIP                     | ADDRESS_2DARRAY[0] memberAddressArray                     | Batch Suspend Member Operation                              |
-| 9         | BATCH_RESUME_MEMBERSHIP                      | ADDRESS_2DARRAY[0] memberAddressArray                     | Batch Resume Member Operation                               |
+| 7         | BATCH_ADD_MEMBERSHIPS                         | ADDRESS_2DARRAY[0] memberAddressArray, UINT256_2DARRAY[0] memberRoleArray, STRING_ARRAY memberNameArray | Batch Add Member Operation                                  |
+| 8         | BATCH_SUSPEND_MEMBERSHIPS                     | ADDRESS_2DARRAY[0] memberAddressArray                     | Batch Suspend Member Operation                              |
+| 9         | BATCH_RESUME_MEMBERSHIPS                      | ADDRESS_2DARRAY[0] memberAddressArray                     | Batch Resume Member Operation                               |
 | 10        | BATCH_CHANGE_MEMBER_ROLES                    | ADDRESS_2DARRAY[0] memberAddressArray, UINT256_2DARRAY[0] memberRoleArray | Batch Change Member Role Operation                          |
 | 11        | BATCH_CHANGE_MEMBER_NAMES                    | ADDRESS_2DARRAY[0] memberAddressArray, STRING_ARRAY memberNameArray | Batch Change Member Name Operation                          |
 | 12        | BATCH_ADD_PLUGINS                            | Plugin[] pluginList                                     | Batch Add Emergency Agent Operation                         |
@@ -33,7 +33,7 @@
 | 28        | RESERVED_ID_28                               |                                                          | Reserved ID 28 DO NOT USE                                    |
 | 29        | SET_APPROVAL_FOR_ALL_OPERATIONS              | ADDRESS_2DARRAY[0][0] targetAddress                                          | Set the approval for all transfer operations by address Operation |
 | 30        | BATCH_BURN_TOKENS_AND_REFUND                 | UINT256_2D[0] tokenClassArray, UINT256_2D[1] amountArray, UINT256_2D[2] priceArray | Batch Burn tokens and Refund Operation                      |
-| 31        | ADD_STORAGE_IPFS_HASH                        | STRING_ARRAY[0][0] IFPSHash                              | Add storage IPFS hash to the storage list permanently Operation |
+| 31        | ADD_STORAGE_STRING                        | STRING_ARRAY[0][0] IFPSHash                              | Add storage IPFS hash to the storage list permanently Operation |
 | 32        | VOTE                                         | bool[] voteArray                                       | Vote for a voting pending program Operation                 |
 | 33        | EXECUTE_PENDING_PROGRAM                               |                                                          | Execute a program that has been voted and approved Operation |
 | 34        | END_EMERGENCY                                |                                                          | Emergency mode termination Operation                       |

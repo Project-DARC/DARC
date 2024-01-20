@@ -1424,9 +1424,9 @@ contract Condition_BatchOp is MachineStateManager {
     if (op.opcode == EnumOpcode.BATCH_TRANSFER_TOKENS_FROM_TO) return true;
     if (op.opcode == EnumOpcode.BATCH_BURN_TOKENS) return true;
     if (op.opcode == EnumOpcode.BATCH_BURN_TOKENS_FROM) return true;
-    if (op.opcode == EnumOpcode.BATCH_ADD_MEMBERSHIP) return true;
-    if (op.opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIP) return true;
-    if (op.opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIP) return true;
+    if (op.opcode == EnumOpcode.BATCH_ADD_MEMBERSHIPS) return true;
+    if (op.opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIPS) return true;
+    if (op.opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIPS) return true;
     if (op.opcode == EnumOpcode.BATCH_CHANGE_MEMBER_ROLES) return true;
     if (op.opcode == EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) return true;
     if (op.opcode == EnumOpcode.BATCH_ADD_PLUGINS) return true;

@@ -17,11 +17,11 @@ import "../../../Utilities/ErrorMsg.sol";
 contract MembershipInstructions is MachineStateManager {
 
   /**
-   * @notice The function that executes the BATCH_ADD_MEMBERSHIP operation
+   * @notice The function that executes the BATCH_ADD_MEMBERSHIPS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_ADD_MEMBERSHIP(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_ADD_MEMBERSHIPS(Operation memory operation, bool bIsSandbox) internal {
     // param 1 is the address of the members 
     // param 2 is the member role numbers
     // param 3 is the member role name strings
@@ -57,11 +57,11 @@ contract MembershipInstructions is MachineStateManager {
     }
   }
   /**
-   * @notice The function that executes the BATCH_SUSPEND_MEMBERSHIP operation
+   * @notice The function that executes the BATCH_SUSPEND_MEMBERSHIPS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_SUSPEND_MEMBERSHIP(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_SUSPEND_MEMBERSHIPS(Operation memory operation, bool bIsSandbox) internal {
     // param 1 is the address of the members
     address[] memory members = operation.param.ADDRESS_2DARRAY[0];
     for (uint256 i=0;i<members.length;i++){
@@ -78,11 +78,11 @@ contract MembershipInstructions is MachineStateManager {
   }
 
   /**
-   * @notice The function that executes the BATCH_RESUME_MEMBERSHIP operation
+   * @notice The function that executes the BATCH_RESUME_MEMBERSHIPS operation
    * @param operation The operation to be executed
    * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
    */
-  function op_BATCH_RESUME_MEMBERSHIP(Operation memory operation, bool bIsSandbox) internal {
+  function op_BATCH_RESUME_MEMBERSHIPS(Operation memory operation, bool bIsSandbox) internal {
     // param 1 is the address of the members
     address[] memory members = operation.param.ADDRESS_2DARRAY[0];
     for (uint256 i=0;i<members.length;i++) {

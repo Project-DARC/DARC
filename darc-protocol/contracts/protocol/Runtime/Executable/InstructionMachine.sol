@@ -75,18 +75,18 @@ OfferDividendsInstructions
     }
 
     // opcode id == 7
-    else if (operation.opcode == EnumOpcode.BATCH_ADD_MEMBERSHIP) {
-      op_BATCH_ADD_MEMBERSHIP(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_ADD_MEMBERSHIPS) {
+      op_BATCH_ADD_MEMBERSHIPS(operation, bIsSandbox);
     }
 
     // opcode id == 8
-    else if (operation.opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIP) {
-      op_BATCH_SUSPEND_MEMBERSHIP(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIPS) {
+      op_BATCH_SUSPEND_MEMBERSHIPS(operation, bIsSandbox);
     }
 
     // opcode id == 9
-    else if (operation.opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIP){
-      op_BATCH_RESUME_MEMBERSHIP(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIPS){
+      op_BATCH_RESUME_MEMBERSHIPS(operation, bIsSandbox);
     }
 
     // opcode id == 10
@@ -195,8 +195,8 @@ OfferDividendsInstructions
     }
 
     // opcode id == 31
-    else if (operation.opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) {
-      op_ADD_STORAGE_IPFS_HASH(operation, bIsSandbox);
+    else if (operation.opcode == EnumOpcode.ADD_STORAGE_STRING) {
+      op_ADD_STORAGE_STRING(operation, bIsSandbox);
     }
 
     // opcode id == 32

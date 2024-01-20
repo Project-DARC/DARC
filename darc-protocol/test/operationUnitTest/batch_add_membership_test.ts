@@ -6,7 +6,7 @@ import { BigNumber } from "ethers";
 
 // test for batch mint token instruction on DARC
 
-describe("batch_add_membership_test", function () {
+describe("batch_add_MEMBERSHIPS_test", function () {
 
   
   it ("should add membership", async function () {

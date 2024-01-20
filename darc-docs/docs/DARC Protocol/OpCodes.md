@@ -27,9 +27,9 @@ By defining these operations through opcodes, the DARC protocol ensures consiste
 | BATCH_TRANSFER_TOKENS_FROM_TO | 4    | `fromAddressArray`: address[]<br/>`toAddressArray`: address[]<br/>`tokenClassArray`: uint256[]<br/>`amountArray`: uint256[] | Batch Transfer Token From Addr A to Addr B Operation    |
 | BATCH_BURN_TOKENS      | 5         | `tokenClassArray`: uint256[]<br/>`amountArray`: uint256[]                                                              | Batch Burn Token Operation                              |
 | BATCH_BURN_TOKENS_FROM | 6         | `fromAddressArray`: address[]<br/>`tokenClassArray`: uint256[]<br/>`amountArray`: uint256[]                            | Batch Burn Token From Addr A Operation                  |
-| BATCH_ADD_MEMBERSHIP   | 7         | `memberAddressArray`: address[]<br/>`memberRoleArray`: uint256[]<br/>`memberNameArray`: string[]                       | Batch Add Member Operation                              |
-| BATCH_SUSPEND_MEMBERSHIP | 8       | `memberAddressArray`: address[]                                                                                         | Batch Suspend Member Operation                          |
-| BATCH_RESUME_MEMBERSHIP | 9        | `memberAddressArray`: address[]                                                                                          | Batch Resume Member Operation                           |
+| BATCH_ADD_MEMBERSHIPS   | 7         | `memberAddressArray`: address[]<br/>`memberRoleArray`: uint256[]<br/>`memberNameArray`: string[]                       | Batch Add Member Operation                              |
+| BATCH_SUSPEND_MEMBERSHIPS | 8       | `memberAddressArray`: address[]                                                                                         | Batch Suspend Member Operation                          |
+| BATCH_RESUME_MEMBERSHIPS | 9        | `memberAddressArray`: address[]                                                                                          | Batch Resume Member Operation                           |
 | BATCH_CHANGE_MEMBER_ROLES | 10      | `memberAddressArray`: address[]<br/>`memberRoleArray`: uint256[]                                                      | Batch Change Member Role Operation                      |
 | BATCH_CHANGE_MEMBER_NAMES | 11      | `memberAddressArray`: address[]<br/>`memberNameArray`: string[]                                                      | Batch Change Member Name Operation                      |
 | BATCH_ADD_PLUGINS       | 12        | `pluginList`: Plugin[]                                                                                                  | Batch Add Emergency Agent Operation                     |
@@ -51,7 +51,7 @@ By defining these operations through opcodes, the DARC protocol ensures consiste
 | RESERVED_ID_28           | 28        | `addressArray`: address[]<br/>`amountArray`: uint256[]                                                                                        | Withdraw Dividends from the Withdrawable Dividends Balance |
 | SET_APPROVAL_FOR_ALL_OPERATIONS | 29        | `address`: address                                                                                                                              | Set Approval for All Transfer Operations by Address         |
 | BATCH_BURN_TOKENS_AND_REFUND    | 30        |  `tokenClassArray`: uint256[] <br/>  | Batch Burn Tokens and Refund                                |
-| ADD_STORAGE_IPFS_HASH           | 31        | `address`: string[]                                                                                                                             | Add Storage IPFS Hash                                       |
+| ADD_STORAGE_STRING           | 31        | `address`: string[]                                                                                                                             | Add Storage IPFS Hash                                       |
 | VOTE                            | 32        | `voteArray`: bool[]                                                                                                                             | Vote for a Voting Pending Program                           |
 | EXECUTE_PENDING_PROGRAM                 | 33        |     N/A   | Execute a Program that has been Voted and Approved          |
 

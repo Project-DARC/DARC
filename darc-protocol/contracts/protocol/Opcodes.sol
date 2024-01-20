@@ -83,7 +83,7 @@ enum EnumOpcode {
    * 
    * ID:7
    */
-  BATCH_ADD_MEMBERSHIP,
+  BATCH_ADD_MEMBERSHIPS,
 
   /**
    * @notice Batch Suspend Member Operation
@@ -91,7 +91,7 @@ enum EnumOpcode {
    * 
    * ID:8
    */
-  BATCH_SUSPEND_MEMBERSHIP,
+  BATCH_SUSPEND_MEMBERSHIPS,
 
   /**
    * @notice Batch Resume Member Operation
@@ -99,7 +99,7 @@ enum EnumOpcode {
    * 
    * ID:9
    */
-  BATCH_RESUME_MEMBERSHIP,
+  BATCH_RESUME_MEMBERSHIPS,
 
   /**
    * @notice Batch Change Member Role Operation
@@ -278,11 +278,11 @@ enum EnumOpcode {
   BATCH_BURN_TOKENS_AND_REFUND,
 
   /**
-   * @notice Add storage IPFS hash to the storage list permanently
-   * @paran STRING_ARRAY[0][0] address: the address to set approval for all cash withdraw operations
+   * @notice Add a string (IPFS,JSON,raw text) to the storage list permanently
+   * @paran STRING_ARRAY[0][0] text: the string text to add to the storage list
    * ID:31
    */
-  ADD_STORAGE_IPFS_HASH,
+  ADD_STORAGE_STRING,
 
 
   /**

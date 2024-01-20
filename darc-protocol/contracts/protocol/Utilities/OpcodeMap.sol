@@ -21,9 +21,9 @@ library OpcodeMap{
     if (opcode == EnumOpcode.BATCH_TRANSFER_TOKENS_FROM_TO) return 4;
     if (opcode == EnumOpcode.BATCH_BURN_TOKENS) return 5;
     if (opcode == EnumOpcode.BATCH_BURN_TOKENS_FROM) return 6;
-    if (opcode == EnumOpcode.BATCH_ADD_MEMBERSHIP) return 7;
-    if (opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIP) return 8;
-    if (opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIP) return 9;
+    if (opcode == EnumOpcode.BATCH_ADD_MEMBERSHIPS) return 7;
+    if (opcode == EnumOpcode.BATCH_SUSPEND_MEMBERSHIPS) return 8;
+    if (opcode == EnumOpcode.BATCH_RESUME_MEMBERSHIPS) return 9;
     if (opcode == EnumOpcode.BATCH_CHANGE_MEMBER_ROLES) return 10;
     if (opcode == EnumOpcode.BATCH_CHANGE_MEMBER_NAMES) return 11;
     if (opcode == EnumOpcode.BATCH_ADD_PLUGINS) return 12;
@@ -45,7 +45,7 @@ library OpcodeMap{
     if (opcode == EnumOpcode.RESERVED_ID_28) return 28;
     if (opcode == EnumOpcode.SET_APPROVAL_FOR_ALL_OPERATIONS) return 29;
     if (opcode == EnumOpcode.BATCH_BURN_TOKENS_AND_REFUND) return 30;
-    if (opcode == EnumOpcode.ADD_STORAGE_IPFS_HASH) return 31;
+    if (opcode == EnumOpcode.ADD_STORAGE_STRING) return 31;
     if (opcode == EnumOpcode.VOTE) return 32;
     if (opcode == EnumOpcode.EXECUTE_PENDING_PROGRAM) return 33;
     if (opcode == EnumOpcode.END_EMERGENCY) return 34;
