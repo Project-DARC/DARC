@@ -30,7 +30,7 @@ class Node {
     * @param id The id of the condition node
     * @returns The condition node struct
    */
-   generateExpressionConditionNodeStruct(id: bigint): ConditionNodeStruct {
+   private generateExpressionConditionNodeStruct(id: bigint): ConditionNodeStruct {
     if (this.type !== "EXPRESSION") {
       throw new Error("Node type is not EXPRESSION");
     }
@@ -50,7 +50,7 @@ class Node {
    * @param id The id of the condition node
    * @returns The condition node struct
    */
-  generateBooleanConditionNodeStruct(id: bigint): ConditionNodeStruct {
+  private generateBooleanConditionNodeStruct(id: bigint): ConditionNodeStruct {
     if (this.type !== "TRUE" && this.type !== "FALSE") {
       throw new Error("Node type is not TRUE or FALSE");
     }
@@ -87,44 +87,64 @@ class Node {
    *   EXPRESSION_NODE(7)
    * ]
    * @param id The id of the condition node
-   * @param bIsAND True if the parent node is AND, false if the parent node is OR
    */
-  generate_AND_or_OR_ConditionNodeStructList(id: bigint): ConditionNodeStruct[] {
+  private generate_AND_or_OR_or_NOT_ConditionNodeStructList(id: bigint): ConditionNodeStruct[] {
     let returnArray: ConditionNodeStruct[] = [];
-    if (this.type !== "AND" && this.type !== "OR") {
+    if (this.type !== "AND" && this.type !== "OR" && this.type !== "NOT") {
       throw new Error("Node type is not AND or OR node");
     }
-    const nodeType: number = this.type === "AND" ? 1 : 2;
+    let nodeType: number = 1;
+    if (this.type === "OR") {
+      nodeType = 2;
+    }
+    else if (this.type === "NOT") {
+      nodeType = 3;
+    }
     const node0: ConditionNodeStruct = {
       id: id,
       nodeType: 2,  // logical operator
-      logicalOperator: nodeType,  // AND or OR
+      logicalOperator: nodeType,  // AND or OR or NOT
       conditionExpression: 0,
       childList: [],
       param: this.nodeParam,
     }
-    returnArray.push(node0);
+    
+    const resultList = [];
+    let pointer = 0;
     for (let i = 0; i < this.childList.length; i++) {
+      pointer += 1;
       const  currentChildNode = this.childList[i];
       if (currentChildNode.type === "EXPRESSION") {
-        returnArray.push(currentChildNode.generateExpressionConditionNodeStruct(id + BigInt(i + 1)));
+        resultList.push(currentChildNode.generateExpressionConditionNodeStruct(id + BigInt(pointer)));
+        node0.childList.push(id + BigInt(pointer));
+        //returnArray.push(currentChildNode.generateExpressionConditionNodeStruct(id + BigInt(i + 1)));
       }
       else if (currentChildNode.type === "TRUE" || currentChildNode.type === "FALSE") {
-        returnArray.push(currentChildNode.generateBooleanConditionNodeStruct(id + BigInt(i + 1)));
+        //returnArray.push(currentChildNode.generateBooleanConditionNodeStruct(id + BigInt(i + 1)));
+        resultList.push(currentChildNode.generateBooleanConditionNodeStruct(id + BigInt(pointer)));
+        node0.childList.push(id + BigInt(pointer));
       }
-      else if (currentChildNode.type === "AND" || currentChildNode.type === "OR") {
-        returnArray = returnArray.concat(currentChildNode.generate_AND_or_OR_ConditionNodeStructList(id + BigInt(i + 1)));
+      else if (currentChildNode.type === "AND" || currentChildNode.type === "OR" || currentChildNode.type === "NOT") {
+        const result = currentChildNode.generate_AND_or_OR_or_NOT_ConditionNodeStructList(id + BigInt(pointer));
+        node0.childList.push(result[0].id);
+        resultList.push(result);
+        pointer += result.length - 1;
       }
       else if (currentChildNode.type === "UNDEFINED") {
-        returnArray = [];
+        throw new Error("Undefined node is not allowed");
       }
     }
-
+    returnArray.push(node0);
+    for (let i = 0; i < resultList.length; i++) {
+      returnArray = returnArray.concat(resultList[i]);
+    }
     return returnArray;
   }
 
   /**
    * Generate a list of condition node structs for any node
+   * This is the root function for generating the condition node struct list
+   * All condition node list should be generated from this function
    * @param id The id of the condition node
    */
   generateConditionNodeList(): ConditionNodeStruct[] {
@@ -144,6 +164,9 @@ class Node {
         param: this.nodeParam,
       }];
     }
+    else if (this.type === "AND" || this.type === "OR" || this.type === "NOT") {
+      return this.generate_AND_or_OR_or_NOT_ConditionNodeStructList(BigInt(0));
+    }
     return [];
   }
 }
@@ -151,6 +174,9 @@ class Node {
 class AND extends Node {
   constructor(... args:Node[]) {
     super();
+    if (args.length <= 1) {
+      throw new Error("AND node must have at least 2 children");
+    }
     this.processChildList(args);
     this.type = "AND";
   }
@@ -185,6 +211,9 @@ class AND extends Node {
 class OR extends Node {
   constructor(... args:Node[]) {
     super();
+    if (args.length <= 1) {
+      throw new Error("OR node must have at least 2 children");
+    }
     this.processChildList(args);
     this.type = "OR";
   }
@@ -216,11 +245,51 @@ class OR extends Node {
   }
 }
 
-class ExpressionNode extends Node {
-  constructor(expressionId:number, nodeParam:NodeParamStruct) {
+class NOT extends Node {
+  constructor(node:Node) {
+    super();
+    if (node.type === "UNDEFINED") {
+      throw new Error("NOT node must have a valid child");
+    }
+    this.childList.push(node);
+    this.type = "NOT";
+  }
+}
+
+class EXPRESSION extends Node {
+  constructor(expressionId:number, nodeParam?:NodeParamStruct | undefined) {
     super();
     this.expressionId = expressionId;
-    this.nodeParam = nodeParam;
+    if (nodeParam) {
+      this.nodeParam = nodeParam;
+    }
     this.type = "EXPRESSION";
   }
 }
+
+class TRUE extends Node {
+  constructor() {
+    super();
+    this.type = "TRUE";
+  }
+}
+
+class FALSE extends Node {
+  constructor() {
+    super();
+    this.type = "FALSE";
+  }
+}
+
+
+// export everything 
+export {
+  Node,
+  AND,
+  OR,
+  NOT,
+  EXPRESSION,
+  TRUE,
+  FALSE,
+  NodeType,
+};
