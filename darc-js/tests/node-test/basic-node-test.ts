@@ -5,7 +5,7 @@ import 'mocha';
 
 
 
-describe('class DARC test', 
+describe('darc.js SDK Node test', 
   () => { 
     it('should pass test case 1', async () => { 
 
