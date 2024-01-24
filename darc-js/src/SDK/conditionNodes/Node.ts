@@ -281,6 +281,36 @@ class FALSE extends Node {
   }
 }
 
+// below are wrapper functions for all the nodes above
+// so that user can initialize the nodes without using new keyword
+
+function and(... args:Node[]): Node {
+  return new AND(... args);
+}
+
+function or(... args:Node[]): Node {
+  return new OR(... args);
+}
+
+function not(node:Node): Node {
+  return new NOT(node);
+}
+
+function expression(expressionId:number, nodeParam?:NodeParamStruct | undefined): Node {
+  return new EXPRESSION(expressionId, nodeParam);
+}
+
+function boolean_true(): Node {
+  return new TRUE();
+}
+
+function boolean_false(): Node {
+  return new FALSE();
+}
+
+function node(): Node {
+  return new Node();
+}
 
 // export everything 
 export {
@@ -292,4 +322,11 @@ export {
   TRUE,
   FALSE,
   NodeType,
+  and,
+  or,
+  not,
+  expression,
+  boolean_true,
+  boolean_false,
+  node,
 };

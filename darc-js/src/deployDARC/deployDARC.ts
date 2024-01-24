@@ -1,4 +1,3 @@
-import * as prelude from '../codeGenerator/codeGenerator';
 import {ethers} from 'ethers';
 
 import {DARC_VERSION, DARCBinaryStruct, darcBinary} from '../darcBinary/darcBinary';
