@@ -42,14 +42,23 @@ import {
   OPCODE_ID_37_UPGRADE_TO_THE_LATEST
 } from "./opcodes/opcodeTable";
 
+/**
+ * The core function of the SDK. It takes in a list of operations and a wallet, and then sends the operations to the DARC contract. This is different from the By-law Script, which compile and run the code directly.
+ * @param operationList The list of operations to be sent to the DARC contract
+ * @param wallet The wallet to be used to sign the transaction (provider must be set)
+ * @param targetDARCAddress The address of the DARC contract to be used
+ * @param notes The notes to be attached to the program
+ * @param delegateToAddress If the signer is not the operator, but the operator has approved the signer to sign on its behalf, then the signer can set this parameter to the operator's address. Otherwise, leave it undefined.
+ */
 export async function interpret(
   operationList: OperationStruct[],
   wallet: ethers.Wallet,
   targetDARCAddress: string,
-  notes?: string | undefined
+  notes?: string,
+  delegateToAddress?: string
   ) {
   
-  const operatorAddress = wallet.address;
+  const operatorAddress = delegateToAddress? delegateToAddress : wallet.address;
   for (let i = 0; i < operationList.length; i++) {
     operationList[i].operatorAddress = operatorAddress;
   }
@@ -127,6 +136,10 @@ export function batch_change_member_names(addressArray: string[], nameArray: str
 }
 
 export function batch_add_plugins(pluginArray: PluginStruct[]): OperationStruct {
+  if (pluginArray instanceof Array && typeof pluginArray[0] !== "object") {
+    let operation = OPCODE_ID_12_BATCH_ADD_PLUGINS(pluginArray);
+    return operation;
+  }
   let operation = OPCODE_ID_12_BATCH_ADD_PLUGINS(pluginArray);
   return operation;
 }

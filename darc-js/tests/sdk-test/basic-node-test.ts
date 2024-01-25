@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import {Node, AND, OR, NOT, EXPRESSION, TRUE, FALSE, NodeType} from '../src/SDK/conditionNodes/Node';
+import {Node, AND, OR, NOT, EXPRESSION, TRUE, FALSE, NodeType} from '../../src/SDK/conditionNodes/Node';
 
 import 'mocha';
 

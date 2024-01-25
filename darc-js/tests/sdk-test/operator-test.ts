@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { transpiler } from '../src/SDK/transpiler';
+import { transpiler } from '../../src/SDK/transpiler';
 
 describe('Operator Test', 
   () => { 
@@ -18,7 +18,6 @@ describe('Operator Test',
 
       const transpiled_result = transpiler(code);
 
-      console.log(transpiled_result);
       expect(true).to.equal(true);
   }); 
 });
