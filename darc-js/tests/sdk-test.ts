@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import * as DARC from '../src/DARC/DARC';
 import 'mocha';
 import { expect } from 'chai';
-import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../src/SDK/includes";
+import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../src/SDK/sdk";
 
 
 
@@ -13,44 +13,38 @@ const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545/');
 const signer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider);
 const my_wallet_address = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
 
-/**
- * Here is the code:
- * 1. create a token class 0 with token info "token_0", voting weight 10, dividend weight 20
- *   create a token class 1 with token info "token_1", voting weight 20, dividend weight 30
- * 2. mint 100 token_0 and 200 token_1 to address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266  
- */
-const code = `
-batch_create_token_classes(['token_0', 'token_1'],
-[0,1],
-[10,20], 
-[20,30]);
-batch_mint_tokens([ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", 
-"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-[0, 1], [100,200]);
-`;
 
-describe('Runtime execution test', () => {
-  it('should run the program', async () => {
+function toBigIntArray(array: number[]): bigint[] {
+  let bigIntArray: bigint[] = [];
+  for (let i = 0; i < array.length; i++) {
+    bigIntArray.push(BigInt(array[i]));
+  }
+  return bigIntArray;
+}
+
+describe.only('SDK execution test', () => {
+  it('should run the program in SDK', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
 
 
     await interpret(
-
       [
-        batch_create_token_classes,
-        batch_mint_tokens,
-      ],
-      [
-        ["0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-        [BigInt(0), BigInt(1)],
-        [BigInt(100), BigInt(200)],
+        batch_create_token_classes(
+          ['token_0', 'token_1'],
+          toBigIntArray([0,1]),
+          toBigIntArray([10,20]), 
+          toBigIntArray([20,30])
+        ),
+        batch_mint_tokens(
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          toBigIntArray([0, 1]), 
+          toBigIntArray([100,200])
+        ),
       ],
       signer,
       darc_contract_address,
       "test program"
-    );
-
-    await run(code, signer, darc_contract_address, DARC_VERSION.Latest).then(async ()=>{
+    ).then(async ()=>{
 
       const attached_local_darc2 = new DARC.DARC({
         address: darc_contract_address,
@@ -58,6 +52,7 @@ describe('Runtime execution test', () => {
         version: DARC_VERSION.Latest,
       });
 
+      
       // read the token info and make sure that address 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 has 100 token_0 and 200 token_1
       const token_info = await attached_local_darc2.getTokenInfo(BigInt(0));
       const token_info1 = await attached_local_darc2.getTokenInfo(BigInt(1));
