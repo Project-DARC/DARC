@@ -1,4 +1,5 @@
 import { ConditionNodeStruct, NodeParamStruct } from "../../types/basicTypes"; 
+import { BigNumberish } from "ethers";
 
 /**
  * The node type: AND, OR, NOT, EXPRESSION, TRUE, FALSE, UNDEFINED
@@ -21,7 +22,7 @@ class Node {
       STRING_ARRAY: [],
       ADDRESS_2DARRAY: [],
       UINT256_2DARRAY: [],
-      BYTES: "",
+      BYTES: [],
     }
    }
 
@@ -157,9 +158,9 @@ class Node {
     else if (this.type === "UNDEFINED") {
       return [{
         id: BigInt(0),
-        nodeType: 0,
-        logicalOperator: 0,
-        conditionExpression: 0,
+        nodeType: BigInt(0),
+        logicalOperator: BigInt(0),
+        conditionExpression: BigInt(0),
         childList: [],
         param: this.nodeParam,
       }];
