@@ -80,37 +80,37 @@ export async function interpret(
 
 
 
-export function batch_mint_tokens(addressArray: string[], tokenClassArray: bigint[], amountArray: bigint[]): OperationStruct {
+export function batch_mint_tokens(addressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_1_BATCH_MINT_TOKENS(addressArray, tokenClassArray, amountArray);
   return operation;
 }
 
-export function batch_create_token_classes(nameArray: string[], tokenIndexArray: bigint[], votingWeightArray: bigint[], dividendWeightArray: bigint[]): OperationStruct {
+export function batch_create_token_classes(nameArray: string[], tokenIndexArray: bigint[] | number[], votingWeightArray: bigint[] | number[], dividendWeightArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES(nameArray, tokenIndexArray, votingWeightArray, dividendWeightArray);
   return operation;
 }
 
-export function batch_transfer_tokens(addressArray: string[], tokenClassArray: bigint[], amountArray: bigint[]): OperationStruct {
+export function batch_transfer_tokens(addressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_3_BATCH_TRANSFER_TOKENS(addressArray, tokenClassArray, amountArray);
   return operation;
 }
 
-export function batch_transfer_tokens_from_to(fromAddressArray: string[], toAddressArray: string[], tokenClassArray: bigint[], amountArray: bigint[]): OperationStruct {
+export function batch_transfer_tokens_from_to(fromAddressArray: string[], toAddressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_4_BATCH_TRANSFER_TOKENS_FROM_TO(fromAddressArray, toAddressArray, tokenClassArray, amountArray);
   return operation;
 }
 
-export function batch_burn_tokens(tokenClassArray: bigint[], amountArray: bigint[]): OperationStruct {
+export function batch_burn_tokens(tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_5_BATCH_BURN_TOKENS(tokenClassArray, amountArray);
   return operation;
 }
 
-export function batch_burn_tokens_from(addressArray: string[], tokenClassArray: bigint[], amountArray: bigint[]): OperationStruct {
+export function batch_burn_tokens_from(addressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_6_BATCH_BURN_TOKENS_FROM(addressArray, tokenClassArray, amountArray);
   return operation;
 }
 
-export function batch_add_memberships(addressArray: string[], roleArray: bigint[], nameArray: string[]): OperationStruct {
+export function batch_add_memberships(addressArray: string[], roleArray: bigint[] | number[], nameArray: string[]): OperationStruct {
   let operation = OPCODE_ID_7_BATCH_ADD_MEMBERSHIPS(addressArray, roleArray, nameArray);
   return operation;
 }
@@ -125,7 +125,7 @@ export function batch_resume_memberships(addressArray: string[]): OperationStruc
   return operation;
 }
 
-export function batch_change_member_roles(addressArray: string[], roleArray: bigint[]): OperationStruct {
+export function batch_change_member_roles(addressArray: string[], roleArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_10_BATCH_CHANGE_MEMBER_ROLES(addressArray, roleArray);
   return operation;
 }
@@ -144,12 +144,12 @@ export function batch_add_plugins(pluginArray: PluginStruct[]): OperationStruct 
   return operation;
 }
 
-export function batch_enable_plugins(pluginIndexArray: bigint[], isBeforeOperationArray: boolean[]): OperationStruct {
+export function batch_enable_plugins(pluginIndexArray: bigint[] | number[], isBeforeOperationArray: boolean[]): OperationStruct {
   let operation = OPCODE_ID_13_BATCH_ENABLE_PLUGINS(pluginIndexArray, isBeforeOperationArray);
   return operation;
 }
 
-export function batch_disable_plugins(pluginIndexArray: bigint[], isBeforeOperationArray: boolean[]): OperationStruct {
+export function batch_disable_plugins(pluginIndexArray: bigint[] | number[], isBeforeOperationArray: boolean[]): OperationStruct {
   let operation = OPCODE_ID_14_BATCH_DISABLE_PLUGINS(pluginIndexArray, isBeforeOperationArray);
   return operation;
 }
@@ -159,17 +159,17 @@ export function batch_add_and_enable_plugins(pluginArray: PluginStruct[]): Opera
   return operation;
 }
 
-export function batch_set_parameters(parameterIndexArray: bigint[], parameterValueArray: bigint[]): OperationStruct {
+export function batch_set_parameters(parameterIndexArray: bigint[] | number[], parameterValueArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_16_BATCH_SET_PARAMETERS(parameterIndexArray, parameterValueArray);
   return operation;
 }
 
-export function batch_add_withdrawable_balances(addressArray: string[], amountArray: bigint[]): OperationStruct {
+export function batch_add_withdrawable_balances(addressArray: string[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_17_BATCH_ADD_WITHDRAWABLE_BALANCES(addressArray, amountArray);
   return operation;
 }
 
-export function batch_reduce_withdrawable_balances(addressArray: string[], amountArray: bigint[]): OperationStruct {
+export function batch_reduce_withdrawable_balances(addressArray: string[], amountArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_18_BATCH_REDUCE_WITHDRAWABLE_BALANCES(addressArray, amountArray);
   return operation;
 }
@@ -179,12 +179,12 @@ export function batch_add_voting_rules(ruleArray: VotingRuleStruct[]): Operation
   return operation;
 }
 
-export function batch_pay_to_mint_tokens(addressArray: string[], tokenClassArray: bigint[], amountArray: bigint[], priceArray: bigint[], dividendable: bigint): OperationStruct {
+export function batch_pay_to_mint_tokens(addressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[], priceArray: bigint[] | number[], dividendable: bigint): OperationStruct {
   let operation = OPCODE_ID_20_BATCH_PAY_TO_MINT_TOKENS(addressArray, tokenClassArray, amountArray, priceArray, dividendable);
   return operation;
 }
 
-export function batch_pay_to_transfer_tokens( toAddressArray: string[], tokenClassArray: bigint[], amountArray: bigint[], priceArray: bigint[], dividendable: bigint): OperationStruct {
+export function batch_pay_to_transfer_tokens( toAddressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[], priceArray: bigint[] | number[], dividendable: bigint): OperationStruct {
   let operation = OPCODE_ID_21_BATCH_PAY_TO_TRANSFER_TOKENS(toAddressArray, tokenClassArray, amountArray, priceArray, dividendable);
   return operation;
 }
@@ -194,7 +194,7 @@ export function add_emergency(emergencyAddressArray: string[]): OperationStruct 
   return operation;
 }
 
-export function call_emergency(emergencyAddressArrayIndex: bigint[]): OperationStruct {
+export function call_emergency(emergencyAddressArrayIndex: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_24_CALL_EMERGENCY(emergencyAddressArrayIndex);
   return operation;
 }
@@ -219,7 +219,7 @@ export function set_approval_for_all_operations(address: string): OperationStruc
   return operation;
 }
 
-export function batch_burn_tokens_and_refund(tokenClassArray: bigint[], amountArray: bigint[], priceArray: bigint[]): OperationStruct {
+export function batch_burn_tokens_and_refund(tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[], priceArray: bigint[] | number[]): OperationStruct {
   let operation = OPCODE_ID_30_BATCH_BURN_TOKENS_AND_REFUND(tokenClassArray, amountArray, priceArray);
   return operation;
 }

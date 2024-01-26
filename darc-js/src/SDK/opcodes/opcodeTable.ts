@@ -329,8 +329,8 @@ enum EnumOpcode {
 
 function OPCODE_ID_1_BATCH_MINT_TOKENS(
   addressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure the length of addressArray, tokenClassArray, amountArray are the same and not empty
   if (addressArray.length != tokenClassArray.length || addressArray.length != amountArray.length) {
@@ -366,9 +366,9 @@ function OPCODE_ID_1_BATCH_MINT_TOKENS(
 
 function OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES(
   nameArray: string[], 
-  tokenIndexArray: bigint[], 
-  votingWeightArray: bigint[], 
-  dividendWeightArray: bigint[]
+  tokenIndexArray: bigint[] | number[], 
+  votingWeightArray: bigint[] | number[], 
+  dividendWeightArray: bigint[] | number[]
   ): OperationStruct {
   // make sure the length of all arrays are the same and not empty
   if (nameArray.length != tokenIndexArray.length || nameArray.length != votingWeightArray.length || nameArray.length != dividendWeightArray.length) {
@@ -417,8 +417,8 @@ function OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES(
 
 function OPCODE_ID_3_BATCH_TRANSFER_TOKENS(
   toAddressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure the length of the array is the same and not empty
   if (toAddressArray.length != tokenClassArray.length || toAddressArray.length != amountArray.length) {
@@ -459,8 +459,8 @@ function OPCODE_ID_3_BATCH_TRANSFER_TOKENS(
 function OPCODE_ID_4_BATCH_TRANSFER_TOKENS_FROM_TO(
   fromAddressArray: string[], 
   toAddressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[]
   ): OperationStruct {
     // make sure that the length of the array is the same and not empty
     if (fromAddressArray.length != toAddressArray.length || fromAddressArray.length != tokenClassArray.length || fromAddressArray.length != amountArray.length) {
@@ -499,8 +499,8 @@ function OPCODE_ID_4_BATCH_TRANSFER_TOKENS_FROM_TO(
 }
 
 function OPCODE_ID_5_BATCH_BURN_TOKENS(
-  tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (tokenClassArray.length != amountArray.length) {
@@ -538,8 +538,8 @@ function OPCODE_ID_5_BATCH_BURN_TOKENS(
 
 function OPCODE_ID_6_BATCH_BURN_TOKENS_FROM(
   fromAddressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (fromAddressArray.length != tokenClassArray.length || fromAddressArray.length != amountArray.length) {
@@ -579,7 +579,7 @@ function OPCODE_ID_6_BATCH_BURN_TOKENS_FROM(
 
 function OPCODE_ID_7_BATCH_ADD_MEMBERSHIPS(
   memberAddressArray: string[], 
-  memberRoleArray: bigint[], 
+  memberRoleArray: bigint[] | number[], 
   memberNameArray: string[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
@@ -678,7 +678,7 @@ function OPCODE_ID_9_BATCH_RESUME_MEMBERSHIPS(
 
 function OPCODE_ID_10_BATCH_CHANGE_MEMBER_ROLES(
   memberAddressArray: string[], 
-  memberRoleArray: bigint[]
+  memberRoleArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (memberAddressArray.length != memberRoleArray.length) {
@@ -774,7 +774,7 @@ function OPCODE_ID_12_BATCH_ADD_PLUGINS(
 }
 
 function OPCODE_ID_13_BATCH_ENABLE_PLUGINS(
-  pluginIndexArray: bigint[], 
+  pluginIndexArray: bigint[] | number[], 
   isBeforeOperationArray: boolean[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
@@ -808,7 +808,7 @@ function OPCODE_ID_13_BATCH_ENABLE_PLUGINS(
 }
 
 function OPCODE_ID_14_BATCH_DISABLE_PLUGINS(
-  pluginIndexArray: bigint[], 
+  pluginIndexArray: bigint[] | number[], 
   isBeforeOperationArray: boolean[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
@@ -869,8 +869,8 @@ function OPCODE_ID_15_BATCH_ADD_AND_ENABLE_PLUGINS(
 }
 
 function OPCODE_ID_16_BATCH_SET_PARAMETERS(
-  parameterNameArray: bigint[], 
-  parameterValueArray: bigint[]
+  parameterNameArray: bigint[] | number[], 
+  parameterValueArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (parameterNameArray.length != parameterValueArray.length) {
@@ -902,7 +902,7 @@ function OPCODE_ID_16_BATCH_SET_PARAMETERS(
 
 function OPCODE_ID_17_BATCH_ADD_WITHDRAWABLE_BALANCES(
   addressArray: string[], 
-  amountArray: bigint[]
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (addressArray.length != amountArray.length) {
@@ -938,7 +938,7 @@ function OPCODE_ID_17_BATCH_ADD_WITHDRAWABLE_BALANCES(
 
 function OPCODE_ID_18_BATCH_REDUCE_WITHDRAWABLE_BALANCES(
   addressArray: string[], 
-  amountArray: bigint[]
+  amountArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (addressArray.length != amountArray.length) {
@@ -1001,9 +1001,9 @@ function OPCODE_ID_19_BATCH_ADD_VOTING_RULES(
 
 function OPCODE_ID_20_BATCH_PAY_TO_MINT_TOKENS(
   addressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[], 
-  priceArray: bigint[], 
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[], 
+  priceArray: bigint[] | number[], 
   dividendableFlag: bigint
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
@@ -1052,9 +1052,9 @@ function OPCODE_ID_20_BATCH_PAY_TO_MINT_TOKENS(
 
 function OPCODE_ID_21_BATCH_PAY_TO_TRANSFER_TOKENS(
   toAddressArray: string[], 
-  tokenClassArray: bigint[], 
-  amountArray: bigint[], 
-  priceArray: bigint[], 
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[], 
+  priceArray: bigint[] | number[], 
   dividendableFlag: bigint
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
@@ -1131,7 +1131,7 @@ function OPCODE_ID_22_ADD_EMERGENCY(
 }
 
 function OPCODE_ID_24_CALL_EMERGENCY(
-  emergencyIndexArray: bigint[]
+  emergencyIndexArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is not empty
   if (emergencyIndexArray.length == 0) {
@@ -1282,9 +1282,9 @@ function OPCODE_ID_29_SET_APPROVAL_FOR_ALL_OPERATIONS(
 }
 
 function OPCODE_ID_30_BATCH_BURN_TOKENS_AND_REFUND(
-  tokenClassArray: bigint[], 
-  amountArray: bigint[],
-  priceArray: bigint[]
+  tokenClassArray: bigint[] | number[], 
+  amountArray: bigint[] | number[],
+  priceArray: bigint[] | number[]
   ): OperationStruct {
   // make sure that the length of the array is the same and not empty
   if (tokenClassArray.length != amountArray.length) {
