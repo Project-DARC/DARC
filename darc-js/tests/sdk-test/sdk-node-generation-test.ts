@@ -36,7 +36,7 @@ function toBigIntArray(array: number[]): bigint[] {
   return bigIntArray;
 }
 
-describe('SDK node generation test', () => {
+describe.only('SDK node generation test', () => {
   it ('should run the program "add and enable plugin" with generated condition node list in SDK', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
     await interpret(
@@ -189,5 +189,61 @@ describe('SDK node generation test', () => {
       }
       expect (isSuccess).to.equal(false);
     });
+  });
+
+  it ('should also generate condition node automatically, without manually calling the function generateConditionNodeList', async () => {
+    const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
+    await interpret(
+      [
+
+        // operation 0
+        batch_create_token_classes(
+          ['token_0', 'token_1'],
+          toBigIntArray([0,1]),
+          toBigIntArray([10,20]), 
+          toBigIntArray([20,30])
+        ),
+
+        // operation 1
+        batch_mint_tokens(
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          toBigIntArray([0, 1]), 
+          toBigIntArray([100,200])
+        ),
+
+        // operation 2
+        batch_add_and_enable_plugins(
+          [
+            {
+              returnType: BigInt(4), // yes and skip sandbox
+              level: BigInt(103),
+              votingRuleIndex: BigInt(0),
+              notes: "allow operatorAddress == target1 | operatorAddress == target2",
+              bIsEnabled: true,
+              bIsInitialized: true,
+              bIsBeforeOperation: true,
+              conditionNodes: 
+              or(
+                expression(3, {
+                  STRING_ARRAY: [],
+                  UINT256_2DARRAY: [],
+                  ADDRESS_2DARRAY: [[target1]],
+                  BYTES: []
+                }),
+                expression(3, {
+                  STRING_ARRAY: [],
+                  UINT256_2DARRAY: [],
+                  ADDRESS_2DARRAY: [[target2]],
+                  BYTES: []
+                })
+              )
+            }
+          ]
+        )
+      ],
+      signer,
+      darc_contract_address,
+      "test program"
+    );
   });
 });
