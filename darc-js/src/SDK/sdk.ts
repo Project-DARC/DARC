@@ -1,6 +1,6 @@
 // import everything from includes.ts
 import * as instructions from "./includes";
-import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct, PluginStruct } from "../types/basicTypes";
+import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct, PluginStruct, PluginStructWithNode } from "../types/basicTypes";
 import {ethers} from "ethers";
 import * as DARC from "../DARC/DARC";
 
@@ -135,7 +135,7 @@ export function batch_change_member_names(addressArray: string[], nameArray: str
   return operation;
 }
 
-export function batch_add_plugins(pluginArray: PluginStruct[]): OperationStruct {
+export function batch_add_plugins(pluginArray: PluginStruct[] | PluginStructWithNode[]): OperationStruct {
   if (pluginArray instanceof Array && typeof pluginArray[0] !== "object") {
     let operation = OPCODE_ID_12_BATCH_ADD_PLUGINS(pluginArray);
     return operation;
@@ -154,7 +154,7 @@ export function batch_disable_plugins(pluginIndexArray: bigint[] | number[], isB
   return operation;
 }
 
-export function batch_add_and_enable_plugins(pluginArray: PluginStruct[]): OperationStruct {
+export function batch_add_and_enable_plugins(pluginArray: PluginStruct[] | PluginStructWithNode[]): OperationStruct {
   let operation = OPCODE_ID_15_BATCH_ADD_AND_ENABLE_PLUGINS(pluginArray);
   return operation;
 }

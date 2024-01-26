@@ -1,9 +1,7 @@
 // all the included instructions are here, mostly instructions for operations
 // todo: add backend support for current operations
-
-import { TokenOperations } from "./struct/token-operation-map";
-import { Plugin } from "./struct/Plugin";
-import { OperationStruct, PluginStruct, VotingRuleStruct } from "../types/basicTypes";
+import { OperationStruct, PluginStruct, PluginStructWithNode, VotingRuleStruct } from "../types/basicTypes";
+import { Node } from "./conditionNodes/Node";
 
 import { objectMethod } from "@babel/types";
 
@@ -109,7 +107,7 @@ export function batch_change_member_names(addressArray: string[], nameArray: str
   operationList.push(operation);
 }
 
-export function batch_add_plugins(pluginArray: PluginStruct[]) {
+export function batch_add_plugins(pluginArray: PluginStruct[] | PluginStructWithNode[]) {
   let operation = OPCODE_ID_12_BATCH_ADD_PLUGINS(pluginArray);
   operationList.push(operation);
 }
@@ -124,7 +122,7 @@ export function batch_disable_plugins(pluginIndexArray: bigint[] | number[], isB
   operationList.push(operation);
 }
 
-export function batch_add_and_enable_plugins(pluginArray: PluginStruct[]) {
+export function batch_add_and_enable_plugins(pluginArray: PluginStruct[] | PluginStructWithNode[]) {
   let operation = OPCODE_ID_15_BATCH_ADD_AND_ENABLE_PLUGINS(pluginArray);
   operationList.push(operation);
 }

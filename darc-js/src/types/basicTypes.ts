@@ -12,6 +12,8 @@ import type {
   utils,
 } from "ethers";
 
+import {Node} from "../SDK/conditionNodes/Node";
+
 type PromiseOrValue<T> = T | Promise<T>;
 
 
@@ -92,6 +94,17 @@ export type PluginStruct = {
   returnType: PromiseOrValue<BigNumberish>;
   level: PromiseOrValue<BigNumberish>;
   conditionNodes: ConditionNodeStruct[];
+  votingRuleIndex: PromiseOrValue<BigNumberish>;
+  notes: PromiseOrValue<string>;
+  bIsEnabled: PromiseOrValue<boolean>;
+  bIsInitialized: PromiseOrValue<boolean>;
+  bIsBeforeOperation: PromiseOrValue<boolean>;
+};
+
+export type PluginStructWithNode = {
+  returnType: PromiseOrValue<BigNumberish>;
+  level: PromiseOrValue<BigNumberish>;
+  conditionNodes: Node;
   votingRuleIndex: PromiseOrValue<BigNumberish>;
   notes: PromiseOrValue<string>;
   bIsEnabled: PromiseOrValue<boolean>;

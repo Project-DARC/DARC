@@ -170,6 +170,30 @@ class Node {
     }
     return [];
   }
+
+  /**
+   * Operator overloading for AND node
+   * @param other The other node
+   * @returns The AND node
+   */
+  [Symbol.for('&')](other: Node): Node {
+    if (this.type === "UNDEFINED" || other.type === "UNDEFINED") {
+      throw new Error("Undefined node is not allowed");
+    }
+    return new AND(this, other);
+  }
+
+  /**
+   * The operator overloading for OR node
+   * @param other The other node
+   * @returns The OR node
+   */
+  [Symbol.for('|')](other: Node): Node {
+    if (this.type === "UNDEFINED" || other.type === "UNDEFINED") {
+      throw new Error("Undefined node is not allowed");
+    }
+    return new OR(this, other);
+  }
 }
 
 class AND extends Node {

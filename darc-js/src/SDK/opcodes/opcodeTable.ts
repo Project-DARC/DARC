@@ -1,6 +1,8 @@
 import { ethers } from "ethers";  
-import {OperationStruct, PluginStruct, VotingRuleStruct} from "../../types/basicTypes";
+import {OperationStruct, PluginStruct, VotingRuleStruct, PluginStructWithNode} from "../../types/basicTypes";
 import { toBigIntArray, isValidAddressArray, isValidBigIntOrNumberArray, isValidStringArray, areArriesWithSameLength, isValidBigIntOrNumber } from "./utils";
+
+import { pluginProcessor } from "./pluginProcessor";
 
 enum EnumOpcode {
 
@@ -747,12 +749,14 @@ function OPCODE_ID_11_BATCH_CHANGE_MEMBER_NAMES(
 }
 
 function OPCODE_ID_12_BATCH_ADD_PLUGINS(
-  pluginList: PluginStruct[]
+  pluginList: PluginStruct[] | PluginStructWithNode[]
   ): OperationStruct {
   // make sure that the length of the array is not empty
   if (pluginList.length == 0) {
     throw new Error("Invalid array length");
   }
+
+  const processedPluginArray = pluginProcessor(pluginList);
 
   //create the operation
   const operation = {
@@ -763,7 +767,7 @@ function OPCODE_ID_12_BATCH_ADD_PLUGINS(
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],
 
-      PLUGIN_ARRAY: pluginList,
+      PLUGIN_ARRAY: processedPluginArray,
       PARAMETER_ARRAY: [],
       UINT256_2DARRAY: [],
       ADDRESS_2DARRAY: [],
@@ -842,12 +846,14 @@ function OPCODE_ID_14_BATCH_DISABLE_PLUGINS(
 }
 
 function OPCODE_ID_15_BATCH_ADD_AND_ENABLE_PLUGINS(
-  pluginList: PluginStruct[]
+  pluginList: PluginStruct[] | PluginStructWithNode[]
   ): OperationStruct {
   // make sure that the length of the array is not empty
   if (pluginList.length == 0) {
     throw new Error("Invalid array length");
   }
+
+  const processedPluginArray = pluginProcessor(pluginList);
 
   //create the operation
   const operation = {
@@ -858,7 +864,7 @@ function OPCODE_ID_15_BATCH_ADD_AND_ENABLE_PLUGINS(
       BOOL_ARRAY: [],
       VOTING_RULE_ARRAY: [],
 
-      PLUGIN_ARRAY: pluginList,
+      PLUGIN_ARRAY: processedPluginArray,
       PARAMETER_ARRAY: [],
       UINT256_2DARRAY: [],
       ADDRESS_2DARRAY: [],
