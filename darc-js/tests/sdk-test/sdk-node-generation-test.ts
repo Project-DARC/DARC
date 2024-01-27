@@ -36,7 +36,7 @@ function toBigIntArray(array: number[]): bigint[] {
   return bigIntArray;
 }
 
-describe.only('SDK node generation test', () => {
+describe('SDK node generation test', () => {
   it ('should run the program "add and enable plugin" with generated condition node list in SDK', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
     await interpret(
@@ -206,7 +206,8 @@ describe.only('SDK node generation test', () => {
 
         // operation 1
         batch_mint_tokens(
-          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", 
+          "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
           toBigIntArray([0, 1]), 
           toBigIntArray([100,200])
         ),

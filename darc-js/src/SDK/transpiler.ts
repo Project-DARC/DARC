@@ -6,30 +6,6 @@ export function transpiler(sourceCode: string): string {
   // register the plugin
 
   babel.registerPlugin('overload', require('@jetblack/operator-overloading')); //jetblack_operator_overload);
-
-  /*
-  babel.registerPlugin(
-    '@babel/plugin-proposal-class-properties',
-     require('@babel/plugin-proposal-class-properties')
-  );
-  babel.registerPlugin(
-    '@babel/plugin-proposal-private-methods',
-    require('@babel/plugin-proposal-private-methods')
-  );
-
-    function lolizer() {
-    return {
-      visitor: {
-        Identifier(path:any) {
-          console.log(JSON.stringify( path.node));
-          //path.node.name = "LOL";
-        },
-      },
-    };
-  }
-
-  babel.registerPlugin("lolizer", lolizer);
-  */
   
 
   // register the preset
@@ -40,7 +16,7 @@ export function transpiler(sourceCode: string): string {
   babel.registerPreset('@babel/preset-typescript', require('@babel/preset-typescript'));
 
   // compile the code
-  const result = babel.transform(sourceCode, {
+  const result = babel.transform(      `'operator-overloading enabled';` + sourceCode, {
     plugins: ['overload'], //, '@babel/plugin-proposal-class-properties', '@babel/plugin-proposal-private-methods'],
     //['@babel/plugin-proposal-class-properties', { "loose": true }],
     //['@babel/plugin-proposal-private-methods', { loose: true }]
@@ -50,7 +26,7 @@ export function transpiler(sourceCode: string): string {
     sourceType: 'script'
   });
 
-  console.log(JSON.stringify(babel));
+  
 
-  return  result.code;
+  return result.code;
 }
