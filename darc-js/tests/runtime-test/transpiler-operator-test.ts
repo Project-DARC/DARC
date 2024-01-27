@@ -4,7 +4,7 @@ import 'mocha';
 import { transpiler } from '../../src/SDK/transpiler';
 import { Node } from '@babel/types';
 
-describe.only('Operator Test', 
+describe('Operator Test', 
   () => { 
     it('should return true', () => { 
 

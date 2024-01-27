@@ -2,7 +2,7 @@
 // todo: add backend support for current operations
 import { OperationStruct, PluginStruct, PluginStructWithNode, VotingRuleStruct } from "../types/basicTypes";
 import { Node } from "./conditionNodes/Node";
-
+import { BigNumber } from "ethers";
 import { objectMethod } from "@babel/types";
 
 import {
@@ -47,6 +47,7 @@ export let operationList: OperationStruct[] = [];
 
 export let programNotes: string = "";
 
+export { BigNumber };
 
 export function setNote(note:string) {
   programNotes = note;
@@ -61,7 +62,7 @@ export function batch_create_token_classes(nameArray: string[], tokenIndexArray:
   let operation = OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES(nameArray, tokenIndexArray, votingWeightArray, dividendWeightArray);
   operationList.push(operation);
 }
-
+ 
 export function batch_transfer_tokens(addressArray: string[], tokenClassArray: bigint[] | number[], amountArray: bigint[] | number[]) {
   let operation = OPCODE_ID_3_BATCH_TRANSFER_TOKENS(addressArray, tokenClassArray, amountArray);
   operationList.push(operation);

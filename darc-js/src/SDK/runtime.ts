@@ -66,5 +66,10 @@ export async function transpileAndRun(
   delegateToAddress?:string
 ) {
   const compiledCode = transpiler(code);
-  await run(compiledCode, wallet, targetDARCAddress, darcVersion, delegateToAddress);
+  if (delegateToAddress) {
+    await run(compiledCode, wallet, targetDARCAddress, darcVersion, delegateToAddress);
+  }
+  else {
+    await run(compiledCode, wallet, targetDARCAddress, darcVersion);
+  }
 }
