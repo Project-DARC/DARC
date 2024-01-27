@@ -36,8 +36,8 @@ function toBigIntArray(array: number[]): bigint[] {
   return bigIntArray;
 }
 
-describe.only('transpiler and execution test', () => {
-  it ('should run the by-law script with expression', async () => {
+describe('transpiler and execution test', () => {
+  it ('should run the by-law script with expression node, logical operation node generated successfully', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
 
     const code = `
@@ -69,19 +69,7 @@ describe.only('transpiler and execution test', () => {
           bIsEnabled: true,
           bIsInitialized: true,
           bIsBeforeOperation: true,
-          conditionNodes:[{
-            id: BigNumber.from(0),
-            nodeType: BigNumber.from(3), // expression
-            logicalOperator: BigNumber.from(0), // no operator
-            conditionExpression: BigNumber.from(0), // always true
-            childList: [],
-            param: {
-              STRING_ARRAY: [],
-              UINT256_2DARRAY: [],
-              ADDRESS_2DARRAY: [],
-              BYTES: []
-            }
-          }]
+          conditionNodes: new TRUE() // always true
         },
         {
           returnType: BigInt(4), // yes and skip sandbox
@@ -91,117 +79,7 @@ describe.only('transpiler and execution test', () => {
           bIsEnabled: true,
           bIsInitialized: true,
           bIsBeforeOperation: true,
-          conditionNodes:[
-            // node 0: boolean operator OR
-            {
-              id: BigNumber.from(0),
-              nodeType: BigNumber.from(2), // logical operator
-              logicalOperator: BigNumber.from(2), // OR
-              conditionExpression: 0, // no expression
-              childList: [BigNumber.from(1), BigNumber.from(2)],
-              param: {
-                STRING_ARRAY: [],
-                UINT256_2DARRAY: [],
-                ADDRESS_2DARRAY: [],
-                BYTES: []
-              }
-            },
-    
-            // node 1: operatorAddress == target1
-            {
-              id : BigNumber.from(1),
-              nodeType: BigNumber.from(1), // expression
-              logicalOperator: BigNumber.from(0), // no operator
-              conditionExpression: BigNumber.from(3), // OPERATOR_ADDRESS_EQUALS
-              childList: [],
-              param: {
-                STRING_ARRAY: [],
-                UINT256_2DARRAY: [],
-                ADDRESS_2DARRAY: [[target1]],
-                BYTES: []
-              }
-            },
-    
-            // node 2: operatorAddress == target2
-            {
-              id : BigNumber.from(2),
-              nodeType: BigNumber.from(1), // expression
-              logicalOperator: BigNumber.from(0), // no operator
-              conditionExpression: BigNumber.from(3), // OPERATOR_ADDRESS_EQUALS
-              childList: [],
-              param: {
-                STRING_ARRAY: [],
-                UINT256_2DARRAY: [],
-                ADDRESS_2DARRAY: [[target2]],
-                BYTES: []
-              }
-            }
-          ]
-        }
-      ]
-    )
-    `;
-    const transpiledCode = transpiler(code);
-    console.log(transpiledCode);
-    //await run(transpiledCode, signer, darc_contract_address, DARC_VERSION.Latest)
-    await transpileAndRun(code, signer, darc_contract_address, DARC_VERSION.Latest);
-    // it should 
-
-    return;
-
-    await interpret(
-      [
-
-        // operation 0
-        batch_create_token_classes(
-          ['token_0', 'token_1'],
-          toBigIntArray([0,1]),
-          toBigIntArray([10,20]), 
-          toBigIntArray([20,30])
-        ),
-
-        // operation 1
-        batch_mint_tokens(
-          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-          toBigIntArray([0, 1]), 
-          toBigIntArray([100,200])
-        ),
-
-        // operation 2
-        batch_add_and_enable_plugins(
-          [
-            // plugin 0: disable all operations
-            {
-              returnType: BigNumber.from(2), // no
-              level: BigNumber.from(3), // level 3
-              votingRuleIndex: BigNumber.from(0),
-              notes: "disable all program",
-              bIsEnabled: true,
-              bIsInitialized: true,
-              bIsBeforeOperation: true,
-              conditionNodes:[{
-                id: BigNumber.from(0),
-                nodeType: BigNumber.from(3), // expression
-                logicalOperator: BigNumber.from(0), // no operator
-                conditionExpression: BigNumber.from(0), // always true
-                childList: [],
-                param: {
-                  STRING_ARRAY: [],
-                  UINT256_2DARRAY: [],
-                  ADDRESS_2DARRAY: [],
-                  BYTES: []
-                }
-              }]
-            },
-            {
-              returnType: BigInt(4), // yes and skip sandbox
-              level: BigInt(103),
-              votingRuleIndex: BigInt(0),
-              notes: "allow operatorAddress == target1 | operatorAddress == target2",
-              bIsEnabled: true,
-              bIsInitialized: true,
-              bIsBeforeOperation: true,
-              conditionNodes: 
+          conditionNodes:
               or(
                 expression(3, {
                   STRING_ARRAY: [],
@@ -215,89 +93,87 @@ describe.only('transpiler and execution test', () => {
                   ADDRESS_2DARRAY: [[target2]],
                   BYTES: []
                 })
-              ).generateConditionNodeList()
-            }
-          ]
+              )
+        }
+      ]
+    )
+    `;
+    await transpileAndRun(code, signer, darc_contract_address, DARC_VERSION.Latest);
+    // it should 
+
+
+    const attached_local_darc_signer1 = new DARC.DARC({
+      address: darc_contract_address,
+      wallet: signer1,
+      version: DARC_VERSION.Latest,
+    });
+
+    const attached_local_darc_signer2 = new DARC.DARC({
+      address: darc_contract_address,
+      wallet: signer2,
+      version: DARC_VERSION.Latest,
+    });
+
+    // signer 1 and signer 2 should be able to run the program
+    let isSuccess = true;
+    try{
+      await interpret([
+        batch_mint_tokens(
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          toBigIntArray([0, 1]), 
+          toBigIntArray([100,200])
+        )
+      ],
+      signer1,
+      darc_contract_address,
+      "test program"
+      );
+    }
+    catch(e){
+      isSuccess = false;
+    }
+
+    expect (isSuccess).to.equal(true);
+
+    isSuccess = true;
+    try{
+      await interpret([
+        batch_mint_tokens(
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          toBigIntArray([0, 1]), 
+          toBigIntArray([100,200])
+        )
+      ],
+      signer2,
+      darc_contract_address,
+      "test program"
+      );
+    }
+    catch(e){
+      isSuccess = false;
+    }
+
+    expect (isSuccess).to.equal(true);
+
+    // and signer0 and programOperatorAddress should not be able to run the program
+    isSuccess = true;
+    try{
+      await interpret([
+        batch_mint_tokens(
+          [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
+          toBigIntArray([0, 1]), 
+          toBigIntArray([100,200])
         )
       ],
       signer,
       darc_contract_address,
       "test program"
-    ).then(async ()=>{
+      );
+    }
+    catch(e){
 
-      const attached_local_darc_signer1 = new DARC.DARC({
-        address: darc_contract_address,
-        wallet: signer1,
-        version: DARC_VERSION.Latest,
-      });
-
-      const attached_local_darc_signer2 = new DARC.DARC({
-        address: darc_contract_address,
-        wallet: signer2,
-        version: DARC_VERSION.Latest,
-      });
-
-      // signer 1 and signer 2 should be able to run the program
-      let isSuccess = true;
-      try{
-        await interpret([
-          batch_mint_tokens(
-            [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-            toBigIntArray([0, 1]), 
-            toBigIntArray([100,200])
-          )
-        ],
-        signer1,
-        darc_contract_address,
-        "test program"
-        );
-      }
-      catch(e){
-        isSuccess = false;
-      }
-
-      expect (isSuccess).to.equal(true);
-
-      isSuccess = true;
-      try{
-        await interpret([
-          batch_mint_tokens(
-            [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-            toBigIntArray([0, 1]), 
-            toBigIntArray([100,200])
-          )
-        ],
-        signer2,
-        darc_contract_address,
-        "test program"
-        );
-      }
-      catch(e){
-        isSuccess = false;
-      }
-
-      expect (isSuccess).to.equal(true);
-
-      // and signer0 and programOperatorAddress should not be able to run the program
-      isSuccess = true;
-      try{
-        await interpret([
-          batch_mint_tokens(
-            [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
-            toBigIntArray([0, 1]), 
-            toBigIntArray([100,200])
-          )
-        ],
-        signer,
-        darc_contract_address,
-        "test program"
-        );
-      }
-      catch(e){
-
-        isSuccess = false;
-      }
-      expect (isSuccess).to.equal(false);
-    });
+      isSuccess = false;
+    }
+    expect (isSuccess).to.equal(false);
   });
 });
