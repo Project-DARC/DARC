@@ -1,4 +1,4 @@
-import {interpret} from "../../src/SDK/sdk";
+import {executeOperationList} from "../../src/SDK/sdk";
 import {run, deployDARC, DARC_VERSION} from '../../src/darcjs';
 import { ethers, BigNumber } from 'ethers';
 import * as DARC from '../../src/DARC/DARC';
@@ -39,7 +39,7 @@ function toBigIntArray(array: number[]): bigint[] {
 describe('SDK node generation test', () => {
   it ('should run the program "add and enable plugin" with generated condition node list in SDK', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
-    await interpret(
+    await executeOperationList(
       [
 
         // operation 0
@@ -130,7 +130,7 @@ describe('SDK node generation test', () => {
       // signer 1 and signer 2 should be able to run the program
       let isSuccess = true;
       try{
-        await interpret([
+        await executeOperationList([
           batch_mint_tokens(
             [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
             toBigIntArray([0, 1]), 
@@ -150,7 +150,7 @@ describe('SDK node generation test', () => {
 
       isSuccess = true;
       try{
-        await interpret([
+        await executeOperationList([
           batch_mint_tokens(
             [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
             toBigIntArray([0, 1]), 
@@ -171,7 +171,7 @@ describe('SDK node generation test', () => {
       // and signer0 and programOperatorAddress should not be able to run the program
       isSuccess = true;
       try{
-        await interpret([
+        await executeOperationList([
           batch_mint_tokens(
             [ "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266", "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"],
             toBigIntArray([0, 1]), 
@@ -193,7 +193,7 @@ describe('SDK node generation test', () => {
 
   it ('should also generate condition node automatically, without manually calling the function generateConditionNodeList', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
-    await interpret(
+    await executeOperationList(
       [
 
         // operation 0

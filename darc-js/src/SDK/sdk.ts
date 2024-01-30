@@ -50,7 +50,7 @@ import {
  * @param notes The notes to be attached to the program
  * @param delegateToAddress If the signer is not the operator, but the operator has approved the signer to sign on its behalf, then the signer can set this parameter to the operator's address. Otherwise, leave it undefined.
  */
-export async function interpret(
+export async function executeOperationList(
   operationList: OperationStruct[],
   wallet: ethers.Wallet,
   targetDARCAddress: string,
