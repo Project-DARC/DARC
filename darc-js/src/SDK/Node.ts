@@ -1,4 +1,4 @@
-import { ConditionNodeStruct, NodeParamStruct } from "../../types/basicTypes"; 
+import { ConditionNodeStruct, NodeParamStruct } from "../types/basicTypes"; 
 import { BigNumberish } from "ethers";
 
 /**

@@ -1,7 +1,7 @@
 // all the included instructions are here, mostly instructions for operations
 // todo: add backend support for current operations
 import { OperationStruct, PluginStruct, PluginStructWithNode, VotingRuleStruct } from "../types/basicTypes";
-import { Node, expression, TRUE, FALSE, AND, OR, and, or, not, NOT } from "./conditionNodes/Node";
+import { Node, expression, TRUE, FALSE, AND, OR, and, or, not, NOT } from "./Node";
 import { BigNumber } from "ethers";
 import { objectMethod } from "@babel/types";
 

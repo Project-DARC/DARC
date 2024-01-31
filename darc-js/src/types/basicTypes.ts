@@ -12,7 +12,7 @@ import type {
   utils,
 } from "ethers";
 
-import {Node} from "../SDK/conditionNodes/Node";
+import {Node} from "../SDK/Node";
 
 type PromiseOrValue<T> = T | Promise<T>;
 

@@ -5,7 +5,7 @@ import * as DARC from '../../src/DARC/DARC';
 import 'mocha';
 import { expect } from 'chai';
 import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../../src/SDK/sdk";
-import {or, node, and, expression} from "../../src/SDK/conditionNodes/Node";
+import {or, node, and, expression} from "../../src/SDK/Node";
 import { transpileAndRun } from "../../src/SDK/runtime";
 import { transpiler } from "../../src/darcjs";
 

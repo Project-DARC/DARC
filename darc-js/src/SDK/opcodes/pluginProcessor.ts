@@ -1,5 +1,5 @@
 import { ConditionNodeStruct, PluginStruct, PluginStructWithNode } from "../../types/basicTypes";
-import { Node} from "../conditionNodes/Node";
+import { Node} from "../Node";
 
 /**
  * This is a helper function to convert a plugin array with Node to a plugin array with ConditionNodeStruct
