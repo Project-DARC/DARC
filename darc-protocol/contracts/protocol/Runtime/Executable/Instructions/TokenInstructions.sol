@@ -513,6 +513,114 @@ contract TokenInstructions is MachineStateManager, TokenOwnerListManager{
     }
   }
 
-  
+  /**
+   * @notice The function that executes the BATCH_BURN_TOKENS_AND_REFUND operation
+   * @param operation The operation to be executed
+   * @param bIsSandbox The flag to indicate if the operation is being executed in sandbox
+   */
+  function op_BATCH_BURN_TOKENS_AND_REFUND(Operation memory operation, bool bIsSandbox) internal {
+      /**
+       * @notice Batch Burn tokens and Refund
+       * @param UINT256_2DARRAY[0] uint256[] tokenClassArray: the array of the token class index to burn tokens from
+       * @param UINT256_2DARRAY[1] uint256[] amountArray: the array of the amount of the token to burn
+       * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to burn
+       * ID:30
+       */
+    require(operation.param.UINT256_2DARRAY[0].length == operation.param.UINT256_2DARRAY[1].length, "The length of tokenClassArray and amountArray is not equal at BATCH_BURN_TOKENS_AND_REFUND");
+    require(operation.param.UINT256_2DARRAY[0].length == operation.param.UINT256_2DARRAY[2].length, "The length of tokenClassArray and priceArray is not equal at BATCH_BURN_TOKENS_AND_REFUND");
 
+    uint256[] memory tokenClass = operation.param.UINT256_2DARRAY[0];
+    uint256[] memory amount = operation.param.UINT256_2DARRAY[1];
+    uint256[] memory price = operation.param.UINT256_2DARRAY[2];
+
+    // just call the op_BATCH_BURN_TOKENS function to burn the tokens first
+    // make sure that the burning operation is executed successfully before refunding the operator
+    op_BATCH_BURN_TOKENS(operation, bIsSandbox);
+
+    // then refund the operator with the price
+
+    if (bIsSandbox) {
+      // initialize the total refund amount
+      uint256 totalRefundAmount = 0;
+      for (uint256 i=0;i<tokenClass.length;i++){
+        bool bIsValid = false;
+        uint256 refundAmount = 0;
+
+        // calculate the refund amount
+        (bIsValid, refundAmount) = SafeMathUpgradeable.tryMul(amount[i], price[i]);
+        require(bIsValid, "The refund amount is overflow");
+        if (refundAmount > 0) {
+
+          (bIsValid, totalRefundAmount) = SafeMathUpgradeable.tryAdd(refundAmount, totalRefundAmount);
+          require(bIsValid, "The total refund amount is overflow");
+
+        }
+      }
+
+      // if the total refund amount is greater than 0, add it to the withdrawable cash map
+      // and update the withdrawable cash owner list if the operator is not in the list
+      if (totalRefundAmount > 0) {
+        uint256 totalWithdrawableAmount = 0;
+        bool bIsValid = false;
+        (bIsValid, totalWithdrawableAmount) = SafeMathUpgradeable.tryAdd(totalRefundAmount, sandboxMachineState.withdrawableCashMap[operation.operatorAddress]);
+        require(bIsValid, "The total withdrawable amount is overflow");
+        sandboxMachineState.withdrawableCashMap[operation.operatorAddress] = totalWithdrawableAmount;
+
+        // if the operator is not in the withdrawable cash owner list, add it to the list
+        bool bIsInList = false;
+        for (uint256 i=0;i<sandboxMachineState.withdrawableCashOwnerList.length;i++){
+          if (sandboxMachineState.withdrawableCashOwnerList[i] == operation.operatorAddress){
+            bIsInList = true;
+            break;
+          }
+        }
+
+        if (!bIsInList){
+          sandboxMachineState.withdrawableCashOwnerList.push(operation.operatorAddress);
+        }
+      }
+    }
+
+    else {
+      // initialize the total refund amount
+      uint256 totalRefundAmount = 0;
+      for (uint256 i=0;i<tokenClass.length;i++){
+        bool bIsValid = false;
+        uint256 refundAmount = 0;
+
+        // calculate the refund amount
+        (bIsValid, refundAmount) = SafeMathUpgradeable.tryMul(amount[i], price[i]);
+        require(bIsValid, "The refund amount is overflow");
+        if (refundAmount > 0) {
+
+          (bIsValid, totalRefundAmount) = SafeMathUpgradeable.tryAdd(refundAmount, totalRefundAmount);
+          require(bIsValid, "The total refund amount is overflow");
+
+        }
+      }
+
+      // if the total refund amount is greater than 0, add it to the withdrawable cash map
+      // and update the withdrawable cash owner list if the operator is not in the list
+      if (totalRefundAmount > 0) {
+        uint256 totalWithdrawableAmount = 0;
+        bool bIsValid = false;
+        (bIsValid, totalWithdrawableAmount) = SafeMathUpgradeable.tryAdd(totalRefundAmount, currentMachineState.withdrawableCashMap[operation.operatorAddress]);
+        require(bIsValid, "The total withdrawable amount is overflow");
+        currentMachineState.withdrawableCashMap[operation.operatorAddress] = totalWithdrawableAmount;
+
+        // if the operator is not in the withdrawable cash owner list, add it to the list
+        bool bIsInList = false;
+        for (uint256 i=0;i<currentMachineState.withdrawableCashOwnerList.length;i++){
+          if (currentMachineState.withdrawableCashOwnerList[i] == operation.operatorAddress){
+            bIsInList = true;
+            break;
+          }
+        }
+
+        if (!bIsInList){
+          currentMachineState.withdrawableCashOwnerList.push(operation.operatorAddress);
+        }
+      }
+    }
+  }
 }

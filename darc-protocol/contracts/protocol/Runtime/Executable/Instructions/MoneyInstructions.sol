@@ -289,8 +289,8 @@ contract MoneyInstructions is MachineStateManager {
   }
 
 
-  function op_BATCH_BURN_TOKENS_AND_REFUND(Operation memory operation, bool bIsSandbox) internal {
-    // todo
-  }
+  // function op_BATCH_BURN_TOKENS_AND_REFUND(Operation memory operation, bool bIsSandbox) internal {
+  //   // todo
+  // }
 
 }
