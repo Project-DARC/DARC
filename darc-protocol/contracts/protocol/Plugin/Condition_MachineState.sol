@@ -53,11 +53,11 @@ contract Condition_MachineState is MachineStateManager {
     else if (id==79) return ID_79_TOTAL_DIVIDEND_WEIGHT_LESS_THAN(bIsBeforeOperation, param);
     else if (id==80) return ID_80_TOTAL_DIVIDEND_WEIGHT_IN_RANGE(bIsBeforeOperation, param);
 
-    //todo: implement and uncomment the following functions
-    // else if (id==81) return ID_81_TOTAL_CASH_GREATER_THAN(bIsBeforeOperation, param);
-    // else if (id==82) return ID_82_TOTAL_CASH_LESS_THAN(bIsBeforeOperation, param);
-    // else if (id==83) return ID_83_TOTAL_CASH_IN_RANGE(bIsBeforeOperation, param);
-    // else if (id==84) return ID_84_TOTAL_CASH_EQUALS(bIsBeforeOperation, param);
+
+    else if (id==81) return ID_81_TOTAL_CASH_GREATER_THAN(param);
+    else if (id==82) return ID_82_TOTAL_CASH_LESS_THAN(param);
+    else if (id==83) return ID_83_TOTAL_CASH_IN_RANGE(param);
+    else if (id==84) return ID_84_TOTAL_CASH_EQUALS(param);
  
     else if (id==85) return ID_85_TOKEN_IN_LIST_VOTING_WEIGHT_GREATER_THAN(bIsBeforeOperation, param);
     else if (id==86) return ID_86_TOKEN_IN_LIST_VOTING_WEIGHT_LESS_THAN(bIsBeforeOperation, param);
@@ -349,21 +349,28 @@ contract Condition_MachineState is MachineStateManager {
   }
 
 
-  function ID_81_TOTAL_CASH_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
-    // todo: need to implement
-    return false;
+  function ID_81_TOTAL_CASH_GREATER_THAN(NodeParam memory param) private view returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_81: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_81: UINT256_2DARRAY[0] must have 1 element");
+    return address(this).balance > param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_82_TOTAL_CASH_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
-    // todo: need to implement
+  function ID_82_TOTAL_CASH_LESS_THAN(NodeParam memory param) private view returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_82: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_82: UINT256_2DARRAY[0] must have 1 element");
+    return address(this).balance < param.UINT256_2DARRAY[0][0];
   }
 
-  function ID_83_TOTAL_CASH_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
-    // todo: need to implement
+  function ID_83_TOTAL_CASH_IN_RANGE( NodeParam memory param) private view returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_83: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_83: UINT256_2DARRAY[0] must have 2 elements");
+    return address(this).balance >= param.UINT256_2DARRAY[0][0] && address(this).balance <= param.UINT256_2DARRAY[0][1];
   }
 
-  function ID_84_TOTAL_CASH_EQUALS(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
-    // todo: need to implement
+  function ID_84_TOTAL_CASH_EQUALS(NodeParam memory param) private view returns (bool) {
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_84: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_84: UINT256_2DARRAY[0] must have 1 element");
+    return address(this).balance == param.UINT256_2DARRAY[0][0];
   }
 
   function ID_85_TOKEN_IN_LIST_VOTING_WEIGHT_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {

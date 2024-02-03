@@ -102,7 +102,7 @@ struct MachineState {
    * The balance sheet and information of each token class
    * TODO: make the length of the tokenList dynamic (not fixed to 10000)
    */
-  Token[100] tokenList;
+  Token[1000] tokenList;
 
   /**
    * The member list and internal role index number of each token owner,
