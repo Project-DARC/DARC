@@ -214,16 +214,16 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 178 | Placeholder178  |  |  |
 | 179 | Placeholder179  |  |  |
 | 180 | Placeholder180  |  |  |
-| 181 | ORACLE_CALL_UINT256_RESULT_EQUALS | string oracle, string method, uint256[] args, uint256 expectedValue ||
-| 182 | ORACLE_CALL_UINT256_RESULT_GREATER_THAN | string oracle, string method, uint256[] args, uint256 minValue ||
-| 183 | ORACLE_CALL_UINT256_RESULT_LESS_THAN | string oracle, string method, uint256[] args, uint256 maxValue ||
-| 184 | ORACLE_CALL_UINT256_RESULT_IN_RANGE | string oracle, string method, uint256[] args, uint256 minValue, uint256 maxValue ||
-| 185 | ORACLE_CALL_UINT256_1_LESS_THAN_2 | string oracle, string method, uint256[] args ||
-| 186 | ORACLE_CALL_UINT256_1_GREATER_THAN_2 | string oracle, string method, uint256[] args ||
-| 187 | ORACLE_CALL_UINT256_1_EQUALS_2 | string oracle, string method, uint256[] args ||
-| 188 | ORACLE_CALL_STRING_RESULT_EQUALS | string oracle, string method, string[] args, string expectedValue ||
-| 189 | ORACLE_CALL_STRING_1_EQUALS_2 | string oracle, string method, string[] args ||
-| 190 | ORACLE_CALL_STRING_RESULT_IN_LIST | string oracle, string method, string[] args, string[] expectedValues ||
+| 181 | ORACLE_CALL_UINT256_RESULT_EQUALS | string oracle, string method, uint256[] args, uint256 expectedValue || NOT READY, DO NOT USE
+| 182 | ORACLE_CALL_UINT256_RESULT_GREATER_THAN | string oracle, string method, uint256[] args, uint256 minValue || NOT READY, DO NOT USE
+| 183 | ORACLE_CALL_UINT256_RESULT_LESS_THAN | string oracle, string method, uint256[] args, uint256 maxValue || NOT READY, DO NOT USE
+| 184 | ORACLE_CALL_UINT256_RESULT_IN_RANGE | string oracle, string method, uint256[] args, uint256 minValue, uint256 maxValue || NOT READY, DO NOT USE
+| 185 | ORACLE_CALL_UINT256_1_LESS_THAN_2 | string oracle, string method, uint256[] args || NOT READY, DO NOT USE
+| 186 | ORACLE_CALL_UINT256_1_GREATER_THAN_2 | string oracle, string method, uint256[] args || NOT READY, DO NOT USE
+| 187 | ORACLE_CALL_UINT256_1_EQUALS_2 | string oracle, string method, uint256[] args || NOT READY, DO NOT USE
+| 188 | ORACLE_CALL_STRING_RESULT_EQUALS | string oracle, string method, string[] args, string expectedValue || NOT READY, DO NOT USE
+| 189 | ORACLE_CALL_STRING_1_EQUALS_2 | string oracle, string method, string[] args || NOT READY, DO NOT USE
+| 190 | ORACLE_CALL_STRING_RESULT_IN_LIST | string oracle, string method, string[] args, string[] expectedValues || NOT READY, DO NOT USE
 | 191 | Placeholder191  |  |  |
 | 192 | Placeholder192  |  |  |
 | 193 | Placeholder193  |  |  |
