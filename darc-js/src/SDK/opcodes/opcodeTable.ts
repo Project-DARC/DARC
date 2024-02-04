@@ -10,7 +10,7 @@ enum EnumOpcode {
    * @notice Invalid Operation
    * ID: 0
    */
-  UNDEFINED,
+  UNDEFINED = 0,
 
   /**
    * @notice Batch Mint Token Operation
@@ -20,7 +20,7 @@ enum EnumOpcode {
    * 
    * ID: 1
    */
-  BATCH_MINT_TOKENS,
+  BATCH_MINT_TOKENS = 1,
 
   /**
    * @notice Batch Create Token Class Operation
@@ -31,7 +31,7 @@ enum EnumOpcode {
    * 
    * ID:2
    */
-  BATCH_CREATE_TOKEN_CLASSES,
+  BATCH_CREATE_TOKEN_CLASSES = 2,
 
   /**
    * @notice Batch Transfer Token Operation
@@ -41,7 +41,7 @@ enum EnumOpcode {
    * 
    * ID:3
    */
-  BATCH_TRANSFER_TOKENS,
+  BATCH_TRANSFER_TOKENS = 3,
 
   /**
    * @notice Batch Transfer Token From Addr A to Addr B Operation
@@ -52,7 +52,7 @@ enum EnumOpcode {
    * 
    * ID:4
    */
-  BATCH_TRANSFER_TOKENS_FROM_TO,
+  BATCH_TRANSFER_TOKENS_FROM_TO = 4,
 
   /**
    * @notice Batch Burn Token Operation
@@ -61,7 +61,7 @@ enum EnumOpcode {
    * 
    * ID:5
    */
-  BATCH_BURN_TOKENS,
+  BATCH_BURN_TOKENS = 5,
 
   /**
    * @notice Batch Burn Token From Addr A Operation
@@ -71,7 +71,7 @@ enum EnumOpcode {
    * 
    * ID:6
    */
-  BATCH_BURN_TOKENS_FROM,
+  BATCH_BURN_TOKENS_FROM = 6,
 
   /**
    * @notice Batch Add Member Operation
@@ -81,7 +81,7 @@ enum EnumOpcode {
    * 
    * ID:7
    */
-  BATCH_ADD_MEMBERSHIPS,
+  BATCH_ADD_MEMBERSHIPS = 7,
 
   /**
    * @notice Batch Suspend Member Operation
@@ -89,7 +89,7 @@ enum EnumOpcode {
    * 
    * ID:8
    */
-  BATCH_SUSPEND_MEMBERSHIPS,
+  BATCH_SUSPEND_MEMBERSHIPS = 8,
 
   /**
    * @notice Batch Resume Member Operation
@@ -97,7 +97,7 @@ enum EnumOpcode {
    * 
    * ID:9
    */
-  BATCH_RESUME_MEMBERSHIPS,
+  BATCH_RESUME_MEMBERSHIPS = 9,
 
   /**
    * @notice Batch Change Member Role Operation
@@ -106,7 +106,7 @@ enum EnumOpcode {
    * 
    * ID:10
    */
-  BATCH_CHANGE_MEMBER_ROLES,
+  BATCH_CHANGE_MEMBER_ROLES = 10,
 
   /**
    * @notice Batch Change Member Name Operation
@@ -115,14 +115,14 @@ enum EnumOpcode {
    * 
    * ID:11
    */
-  BATCH_CHANGE_MEMBER_NAMES,
+  BATCH_CHANGE_MEMBER_NAMES = 11,
 
   /**
    * @notice Batch Add Emergency Agent Operation
    * @param Plugin[] pluginList: the array of the plugins
    * ID:12
    */
-  BATCH_ADD_PLUGINS,
+  BATCH_ADD_PLUGINS = 12,
 
   /**
    * @notice Batch Enable Plugin Operation
@@ -130,7 +130,7 @@ enum EnumOpcode {
    * @param BOOL_ARRAY bool[] isBeforeOperationArray: the array of the flag to indicate if the plugin is before operation
    * ID:13
    */
-  BATCH_ENABLE_PLUGINS,
+  BATCH_ENABLE_PLUGINS = 13,
 
   /**
    * @notice Batch Disable Plugin Operation
@@ -138,14 +138,14 @@ enum EnumOpcode {
    * @param BOOL_ARRAY bool[] isBeforeOperationArray: the array of the flag to indicate if the plugin is before operation
    * ID:14
    */
-  BATCH_DISABLE_PLUGINS,
+  BATCH_DISABLE_PLUGINS = 14,
 
   /**
    * @notice Batch Add and Enable Plugin Operation
    * @param Plugin[] pluginList: the array of the plugins
    * ID:15
    */
-  BATCH_ADD_AND_ENABLE_PLUGINS,
+  BATCH_ADD_AND_ENABLE_PLUGINS = 15,
 
   /**
    * @notice Batch Set Parameter Operation
@@ -153,7 +153,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] uint256[] parameterValueArray: the array of the parameter value
    * ID:16
    */
-  BATCH_SET_PARAMETERS,
+  BATCH_SET_PARAMETERS = 16,
 
   /**
    * @notice Batch Add Withdrawable Balance Operation
@@ -161,7 +161,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] amountArray: the array of the amount to add withdrawable balance
    * ID:17
    */
-  BATCH_ADD_WITHDRAWABLE_BALANCES,
+  BATCH_ADD_WITHDRAWABLE_BALANCES = 17,
 
   /**
    * @notice Batch Reduce Withdrawable Balance Operation
@@ -169,14 +169,14 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0] amountArray: the array of the amount to substract withdrawable balance
    * ID:18
    */
-  BATCH_REDUCE_WITHDRAWABLE_BALANCES,
+  BATCH_REDUCE_WITHDRAWABLE_BALANCES = 18,
 
   /**
    * @notice Batch Add Voting Rules
    * @param VotingRule[] votingRuleList: the array of the voting rules
    * ID:19
    */
-  BATCH_ADD_VOTING_RULES,
+  BATCH_ADD_VOTING_RULES = 19,
 
 
   /**
@@ -188,7 +188,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[3] uint256[1] dividendableFlag: the flag to indicate if the payment is dividendable. 1 for yes (pay for purchase), 0 for no (pay for investment)
    * ID:20
    */
-  BATCH_PAY_TO_MINT_TOKENS,
+  BATCH_PAY_TO_MINT_TOKENS = 20,
 
   /**
    * @notice Pay some cash to transfer tokens (can be used as product coins)
@@ -199,7 +199,7 @@ enum EnumOpcode {
    * @ param UINT256_2DARRAY[3] uint256[1] dividendableFlag: the flag to indicate if the payment is dividendable. 1 for yes (pay for purchase), 0 for no (pay for investment)
    * ID:21
    */
-  BATCH_PAY_TO_TRANSFER_TOKENS,
+  BATCH_PAY_TO_TRANSFER_TOKENS = 21,
 
   /**
    * @notice Add an array of address as emergency agents
@@ -207,20 +207,20 @@ enum EnumOpcode {
    * @param ADDRESS_2DARRAY[0] address[] The array of the address to add as emergency agents 
    * ID:22
    */
-  ADD_EMERGENCY,
+  ADD_EMERGENCY = 22,
 
   /**
    * @notice Reserved ID 23 DO NOT USE
    * ID:23
    */
-  RESERVED_ID_23,
+  RESERVED_ID_23 = 23,
 
   /**
    * @notice Call emergency agents to handle emergency situations
    * @param UINT256_2DARRAY[0] address[] addressArray: the array of the emergency agents index to call
    * ID:24
    */
-  CALL_EMERGENCY,
+  CALL_EMERGENCY = 24,
 
 
   /**
@@ -230,7 +230,7 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[0][0] uint256 the value to send to the contract
    * ID:25
    */
-  CALL_CONTRACT_ABI,
+  CALL_CONTRACT_ABI = 25,
 
   /**
    * @notice Pay some cash
@@ -241,7 +241,7 @@ enum EnumOpcode {
    * 0 for no (pay for investment), 1 for yes (pay for purchase)
    * ID:26
    */
-  PAY_CASH,
+  PAY_CASH = 26,
 
   /**
    * @notice Calculate the dividends and offer to token holders
@@ -249,13 +249,13 @@ enum EnumOpcode {
    * 
    * ID:27
    */
-  OFFER_DIVIDENDS,
+  OFFER_DIVIDENDS = 27,
 
   /**
    * @notice Reserved ID 28 DO NOT USE
    * ID:28
    */
-  RESERVED_ID_28,
+  RESERVED_ID_28 = 28,
 
   /**
    * @notice Set the approval for all transfer operations by address
@@ -263,7 +263,7 @@ enum EnumOpcode {
    * ADDRESS_2DARRAY[0][0] targetAddress
    * ID:29
    */
-  SET_APPROVAL_FOR_ALL_OPERATIONS,
+  SET_APPROVAL_FOR_ALL_OPERATIONS = 29,
 
 
   /**
@@ -273,14 +273,14 @@ enum EnumOpcode {
    * @param UINT256_2DARRAY[2] uint256[] priceArray: the price of each token class to burn
    * ID:30
    */
-  BATCH_BURN_TOKENS_AND_REFUND,
+  BATCH_BURN_TOKENS_AND_REFUND = 30,
 
   /**
    * @notice Add storage IPFS hash to the storage list permanently
    * @paran STRING_ARRAY[0][0] text: the string text to add to the storage list
    * ID:31
    */
-  ADD_STORAGE_STRING,
+  ADD_STORAGE_STRING = 31,
 
 
   /**
@@ -292,39 +292,39 @@ enum EnumOpcode {
    * @param bool[] voteArray: the array of the vote for each program
    * ID:32
    */
-  VOTE,
+  VOTE = 32,
 
   /**
    * @notice Execute a program that has been voted and approved
    * ID:33
    */
-  EXECUTE_PENDING_PROGRAM,
+  EXECUTE_PENDING_PROGRAM = 33,
 
   /**
    * @notice Emergency mode termination. Emergency agents cannot do anything after this operation
    * ID:34
    */
-  END_EMERGENCY,
+  END_EMERGENCY = 34,
 
   /**
    * @notice Upgrade the contract to a new contract address
    * @param ADDRESS_2DARRAY[0][0] The address of the new contract
    * ID:35
    */
-  UPGRADE_TO_ADDRESS,
+  UPGRADE_TO_ADDRESS = 35,
 
   /**
    * @notice Accepting current DARCs to be upgraded from the old contract address
    * @param ADDRESS_2DARRAY[0][0] The address of the old contract
    * ID:36
    */
-  CONFIRM_UPGRAED_FROM_ADDRESS,
+  CONFIRM_UPGRAED_FROM_ADDRESS = 36,
 
   /**
    * @notice Upgrade the contract to the latest version
    * ID:37
    */
-  UPGRADE_TO_THE_LATEST
+  UPGRADE_TO_THE_LATEST = 37,
 }
 
 
@@ -1496,6 +1496,7 @@ function OPCODE_ID_37_UPGRADE_TO_THE_LATEST(): OperationStruct {
 
 // export all functions
 export {
+  EnumOpcode,
   OPCODE_ID_1_BATCH_MINT_TOKENS,
   OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES,
   OPCODE_ID_3_BATCH_TRANSFER_TOKENS,
