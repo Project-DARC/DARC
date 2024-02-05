@@ -259,7 +259,87 @@ export function upgrade_to_the_latest(): OperationStruct {
   return operation;
 }
 
-export { operation_equals, operation_in_list } from "./conditionNodes/Condition_Operation";
+export {
+  batch_op_size_greater_than,
+  batch_op_size_less_than,
+  batch_op_size_in_range,
+  batch_op_size_equals,
+  batch_op_each_target_addresses_equals,
+  batch_op_each_target_addresses_in_list,
+  batch_op_each_target_addresses_in_member_role,
+  batch_op_any_target_address_equals,
+  batch_op_any_target_address_in_list,
+  batch_op_any_target_address_in_member_role,
+  batch_op_each_target_address_to_itself,
+  batch_op_any_target_address_to_itself,
+  batch_op_each_source_address_equals,
+  batch_op_each_source_address_in_list,
+  batch_op_each_source_address_in_member_role,
+  batch_op_any_source_address_equal,
+  batch_op_any_source_address_in_list,
+  batch_op_any_source_address_in_member_role,
+  batch_op_each_source_address_from_itself,
+  batch_op_any_source_address_from_itself,
+  batch_op_each_token_class_equals,
+  batch_op_each_token_class_in_list,
+  batch_op_each_token_class_in_range,
+  batch_op_each_token_class_greater_than,
+  batch_op_each_token_class_less_than,
+  batch_op_total_token_amount_greater_than,
+  batch_op_total_token_amount_less_than,
+  batch_op_total_token_amount_in_range,
+  batch_op_total_token_amount_equals,
+  batch_op_any_token_amount_greater_than,
+  batch_op_any_token_amount_less_than,
+  batch_op_any_token_amount_in_range,
+  batch_op_any_token_amount_equals,
+  batch_op_any_token_class_greater_than,
+  batch_op_any_token_class_less_than,
+  batch_op_any_token_class_in_range,
+  batch_op_any_token_class_equals,
+  batch_op_any_token_class_in_list,
+  batch_op_each_source_address_in_member_role_list,
+  batch_op_any_source_address_in_member_role_list,
+  batch_op_each_target_address_in_member_role_list,
+  batch_op_any_target_address_in_member_role_list,
+  batch_op_each_target_address_withdrawable_cash_greater_than,
+  batch_op_each_target_address_withdrawable_cash_less_than,
+  batch_op_each_target_address_withdrawable_cash_in_range,
+  batch_op_each_target_address_withdrawable_cash_equals,
+  batch_op_any_target_address_withdrawable_cash_greater_than,
+  batch_op_any_target_address_withdrawable_cash_less_than,
+  batch_op_any_target_address_withdrawable_cash_in_range,
+  batch_op_each_target_address_total_voting_weight_greater_than,
+  batch_op_each_target_address_total_voting_weight_less_than,
+  batch_op_each_target_address_total_voting_weight_in_range,
+  batch_op_each_target_address_total_voting_weight_equals,
+  batch_op_any_target_address_total_voting_weight_greater_than,
+  batch_op_any_target_address_total_voting_weight_less_than,
+  batch_op_any_target_address_total_voting_weight_in_range,
+  batch_op_each_target_address_total_dividend_weight_greater_than,
+  batch_op_each_target_address_total_dividend_weight_less_than,
+  batch_op_each_target_address_total_dividend_weight_in_range,
+  batch_op_any_target_address_total_dividend_weight_greater_than,
+  batch_op_any_target_address_total_dividend_weight_less_than,
+  batch_op_any_target_address_total_dividend_weight_in_range,
+  batch_op_each_target_address_owns_token_x_greater_than,
+  batch_op_each_target_address_owns_token_x_less_than,
+  batch_op_each_target_address_owns_token_x_in_range,
+  batch_op_any_target_address_owns_token_x_greater_than,
+  batch_op_any_target_address_owns_token_x_less_than,
+  batch_op_any_target_address_owns_token_x_in_range
+} from "./conditionNodes/Condition_BatchOp";
+
+export {
+  create_token_classes_any_token_dividend_weight_greater_than,
+  create_token_classes_any_token_dividend_weight_less_than,
+  create_token_classes_any_token_dividend_weight_in_range,
+  create_token_classes_any_token_dividend_weight_equals,
+  create_token_classes_any_voting_weight_greater_than,
+  create_token_classes_any_voting_weight_less_than,
+  create_token_classes_any_voting_weight_in_range,
+  create_token_classes_any_voting_weight_equals
+} from "./conditionNodes/Condition_CreateTokenClass";
 
 export {
   timestamp_greater_than,
@@ -308,6 +388,25 @@ export {
   token_in_list_amount_equals
 } from "./conditionNodes/Condition_MachineState";
 
+export { change_member_role_to_any_role_equals, change_member_role_to_any_role_in_list, change_member_role_to_any_role_in_range, change_member_name_to_any_string_in_list, change_member_name_to_any_string_contains } from "./conditionNodes/Condition_MembershipOp";
+
+export { operation_equals, operation_in_list, EnumOpcode } from "./conditionNodes/Condition_Operation";
+
+export {
+  operation_by_operator_since_last_time_greater_than,
+  operation_by_operator_since_last_time_less_than,
+  operation_by_operator_since_last_time_in_range,
+  operation_global_since_last_time_greater_than,
+  operation_global_since_last_time_less_than,
+  operation_global_since_last_time_in_range,
+  operation_by_any_address_in_list_since_last_time_greater_than,
+  operation_by_any_address_in_list_since_last_time_less_than,
+  operation_by_any_address_in_list_since_last_time_in_range,
+  operation_by_each_address_in_list_since_last_time_greater_than,
+  operation_by_each_address_in_list_since_last_time_less_than,
+  operation_by_each_address_in_list_since_last_time_in_range
+} from "./conditionNodes/Condition_OperationLog";
+
 export {
   operator_name_equals,
   operator_role_equals,
@@ -338,3 +437,51 @@ export {
   operator_withdrawable_dividends_in_range,
   operator_address_in_list
 } from "./conditionNodes/Condition_Operator";
+
+export {
+  enable_any_before_op_plugin_index_in_list,
+  enable_any_after_op_plugin_index_in_list,
+  enable_each_before_op_plugin_index_in_list,
+  enable_each_after_op_plugin_index_in_list,
+  disable_any_before_op_plugin_index_in_list,
+  disable_any_after_op_plugin_index_in_list,
+  disable_each_before_op_plugin_index_in_list,
+  disable_each_after_op_plugin_index_in_list,
+  enable_any_before_op_plugin_index_in_range,
+  enable_any_after_op_plugin_index_in_range,
+  enable_each_before_op_plugin_index_in_range,
+  enable_each_after_op_plugin_index_in_range,
+  disable_any_before_op_plugin_index_in_range,
+  disable_any_after_op_plugin_index_in_range,
+  disable_each_before_op_plugin_index_in_range,
+  disable_each_after_op_plugin_index_in_range,
+  are_all_plugins_before_operation,
+  are_all_plugins_after_operation,
+  is_any_plugin_before_operation,
+  is_any_plugin_after_operation,
+  add_plugin_any_level_equals,
+  add_plugin_any_level_in_list,
+  add_plugin_any_level_in_range,
+  add_plugin_any_level_greater_than,
+  add_plugin_any_level_less_than,
+  add_plugin_any_return_type_equals,
+  add_plugin_any_voting_rule_index_in_list,
+  add_any_voting_rule_is_absolute_majority,
+  add_any_voting_rule_approval_percentage_in_range,
+  add_any_voting_rule_token_class_contains
+} from "./conditionNodes/Condition_PluginAndVoting";
+
+export { program_op_length_greater_than, program_op_length_less_than, program_op_length_in_range, program_op_length_equals, program_contains_op, program_contains_op_in_list, program_every_op_equals, program_every_op_in_list } from "./conditionNodes/Condition_Program";
+
+export { token_x_op_any_price_greater_than, token_x_op_any_price_less_than, token_x_op_any_price_in_range, token_x_op_any_price_equals } from "./conditionNodes/Condition_TokenAndCash";
+
+export {
+  add_withdrawable_balance_any_amount_greater_than,
+  add_withdrawable_balance_any_amount_less_than,
+  add_withdrawable_balance_any_amount_in_range,
+  add_withdrawable_balance_any_amount_equals,
+  reduce_withdrawable_balance_any_amount_greater_than,
+  reduce_withdrawable_balance_any_amount_less_than,
+  reduce_withdrawable_balance_any_amount_in_range,
+  reduce_withdrawable_balance_any_amount_equals
+} from "./conditionNodes/Condition_Withdrawable";

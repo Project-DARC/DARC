@@ -25,4 +25,4 @@ function operation_in_list(opcodes: EnumOpcode[]) {
   });
 }
 
-export { operation_equals, operation_in_list };
+export { operation_equals, operation_in_list, EnumOpcode };
