@@ -36,7 +36,7 @@ function toBigIntArray(array: number[]): bigint[] {
   return bigIntArray;
 }
 
-describe.only('expression node basic test', () => {
+describe('expression node basic test', () => {
   it ('should run the program "add and enable plugin" with generated condition node list in SDK', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
     await executeOperationList(
