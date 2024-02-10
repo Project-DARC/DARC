@@ -1,4 +1,6 @@
-// import everything from includes.ts
+/**
+ * Below are all necessary functions for the SDK.
+ */
 import * as instructions from "./SDK/includes";
 import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct, PluginStruct, PluginStructWithNode } from "./types/basicTypes";
 import {ethers} from "ethers";
