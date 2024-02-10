@@ -1,8 +1,8 @@
 // import everything from includes.ts
-import * as instructions from "./includes";
-import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct, PluginStruct, PluginStructWithNode } from "../types/basicTypes";
+import * as instructions from "./SDK/includes";
+import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct, PluginStruct, PluginStructWithNode } from "./types/basicTypes";
 import {ethers} from "ethers";
-import * as DARC from "../DARC/DARC";
+import * as DARC from "./DARC/DARC";
 
 import {
   OPCODE_ID_1_BATCH_MINT_TOKENS,
@@ -40,7 +40,7 @@ import {
   OPCODE_ID_35_UPGRADE_TO_ADDRESS,
   OPCODE_ID_36_CONFIRM_UPGRAED_FROM_ADDRESS,
   OPCODE_ID_37_UPGRADE_TO_THE_LATEST
-} from "./opcodes/opcodeTable";
+} from "./SDK/opcodes/opcodeTable";
 
 /**
  * The core function of the SDK. It takes in a list of operations and a wallet, and then sends the operations to the DARC contract. This is different from the By-law Script, which compile and run the code directly.
@@ -328,7 +328,7 @@ export {
   batch_op_any_target_address_owns_token_x_greater_than,
   batch_op_any_target_address_owns_token_x_less_than,
   batch_op_any_target_address_owns_token_x_in_range
-} from "./conditionNodes/Condition_BatchOp";
+} from "./SDK/conditionNodes/Condition_BatchOp";
 
 export {
   create_token_classes_any_token_dividend_weight_greater_than,
@@ -339,7 +339,7 @@ export {
   create_token_classes_any_voting_weight_less_than,
   create_token_classes_any_voting_weight_in_range,
   create_token_classes_any_voting_weight_equals
-} from "./conditionNodes/Condition_CreateTokenClass";
+} from "./SDK/conditionNodes/Condition_CreateTokenClass";
 
 export {
   timestamp_greater_than,
@@ -386,11 +386,11 @@ export {
   token_in_list_amount_less_than,
   token_in_list_amount_in_range,
   token_in_list_amount_equals
-} from "./conditionNodes/Condition_MachineState";
+} from "./SDK/conditionNodes/Condition_MachineState";
 
-export { change_member_role_to_any_role_equals, change_member_role_to_any_role_in_list, change_member_role_to_any_role_in_range, change_member_name_to_any_string_in_list, change_member_name_to_any_string_contains } from "./conditionNodes/Condition_MembershipOp";
+export { change_member_role_to_any_role_equals, change_member_role_to_any_role_in_list, change_member_role_to_any_role_in_range, change_member_name_to_any_string_in_list, change_member_name_to_any_string_contains } from "./SDK/conditionNodes/Condition_MembershipOp";
 
-export { operation_equals, operation_in_list, EnumOpcode } from "./conditionNodes/Condition_Operation";
+export { operation_equals, operation_in_list, EnumOpcode } from "./SDK/conditionNodes/Condition_Operation";
 
 export {
   operation_by_operator_since_last_time_greater_than,
@@ -405,7 +405,7 @@ export {
   operation_by_each_address_in_list_since_last_time_greater_than,
   operation_by_each_address_in_list_since_last_time_less_than,
   operation_by_each_address_in_list_since_last_time_in_range
-} from "./conditionNodes/Condition_OperationLog";
+} from "./SDK/conditionNodes/Condition_OperationLog";
 
 export {
   operator_name_equals,
@@ -436,7 +436,7 @@ export {
   operator_withdrawable_dividends_less_than,
   operator_withdrawable_dividends_in_range,
   operator_address_in_list
-} from "./conditionNodes/Condition_Operator";
+} from "./SDK/conditionNodes/Condition_Operator";
 
 export {
   enable_any_before_op_plugin_index_in_list,
@@ -469,11 +469,11 @@ export {
   add_any_voting_rule_is_absolute_majority,
   add_any_voting_rule_approval_percentage_in_range,
   add_any_voting_rule_token_class_contains
-} from "./conditionNodes/Condition_PluginAndVoting";
+} from "./SDK/conditionNodes/Condition_PluginAndVoting";
 
-export { program_op_length_greater_than, program_op_length_less_than, program_op_length_in_range, program_op_length_equals, program_contains_op, program_contains_op_in_list, program_every_op_equals, program_every_op_in_list } from "./conditionNodes/Condition_Program";
+export { program_op_length_greater_than, program_op_length_less_than, program_op_length_in_range, program_op_length_equals, program_contains_op, program_contains_op_in_list, program_every_op_equals, program_every_op_in_list } from "./SDK/conditionNodes/Condition_Program";
 
-export { token_x_op_any_price_greater_than, token_x_op_any_price_less_than, token_x_op_any_price_in_range, token_x_op_any_price_equals } from "./conditionNodes/Condition_TokenAndCash";
+export { token_x_op_any_price_greater_than, token_x_op_any_price_less_than, token_x_op_any_price_in_range, token_x_op_any_price_equals } from "./SDK/conditionNodes/Condition_TokenAndCash";
 
 export {
   add_withdrawable_balance_any_amount_greater_than,
@@ -484,4 +484,4 @@ export {
   reduce_withdrawable_balance_any_amount_less_than,
   reduce_withdrawable_balance_any_amount_in_range,
   reduce_withdrawable_balance_any_amount_equals
-} from "./conditionNodes/Condition_Withdrawable";
+} from "./SDK/conditionNodes/Condition_Withdrawable";
