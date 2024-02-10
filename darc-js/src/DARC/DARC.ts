@@ -10,20 +10,6 @@ export type InitParam = {
   provider?: ethers.providers.Provider;
 }
 
-export type TokenInfo = {
-  votingWeight: BigInt,
-  dividendWeight: BigInt,
-  tokenInfo: string,
-  totalSupply: BigInt,
-}
-
-export type MemberInfo = {
-  bIsInitialized: boolean,
-  bIsSuspened: boolean,
-  name: string,
-  role: bigint
-}
-
 /**
  * The DARC class is used to interact with the DARC contract.
  */
