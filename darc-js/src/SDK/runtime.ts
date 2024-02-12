@@ -2,7 +2,7 @@ import * as instructions from "./includes";
 import { ethers, Contract } from 'ethers';
 import { OperationStruct, OperationStructOutput, ProgramStruct } from "../types/basicTypes";
 import * as DARC from "../DARC/DARC";
-import { transpiler } from "./transpiler";
+import { transpile } from "./transpiler";
 
 
 /**
@@ -65,7 +65,7 @@ export async function transpileAndRun(
   darcVersion: DARC.DARC_VERSION = DARC.DARC_VERSION.Latest,
   delegateToAddress?:string
 ) {
-  const compiledCode = transpiler(code);
+  const compiledCode = transpile(code);
   if (delegateToAddress) {
     await run(compiledCode, wallet, targetDARCAddress, darcVersion, delegateToAddress);
   }

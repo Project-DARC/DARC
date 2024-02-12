@@ -1,7 +1,7 @@
 
 import { expect } from 'chai';
 import 'mocha';
-import { transpiler } from '../../src/SDK/transpiler';
+import { transpile } from '../../src/SDK/transpiler';
 import { Node } from '@babel/types';
 
 describe('Operator Test', 
@@ -16,7 +16,7 @@ describe('Operator Test',
       `; 
       
 
-      const transpiled_result = transpiler(code);
+      const transpiled_result = transpile(code);
 
       console.log(transpiled_result);
       expect(true).to.equal(true);

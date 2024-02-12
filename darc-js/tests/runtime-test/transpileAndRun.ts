@@ -7,7 +7,7 @@ import { expect } from 'chai';
 import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../../src/sdk";
 import {or, node, and, expression} from "../../src/SDK/Node";
 import { transpileAndRun } from "../../src/SDK/runtime";
-import { transpiler } from "../../src/darcjs";
+import { transpile } from "../../src/darcjs";
 
 
 const programOperatorAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266";
@@ -36,7 +36,7 @@ function toBigIntArray(array: number[]): bigint[] {
   return bigIntArray;
 }
 
-describe('transpiler and execution test', () => {
+describe('transpile and execution test', () => {
   it ('should run the by-law script with expression node, logical operation node generated successfully', async () => {
     const darc_contract_address = await deployDARC(DARC_VERSION.Latest, signer);
 

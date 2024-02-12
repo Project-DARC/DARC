@@ -1,5 +1,5 @@
 import {executeOperationList, operator_address_equals} from "../../src/sdk";
-import {run, deployDARC, DARC_VERSION} from '../../src/darcjs';
+import { deployDARC, DARC_VERSION} from '../../src/darcjs';
 import { ethers, BigNumber } from 'ethers';
 import * as DARC from '../../src/DARC/DARC';
 import 'mocha';

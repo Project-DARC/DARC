@@ -1,4 +1,4 @@
-export function transpiler(sourceCode: string): string {
+export function transpile(sourceCode: string): string {
 
   // compile the source code with babel standalone
   const babel = require('@babel/standalone');
