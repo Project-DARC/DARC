@@ -1,10 +1,10 @@
-import {executeOperationList} from "../../src/sdk";
+import {executeOperationList} from "../../src/darcjs";
 import {run, deployDARC, DARC_VERSION} from '../../src/darcjs';
 import { ethers, BigNumber } from 'ethers';
 import * as DARC from '../../src/DARC/DARC';
 import 'mocha';
 import { expect } from 'chai';
-import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../../src/sdk";
+import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../../src/darcjs";
 import {or, node, and, expression} from "../../src/SDK/Node";
 
 
