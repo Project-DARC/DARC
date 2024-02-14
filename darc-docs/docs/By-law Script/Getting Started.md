@@ -59,6 +59,8 @@ Finally, Address_C wants to issue dividends to all token holders. The following 
 offer_dividends();
 ```
 
+## Package Multiple Operations into a Program
+
 ## Your First Plugin as a Law
 
-The plugin is an object that contains all necessary information 
+A plugin is an object that defines
