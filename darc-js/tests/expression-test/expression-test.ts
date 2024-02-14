@@ -67,7 +67,6 @@ describe('expression node basic test', () => {
               votingRuleIndex: BigNumber.from(0),
               notes: "disable all program",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes:[{
                 id: BigNumber.from(0),
@@ -89,7 +88,6 @@ describe('expression node basic test', () => {
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes: 
               or(
@@ -211,7 +209,6 @@ describe('expression node basic test', () => {
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes: 
               or(
@@ -258,7 +255,6 @@ describe('expression node basic test', () => {
           votingRuleIndex: BigNumber.from(0),
           notes: "disable all program",
           bIsEnabled: true,
-          bIsInitialized: true,
           bIsBeforeOperation: true,
           conditionNodes: new TRUE() // always true
         },
@@ -268,7 +264,6 @@ describe('expression node basic test', () => {
           votingRuleIndex: BigInt(0),
           notes: "allow operatorAddress == target1 | operatorAddress == target2",
           bIsEnabled: true,
-          bIsInitialized: true,
           bIsBeforeOperation: true,
           conditionNodes:
           operator_address_equals(target1) | operator_address_equals(target2)
