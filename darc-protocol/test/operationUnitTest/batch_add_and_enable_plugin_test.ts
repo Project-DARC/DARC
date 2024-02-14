@@ -99,7 +99,6 @@ describe("test for batch add and enable plugins", function () {
                 votingRuleIndex: 0,
                 notes: "0x7099 should not operate",
                 bIsEnabled: true,
-                bIsInitialized: true,
                 bIsBeforeOperation: true,
               }
             ],

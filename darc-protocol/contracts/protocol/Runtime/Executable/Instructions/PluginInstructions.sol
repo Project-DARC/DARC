@@ -104,24 +104,20 @@ contract PluginInstructions is MachineStateManager{
       if (bIsSandbox) { // if running in sandbox
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin
           sandboxMachineState.beforeOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          sandboxMachineState.beforeOpPlugins[sandboxMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           sandboxMachineState.beforeOpPlugins[sandboxMachineState.beforeOpPlugins.length-1].bIsEnabled = false;
         }
         else { // if it is an after operation plugin
           sandboxMachineState.afterOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          sandboxMachineState.afterOpPlugins[sandboxMachineState.afterOpPlugins.length-1].bIsInitialized = true;
           sandboxMachineState.afterOpPlugins[sandboxMachineState.afterOpPlugins.length-1].bIsEnabled = false;
         }
       } 
       else {
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin
           currentMachineState.beforeOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          currentMachineState.beforeOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           currentMachineState.beforeOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsEnabled = false;
         }
         else { // if it is an after operation plugin
           currentMachineState.afterOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          currentMachineState.afterOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           currentMachineState.afterOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsEnabled = false;
         }
       }
@@ -143,24 +139,20 @@ contract PluginInstructions is MachineStateManager{
       if (bIsSandbox) { // if running in sandbox
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin
           sandboxMachineState.beforeOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          sandboxMachineState.beforeOpPlugins[sandboxMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           sandboxMachineState.beforeOpPlugins[sandboxMachineState.beforeOpPlugins.length-1].bIsEnabled = true;
         }
         else { // if it is an after operation plugin
           sandboxMachineState.afterOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          sandboxMachineState.afterOpPlugins[sandboxMachineState.afterOpPlugins.length-1].bIsInitialized = true;
           sandboxMachineState.afterOpPlugins[sandboxMachineState.afterOpPlugins.length-1].bIsEnabled = true;
         }
       } 
       else {
         if (operation.param.PLUGIN_ARRAY[i].bIsBeforeOperation) { // if it is a before operation plugin
           currentMachineState.beforeOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          currentMachineState.beforeOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           currentMachineState.beforeOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsEnabled = true;
         }
         else { // if it is an after operation plugin
           currentMachineState.afterOpPlugins.push(operation.param.PLUGIN_ARRAY[i]);
-          currentMachineState.afterOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsInitialized = true;
           currentMachineState.afterOpPlugins[currentMachineState.beforeOpPlugins.length-1].bIsEnabled = true;
         }
       }
@@ -183,13 +175,11 @@ contract PluginInstructions is MachineStateManager{
       if (bIsSandbox) { // if running in sandbox
         if (bIsBeforeOpPlugins[i]) { // if it is a before operation plugin
           require(pluginIndexes[i] < sandboxMachineState.beforeOpPlugins.length, "Invalid plugin index to be enabled"); // require that the plugin index is less than the length of the before operation plugins array
-          require(sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be enabled is not initialized");
           require(!sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be enabled is already enabled");
           sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled = true;
         }
         else { // if it is an after operation plugin
           require(pluginIndexes[i] < sandboxMachineState.afterOpPlugins.length, "Invalid plugin index to be enabled"); // require that the plugin index is less than the length of the after operation plugins array
-          require(sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be enabled is not initialized");
           require(!sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be enabled is already enabled");
           sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled = true;
         }
@@ -198,13 +188,11 @@ contract PluginInstructions is MachineStateManager{
       else {
         if (bIsBeforeOpPlugins[i]) { // if it is a before operation plugin
           require(pluginIndexes[i] < currentMachineState.beforeOpPlugins.length, "Invalid plugin index to be enabled"); // require that the plugin index is less than the length of the before operation plugins array
-          require(currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be enabled is not initialized");
           require(!currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be enabled is already enabled");
           currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled = true;
         }
         else { // if it is an after operation plugin
           require(pluginIndexes[i] < currentMachineState.afterOpPlugins.length, "Invalid plugin index to be enabled"); // require that the plugin index is less than the length of the after operation plugins array
-          require(currentMachineState.afterOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be enabled is not initialized");
           require(!currentMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be enabled is already enabled");
           currentMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled = true;
         }
@@ -228,13 +216,11 @@ contract PluginInstructions is MachineStateManager{
       if (bIsSandbox) { // if running in sandbox
         if (bIsBeforeOpPlugins[i]) { // if it is a before operation plugin
           require(pluginIndexes[i] < sandboxMachineState.beforeOpPlugins.length, "Invalid plugin index to be disabled"); // require that the plugin index is less than the length of the before operation plugins array
-          require(sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be disabled is not initialized");
           require(sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be disabled is already disabled");
           sandboxMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled = false;
         }
         else { // if it is an after operation plugin
           require(pluginIndexes[i] < sandboxMachineState.afterOpPlugins.length, "Invalid plugin index to be disabled"); // require that the plugin index is less than the length of the after operation plugins array
-          require(sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be disabled is not initialized");
           require(sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be disabled is already disabled");
           sandboxMachineState.afterOpPlugins[pluginIndexes[i]].bIsEnabled = false;
         }
@@ -243,7 +229,6 @@ contract PluginInstructions is MachineStateManager{
       else {
         if (bIsBeforeOpPlugins[i]) { // if it is a before operation plugin
           require(pluginIndexes[i] < currentMachineState.beforeOpPlugins.length, "Invalid plugin index to be disabled"); // require that the plugin index is less than the length of the before operation plugins array
-          require(currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsInitialized, "The plugin to be disabled is not initialized");
           require(currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled, "The plugin to be disabled is already disabled");
           currentMachineState.beforeOpPlugins[pluginIndexes[i]].bIsEnabled = false;
         }

@@ -35,15 +35,9 @@ contract PluginFactory is ConditionExpressionFactory{
     if (bIsBeforeOperation)
     {
       require(pluginIndex < currentMachineState.beforeOpPlugins.length, "PluginFactory: plugin index out of range");
-      if (currentMachineState.beforeOpPlugins[pluginIndex].bIsInitialized == false) {
-        return (returnLevel, returnType, returnVotingRuleIndex);
-      }
     }
     else {
       require(pluginIndex < currentMachineState.afterOpPlugins.length, "PluginFactory: plugin index out of range");
-      if (currentMachineState.afterOpPlugins[pluginIndex].bIsInitialized == false) {
-        return (returnLevel, returnType, returnVotingRuleIndex);
-      }
     }
     
     // start from expression condition root node idx = 0, recursively check the condition expression tree

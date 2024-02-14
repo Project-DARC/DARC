@@ -61,7 +61,6 @@ contract VotingTest is Runtime {
     //   votingRuleIndex: 0,
     //   notes: "test",
     //   bIsEnabled: true,
-    //   bIsInitialized: true,
     //   bIsBeforeOperation: true
     // });
 
@@ -86,7 +85,6 @@ contract VotingTest is Runtime {
       votingRuleIndex: 0,
       notes: "test",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true
     }));
 
@@ -126,7 +124,6 @@ contract VotingTest is Runtime {
       votingRuleIndex: 0,
       notes: "test",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: false
     }));
 

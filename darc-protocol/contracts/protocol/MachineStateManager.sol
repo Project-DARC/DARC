@@ -124,7 +124,6 @@ contract MachineStateManager {
       0,
       "",
       true,
-      true,
       true
     ));
 
@@ -153,7 +152,6 @@ contract MachineStateManager {
       conditionNodes_afterOp,
       0,
       "",
-      true,
       true,
       false
     ));

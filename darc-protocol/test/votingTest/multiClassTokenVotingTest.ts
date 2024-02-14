@@ -57,7 +57,6 @@ describe("multi class token voting test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "all sandbox_needed",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true,
       conditionNodes:[{
         id: BigNumber.from(0),
@@ -144,7 +143,6 @@ describe("multi class token voting test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "all voting_needed",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: false,
       conditionNodes:[{
         id: BigNumber.from(0),

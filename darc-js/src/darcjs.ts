@@ -22,6 +22,25 @@ import { OperationStruct, OperationStructOutput, ProgramStruct, VotingRuleStruct
 import {ethers} from "ethers";
 import * as DARC from "./DARC/DARC";
 
+/**
+ * Below are return types
+ */
+export const UNDEFINED = 0;
+export const SANDBOX_NEEDED = 1;
+export const NO = 2;
+export const VOTING_NEEDED = 3;
+export const YES_AND_SKIP_SANDBOX = 4;
+export const YES = 5;
+
+export enum EnumReturnType {
+  UNDEFINED = 0,
+  SANDBOX_NEEDED = 1,
+  NO = 2,
+  VOTING_NEEDED = 3,
+  YES_AND_SKIP_SANDBOX = 4,
+  YES = 5
+}
+
 import {
   OPCODE_ID_1_BATCH_MINT_TOKENS,
   OPCODE_ID_2_BATCH_CREATE_TOKEN_CLASSES,

@@ -67,7 +67,6 @@ describe('SDK node generation test', () => {
               votingRuleIndex: BigNumber.from(0),
               notes: "disable all program",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes:[{
                 id: BigNumber.from(0),
@@ -89,7 +88,6 @@ describe('SDK node generation test', () => {
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes: 
               or(
@@ -221,7 +219,6 @@ describe('SDK node generation test', () => {
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
               bIsEnabled: true,
-              bIsInitialized: true,
               bIsBeforeOperation: true,
               conditionNodes: 
               or(

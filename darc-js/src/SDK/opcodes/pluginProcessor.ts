@@ -20,7 +20,6 @@ export function pluginProcessor(pluginArray: PluginStruct[] | PluginStructWithNo
         votingRuleIndex: pluginArray[i].votingRuleIndex,
         notes: pluginArray[i].notes,
         bIsEnabled: pluginArray[i].bIsEnabled,
-        bIsInitialized: pluginArray[i].bIsInitialized,
         bIsBeforeOperation: pluginArray[i].bIsBeforeOperation,
       });
     }

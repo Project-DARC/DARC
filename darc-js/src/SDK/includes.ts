@@ -43,6 +43,26 @@ import {
 } from "./opcodes/opcodeTable";
 
 /**
+ * Below are return types
+ */
+export let UNDEFINED = 0;
+export let SANDBOX_NEEDED = 1;
+export let NO = 2;
+export let VOTING_NEEDED = 3;
+export let YES_AND_SKIP_SANDBOX = 4;
+export let YES = 5;
+
+export enum EnumReturnType {
+  UNDEFINED = 0,
+  SANDBOX_NEEDED = 1,
+  NO = 2,
+  VOTING_NEEDED = 3,
+  YES_AND_SKIP_SANDBOX = 4,
+  YES = 5
+}
+
+
+/**
  * The list of operations to be executed
  * When an operation function is called, it will add an operation to this list
  */

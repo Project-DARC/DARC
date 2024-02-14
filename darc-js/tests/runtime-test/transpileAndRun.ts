@@ -67,7 +67,6 @@ describe('transpile and execution test', () => {
           votingRuleIndex: BigNumber.from(0),
           notes: "disable all program",
           bIsEnabled: true,
-          bIsInitialized: true,
           bIsBeforeOperation: true,
           conditionNodes: new TRUE() // always true
         },
@@ -77,7 +76,6 @@ describe('transpile and execution test', () => {
           votingRuleIndex: BigInt(0),
           notes: "allow operatorAddress == target1 | operatorAddress == target2",
           bIsEnabled: true,
-          bIsInitialized: true,
           bIsBeforeOperation: true,
           conditionNodes:
               or(

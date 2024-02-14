@@ -31,7 +31,6 @@ describe("single voting netative test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "all sandbox_needed",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true,
       conditionNodes:[{
         id: BigNumber.from(0),
@@ -67,7 +66,6 @@ describe("single voting netative test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "all voting_needed",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: false,
       conditionNodes:[{
         id: BigNumber.from(0),

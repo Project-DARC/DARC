@@ -258,11 +258,6 @@ struct Plugin {
   bool bIsEnabled;
 
   /**
-   * the boolean that indicates whether the plugin is deleted or not
-   */
-  bool bIsInitialized;
-
-  /**
    * the boolean that indicates whether the plugin is a before operation 
    * plugin or after operation plugin
    */

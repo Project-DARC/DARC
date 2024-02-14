@@ -32,7 +32,6 @@ describe("operation log  test", function () {
       notes:
         "disable OPERATION_BY_OPERATOR_SINCE_LAST_TIME_LESS_THAN(5 seconds)",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true,
       conditionNodes: [
         {

@@ -32,7 +32,6 @@ describe("operator AND  test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "disable all program",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true,
       conditionNodes:[{
         id: BigNumber.from(0),
@@ -58,7 +57,6 @@ describe("operator AND  test", function () {
       votingRuleIndex: BigNumber.from(0),
       notes: "allow operatorAddress == target1 | operatorAddress == target2",
       bIsEnabled: true,
-      bIsInitialized: true,
       bIsBeforeOperation: true,
       conditionNodes:[
         // node 0: boolean operator OR

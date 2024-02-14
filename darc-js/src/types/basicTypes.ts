@@ -97,7 +97,6 @@ export type PluginStruct = {
   votingRuleIndex: PromiseOrValue<BigNumberish>;
   notes: PromiseOrValue<string>;
   bIsEnabled: PromiseOrValue<boolean>;
-  bIsInitialized: PromiseOrValue<boolean>;
   bIsBeforeOperation: PromiseOrValue<boolean>;
 };
 
@@ -108,7 +107,6 @@ export type PluginStructWithNode = {
   votingRuleIndex: PromiseOrValue<BigNumberish>;
   notes: PromiseOrValue<string>;
   bIsEnabled: PromiseOrValue<boolean>;
-  bIsInitialized: PromiseOrValue<boolean>;
   bIsBeforeOperation: PromiseOrValue<boolean>;
 };
 
@@ -128,7 +126,6 @@ export type PluginStructOutput = [
   votingRuleIndex: BigNumber;
   notes: string;
   bIsEnabled: boolean;
-  bIsInitialized: boolean;
   bIsBeforeOperation: boolean;
 };
 
