@@ -12,6 +12,7 @@ import "../MachineStateManager.sol";
 import "../Utilities/StringUtils.sol";
 import "../Utilities/OpcodeMap.sol";
 import "../Plugin.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 //import "./Conditions";
 
 contract Condition_MachineState is MachineStateManager { 
@@ -69,6 +70,13 @@ contract Condition_MachineState is MachineStateManager {
     else if (id==92) return ID_92_TOKEN_IN_LIST_AMOUNT_LESS_THAN(bIsBeforeOperation, param);
     else if (id==93) return ID_93_TOKEN_IN_LIST_AMOUNT_IN_RANGE(bIsBeforeOperation, param);
     else if (id==94) return ID_94_TOKEN_IN_LIST_AMOUNT_EQUALS(bIsBeforeOperation, param);
+
+    else if (id==95) return ID_95_ADDRESS_VOTING_WEIGHT_PERCENTAGE_GREATER_THAN(bIsBeforeOperation, param);
+    else if (id==96) return ID_96_ADDRESS_VOTING_WEIGHT_PERCENTAGE_LESS_THAN(bIsBeforeOperation, param);
+    else if (id==97) return ID_97_ADDRESS_VOTING_WEIGHT_PERCENTAGE_IN_RANGE(bIsBeforeOperation, param);
+    else if (id==98) return ID_98_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_GREATER_THAN(bIsBeforeOperation, param);
+    else if (id==99) return ID_99_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_LESS_THAN(bIsBeforeOperation, param);
+    else if (id==100) return ID_100_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_IN_RANGE(bIsBeforeOperation, param);
     else return false;
   }
 
@@ -543,6 +551,72 @@ contract Condition_MachineState is MachineStateManager {
     return totalAmount == param.UINT256_2DARRAY[1][0];
   }
 
+  function ID_95_ADDRESS_VOTING_WEIGHT_PERCENTAGE_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_95: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_95: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_95: UINT256_2DARRAY[0] must have 1 element");
+    if (bIsBeforeOp) {
+      return getAddressTotalVotingWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+    } else {
+      return getAddressTotalVotingWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+    } 
+  }
+
+  function ID_96_ADDRESS_VOTING_WEIGHT_PERCENTAGE_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_96: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_96: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_96: UINT256_2DARRAY[0] must have 1 element");
+    if (bIsBeforeOp) {
+      return getAddressTotalVotingWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+    } else {
+      return getAddressTotalVotingWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+    } 
+  }
+
+  function ID_97_ADDRESS_VOTING_WEIGHT_PERCENTAGE_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_97: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_97: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_97: UINT256_2DARRAY[0] must have 2 elements");
+    if (bIsBeforeOp) {
+      return getAddressTotalVotingWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && getAddressTotalVotingWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+    } else {
+      return getAddressTotalVotingWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && getAddressTotalVotingWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+    } 
+  }
+
+  function ID_98_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_GREATER_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_98: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_98: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_98: UINT256_2DARRAY[0] must have 1 element");
+    if (bIsBeforeOp) {
+      return getAddressTotalDividendWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+    } else {
+      return getAddressTotalDividendWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) > param.UINT256_2DARRAY[0][0];
+    } 
+  }
+
+  function ID_99_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_LESS_THAN(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_99: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_99: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 1, "CE ID_99: UINT256_2DARRAY[0] must have 1 element");
+    if (bIsBeforeOp) {
+      return getAddressTotalDividendWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+    } else {
+      return getAddressTotalDividendWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) < param.UINT256_2DARRAY[0][0];
+    } 
+  }
+
+  function ID_100_ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_IN_RANGE(bool bIsBeforeOp, NodeParam memory param) private view returns (bool) {
+    require(param.ADDRESS_2DARRAY.length == 1, "CE ID_100: ADDRESS_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY.length == 1, "CE ID_100: UINT256_2DARRAY must have 1 element");
+    require(param.UINT256_2DARRAY[0].length == 2, "CE ID_100: UINT256_2DARRAY[0] must have 2 elements");
+    if (bIsBeforeOp) {
+      return getAddressTotalDividendWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && getAddressTotalDividendWeightPercentage(false, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+    } else {
+      return getAddressTotalDividendWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) >= param.UINT256_2DARRAY[0][0] && getAddressTotalDividendWeightPercentage(true, param.ADDRESS_2DARRAY[0][0]) <= param.UINT256_2DARRAY[0][1];
+    } 
+  }
+
 
   //below are the helper functions
   function getDateTime(uint256 timestamp) public pure returns (uint256 year, uint256 month, uint256 day, uint256 hour, uint256 minute, uint256 second) {
@@ -583,5 +657,59 @@ contract Condition_MachineState is MachineStateManager {
     uint256 _second = _remainingSeconds % 60;
     
     return (_year, _month + 1, _day, _hour, _minute, _second);
+  }
+
+  /**
+   * @dev Get the total voting weight for a token class
+   */
+  function getAddressTotalVotingWeightPercentage(bool bIsBeforeOp, address addr) private view returns (uint256) {
+    if (bIsBeforeOp) {
+      bool bIsValid = false;
+      uint256 result = 0;
+
+      // multiply by 100 to get percentage
+      (bIsValid, result) = SafeMathUpgradeable.tryMul(addressTotalVotingWeight(false, addr), 100);
+      require(bIsValid, "CE getAddressTotalVotingWeightPercentage: SafeMathUpgradeable multiplication error");
+      (bIsValid, result) = SafeMathUpgradeable.tryDiv(result, totalVotingWeights(false));
+      require(bIsValid, "CE getAddressTotalVotingWeightPercentage: SafeMathUpgradeable division error");
+      return result;
+    } else {
+      bool bIsValid = false;
+      uint256 result = 0;
+
+      // multiply by 100 to get percentage
+      (bIsValid, result) = SafeMathUpgradeable.tryMul(addressTotalVotingWeight(true, addr), 100);
+      require(bIsValid, "CE getAddressTotalVotingWeightPercentage: SafeMathUpgradeable multiplication error");
+      (bIsValid, result) = SafeMathUpgradeable.tryDiv(result, totalVotingWeights(true));
+      require(bIsValid, "CE getAddressTotalVotingWeightPercentage: SafeMathUpgradeable division error");
+      return result;
+    }
+  }
+
+  /**
+   * @dev Get the total dividend weight for a token class
+   */
+  function getAddressTotalDividendWeightPercentage(bool bIsBeforeOp, address addr) private view returns (uint256) {
+    if (bIsBeforeOp) {
+      bool bIsValid = false;
+      uint256 result = 0;
+
+      // multiply by 100 to get percentage
+      (bIsValid, result) = SafeMathUpgradeable.tryMul(addressTotalDividendWeight(false, addr), 100);
+      require(bIsValid, "CE getAddressTotalDividendWeightPercentage: SafeMathUpgradeable multiplication error");
+      (bIsValid, result) = SafeMathUpgradeable.tryDiv(result, totalDividendWeights(false));
+      require(bIsValid, "CE getAddressTotalDividendWeightPercentage: SafeMathUpgradeable division error");
+      return result;
+    } else {
+      bool bIsValid = false;
+      uint256 result = 0;
+
+      // multiply by 100 to get percentage
+      (bIsValid, result) = SafeMathUpgradeable.tryMul(addressTotalDividendWeight(true, addr), 100);
+      require(bIsValid, "CE getAddressTotalDividendWeightPercentage: SafeMathUpgradeable multiplication error");
+      (bIsValid, result) = SafeMathUpgradeable.tryDiv(result, totalDividendWeights(true));
+      require(bIsValid, "CE getAddressTotalDividendWeightPercentage: SafeMathUpgradeable division error");
+      return result;
+    }
   }
 }

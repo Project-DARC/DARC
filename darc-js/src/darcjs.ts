@@ -426,7 +426,13 @@ export {
   token_in_list_amount_greater_than,
   token_in_list_amount_less_than,
   token_in_list_amount_in_range,
-  token_in_list_amount_equals
+  token_in_list_amount_equals,
+  address_voting_weight_percenrage_greater_than,
+  address_voting_weight_percenrage_less_than,
+  address_voting_weight_percenrage_in_range,
+  address_dividend_weight_percenrage_greater_than,
+  address_dividend_weight_percenrage_less_than,
+  address_dividend_weight_percenrage_in_range
 } from "./SDK/conditionNodes/Condition_MachineState";
 
 export { change_member_role_to_any_role_equals, change_member_role_to_any_role_in_list, change_member_role_to_any_role_in_range, change_member_name_to_any_string_in_list, change_member_name_to_any_string_contains } from "./SDK/conditionNodes/Condition_MembershipOp";

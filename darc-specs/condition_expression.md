@@ -129,12 +129,12 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 92 | TOKEN_IN_LIST_AMOUNT_LESS_THAN | UINT256_2DARRAY[0] tokenClassList,  UINT256_2DARRAY[1][0] amount ||
 | 93 | TOKEN_IN_LIST_AMOUNT_IN_RANGE  | UINT256_2DARRAY[0] tokenClassList,  UINT256_2DARRAY[1][0] amount ||
 | 94 | TOKEN_IN_LIST_AMOUNT_EQUALS| UINT256_2DARRAY[0] tokenClassList,  UINT256_2DARRAY[1][0] amount ||
-| 95 | Placeholder95  |  |  |
-| 96 | Placeholder96  |  |  |
-| 97 | Placeholder97  |  |  |
-| 98 | Placeholder98  |  |  |
-| 99 | Placeholder99  |  |  |
-| 100 | Placeholder100  |  |  |
+| 95 | ADDRESS_VOTING_WEIGHT_PERCENTAGE_GREATER_THAN| UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 96 | ADDRESS_VOTING_WEIGHT_PERCENTAGE_LESS_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 97 | ADDRESS_VOTING_WEIGHT_PERCENTAGE_IN_RANGE   | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 98 | ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_GREATER_THAN  | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 99 | ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_LESS_THAN| UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
+| 100 | ADDRESS_DIVIDEND_WEIGHT_PERCENTAGE_IN_RANGE | UINT256_2DARRAY[0][0] amount, ADDRESS_2DARRAY[0][0] address  ||
 | 101 | Placeholder101  |  |  |
 | 102 | Placeholder102  |  |  |
 | 103 | Placeholder103  |  |  |

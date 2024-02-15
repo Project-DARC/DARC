@@ -101,15 +101,92 @@ This script encapsulates all the operations into a single program, ensuring that
 Plugin is the core mechanism of DARC and serves as its legal framework. All rules within DARC are based on the plugin system. By-law Script supports operator overload to make the composition and design of plugins simpler and more convenient. In By-law Script, each plugin is an object body. Below is the simplest example:
 
 ```javascript
-const plugin_0 ={
-  returnType: NO, // return type: NO
-  level: 3, // level 3
-  votingRuleIndex: 0,
-  notes: "disable all program",
-  bIsEnabled: true,
-  bIsBeforeOperation: true,
-  conditionNodes: new TRUE() // always true
+const plugin_0 = {
+  returnType: NO,                  // return type: NO
+  level: 3,                        // level 3
+  votingRuleIndex: 0,              // voting rule index, if voting is required
+  notes: "disable all operations", // the notes of the plugin
+  bIsEnabled: true,                // the plugin is enabled. this is the default value
+  bIsBeforeOperation: true,        // if the plugin is executed before the operation
+  conditionNodes: new TRUE()       // condition: always true
 },
 ```
 
-In the plugin 
+In the above plugin, we define conditionNodes with only one node, which is the object TRUE() we created. This plugin signifies that before any program or operation is executed, this plugin will be triggered. The returnType of this plugin is NO, indicating that whenever this plugin is triggered, it will be rejected. Therefore, when this plugin is successfully deployed in DARC, if no plugin of a higher level than level 3 is triggered to allow execution, then any operation will be rejected.
+
+Below is another example of a plugin:
+
+```javascript
+const plugin_before_op_1 = {
+  returnType: SANDBOX_NEEDED,                // return type: SANDBOX_NEEDED
+  level: 4,                                  // level 3
+  votingRuleIndex: 0,                        // voting rule index, if voting is required
+  notes: "minting tokens should be checked", // the notes of the plugin
+  bIsEnabled: true,                          // the plugin is enabled. this is the default value
+  bIsBeforeOperation: true,                  // if the plugin is executed before the operation
+  conditionNodes:
+    // if the operation is minting tokens or creating token classes                            
+    (operation_equals(EnumOpcode.BATCH_MINT_TOKENS) |  
+    operation_equals(EnumOpcode.BATCH_PAY_TO_MINT_TOKENS))
+
+    // and the token index is in range [0, 3], which means the token index is 0, 1, 2, or 3
+    & batch_op_any_token_class_in_range(0, 3)
+}
+
+const plugin_after_op_1 = {
+  returnType: NO,
+  level: 6, 
+  votingRuleIndex: 0,
+  notes: "address_A must holds at least 20% of total voting and dividend weight",
+  bIsEnabled: true,
+  bIsBeforeOperation: false,         // after-operation plugin
+  conditionNodes:
+
+    // if the address_A's voting weight percentage is less than 20%
+    // or the address_A's dividend weight percentage is less than 20%
+    address_voting_weight_percenrage_less_than(address_A, 20) 
+    | address_dividend_weight_percenrage_less_than(address_A, 20)
+}
+
+const plugin_before_op_2 = {
+  returnType: NO,
+  level: 6, 
+  votingRuleIndex: 0,
+  notes: "no one can disable before-op plugin 1,2,3 or after-op plugin 1",
+  bIsEnabled: true,
+  bIsBeforeOperation: true,         // before-operation plugin
+  conditionNodes:
+
+    operation_equals(EnumOpcode.BATCH_DISABLE_PLUGINS)
+    & 
+    （ disable_any_before_op_plugin_index_in_list([1,2,3])
+       | disable_any_after_op_plugin_index_in_list([1])
+    & not(operator_address_equals(address_A))
+}
+
+const plugin_before_op_3 = {
+  returnType: YES_AND_SKIP_SANDBOX,
+  level: 7,
+  votingRuleIndex: 0,
+  notes: "only address_A can disable before-op plugin 1,2,3 and after-op plugin 1",
+  bIsEnabled: true,
+  bIsBeforeOperation: true,         // before-operation plugin
+  conditionNodes: 
+    operation_equals(EnumOpcode.BATCH_DISABLE_PLUGINS)
+    & 
+    （ disable_any_before_op_plugin_index_in_list([1,2,3])
+       | disable_any_after_op_plugin_index_in_list([1])
+    & operator_address_equals(address_A)
+}
+```
+
+
+In the example provided, we have defined four plugins:
+
+1. The first plugin marks any operation as SANDBOX_NEEDED if it is either batch_mint_tokens or batch_pay_to_mint_tokens, and the token level is 0, 1, 2, or 3. This plugin ensures that any addition to the supply of tokens at these levels must undergo sandbox checks.
+
+2. The second plugin marks any operation as NO if, after the execution of any program, the total voting or total dividend rights of address_A fall below 20% in the sandbox. This ensures that address_A retains anti-dilution ownership of 20% of the total shares, regardless of how other operators increase share issuance.
+
+3. The third plugin directly rejects any operation that is batch_disable_plugins, and the disabled plugin indexes are 1, 2, 3 in the before-operation plugin list, or 1 in the after-operation plugin list, and the operator address is not equal to address_A. This plugin ensures that no one other than address_A can disable this set of four plugins, thereby securing the 20% non-dilutable ownership of address_A.
+
+4. The fourth plugin allows any operation that is batch_disable_plugins, and the disabled plugin indexes are 1, 2, 3 in the before-operation plugin list, or 1 in the after-operation plugin list, and the operator address is equal to address_A. This plugin ensures that this set of four plugins can be disabled by anyone other than address_A, allowing address_A to waive the anti-dilution feature of its ownership by disabling these four plugins.

@@ -446,6 +446,61 @@ function token_in_list_amount_equals(tokenClassList: number[], amount: number) {
   });
 }
 
+function address_voting_weight_percenrage_greater_than(amount: number, address: string) {
+  return expression(95, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+function address_voting_weight_percenrage_less_than(amount: number, address: string) {
+  return expression(96, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+function address_voting_weight_percenrage_in_range(amount: number, address: string) {
+  return expression(97, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+function address_dividend_weight_percenrage_greater_than(amount: number, address: string) {
+  return expression(98, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+function address_dividend_weight_percenrage_less_than(amount: number, address: string) {
+  return expression(99, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+function address_dividend_weight_percenrage_in_range(amount: number, address: string) {
+  return expression(100, {
+    STRING_ARRAY: [],
+    UINT256_2DARRAY: [[amount]],
+    ADDRESS_2DARRAY: [[address]],
+    BYTES: []
+  });
+}
+
+
 export {
   timestamp_greater_than,
   timestamp_less_than,
@@ -490,5 +545,11 @@ export {
   token_in_list_amount_greater_than,
   token_in_list_amount_less_than,
   token_in_list_amount_in_range,
-  token_in_list_amount_equals
+  token_in_list_amount_equals,
+  address_voting_weight_percenrage_greater_than,
+  address_voting_weight_percenrage_less_than,
+  address_voting_weight_percenrage_in_range,
+  address_dividend_weight_percenrage_greater_than,
+  address_dividend_weight_percenrage_less_than,
+  address_dividend_weight_percenrage_in_range
 };
