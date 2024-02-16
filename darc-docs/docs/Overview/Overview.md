@@ -1,5 +1,13 @@
 # Overview
 
-## What is DARC?
+### What is DARC?
 
-Decentralized Autonomous Regulated Corporation(DARC) is a protocol that 
+Decentralized Autonomous Regulated Corporation(DARC) is a virtual machine that written in Solidity. It is a smart contract that can be deployed on Ethereum or EVM-compatible blockchain. It is fully open source and can be used by anyone under the license.
+
+The ultimate goal of the DARC project is to design a comprehensive, self-regulating corporate governance system that liberates itself from the textual contracts and external regulations imposed by government and legal registrations such as C-corp, LLC, and foundations. It aims to achieve a complete, internal, trustworthy, and programmable plugin system for self-regulation within DARC instances. Therefore, it possesses the following characteristics:
+
+1. Multi-level tokens: DARC can configure multiple levels of tokens, each with its own voting weight and dividend weight. Through various configurations and combinations, tokens at different levels can serve as common stock, class A/B stock, company bonds, board of directors positions, preferred stock, and various other company assets and ownership structures defined by complex rules. Similarly, multi-level tokens can be commodities and services sold by DARC, whether they are fungible or non-fungible tokens.
+
+2. Plugin-as-a-Law: Plugin is the central mechanism of the DARC protocol, governing and establishing all rules within DARC, including the addition, enabling, and disabling of plugins themselves. Plugins define the operations permitted or prohibited within DARC under specific conditions. In the DARC framework, users can set up and add a complete set of plugins to define the daily operations of DARC, including board operations, company bylaws, shareholder agreements, complex investment agreements with various conditions, dividend regulations, employment contracts, procurement contracts, and more. By designing comprehensive and diverse plugins, DARC can be perfected much like real-world company legal contracts, regulating all operations of DARC members such as shareholders, the board of directors, employees, customers, and suppliers.
+
+3. Operation and Program: In the context of the DARC protocol, all operations are abstracted into a series of operations, including opcodes and parameters. Users can design, compile, and run all daily management and operations of DARC, including equity operations, member operations, cash operations, plugin design and maintenance, voting operations, and more, using By-law Script. These scripts are deployed and executed on the DARC virtual machine instance deployed on the blockchain.

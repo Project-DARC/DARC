@@ -1,6 +1,5 @@
 // all the included instructions are here, mostly instructions for operations
 import { OperationStruct, PluginStruct, PluginStructWithNode, VotingRuleStruct } from "../types/basicTypes";
-import { Node, expression, TRUE, FALSE, AND, OR, and, or, not, NOT } from "./Node";
 import { BigNumber } from "ethers";
 import { objectMethod } from "@babel/types";
 
@@ -78,7 +77,7 @@ export { BigNumber };
 /**
  * The basic node for the program
  */
-export { Node, expression, TRUE, FALSE, AND, OR, and, or, not, NOT };
+export { Node, expression, TRUE, FALSE, AND, OR, and, or, not, NOT, boolean_true, boolean_false } from "./Node";
 
 /**
  * The setter for the program notes

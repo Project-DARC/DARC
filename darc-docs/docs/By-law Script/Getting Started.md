@@ -11,7 +11,68 @@ import TabItem from '@theme/TabItem';
 
 By-law Script is the first programming language for describing the operations and rules for a DARC-based crypto company. It is a domain-specific language (DSL) that is designed to be easy to read and write, and to be used by non-programmers. It is based on JavaScript, and adds operator overloading to make it easier to write and read.
 
-### Your First By-law Script Program
+### Setup
+
+There are two ways to write and execute By-law Script programs. The first is to use the By-law Script IDE at [darc.app](darc.app), which is a web-based IDE that allows you to write, compile, and execute By-law Script programs. 
+
+The second is to use the darcjs SDK, which is a command-line tool that allows you to write By-law Script programs in a text editor and then compile and execute them.
+
+To install darcjs, you can use npm:
+
+<Tabs>
+  <TabItem value="npm" label="NPM" default>
+
+```shell
+npm install darcjs
+```
+
+  </TabItem>
+  <TabItem value="yarn" label="YARN">
+
+```shell
+yarn add darcjs
+```
+
+  </TabItem>
+  <TabItem value="pnpm" label="PNPM">
+
+```shell
+pnpm install darcjs
+```
+
+  </TabItem>
+</Tabs>
+
+Then you can import darcjs and use `transpileAndRun()` to compile and execute By-law Script programs.
+
+```javascript
+import { transpileAndRun, ethers } from 'darcjs';
+
+await transpileAndRun(
+
+  // By-law Script code
+  `
+    batch_transfer_tokens(
+      [Address_B],  // the addresses of the recipients
+      [0],          // the token index
+      [100]);       // the amounts
+  `, 
+
+  // signer
+  new ethers.Wallet( 
+    YOUR_PRIVATE_KEY, 
+    new ethers.providers.JsonRpcProvider( YOUR_JSON_RPC_PROVIDER_URL )
+  ),
+
+  // DARC address
+  "0x123...", 
+
+  // DARC version
+  DARC_VERSION.Latest
+);
+```
+
+### Your first By-law Script program
 
 Here is a simple By-law Script program that defines the common stock of a company. Each share of common stock has voting weight 1 and dividend weight 1. This token class is called `token_0`, and the token index is 0.
 
@@ -59,7 +120,7 @@ Finally, Address_C wants to issue dividends to all token holders. The following 
 offer_dividends();
 ```
 
-### Package Operations into a Program
+### Package operations into a program
 
 The above examples of code all execute single operations. For a program, it can contain multiple operations, and all operations will be executed sequentially, one after another. The advantage of doing this is that if an operator needs to execute a program and the program consists of multiple operations, it is necessary to ensure that all operations contained in this program are successfully approved for execution by voting, or the entire program is rejected as a whole.
 
@@ -96,7 +157,41 @@ batch_mint_tokens(
 
 This script encapsulates all the operations into a single program, ensuring that they are either all approved and executed successfully or all rejected without any execution. If the program requires voting, it must undergo the voting process as a whole. If rejected, Address_E will not obtain shares, a board seat, nor pay the cash, which will be refunded to Address_E.
 
-### Your First Plugin as a Law
+
+### Write By-law Script, just like writing JavaScript
+
+By-law Script is based on JavaScript, so most of the syntax and grammar are the same as JavaScript, including the use of variables, constants, and functions. 
+
+Below is a batch script that paying cash to different addresses with different amounts. The amount is saved in a map, and the payment is executed in a loop. 
+
+```javascript
+const balance = new Map(
+  [
+    [address_X1, 1000000],
+    [address_X2, 2000000],
+    [address_X3, 3000000],
+    [address_X4, 4000000]
+  ]
+);
+
+for (const [address, amount] of balance) {
+  batch_add_withdrawable_balances(   // if you don't want to package all operations into a batch operation
+    [address],  // the addresses of the recipients
+    [amount]);  // the amounts
+}
+```
+
+### Remember to add notes to the program
+
+When you write a By-law Script program, it is important to add notes to the program to explain the purpose of the program. This is especially important when the program requires voting. The notes will be displayed to the voters during the voting process, and will help them to understand the purpose of the program and make a decision.
+
+By adding notes, you can just call the `setNote()` function in any place of the program. Below is an example of adding notes to the program.
+
+```javascript
+setNote("Investment agreement for Address_E");
+```
+
+### Your first Plugin-as-a-Law
 
 Plugin is the core mechanism of DARC and serves as its legal framework. All rules within DARC are based on the plugin system. By-law Script supports operator overload to make the composition and design of plugins simpler and more convenient. In By-law Script, each plugin is an object body. Below is the simplest example:
 
@@ -108,13 +203,16 @@ const plugin_0 = {
   notes: "disable all operations", // the notes of the plugin
   bIsEnabled: true,                // the plugin is enabled. this is the default value
   bIsBeforeOperation: true,        // if the plugin is executed before the operation
-  conditionNodes: new TRUE()       // condition: always true
+  conditionNodes: boolean_true()   // condition: always true
 },
 ```
 
 In the above plugin, we define conditionNodes with only one node, which is the object TRUE() we created. This plugin signifies that before any program or operation is executed, this plugin will be triggered. The returnType of this plugin is NO, indicating that whenever this plugin is triggered, it will be rejected. Therefore, when this plugin is successfully deployed in DARC, if no plugin of a higher level than level 3 is triggered to allow execution, then any operation will be rejected.
 
-Below is another example of a plugin:
+
+One of the most important features of By-law Script is its ability to use operator overloading to write condition nodes. Each condition node is an expression with parameters, and condition nodes are a series of expressions connected by logical operators such as AND, OR, and NOT. Therefore, by supporting operator overload at the transpiler level, developers can easily write condition nodes as triggering conditions for plugins. 
+
+Below is an example of composing plugins with condition nodes using operator overloading. It contains four plugins, establishing a set of rules for address_A to maintain a 20% non-dilutable ownership of the company's shares.
 
 ```javascript
 const plugin_before_op_1 = {
@@ -160,7 +258,7 @@ const plugin_before_op_2 = {
     operation_equals(EnumOpcode.BATCH_DISABLE_PLUGINS)
     & 
     （ disable_any_before_op_plugin_index_in_list([1,2,3])
-       | disable_any_after_op_plugin_index_in_list([1])
+       | disable_any_after_op_plugin_index_in_list([1]) )
     & not(operator_address_equals(address_A))
 }
 
@@ -175,11 +273,10 @@ const plugin_before_op_3 = {
     operation_equals(EnumOpcode.BATCH_DISABLE_PLUGINS)
     & 
     （ disable_any_before_op_plugin_index_in_list([1,2,3])
-       | disable_any_after_op_plugin_index_in_list([1])
+       | disable_any_after_op_plugin_index_in_list([1]) )
     & operator_address_equals(address_A)
 }
 ```
-
 
 In the example provided, we have defined four plugins:
 
@@ -190,3 +287,100 @@ In the example provided, we have defined four plugins:
 3. The third plugin directly rejects any operation that is batch_disable_plugins, and the disabled plugin indexes are 1, 2, 3 in the before-operation plugin list, or 1 in the after-operation plugin list, and the operator address is not equal to address_A. This plugin ensures that no one other than address_A can disable this set of four plugins, thereby securing the 20% non-dilutable ownership of address_A.
 
 4. The fourth plugin allows any operation that is batch_disable_plugins, and the disabled plugin indexes are 1, 2, 3 in the before-operation plugin list, or 1 in the after-operation plugin list, and the operator address is equal to address_A. This plugin ensures that this set of four plugins can be disabled by anyone other than address_A, allowing address_A to waive the anti-dilution feature of its ownership by disabling these four plugins.
+
+After the plugin is defined, it can be added to the plugin list of the DARC. Below is an example of adding the above four plugins to the plugin list of the DARC. Make sure that the existing before-operation plugin list only contains 1 plugin, and the existing after-operation plugin list also only contains 1 plugin.
+
+```javascript
+batch_add_and_enable_plugins(
+  [plugin_before_op_1, plugin_after_op_1, plugin_before_op_2, plugin_before_op_3]);
+```
+
+### How does operator overloading work in By-law Script?
+
+There are three types of condition nodes in the By-law Script, all of which are inherited from the base class `Node`
+
+1. Expression, a condition node that is a single expression with parameters, without any child nodes, such as `operator_address_equals(inputAddress)`.
+2. Logical operators(`and`, `or`, `not`), a condition node that is a series of expressions connected by logical operators.
+3. Boolean constants(`boolean_true`, `boolean_false`), a condition node that is a boolean constant.
+
+The transpiler of By-law Script supports operator overloading for the base `Node` type with bit-and `&` and bit-or `|`, and will be overloaded to the logical operators `and` and `or` respectively. 
+
+For example, the following expression:
+
+```javascript
+expression1() & (expression2() | expression3() ) & expression4()
+```
+
+will be transpiled and overloaded to:
+
+```javascript
+and(
+  expression1(), 
+  or(expression2(), expression3()),
+  expression4()
+)
+```
+
+Since each lower-case function is actually the wrapper of the constructor of the corresponding object, the above code is equivalent to the following code:
+
+```javascript
+new AND(
+  new Expression1(), 
+  new OR(new Expression2(), new Expression3()),
+  new Expression4()
+)
+```
+
+And when the condition nodes are set to plugin, the runtime will automatically serialize the tree-like structure of the condition nodes to the list of nodes(if the type of condition nodes value is `Node`), which is the actual format of the condition nodes in the plugin for DARC interface. The above example will be transpiled to (in pseudo-code):
+
+```javascript
+[
+  // node index 0: the root node, the AND node
+  {
+    nodeType: "LOGICAL_OPERATOR",
+    logialOperator: "AND",
+    childList: [1, 2, 5]
+  },
+
+  // node index 1: expression 1
+  {
+    nodeType: "EXPRESSION",
+    expression: "expression1"
+    param: {}
+    childList: []
+  },
+
+  // node index 2: OR node
+  {
+    nodeType: "LOGICAL_OPERATOR",
+    logialOperator: "OR",
+    childList: [3, 4]
+  },
+
+  // node index 3: expression 2
+  {
+    nodeType: "EXPRESSION",
+    expression: "expression2"
+    param: {}
+    childList: []
+  },
+
+  // node index 4: expression 3
+  {
+    nodeType: "EXPRESSION",
+    expression: "expression3"
+    param: {}
+    childList: []
+  },
+
+  // node index 5: expression 4
+  {
+    nodeType: "EXPRESSION",
+    expression: "expression4"
+    param: {}
+    childList: []
+  }
+]
+``` 
+
+In this way, the transpiler of By-law Script supports operator overloading for the condition nodes, and runtime generate the actual format of the condition nodes in the plugin for DARC interface.
