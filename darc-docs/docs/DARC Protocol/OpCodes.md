@@ -16,6 +16,10 @@ Furthermore, the opcode instruction set includes operations for handling monetar
 
 By defining these operations through opcodes, the DARC protocol ensures consistency, transparency, and security in managing tokens, money, and law within autonomous entities. These instructions form the foundation for the decentralized governance and regulation of corporations, providing a framework for transparent and auditable decision-making processes.
 
+### Notes
+
+In DARC protocol, the operations are named with uppercase letters, and in By-law Script and darcjs SDK, the operations are named with lowercase letters. For example, the operation `BATCH_MINT_TOKENS` in DARC protocol are named `batch_mint_tokens` in both By-law Script and darcjs SDK.
+
 | Opcode ID | Opcode Name                                  | Opcode Parameter                                        | Opcode Notes                                                |
 |-----------|----------------------------------------------|----------------------------------------------------------|------------------------------------------------------------|
 | 0         | UNDEFINED                                    |                                                          | Invalid Operation                                           |

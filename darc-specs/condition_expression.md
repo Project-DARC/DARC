@@ -1,6 +1,6 @@
 # Condition Expression Table
 
-## Notes
+### Notes
 
 1. There are multiple batch-operations, including:
     - Batch Mint Tokens
@@ -30,7 +30,9 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 
 2. Placeholders are reserved for future use.
 
-3. the range [staringValue, endingValue] is inclusive. For example, if the range is [1, 3], then the value 1, 2, 3 are all included.
+3. The range [staringValue, endingValue] is inclusive. For example, if the range is [1, 3], then the value 1, 2, 3 are all included.
+
+4. In the DARC protocol, all expressions are named with upper case, and in darc.js SDK and By-law Script, all expressions are named with lower case. For example, `OPERATOR_NAME_EQUALS` in the DARC protocol is `operator_name_equals` in darc.js SDK and By-law Script.
 
 | ID | Expression Name  | Parameter| Notes| Ready |
 |------------|------|------|-------| ---- |
