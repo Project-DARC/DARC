@@ -1,10 +1,10 @@
-import {executeOperationList, operator_address_equals} from "../../src/darcjs";
+import {EnumReturnType, executeOperationList, operator_address_equals} from "../../src/darcjs";
 import { deployDARC, DARC_VERSION} from '../../src/darcjs';
 import { ethers, BigNumber } from 'ethers';
 import * as DARC from '../../src/DARC/DARC';
 import 'mocha';
 import { expect } from 'chai';
-import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes } from "../../src/darcjs";
+import { batch_add_and_enable_plugins, batch_mint_tokens, batch_create_token_classes, EnumOpcode } from "../../src/darcjs";
 import {or, node, and, expression} from "../../src/SDK/Node";
 import { transpileAndRun } from "../../src/SDK/runtime";
 
@@ -62,7 +62,7 @@ describe('expression node basic test', () => {
           [
             // plugin 0: disable all operations
             {
-              returnType: BigNumber.from(2), // no
+              returnType: EnumReturnType.NO, // no
               level: BigNumber.from(3), // level 3
               votingRuleIndex: BigNumber.from(0),
               notes: "disable all program",
@@ -83,7 +83,7 @@ describe('expression node basic test', () => {
               }]
             },
             {
-              returnType: BigInt(4), // yes and skip sandbox
+              returnType: EnumReturnType.YES_AND_SKIP_SANDBOX, // yes and skip sandbox
               level: BigInt(103),
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
@@ -204,7 +204,7 @@ describe('expression node basic test', () => {
         batch_add_and_enable_plugins(
           [
             {
-              returnType: BigInt(4), // yes and skip sandbox
+              returnType: EnumReturnType.YES_AND_SKIP_SANDBOX, // yes and skip sandbox
               level: BigInt(103),
               votingRuleIndex: BigInt(0),
               notes: "allow operatorAddress == target1 | operatorAddress == target2",
