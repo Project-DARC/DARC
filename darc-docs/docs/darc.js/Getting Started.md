@@ -270,3 +270,51 @@ const result = executeOperationList(
 );
 
 ```
+
+### Development Notes:
+
+To run the test for darcjs, you need to clone the darcjs repository from the GitHub, and then run the test with the following commands:
+
+```shell
+git clone https://github.com/Project-DARC/DARC.git
+```
+
+Then first install the dependencies for `darc-protocol` project
+
+```shell
+cd darc-protocol
+npm install
+```
+
+And start a local devnet node with the following command:
+
+```shell
+npx hardhat node
+```
+
+Then run the test for `darc-protocol` project
+
+```shell
+npx hardhat test
+```
+
+Then switch to the `darcjs` project and install the dependencies for `darcjs` project
+
+```shell
+cd ../darcjs
+pnpm install
+```
+
+And run the test for `darcjs` project
+
+```shell
+pnpm run test
+```
+
+Remember, you need to install `pnpm` before running the test for `darcjs` project, and you can install `pnpm` with the following command:
+
+```shell
+npm install -g pnpm
+```
+
+Also do not forget to initialize the `darc-protocol` project and start a local devnet node before running the test for `darcjs` project.
