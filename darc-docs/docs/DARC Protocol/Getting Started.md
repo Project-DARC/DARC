@@ -28,10 +28,10 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
     npx hardhat compile
     ```
 
-3. Run the Darc test network
+3. Host a local devnet node with hardhat configuration:
 
     ```shell
-    npm run node
+    npx hardhat node
     ```
 
 4. Test contracts
