@@ -13,7 +13,7 @@ By-law Script is the first programming language for describing the operations an
 
 ### Setup
 
-There are two ways to write and execute By-law Script programs. The first is to use the By-law Script IDE at [darc.app](darc.app), which is a web-based IDE that allows you to write, compile, and execute By-law Script programs. 
+There are two ways to write and execute By-law Script programs. The first is to use the By-law Script IDE at [https://darc.app](https://darc.app), which is a web-based IDE that allows you to write, compile, and execute By-law Script programs. 
 
 The second is to use the darcjs SDK, which is a command-line tool that allows you to write By-law Script programs in a text editor and then compile and execute them.
 
