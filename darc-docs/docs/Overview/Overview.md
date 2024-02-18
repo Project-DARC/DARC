@@ -29,5 +29,7 @@ The entire DARC Project ([https://github.com/project-darc](https://github.com/pr
 ### Community
 
 Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
+
 Github: [https://github.com/project-darc](https://github.com/project-darc)
+
 Github Discussions: [https://github.com/orgs/Project-DARC/discussions](https://github.com/orgs/Project-DARC/discussions)
