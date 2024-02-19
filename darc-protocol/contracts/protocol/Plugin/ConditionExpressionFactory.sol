@@ -16,6 +16,7 @@ import "./Condition_TokenAndCash.sol";
 import "./Condition_CreateTokenClass.sol";
 import "./Condition_Program.sol";
 import "./Condition_OperationLog.sol";
+import "./Condition_External.sol";
 
 
 /**
@@ -26,7 +27,8 @@ import "./Condition_OperationLog.sol";
 contract ConditionExpressionFactory is  
   Condition_Operator, Condition_MachineState, Condition_Operation, Condition_BatchOp, Condition_PluginAndVoting,
   Condition_MembershipOp, Condition_Withdrawable, Condition_TokenAndCash,
-  Condition_CreateTokenClass, Condition_Program, Condition_OperationLog
+  Condition_CreateTokenClass, Condition_Program, Condition_OperationLog,
+  Condition_External
 {
 
   /**
@@ -54,6 +56,8 @@ contract ConditionExpressionFactory is
     if (exp >= 51 && exp <= 149) { return machineStateExpressionCheck(bIsBeforeOperation, param, exp); }
 
     if (exp >=151 && exp <= 180) { return operationExpressionCheck( operation, param, exp); }
+
+    if (exp >= 181 && exp <= 210) { return externalExpressionCheck(param, exp); }
 
     if (exp >= 211 && exp <= 300) { return batchOpExpressionCheck(bIsBeforeOperation, operation, param, exp); }
 

@@ -286,12 +286,12 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 178 | Placeholder178  |  |  |
 | 179 | Placeholder179  |  |  |
 | 180 | Placeholder180  |  |  |
-| 181 | ORACLE_CALL_UINT256_RESULT_EQUALS | string oracle, string method, uint256[] args, uint256 expectedValue || NOT READY, DO NOT USE
-| 182 | ORACLE_CALL_UINT256_RESULT_GREATER_THAN | string oracle, string method, uint256[] args, uint256 minValue || NOT READY, DO NOT USE
-| 183 | ORACLE_CALL_UINT256_RESULT_LESS_THAN | string oracle, string method, uint256[] args, uint256 maxValue || NOT READY, DO NOT USE
-| 184 | ORACLE_CALL_UINT256_RESULT_IN_RANGE | string oracle, string method, uint256[] args, uint256 minValue, uint256 maxValue || NOT READY, DO NOT USE
-| 185 | ORACLE_CALL_STRING_RESULT_EQUALS | string oracle, string method, string[] args, string expectedValue || NOT READY, DO NOT USE
-| 186 | ORACLE_CALL_STRING_RESULT_IN_LIST | string oracle, string method, string[] args, string[] expectedValues || NOT READY, DO NOT USE
+| 181 | EXTERNAL_CALL_UINT256_RESULT_EQUALS | ADDRESS_2DARRAY[0][0] externalAddress, BYTES encodedParameters, UINT256_2DARRAY[0][0] value || NOT READY, DO NOT USE
+| 182 | EXTERNAL_CALL_UINT256_RESULT_GREATER_THAN | sADDRESS_2DARRAY[0][0] externalAddress, BYTES encodedParameters, UINT256_2DARRAY[0][0] value || NOT READY, DO NOT USE
+| 183 | EXTERNAL_CALL_UINT256_RESULT_LESS_THAN | ADDRESS_2DARRAY[0][0] externalAddress, BYTES encodedParameters, UINT256_2DARRAY[0][0] value || NOT READY, DO NOT USE
+| 184 | EXTERNAL_CALL_UINT256_RESULT_IN_RANGE | ADDRESS_2DARRAY[0][0] externalAddress, BYTES encodedParameters, UINT256_2DARRAY[0][0] minValue, UINT256_2DARRAY[0][1] maxValue || NOT READY, DO NOT USE
+| 185 | EXTERNAL_CALL_STRING_RESULT_EQUALS | string external, string method, string[] args, string expectedValue || NOT READY, DO NOT USE
+| 186 | Placeholder186  |  |  |
 | 187 | Placeholder187  |  |  |
 | 188 | Placeholder188  |  |  |
 | 189 | Placeholder189  |  |  |
@@ -578,9 +578,9 @@ For more details, please refer to [DARC Instruction Set Opcode Table(opcode.md)]
 | 462 | TOKEN_X_OP_ANY_PRICE_LESS_THAN | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] price | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
 | 463 | TOKEN_X_OP_ANY_PRICE_IN_RANGE | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] startPrice, UINT256_2DARRAY[0][2] endPrice | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
 | 464 | TOKEN_X_OP_ANY_PRICE_EQUALS | UINT256_2DARRAY[0][0] tokenClass, UINT256_2DARRAY[0][1] price | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
-| 465 | TOKEN_X_OP_ANY_PRICE_GREATER_THAN_ORACLE_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] oracleContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
-| 466 | TOKEN_X_OP_ANY_PRICE_LESS_THAN_ORACLE_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] oracleContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
-| 467 | TOKEN_X_OP_ANY_PRICE_EQUALS_ORACLE_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] oracleContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
+| 465 | TOKEN_X_OP_ANY_PRICE_GREATER_THAN_EXTERNAL_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] externalContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
+| 466 | TOKEN_X_OP_ANY_PRICE_LESS_THAN_EXTERNAL_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] externalContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
+| 467 | TOKEN_X_OP_ANY_PRICE_EQUALS_EXTERNAL_VALUE_UINT256 | UINT256_2DARRAY[0][0] tokenClass, ADDRESS_2DARRAY[0][0] externalContractAddress, BYTES abiEncodedParameters | For three operations: "BATCH_PAY_TO_MINT_TOKENS", "BATCH_PAY_TO_TRANSFER_TOKENS" and "BATCH_BURN_TOKENS_AND_REFUND".
 | 468 | Placeholder468  |  |  |
 | 469 | Placeholder469  |  |  |
 | 470 | Placeholder470  |  |  |

@@ -21,11 +21,15 @@ contract Condition_TokenAndCash is MachineStateManager {
    * @param param The parameter list of the condition expression
    * @param id The id of the condition expression
    */
-  function tokenAndCashExpressionCheck(Operation memory op, NodeParam memory param, uint256 id) internal pure returns (bool) {
+  function tokenAndCashExpressionCheck(Operation memory op, NodeParam memory param, uint256 id) internal view returns (bool) {
     if (id== 461)  return ID_461_TOKEN_X_OP_ANY_PRICE_GREATER_THAN(op, param);
     if (id== 462)  return ID_462_TOKEN_X_OP_ANY_PRICE_LESS_THAN(op, param);
     if (id== 463)  return ID_463_TOKEN_X_OP_ANY_PRICE_IN_RANGE(op, param);
     if (id== 464)  return ID_464_TOKEN_X_OP_ANY_PRICE_EQUALS(op, param);
+    if (id== 465)  return ID_465_TOKEN_X_OP_ANY_PRICE_GREATER_THAN_EXTERNAL_VALUE_UINT256(op, param);
+    if (id== 466)  return ID_466_TOKEN_X_OP_ANY_PRICE_LESS_THAN_EXTERNAL_VALUE_UINT256(op, param);
+    if (id== 467)  return ID_467_TOKEN_X_OP_ANY_PRICE_EQUALS_EXTERNAL_VALUE_UINT256(op, param);
+
     return false;
   }
 
@@ -77,7 +81,7 @@ contract Condition_TokenAndCash is MachineStateManager {
     return false;
   }
 
-  function ID_465_TOKEN_X_OP_ANY_PRICE_GREATER_THAN_ORACLE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
+  function ID_465_TOKEN_X_OP_ANY_PRICE_GREATER_THAN_EXTERNAL_VALUE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_465: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_465: The UINT256_2DARRAY[0] length is not 1");
     if (bIsTokenOperationWithCash(op) == false) return false;
@@ -86,18 +90,18 @@ contract Condition_TokenAndCash is MachineStateManager {
     (uint256[] memory tokenClassList, , uint256[] memory priceList) = getTokenClassAmountPriceList(op);
     require(tokenClassList.length == priceList.length, "CE ID_465: The token class list length is not equal to price list length");
 
-    // try to get oracle value
-    (bool success, uint256 oracleValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
+    // try to get external value
+    (bool success, uint256 externalValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
 
     if (success == false) return false;
     
     for (uint256 i = 0; i < tokenClassList.length; i++) {
-      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] > oracleValue) { return true; }
+      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] > externalValue) { return true; }
     }
     return false;
   }
 
-  function ID_466_TOKEN_X_OP_ANY_PRICE_LESS_THAN_ORACLE_VALUE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
+  function ID_466_TOKEN_X_OP_ANY_PRICE_LESS_THAN_EXTERNAL_VALUE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_466: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_466: The UINT256_2DARRAY[0] length is not 1");
     if (bIsTokenOperationWithCash(op) == false) return false;
@@ -105,18 +109,18 @@ contract Condition_TokenAndCash is MachineStateManager {
     (uint256[] memory tokenClassList, , uint256[] memory priceList) = getTokenClassAmountPriceList(op);
     require(tokenClassList.length == priceList.length, "CE ID_466: The token class list length is not equal to price list length");
 
-    // try to get oracle value
-    (bool success, uint256 oracleValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
+    // try to get external value
+    (bool success, uint256 externalValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
 
     if (success == false) return false;
     
     for (uint256 i = 0; i < tokenClassList.length; i++) {
-      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] < oracleValue) { return true; }
+      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] < externalValue) { return true; }
     }
     return false;
   }
 
-  function ID_467_TOKEN_X_OP_ANY_PRICE_EQUALS_ORACLE_VALUE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
+  function ID_467_TOKEN_X_OP_ANY_PRICE_EQUALS_EXTERNAL_VALUE_UINT256(Operation memory op, NodeParam memory param) private view returns (bool) {
     require(param.UINT256_2DARRAY.length == 1, "CE ID_467: The UINT256_2DARRAY length is not 1");
     require(param.UINT256_2DARRAY[0].length == 2, "CE ID_467: The UINT256_2DARRAY[0] length is not 1");
     if (bIsTokenOperationWithCash(op) == false) return false;
@@ -124,13 +128,13 @@ contract Condition_TokenAndCash is MachineStateManager {
     (uint256[] memory tokenClassList, , uint256[] memory priceList) = getTokenClassAmountPriceList(op);
     require(tokenClassList.length == priceList.length, "CE ID_467: The token class list length is not equal to price list length");
 
-    // try to get oracle value
-    (bool success, uint256 oracleValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
+    // try to get external value
+    (bool success, uint256 externalValue) = ExternalValueReader.tryReadUINT256(op.param.ADDRESS_2DARRAY[0][0], op.param.BYTES);
 
     if (success == false) return false;
     
     for (uint256 i = 0; i < tokenClassList.length; i++) {
-      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] == oracleValue) { return true; }
+      if (tokenClassList[i] == param.UINT256_2DARRAY[0][0] && priceList[i] == externalValue) { return true; }
     }
     return false;
   }
