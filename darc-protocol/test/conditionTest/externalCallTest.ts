@@ -13,7 +13,7 @@ const target2 = "0x90F79bf6EB2c4f870365E785982E1f101E93b906";
 
 const target3 = "0x870526b7973b56163a6997bb7c886f5e4ea53638";
 
-describe("external oracle condition test", function () {
+describe("external oracle external call condition test", function () {
   it("should pass external oracle condition test", async function () {
     const TestOracleFactory = await ethers.getContractFactory(
       "TestOracleContract"
