@@ -23,12 +23,12 @@ struct NodeParam {
 
 There are three logical operators in the DARC protocol: `AND`, `OR`, and `NOT`. The `AND` operator returns true if all of its children are true. The `OR` operator returns true if any of its children are true. The `NOT` operator returns true if its child is false. There must be at least one child for the `AND` and `OR` operators, and only one child for the `NOT` operator.
 
-In both By-law Script and darc.js SDK, you can use the `and()`, `or()`, and `not()` functions to create the logical operators, for example:
+In both By-law Script and darc.js SDK, you can use the `and()`, `or()`, and `not()` wrapper functions to create the logical operators, for example:
 
 In darc.js SDK:
 
 ```ts
-import {and, or, not} from 'darcjs';
+import {and, or, not, AND, OR, NOT} from 'darcjs';
 
 const conditionTree = and(
   or(
@@ -39,6 +39,20 @@ const conditionTree = and(
   expression3(),
 
   not(
+    expression4()
+  )
+);
+
+// or using the class constructor
+const conditionTree = new And(
+  new OR(
+    expression1(),
+    expression2()
+  ),
+
+  expression3(),
+
+  new NOT(
     expression4()
   )
 );
@@ -59,6 +73,20 @@ const conditionTree = and(
     expression4()
   )
 );
+
+// or using the class constructor
+const conditionTree = new AND(
+  new OR(
+    expression1(),
+    expression2()
+  ),
+
+  expression3(),
+
+  new NOT(
+    expression4()
+  )
+);
 ```
 
 Also you can use `|` for `OR`, `&` for `AND`, and `!` for `NOT` in By-law Script, and these operators will be parsed into the corresponding condition nodes. For example, the above By-law Script can be written as:
@@ -69,6 +97,10 @@ const conditionTree =
   ( expression2() | expression3() ) &
   ( ! expression4() );
 ```
+
+### Boolean Values
+
+There are two boolean values in the DARC protocol: class `TRUE` and clss `FALSE`, or wrapper function `boolean_true()` and `boolean_false()`. They are used to represent a boolean node in the condition tree.
 
 ### Condition Expression
 
