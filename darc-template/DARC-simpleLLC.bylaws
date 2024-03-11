@@ -8,10 +8,18 @@
  4. All the operations needs to be voted and approved by the board members(level-1 tokens), except for the following:
     - Pay cash (dividendable)
     - Offer dividends
+
+ Notes: 
+ 1. All token transfer, token creation, token destruction, adding plugins, enabling plugins, and disabling plugins need to be voted and approved by the board members.
+ 2. approvalThreshold is a number in range(0, 100), which is the percentage of the board members who need to approve the operation. We recommend to set it to 99, which means that all the board members need to approve the operation.
+ 3. You can still add more plugins to the LLC structure, but you need to make sure that all the operations need to be voted and approved by the board members.
+ 4. For emergency, you can still add one or a few emergency agent addresses to the LLC structure, which can take over the control of the LLC structure in case of emergency.
  --------------------------------
  Use this function by calling the following:
 
 */
+
+const { batch_add_and_enable_plugins, batch_create_token_classes, batch_mint_tokens } = require("../darc-js/src/darcjs");
 
 
 /**
@@ -91,5 +99,50 @@ function deployPlugins(
   L1TokenNumberList,
   approvalThreshold
 ) {
+
+  // 1. create token classes: L0 and L1
+
+
+  batch_create_token_classes(
+    ["L0-COMMON-STOCK"],
+    [0],
+    [1],
+    [1]
+  )
+
+  // 2. mint tokens
+  // 2.1 initialize token class array: N zeros
+  const L0TokenClassArray = Array(L0TokenOwnerList.length).fill(0);
+
+  // 2.2 send it to the batch_create_token_classes function
+  batch_mint_tokens(
+    L0TokenOwnerList,
+    L0TokenClassArray,
+    L0TokenNumberList    
+  )
+
+  // 2.3 initialize token class array: N ones
+  const L1TokenClassArray = Array(L1TokenOwnerList.length).fill(1);
+  // 2.4 send it to the batch_create_token_classes function
+  batch_mint_tokens(
+    L1TokenOwnerList,
+    L1TokenClassArray,
+    L1TokenNumberList    
+  )
+
+  // 3. add plugins
+
+  // plugin 1: if operation !== "payCash" && operation !== "offerDividends", then need to be voted and approved by the board members
+  const beforeOpPlugin1 = {
+
+  }
+
+  const beforeOpPlugin2 = {
+
+  }
+
+  const afterOpPlugin1 = {
+
+  }
 
 }
