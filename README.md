@@ -15,6 +15,12 @@ English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 
 Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
 
+## Whitepaper
+
+English: [darc-whitepaper.pdf](https://github.com/Project-DARC/DARC-whitepaper/blob/release/darc-whitepaper.pdf)
+
+Chinese(中文版): [darc-whitepaper-cn.pdf](https://github.com/Project-DARC/DARC-whitepaper/blob/release/darc-whitepaper-cn.pdf)
+
 ## What is DARC?
 
 Decentralized Autonomous Regulated Company (DARC) is a company virtual machine that can be compiled and deployed to
