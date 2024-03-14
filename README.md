@@ -6,6 +6,11 @@ The project is currently in the early stages of development and is not yet ready
 
 English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=project-darc/darc&type=Date)](https://star-history.com/#project-darc/darc&Date)
+
+
 ## Join our community
 
 Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
