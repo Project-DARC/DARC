@@ -14,6 +14,7 @@ English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 ## Join our community
 
 Telegram: [https://t.me/projectdarc](https://t.me/projectdarc)
+Discord: [https://discord.gg/QzKbTHVgGG](https://discord.gg/QzKbTHVgGG)
 
 ## Whitepaper
 
