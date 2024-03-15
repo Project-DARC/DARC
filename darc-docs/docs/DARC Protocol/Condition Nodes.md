@@ -100,7 +100,7 @@ const conditionTree =
 
 ### Boolean Values
 
-There are two boolean values in the DARC protocol: class `TRUE` and clss `FALSE`, or wrapper function `boolean_true()` and `boolean_false()`. They are used to represent a boolean node in the condition tree.
+There are two boolean values in the DARC protocol: class `TRUE` and class `FALSE`, or wrapper function `boolean_true()` and `boolean_false()`. They are used to represent a boolean node in the condition tree.
 
 ### Condition Expression
 
