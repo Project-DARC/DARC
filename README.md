@@ -80,7 +80,7 @@ can add a new plugin and corresponding voting rule to the DARC VM contract:
 add_voting_rule(  // add a voting rule (as index 5)
     [
         {
-            voting_class: [1], // voting token class: 1, level-1 token ownners (board of directors) are required to vote
+            voting_class: [1], // voting token class: 1, level-1 token owners (board of directors) are required to vote
             approve_percentage: 99,  // 99% voting power is required to approve
             voting_duration: 3600,  // voting duration: 1 hour (3600 seconds)
             execute_duration: 3600,  // pending duration for execution: 1 hour (3600 seconds)
