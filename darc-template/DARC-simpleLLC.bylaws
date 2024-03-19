@@ -1,6 +1,6 @@
 /**
  This is a template for simple LLC structure for DARC.
-
+--------------------------------
  The idea is very simple:
  1. There are only two level of tokens, common stock and board members.
  2. Level-0 is the common stock, voting weight = 1, dividend weight = 1
@@ -8,14 +8,37 @@
  4. All the operations needs to be voted and approved by the board members(level-1 tokens), except for the following:
     - Pay cash (dividendable)
     - Offer dividends
-
+ 5. Still any address with level-1 token can call emergency agent to take over the control of the LLC structure in case of emergency, if necessary. For example:
+    - The board members are not able to make decisions in time.
+    - Technical issues, such as deadlocks by adding and enabling plugins so that no operation can be approved.
+    - Disputs among the board members, but can be resolved by the emergency agent when providing enough evidence, such as the IPFS hash of the scanned PDF documents and approved by all the board members.
+--------------------------------
  Notes: 
  1. All token transfer, token creation, token destruction, adding plugins, enabling plugins, and disabling plugins need to be voted and approved by the board members.
  2. approvalThreshold is a number in range(0, 100), which is the percentage of the board members who need to approve the operation. We recommend to set it to 99, which means that all the board members need to approve the operation.
  3. You can still add more plugins to the LLC structure, but you need to make sure that all the operations need to be voted and approved by the board members.
  4. For emergency, you can still add one or a few emergency agent addresses to the LLC structure, which can take over the control of the LLC structure in case of emergency.
- --------------------------------
+--------------------------------
  Use this function by calling the following:
+
+ To initialize the LLC structure:
+  buildSimpleLLC(
+    L0TokenOwnerList,
+    L0TokenNumberList,
+    L1TokenOwnerList,
+    L1TokenNumberList,
+    approvalThreshold
+  );
+
+  for example, if addr0, addr1, addr2, addr3, addr4 are the addresses of the board members, and they own 10, 20, 30, 40, 50 level-0 tokens, and they own 1, 1, 1, 1, 1 level-1 tokens, and the approvalThreshold is 99, then you can call the following:
+
+  buildSimpleLLC(
+    [addr0, addr1, addr2, addr3, addr4],
+    [10, 20, 30, 40, 50],
+    [addr0, addr1, addr2, addr3, addr4],
+    [1,1,1,1,1],
+    99
+  );
 
 */
 
@@ -132,17 +155,26 @@ function deployPlugins(
 
   // 3. add plugins
 
-  // plugin 1: if operation !== "payCash" && operation !== "offerDividends", then need to be voted and approved by the board members
+  // plugin 1(before-operation): if operation !== "PAY_CASH" && operation !== "OFFER_DIVIDENDS" && operation !== "CALL_EMERGENCY", then need to be voted and approved by the board members
   const beforeOpPlugin1 = {
 
   }
 
+  // plugin 2(before-operation): if operation === "CALL_EMERGENCY" && opeartor owns at least 1 L1 token, then the operation can be approved
   const beforeOpPlugin2 = {
 
   }
 
+  // plugin 3 (after-opeartion): if (operation === "PAY_CASH" && pay cash is dividedable) || operation === "OFFER_DIVIDENDS", then start a vote for execution
   const afterOpPlugin1 = {
 
   }
 
+  batch_add_and_enable_plugins(
+    [
+      beforeOpPlugin1,
+      beforeOpPlugin2,
+      afterOpPlugin1
+    ]
+  );
 }
