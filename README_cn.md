@@ -462,7 +462,7 @@ add_storage(['QmcpxHN3a5HYnPurtuDs3jDfDSg1LPDe2KVBUG4RifcSbC']);
    `pnpm` 是一个较新的包管理器，相较于 npm 具有一些优势。它更快、更高效，并且节省磁盘空间。
 
     ```shell
-    cd darc-protocal
+    cd darc-protocol
     npm install
     ```
 
