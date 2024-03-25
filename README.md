@@ -509,7 +509,7 @@ Since Hardhat and OpenZeppelin are used, the project can be built using the foll
    friendly.
 
     ```shell
-    cd darc-protocal
+    cd darc-protocol
     npm install
     ```
 

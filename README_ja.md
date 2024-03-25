@@ -466,7 +466,7 @@ Hardhat と OpenZeppelin を使用しているので、プロジェクトは以�
    `pnpm` は新しいパッケージマネージャーで、npm よりも優れている点がいくつかある。より速く、より効率的で、ディスクスペースに優しいです。
 
     ```shell
-    cd darc-protocal
+    cd darc-protocol
     npm install
     ```
 
