@@ -111,7 +111,7 @@ and `add_and_enable_plugins()`, the plugin will be effective after the voting pr
 operator (`addr1`) tries to transfer tokens to addr2, the plugin will check the condition and return `voting_needed` to
 the DARC VM contract, and the DARC VM contract will ask the board of directors (level-1 token owners) to vote. If the
 board of directors approves the operation, the operation will be executed in the sandbox, otherwise the operation will
-be rejected. For example, if there are 3 voting rules are triggerd, the voting operation will be:
+be rejected. For example, if there are 3 voting rules are triggered, the voting operation will be:
 
 ```javascript
 vote([true, true, true])
