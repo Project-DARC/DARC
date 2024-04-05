@@ -1,3 +1,6 @@
-# The simple LLC template for DARC
+# DARC Simple LLC
 
-## Author: [DARC]
+### Xinran Wang
+
+## Introduction
+

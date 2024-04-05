@@ -127,10 +127,10 @@ function deployPlugins(
 
 
   batch_create_token_classes(
-    ["L0-COMMON-STOCK"],
-    [0],
-    [1],
-    [1]
+    ["L0-COMMON-STOCK", "L1-BOARD-MEMBERS"],
+    [0, 1],
+    [1, 1],
+    [1, 0]
   )
 
   // 2. mint tokens
